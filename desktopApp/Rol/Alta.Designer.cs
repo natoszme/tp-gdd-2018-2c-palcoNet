@@ -33,7 +33,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnVolver = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbBxFuncionalidad = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -63,7 +63,7 @@
             // 
             this.panel2.Controls.Add(this.btnVolver);
             this.panel2.Controls.Add(this.btnGuardar);
-            this.panel2.Controls.Add(this.comboBox1);
+            this.panel2.Controls.Add(this.cmbBxFuncionalidad);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.txtNombre);
             this.panel2.Controls.Add(this.label2);
@@ -90,13 +90,13 @@
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
             // 
-            // comboBox1
+            // cmbBxFuncionalidad
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(283, 26);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(246, 21);
-            this.comboBox1.TabIndex = 6;
+            this.cmbBxFuncionalidad.FormattingEnabled = true;
+            this.cmbBxFuncionalidad.Location = new System.Drawing.Point(283, 26);
+            this.cmbBxFuncionalidad.Name = "cmbBxFuncionalidad";
+            this.cmbBxFuncionalidad.Size = new System.Drawing.Size(246, 21);
+            this.cmbBxFuncionalidad.TabIndex = 6;
             // 
             // label3
             // 
@@ -149,7 +149,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Button btnGuardar;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbBxFuncionalidad;
         private System.Windows.Forms.Label label3;
     }
 }

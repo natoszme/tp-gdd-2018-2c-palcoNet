@@ -29,32 +29,32 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnNuevoRol = new System.Windows.Forms.Button();
+            this.btnNuevo = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvRoles = new System.Windows.Forms.DataGridView();
             this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.acciones = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRoles)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.btnNuevoRol);
+            this.panel1.Controls.Add(this.btnNuevo);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(13, 13);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(644, 32);
             this.panel1.TabIndex = 0;
             // 
-            // btnNuevoRol
+            // btnNuevo
             // 
-            this.btnNuevoRol.Location = new System.Drawing.Point(566, 4);
-            this.btnNuevoRol.Name = "btnNuevoRol";
-            this.btnNuevoRol.Size = new System.Drawing.Size(75, 23);
-            this.btnNuevoRol.TabIndex = 1;
-            this.btnNuevoRol.Text = "Nuevo rol";
-            this.btnNuevoRol.UseVisualStyleBackColor = true;
+            this.btnNuevo.Location = new System.Drawing.Point(549, 4);
+            this.btnNuevo.Name = "btnNuevo";
+            this.btnNuevo.Size = new System.Drawing.Size(92, 23);
+            this.btnNuevo.TabIndex = 1;
+            this.btnNuevo.Text = "Nuevo rol";
+            this.btnNuevo.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -66,21 +66,21 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Roles";
             // 
-            // dataGridView1
+            // dgvRoles
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToOrderColumns = true;
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvRoles.AllowUserToAddRows = false;
+            this.dgvRoles.AllowUserToDeleteRows = false;
+            this.dgvRoles.AllowUserToOrderColumns = true;
+            this.dgvRoles.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.dgvRoles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRoles.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nombre,
             this.acciones});
-            this.dataGridView1.Location = new System.Drawing.Point(13, 52);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(644, 293);
-            this.dataGridView1.TabIndex = 1;
+            this.dgvRoles.Location = new System.Drawing.Point(13, 52);
+            this.dgvRoles.Name = "dgvRoles";
+            this.dgvRoles.ReadOnly = true;
+            this.dgvRoles.Size = new System.Drawing.Size(644, 293);
+            this.dgvRoles.TabIndex = 1;
             // 
             // nombre
             // 
@@ -99,18 +99,18 @@
             this.acciones.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.acciones.Width = 57;
             // 
-            // Form1
+            // Listado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(669, 357);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvRoles);
             this.Controls.Add(this.panel1);
-            this.Name = "Form1";
+            this.Name = "Listado";
             this.Text = "Listado de roles";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRoles)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -118,9 +118,9 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnNuevoRol;
+        private System.Windows.Forms.Button btnNuevo;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvRoles;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn acciones;
     }

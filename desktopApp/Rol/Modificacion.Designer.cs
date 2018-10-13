@@ -31,13 +31,13 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.chkBxHabilitado = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.chkLstBxFuncionalidades = new System.Windows.Forms.CheckedListBox();
             this.btnVolver = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.chkLstBxFuncionalidades = new System.Windows.Forms.CheckedListBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -62,7 +62,7 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.checkBox1);
+            this.panel2.Controls.Add(this.chkBxHabilitado);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.chkLstBxFuncionalidades);
             this.panel2.Controls.Add(this.btnVolver);
@@ -73,6 +73,41 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(304, 258);
             this.panel2.TabIndex = 1;
+            // 
+            // chkBxHabilitado
+            // 
+            this.chkBxHabilitado.AutoSize = true;
+            this.chkBxHabilitado.Location = new System.Drawing.Point(7, 185);
+            this.chkBxHabilitado.Name = "chkBxHabilitado";
+            this.chkBxHabilitado.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.chkBxHabilitado.Size = new System.Drawing.Size(73, 17);
+            this.chkBxHabilitado.TabIndex = 12;
+            this.chkBxHabilitado.Text = "Habilitado";
+            this.chkBxHabilitado.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(4, 54);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(84, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Funcionalidades";
+            // 
+            // chkLstBxFuncionalidades
+            // 
+            this.chkLstBxFuncionalidades.FormattingEnabled = true;
+            this.chkLstBxFuncionalidades.Items.AddRange(new object[] {
+            "Facturar",
+            "Comprar",
+            "Roles",
+            "Usuarios",
+            "Reportes",
+            "etc"});
+            this.chkLstBxFuncionalidades.Location = new System.Drawing.Point(7, 70);
+            this.chkLstBxFuncionalidades.Name = "chkLstBxFuncionalidades";
+            this.chkLstBxFuncionalidades.Size = new System.Drawing.Size(282, 94);
+            this.chkLstBxFuncionalidades.TabIndex = 9;
             // 
             // btnVolver
             // 
@@ -108,41 +143,6 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Nombre";
             // 
-            // chkLstBxFuncionalidades
-            // 
-            this.chkLstBxFuncionalidades.FormattingEnabled = true;
-            this.chkLstBxFuncionalidades.Items.AddRange(new object[] {
-            "Facturar",
-            "Comprar",
-            "Roles",
-            "Usuarios",
-            "Reportes",
-            "etc"});
-            this.chkLstBxFuncionalidades.Location = new System.Drawing.Point(7, 70);
-            this.chkLstBxFuncionalidades.Name = "chkLstBxFuncionalidades";
-            this.chkLstBxFuncionalidades.Size = new System.Drawing.Size(282, 94);
-            this.chkLstBxFuncionalidades.TabIndex = 9;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(4, 54);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 13);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Funcionalidades";
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(7, 185);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.checkBox1.Size = new System.Drawing.Size(73, 17);
-            this.checkBox1.TabIndex = 12;
-            this.checkBox1.Text = "Habilitado";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -169,7 +169,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Button btnGuardar;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox chkBxHabilitado;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckedListBox chkLstBxFuncionalidades;
     }
