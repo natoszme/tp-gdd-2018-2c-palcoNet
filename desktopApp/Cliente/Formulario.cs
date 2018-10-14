@@ -26,5 +26,10 @@ namespace PalcoNet.Cliente
         {
 
         }
+
+        private void label16_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

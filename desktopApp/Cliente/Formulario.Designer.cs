@@ -62,9 +62,13 @@
             this.btnVolver = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.txtTarjeta = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -340,7 +344,7 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(589, 288);
+            this.btnVolver.Location = new System.Drawing.Point(580, 347);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(75, 23);
             this.btnVolver.TabIndex = 8;
@@ -350,7 +354,7 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(508, 288);
+            this.btnGuardar.Location = new System.Drawing.Point(499, 347);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
             this.btnGuardar.TabIndex = 7;
@@ -377,11 +381,38 @@
             this.panel3.Size = new System.Drawing.Size(645, 65);
             this.panel3.TabIndex = 4;
             // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.txtTarjeta);
+            this.panel4.Controls.Add(this.label16);
+            this.panel4.Location = new System.Drawing.Point(12, 270);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(645, 55);
+            this.panel4.TabIndex = 9;
+            // 
+            // txtTarjeta
+            // 
+            this.txtTarjeta.Location = new System.Drawing.Point(7, 28);
+            this.txtTarjeta.Name = "txtTarjeta";
+            this.txtTarjeta.Size = new System.Drawing.Size(149, 20);
+            this.txtTarjeta.TabIndex = 10;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(7, 10);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(90, 13);
+            this.label16.TabIndex = 0;
+            this.label16.Text = "Tarjeta de crédito";
+            this.label16.Click += new System.EventHandler(this.label16_Click);
+            // 
             // Formulario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(669, 329);
+            this.ClientSize = new System.Drawing.Size(669, 382);
+            this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
@@ -395,6 +426,8 @@
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -445,6 +478,9 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox txtDireccion;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox txtTarjeta;
 
     }
 }
