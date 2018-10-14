@@ -259,7 +259,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(269, 15);
+            this.label10.Location = new System.Drawing.Point(409, 15);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(53, 13);
             this.label10.TabIndex = 38;
@@ -268,7 +268,7 @@
             // 
             // txtLocalidad
             // 
-            this.txtLocalidad.Location = new System.Drawing.Point(272, 31);
+            this.txtLocalidad.Location = new System.Drawing.Point(412, 31);
             this.txtLocalidad.Name = "txtLocalidad";
             this.txtLocalidad.Size = new System.Drawing.Size(150, 20);
             this.txtLocalidad.TabIndex = 37;
@@ -293,7 +293,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(562, 15);
+            this.label13.Location = new System.Drawing.Point(565, 15);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(48, 13);
             this.label13.TabIndex = 28;
@@ -301,7 +301,7 @@
             // 
             // txtCodigoPostal
             // 
-            this.txtCodigoPostal.Location = new System.Drawing.Point(565, 31);
+            this.txtCodigoPostal.Location = new System.Drawing.Point(568, 31);
             this.txtCodigoPostal.Name = "txtCodigoPostal";
             this.txtCodigoPostal.Size = new System.Drawing.Size(69, 20);
             this.txtCodigoPostal.TabIndex = 27;
@@ -309,7 +309,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(493, 15);
+            this.label12.Location = new System.Drawing.Point(341, 15);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(39, 13);
             this.label12.TabIndex = 26;
@@ -317,7 +317,7 @@
             // 
             // txtDepto
             // 
-            this.txtDepto.Location = new System.Drawing.Point(496, 31);
+            this.txtDepto.Location = new System.Drawing.Point(344, 31);
             this.txtDepto.Name = "txtDepto";
             this.txtDepto.Size = new System.Drawing.Size(62, 20);
             this.txtDepto.TabIndex = 25;
@@ -325,7 +325,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(424, 15);
+            this.label11.Location = new System.Drawing.Point(272, 15);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(49, 13);
             this.label11.TabIndex = 24;
@@ -333,7 +333,7 @@
             // 
             // txtNroPiso
             // 
-            this.txtNroPiso.Location = new System.Drawing.Point(427, 31);
+            this.txtNroPiso.Location = new System.Drawing.Point(275, 31);
             this.txtNroPiso.Name = "txtNroPiso";
             this.txtNroPiso.Size = new System.Drawing.Size(62, 20);
             this.txtNroPiso.TabIndex = 23;
@@ -365,13 +365,13 @@
             this.panel3.Controls.Add(this.txtNroPiso);
             this.panel3.Controls.Add(this.label10);
             this.panel3.Controls.Add(this.txtPortal);
-            this.panel3.Controls.Add(this.label11);
-            this.panel3.Controls.Add(this.txtLocalidad);
-            this.panel3.Controls.Add(this.txtDepto);
-            this.panel3.Controls.Add(this.label15);
-            this.panel3.Controls.Add(this.label12);
             this.panel3.Controls.Add(this.txtCodigoPostal);
             this.panel3.Controls.Add(this.label13);
+            this.panel3.Controls.Add(this.label11);
+            this.panel3.Controls.Add(this.txtDepto);
+            this.panel3.Controls.Add(this.txtLocalidad);
+            this.panel3.Controls.Add(this.label15);
+            this.panel3.Controls.Add(this.label12);
             this.panel3.Location = new System.Drawing.Point(12, 191);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(645, 65);
