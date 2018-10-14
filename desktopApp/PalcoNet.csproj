@@ -44,6 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abm Grado\Formulario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Abm Grado\Formulario.Designer.cs">
+      <DependentUpon>Formulario.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cliente\Listado.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -62,11 +68,11 @@
     <Compile Include="Empresa_Espectaculo\Formulario.Designer.cs">
       <DependentUpon>Formulario.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Grado\Form1.cs">
+    <Compile Include="Abm Grado\Listado.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Grado\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Abm Grado\Listado.Designer.cs">
+      <DependentUpon>Listado.cs</DependentUpon>
     </Compile>
     <Compile Include="Empresa_Espectaculo\Listado.cs">
       <SubType>Form</SubType>
@@ -154,6 +160,12 @@
     <Compile Include="SeleccionarRol.Designer.cs">
       <DependentUpon>SeleccionarRol.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Abm Grado\Formulario.resx">
+      <DependentUpon>Formulario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Abm Grado\Listado.resx">
+      <DependentUpon>Listado.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Cliente\Formulario.resx">
       <DependentUpon>Formulario.cs</DependentUpon>
     </EmbeddedResource>
