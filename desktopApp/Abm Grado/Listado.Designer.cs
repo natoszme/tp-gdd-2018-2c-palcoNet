@@ -35,6 +35,7 @@
             this.btnVolver = new System.Windows.Forms.Button();
             this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.comision = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.acciones = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvGrados)).BeginInit();
             this.SuspendLayout();
@@ -72,7 +73,8 @@
             this.dgvGrados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvGrados.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nombre,
-            this.comision});
+            this.comision,
+            this.acciones});
             this.dgvGrados.Location = new System.Drawing.Point(12, 75);
             this.dgvGrados.Name = "dgvGrados";
             this.dgvGrados.Size = new System.Drawing.Size(542, 151);
@@ -96,6 +98,11 @@
             // 
             this.comision.HeaderText = "Comisión";
             this.comision.Name = "comision";
+            // 
+            // acciones
+            // 
+            this.acciones.HeaderText = "Acciones";
+            this.acciones.Name = "acciones";
             // 
             // Listado
             // 
@@ -123,5 +130,6 @@
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn comision;
+        private System.Windows.Forms.DataGridViewTextBoxColumn acciones;
     }
 }
