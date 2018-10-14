@@ -53,8 +53,11 @@
             this.btnGuardar = new System.Windows.Forms.Button();
             this.txtRazonSocial = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -62,7 +65,7 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(645, 34);
+            this.panel1.Size = new System.Drawing.Size(729, 34);
             this.panel1.TabIndex = 4;
             // 
             // label1
@@ -77,37 +80,23 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.txtCuidad);
             this.panel2.Controls.Add(this.txtCuit);
-            this.panel2.Controls.Add(this.label13);
-            this.panel2.Controls.Add(this.txtCodigoPostal);
-            this.panel2.Controls.Add(this.label12);
-            this.panel2.Controls.Add(this.txtDepto);
-            this.panel2.Controls.Add(this.label11);
-            this.panel2.Controls.Add(this.txtNroPiso);
-            this.panel2.Controls.Add(this.label10);
-            this.panel2.Controls.Add(this.txtLocalidad);
-            this.panel2.Controls.Add(this.label9);
-            this.panel2.Controls.Add(this.txtDireccion);
             this.panel2.Controls.Add(this.label8);
             this.panel2.Controls.Add(this.label7);
             this.panel2.Controls.Add(this.txtTelefono);
             this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.txtEmail);
-            this.panel2.Controls.Add(this.btnVolver);
-            this.panel2.Controls.Add(this.btnGuardar);
             this.panel2.Controls.Add(this.txtRazonSocial);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Location = new System.Drawing.Point(12, 64);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(645, 164);
+            this.panel2.Size = new System.Drawing.Size(729, 63);
             this.panel2.TabIndex = 5;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(316, 64);
+            this.label3.Location = new System.Drawing.Point(183, 253);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(40, 13);
             this.label3.TabIndex = 34;
@@ -115,7 +104,7 @@
             // 
             // txtCuidad
             // 
-            this.txtCuidad.Location = new System.Drawing.Point(319, 80);
+            this.txtCuidad.Location = new System.Drawing.Point(186, 269);
             this.txtCuidad.Name = "txtCuidad";
             this.txtCuidad.Size = new System.Drawing.Size(106, 20);
             this.txtCuidad.TabIndex = 33;
@@ -130,7 +119,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(566, 64);
+            this.label13.Location = new System.Drawing.Point(575, 14);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(48, 13);
             this.label13.TabIndex = 28;
@@ -138,7 +127,7 @@
             // 
             // txtCodigoPostal
             // 
-            this.txtCodigoPostal.Location = new System.Drawing.Point(569, 80);
+            this.txtCodigoPostal.Location = new System.Drawing.Point(578, 30);
             this.txtCodigoPostal.Name = "txtCodigoPostal";
             this.txtCodigoPostal.Size = new System.Drawing.Size(69, 20);
             this.txtCodigoPostal.TabIndex = 27;
@@ -146,7 +135,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(497, 64);
+            this.label12.Location = new System.Drawing.Point(506, 14);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(39, 13);
             this.label12.TabIndex = 26;
@@ -154,7 +143,7 @@
             // 
             // txtDepto
             // 
-            this.txtDepto.Location = new System.Drawing.Point(500, 80);
+            this.txtDepto.Location = new System.Drawing.Point(509, 30);
             this.txtDepto.Name = "txtDepto";
             this.txtDepto.Size = new System.Drawing.Size(62, 20);
             this.txtDepto.TabIndex = 25;
@@ -162,7 +151,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(428, 64);
+            this.label11.Location = new System.Drawing.Point(437, 14);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(49, 13);
             this.label11.TabIndex = 24;
@@ -170,7 +159,7 @@
             // 
             // txtNroPiso
             // 
-            this.txtNroPiso.Location = new System.Drawing.Point(431, 80);
+            this.txtNroPiso.Location = new System.Drawing.Point(440, 30);
             this.txtNroPiso.Name = "txtNroPiso";
             this.txtNroPiso.Size = new System.Drawing.Size(62, 20);
             this.txtNroPiso.TabIndex = 23;
@@ -178,7 +167,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(160, 64);
+            this.label10.Location = new System.Drawing.Point(291, 253);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(53, 13);
             this.label10.TabIndex = 22;
@@ -186,7 +175,7 @@
             // 
             // txtLocalidad
             // 
-            this.txtLocalidad.Location = new System.Drawing.Point(163, 80);
+            this.txtLocalidad.Location = new System.Drawing.Point(294, 269);
             this.txtLocalidad.Name = "txtLocalidad";
             this.txtLocalidad.Size = new System.Drawing.Size(150, 20);
             this.txtLocalidad.TabIndex = 21;
@@ -195,7 +184,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(7, 64);
+            this.label9.Location = new System.Drawing.Point(16, 14);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(52, 13);
             this.label9.TabIndex = 20;
@@ -203,7 +192,7 @@
             // 
             // txtDireccion
             // 
-            this.txtDireccion.Location = new System.Drawing.Point(7, 80);
+            this.txtDireccion.Location = new System.Drawing.Point(16, 30);
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(150, 20);
             this.txtDireccion.TabIndex = 19;
@@ -251,7 +240,7 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(563, 127);
+            this.btnVolver.Location = new System.Drawing.Point(653, 288);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(75, 23);
             this.btnVolver.TabIndex = 8;
@@ -260,7 +249,7 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(482, 127);
+            this.btnGuardar.Location = new System.Drawing.Point(572, 288);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
             this.btnGuardar.TabIndex = 7;
@@ -283,21 +272,62 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Razón social";
             // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.label4);
+            this.panel3.Controls.Add(this.txtDireccion);
+            this.panel3.Controls.Add(this.label9);
+            this.panel3.Controls.Add(this.label13);
+            this.panel3.Controls.Add(this.txtCodigoPostal);
+            this.panel3.Controls.Add(this.txtNroPiso);
+            this.panel3.Controls.Add(this.label12);
+            this.panel3.Controls.Add(this.label11);
+            this.panel3.Controls.Add(this.txtDepto);
+            this.panel3.Location = new System.Drawing.Point(12, 145);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(728, 53);
+            this.panel3.TabIndex = 9;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(174, 14);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(35, 13);
+            this.label4.TabIndex = 29;
+            this.label4.Text = "label4";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
+            // 
             // Formulario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(669, 240);
+            this.ClientSize = new System.Drawing.Size(753, 323);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.txtLocalidad);
+            this.Controls.Add(this.txtCuidad);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
+            this.Controls.Add(this.btnGuardar);
+            this.Controls.Add(this.btnVolver);
+            this.Controls.Add(this.label10);
             this.Name = "Formulario";
             this.Text = "Empresa de espectáculos";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
+        }
+
+        private void label4_Click(object sender, System.EventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
 
         private void txtLocalidad_TextChanged(object sender, System.EventArgs e)
@@ -332,5 +362,7 @@
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.TextBox txtRazonSocial;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label label4;
     }
 }
