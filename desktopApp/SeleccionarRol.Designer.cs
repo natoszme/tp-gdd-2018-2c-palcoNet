@@ -1,16 +1,16 @@
 ﻿namespace PalcoNet
 {
-    partial class Login
+    partial class SeleccionarRol
     {
         /// <summary>
-        /// Variable del diseñador requerida.
+        /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// Limpiar los recursos que se estén utilizando.
+        /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">true si los recursos administrados se deben eliminar; false en caso contrario.</param>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,14 +20,18 @@
             base.Dispose(disposing);
         }
 
-        #region Código generado por el Diseñador de Windows Forms
+        #region Windows Form Designer generated code
 
         /// <summary>
-        /// Método necesario para admitir el Diseñador. No se puede modificar
-        /// el contenido del método con el editor de código.
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Text = "SeleccionarForm";
+
             this.panel1 = new System.Windows.Forms.Panel();
             this.cmbBxRol = new System.Windows.Forms.ComboBox();
             this.btnIngresar = new System.Windows.Forms.Button();
@@ -71,18 +75,17 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Seleccione el rol con el que quiere ingresar al sistema";
             // 
-            // Login
+            // SeleccionarRol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(372, 143);
             this.Controls.Add(this.panel1);
-            this.Name = "Login";
+            this.Name = "SeleccionarRol";
             this.Text = "Seleccionar rol";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
-
         }
 
         #endregion
@@ -93,4 +96,3 @@
         private System.Windows.Forms.ComboBox cmbBxRol;
     }
 }
-

@@ -56,10 +56,10 @@
     <Compile Include="Cliente\Formulario.Designer.cs">
       <DependentUpon>Formulario.cs</DependentUpon>
     </Compile>
-    <Compile Include="Empresa\Formulario.cs">
+    <Compile Include="Empresa_Espectaculo\Formulario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Empresa\Formulario.Designer.cs">
+    <Compile Include="Empresa_Espectaculo\Formulario.Designer.cs">
       <DependentUpon>Formulario.cs</DependentUpon>
     </Compile>
     <Compile Include="Abm Grado\Form1.cs">
@@ -68,10 +68,10 @@
     <Compile Include="Abm Grado\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Empresa\Listado.cs">
+    <Compile Include="Empresa_Espectaculo\Listado.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Empresa\Listado.Designer.cs">
+    <Compile Include="Empresa_Espectaculo\Listado.Designer.cs">
       <DependentUpon>Listado.cs</DependentUpon>
     </Compile>
     <Compile Include="Rol\Modificacion.cs">
@@ -79,12 +79,6 @@
     </Compile>
     <Compile Include="Rol\Modificacion.Designer.cs">
       <DependentUpon>Modificacion.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SeleccionarRol.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SeleccionarRol.Designer.cs">
-      <DependentUpon>SeleccionarRol.cs</DependentUpon>
     </Compile>
     <Compile Include="Rol\Alta.cs">
       <SubType>Form</SubType>
@@ -154,16 +148,22 @@
     <Compile Include="Registro de Usuario\Formulario.Designer.cs">
       <DependentUpon>Formulario.cs</DependentUpon>
     </Compile>
+    <Compile Include="SeleccionarRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SeleccionarRol.Designer.cs">
+      <DependentUpon>SeleccionarRol.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Cliente\Formulario.resx">
       <DependentUpon>Formulario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Cliente\Listado.resx">
       <DependentUpon>Listado.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Empresa\Formulario.resx">
+    <EmbeddedResource Include="Empresa_Espectaculo\Formulario.resx">
       <DependentUpon>Formulario.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Empresa\Listado.resx">
+    <EmbeddedResource Include="Empresa_Espectaculo\Listado.resx">
       <DependentUpon>Listado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Registro de Usuario\Formulario.resx">
@@ -171,9 +171,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Rol\Modificacion.resx">
       <DependentUpon>Modificacion.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SeleccionarRol.resx">
-      <DependentUpon>SeleccionarRol.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

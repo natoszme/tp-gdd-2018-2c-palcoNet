@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace PalcoNet
 {
-    public partial class Login : Form
+    public partial class SeleccionarRol : Form
     {
-        public Login()
+        public SeleccionarRol()
         {
             InitializeComponent();
         }

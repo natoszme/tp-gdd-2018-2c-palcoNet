@@ -1,4 +1,4 @@
-﻿namespace PalcoNet.Abm_Rol
+﻿namespace PalcoNet.Rol
 {
     partial class Listado
     {

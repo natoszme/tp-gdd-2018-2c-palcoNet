@@ -1,6 +1,6 @@
-﻿namespace PalcoNet.Abm_Empresa_Espectaculo
+﻿namespace PalcoNet.Empresa_Espectaculo
 {
-    partial class Form1
+    partial class Formulario
     {
         /// <summary>
         /// Required designer variable.
@@ -282,14 +282,14 @@
             this.label3.TabIndex = 34;
             this.label3.Text = "Ciudad";
             // 
-            // Form1
+            // Formulario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(669, 240);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
-            this.Name = "Form1";
+            this.Name = "Formulario";
             this.Text = "Empresa de espectáculos";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

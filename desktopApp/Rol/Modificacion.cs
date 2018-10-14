@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet.Abm_Rol
+namespace PalcoNet.Rol
 {
-    public partial class Form1 : Form
+    public partial class Modificacion : Form
     {
-        public Form1()
+        public Modificacion()
         {
             InitializeComponent();
         }
