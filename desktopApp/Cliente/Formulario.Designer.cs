@@ -67,10 +67,16 @@
             this.label16 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.label17 = new System.Windows.Forms.Label();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.txtClave = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.txtRepetirClave = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -346,7 +352,7 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(580, 378);
+            this.btnVolver.Location = new System.Drawing.Point(580, 381);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(75, 23);
             this.btnVolver.TabIndex = 8;
@@ -356,7 +362,7 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(499, 378);
+            this.btnGuardar.Location = new System.Drawing.Point(499, 381);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
             this.btnGuardar.TabIndex = 7;
@@ -412,7 +418,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(78, 348);
+            this.checkBox1.Location = new System.Drawing.Point(68, 10);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(15, 14);
             this.checkBox1.TabIndex = 10;
@@ -421,20 +427,66 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(18, 348);
+            this.label17.Location = new System.Drawing.Point(8, 10);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(54, 13);
             this.label17.TabIndex = 11;
             this.label17.Text = "Habilitado";
             this.label17.Click += new System.EventHandler(this.label17_Click);
             // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.txtRepetirClave);
+            this.panel5.Controls.Add(this.txtClave);
+            this.panel5.Controls.Add(this.label19);
+            this.panel5.Controls.Add(this.label18);
+            this.panel5.Controls.Add(this.label17);
+            this.panel5.Controls.Add(this.checkBox1);
+            this.panel5.Location = new System.Drawing.Point(12, 331);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(643, 35);
+            this.panel5.TabIndex = 12;
+            // 
+            // txtClave
+            // 
+            this.txtClave.Location = new System.Drawing.Point(233, 8);
+            this.txtClave.Name = "txtClave";
+            this.txtClave.Size = new System.Drawing.Size(112, 20);
+            this.txtClave.TabIndex = 13;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(132, 11);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(95, 13);
+            this.label18.TabIndex = 14;
+            this.label18.Text = "Nueva contraseña";
+            this.label18.Click += new System.EventHandler(this.label18_Click);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(386, 11);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(97, 13);
+            this.label19.TabIndex = 13;
+            this.label19.Text = "Repetir contraseña";
+            this.label19.Click += new System.EventHandler(this.label19_Click);
+            // 
+            // txtRepetirClave
+            // 
+            this.txtRepetirClave.Location = new System.Drawing.Point(489, 8);
+            this.txtRepetirClave.Name = "txtRepetirClave";
+            this.txtRepetirClave.Size = new System.Drawing.Size(108, 20);
+            this.txtRepetirClave.TabIndex = 14;
+            // 
             // Formulario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(669, 414);
-            this.Controls.Add(this.label17);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
@@ -451,8 +503,9 @@
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -507,6 +560,11 @@
         private System.Windows.Forms.TextBox txtTarjeta;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.TextBox txtClave;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox txtRepetirClave;
 
     }
 }

@@ -56,9 +56,17 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.txtPortal = new System.Windows.Forms.TextBox();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.txtClave = new System.Windows.Forms.TextBox();
+            this.txtNuevaClave = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -257,7 +265,7 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(696, 229);
+            this.btnVolver.Location = new System.Drawing.Point(695, 279);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(75, 23);
             this.btnVolver.TabIndex = 8;
@@ -266,7 +274,7 @@
             // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(615, 229);
+            this.btnGuardar.Location = new System.Drawing.Point(614, 279);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
             this.btnGuardar.TabIndex = 7;
@@ -311,11 +319,75 @@
             this.txtPortal.Size = new System.Drawing.Size(100, 20);
             this.txtPortal.TabIndex = 30;
             // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.label15);
+            this.panel4.Controls.Add(this.txtNuevaClave);
+            this.panel4.Controls.Add(this.label14);
+            this.panel4.Controls.Add(this.checkBox1);
+            this.panel4.Controls.Add(this.txtClave);
+            this.panel4.Controls.Add(this.label6);
+            this.panel4.Location = new System.Drawing.Point(12, 218);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(769, 37);
+            this.panel4.TabIndex = 10;
+            // 
+            // txtClave
+            // 
+            this.txtClave.Location = new System.Drawing.Point(253, 9);
+            this.txtClave.Name = "txtClave";
+            this.txtClave.Size = new System.Drawing.Size(125, 20);
+            this.txtClave.TabIndex = 11;
+            // 
+            // txtNuevaClave
+            // 
+            this.txtNuevaClave.Location = new System.Drawing.Point(541, 9);
+            this.txtNuevaClave.Name = "txtNuevaClave";
+            this.txtNuevaClave.Size = new System.Drawing.Size(112, 20);
+            this.txtNuevaClave.TabIndex = 12;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(10, 12);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(54, 13);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Habilitado";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(71, 12);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(15, 14);
+            this.checkBox1.TabIndex = 1;
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(152, 13);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(95, 13);
+            this.label14.TabIndex = 13;
+            this.label14.Text = "Nueva contraseña";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(433, 12);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(97, 13);
+            this.label15.TabIndex = 14;
+            this.label15.Text = "Repetir contraseña";
+            // 
             // Formulario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(794, 264);
+            this.ClientSize = new System.Drawing.Size(794, 313);
+            this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
@@ -329,6 +401,8 @@
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -373,5 +447,12 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtPortal;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox txtNuevaClave;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.TextBox txtClave;
+        private System.Windows.Forms.Label label6;
     }
 }
