@@ -56,9 +56,7 @@
     <Compile Include="Cliente\Formulario.Designer.cs">
       <DependentUpon>Formulario.cs</DependentUpon>
     </Compile>
-    <Compile Include="Empresa_Espectaculo\Formulario.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Empresa_Espectaculo\Formulario.cs" />
     <Compile Include="Empresa_Espectaculo\Formulario.Designer.cs">
       <DependentUpon>Formulario.cs</DependentUpon>
     </Compile>
@@ -189,6 +187,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Rol\Listado.resx">
       <DependentUpon>Listado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeleccionarRol.resx">
+      <DependentUpon>SeleccionarRol.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

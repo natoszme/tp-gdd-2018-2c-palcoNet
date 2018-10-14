@@ -28,14 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "SeleccionarForm";
-
             this.panel1 = new System.Windows.Forms.Panel();
-            this.cmbBxRol = new System.Windows.Forms.ComboBox();
             this.btnIngresar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.cmbBxRol = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,14 +44,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(348, 119);
             this.panel1.TabIndex = 0;
-            // 
-            // cmbBxRol
-            // 
-            this.cmbBxRol.FormattingEnabled = true;
-            this.cmbBxRol.Location = new System.Drawing.Point(20, 34);
-            this.cmbBxRol.Name = "cmbBxRol";
-            this.cmbBxRol.Size = new System.Drawing.Size(313, 21);
-            this.cmbBxRol.TabIndex = 5;
             // 
             // btnIngresar
             // 
@@ -75,6 +63,14 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Seleccione el rol con el que quiere ingresar al sistema";
             // 
+            // cmbBxRol
+            // 
+            this.cmbBxRol.FormattingEnabled = true;
+            this.cmbBxRol.Location = new System.Drawing.Point(20, 33);
+            this.cmbBxRol.Name = "cmbBxRol";
+            this.cmbBxRol.Size = new System.Drawing.Size(313, 21);
+            this.cmbBxRol.TabIndex = 6;
+            // 
             // SeleccionarRol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -86,6 +82,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
+
         }
 
         #endregion
