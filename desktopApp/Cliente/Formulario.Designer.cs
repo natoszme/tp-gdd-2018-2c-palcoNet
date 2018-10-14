@@ -65,7 +65,7 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.txtTarjeta = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.chkBxHabilitado = new System.Windows.Forms.CheckBox();
             this.label17 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
             this.txtClave = new System.Windows.Forms.TextBox();
@@ -415,14 +415,14 @@
             this.label16.Text = "Tarjeta de crédito";
             this.label16.Click += new System.EventHandler(this.label16_Click);
             // 
-            // checkBox1
+            // chkBxHabilitado
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(68, 10);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(15, 14);
-            this.checkBox1.TabIndex = 10;
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.chkBxHabilitado.AutoSize = true;
+            this.chkBxHabilitado.Location = new System.Drawing.Point(68, 10);
+            this.chkBxHabilitado.Name = "chkBxHabilitado";
+            this.chkBxHabilitado.Size = new System.Drawing.Size(15, 14);
+            this.chkBxHabilitado.TabIndex = 10;
+            this.chkBxHabilitado.UseVisualStyleBackColor = true;
             // 
             // label17
             // 
@@ -441,7 +441,7 @@
             this.panel5.Controls.Add(this.label19);
             this.panel5.Controls.Add(this.label18);
             this.panel5.Controls.Add(this.label17);
-            this.panel5.Controls.Add(this.checkBox1);
+            this.panel5.Controls.Add(this.chkBxHabilitado);
             this.panel5.Location = new System.Drawing.Point(12, 331);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(643, 35);
@@ -558,7 +558,7 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox txtTarjeta;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox chkBxHabilitado;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.TextBox txtClave;

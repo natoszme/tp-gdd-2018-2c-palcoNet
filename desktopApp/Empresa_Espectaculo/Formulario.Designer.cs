@@ -60,7 +60,7 @@
             this.txtClave = new System.Windows.Forms.TextBox();
             this.txtNuevaClave = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.chkBxHabilitado = new System.Windows.Forms.CheckBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -324,7 +324,7 @@
             this.panel4.Controls.Add(this.label15);
             this.panel4.Controls.Add(this.txtNuevaClave);
             this.panel4.Controls.Add(this.label14);
-            this.panel4.Controls.Add(this.checkBox1);
+            this.panel4.Controls.Add(this.chkBxHabilitado);
             this.panel4.Controls.Add(this.txtClave);
             this.panel4.Controls.Add(this.label6);
             this.panel4.Location = new System.Drawing.Point(12, 218);
@@ -355,14 +355,14 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Habilitado";
             // 
-            // checkBox1
+            // chkBxHabilitado
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(71, 12);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(15, 14);
-            this.checkBox1.TabIndex = 1;
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.chkBxHabilitado.AutoSize = true;
+            this.chkBxHabilitado.Location = new System.Drawing.Point(71, 12);
+            this.chkBxHabilitado.Name = "chkBxHabilitado";
+            this.chkBxHabilitado.Size = new System.Drawing.Size(15, 14);
+            this.chkBxHabilitado.TabIndex = 1;
+            this.chkBxHabilitado.UseVisualStyleBackColor = true;
             // 
             // label14
             // 
@@ -451,7 +451,7 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox txtNuevaClave;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox chkBxHabilitado;
         private System.Windows.Forms.TextBox txtClave;
         private System.Windows.Forms.Label label6;
     }
