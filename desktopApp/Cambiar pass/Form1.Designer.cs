@@ -40,7 +40,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(36, 44);
+            this.label1.Location = new System.Drawing.Point(32, 48);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(93, 13);
             this.label1.TabIndex = 0;
@@ -48,14 +48,14 @@
             // 
             // txtClaveActual
             // 
-            this.txtClaveActual.Location = new System.Drawing.Point(154, 41);
+            this.txtClaveActual.Location = new System.Drawing.Point(154, 45);
             this.txtClaveActual.Name = "txtClaveActual";
             this.txtClaveActual.Size = new System.Drawing.Size(100, 20);
             this.txtClaveActual.TabIndex = 1;
             // 
             // txtNuevaClave
             // 
-            this.txtNuevaClave.Location = new System.Drawing.Point(154, 87);
+            this.txtNuevaClave.Location = new System.Drawing.Point(154, 90);
             this.txtNuevaClave.Name = "txtNuevaClave";
             this.txtNuevaClave.Size = new System.Drawing.Size(100, 20);
             this.txtNuevaClave.TabIndex = 2;
