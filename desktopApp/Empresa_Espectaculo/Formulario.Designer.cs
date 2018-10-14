@@ -31,6 +31,9 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtCuidad = new System.Windows.Forms.TextBox();
+            this.txtCuit = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.txtCodigoPostal = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -50,9 +53,6 @@
             this.btnGuardar = new System.Windows.Forms.Button();
             this.txtRazonSocial = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtCuit = new System.Windows.Forms.TextBox();
-            this.txtCuidad = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -103,6 +103,29 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(645, 164);
             this.panel2.TabIndex = 5;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(316, 64);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(40, 13);
+            this.label3.TabIndex = 34;
+            this.label3.Text = "Ciudad";
+            // 
+            // txtCuidad
+            // 
+            this.txtCuidad.Location = new System.Drawing.Point(319, 80);
+            this.txtCuidad.Name = "txtCuidad";
+            this.txtCuidad.Size = new System.Drawing.Size(106, 20);
+            this.txtCuidad.TabIndex = 33;
+            // 
+            // txtCuit
+            // 
+            this.txtCuit.Location = new System.Drawing.Point(512, 26);
+            this.txtCuit.Name = "txtCuit";
+            this.txtCuit.Size = new System.Drawing.Size(123, 20);
+            this.txtCuit.TabIndex = 32;
             // 
             // label13
             // 
@@ -167,6 +190,7 @@
             this.txtLocalidad.Name = "txtLocalidad";
             this.txtLocalidad.Size = new System.Drawing.Size(150, 20);
             this.txtLocalidad.TabIndex = 21;
+            this.txtLocalidad.TextChanged += new System.EventHandler(this.txtLocalidad_TextChanged);
             // 
             // label9
             // 
@@ -259,29 +283,6 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Razón social";
             // 
-            // txtCuit
-            // 
-            this.txtCuit.Location = new System.Drawing.Point(512, 26);
-            this.txtCuit.Name = "txtCuit";
-            this.txtCuit.Size = new System.Drawing.Size(123, 20);
-            this.txtCuit.TabIndex = 32;
-            // 
-            // txtCuidad
-            // 
-            this.txtCuidad.Location = new System.Drawing.Point(319, 80);
-            this.txtCuidad.Name = "txtCuidad";
-            this.txtCuidad.Size = new System.Drawing.Size(106, 20);
-            this.txtCuidad.TabIndex = 33;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(316, 64);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(40, 13);
-            this.label3.TabIndex = 34;
-            this.label3.Text = "Ciudad";
-            // 
             // Formulario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -297,6 +298,11 @@
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
+        }
+
+        private void txtLocalidad_TextChanged(object sender, System.EventArgs e)
+        {
+            throw new System.NotImplementedException();
         }
 
         #endregion
