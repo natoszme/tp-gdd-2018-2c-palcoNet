@@ -28,11 +28,157 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.btnPublicar = new System.Windows.Forms.Button();
+            this.btnGuardarBorrador = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtDescripcion = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cmbRubro = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtDireccion = new System.Windows.Forms.TextBox();
+            this.txtStock = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cmbGradoPublicacion = new System.Windows.Forms.ComboBox();
+            this.SuspendLayout();
+            // 
+            // btnPublicar
+            // 
+            this.btnPublicar.Location = new System.Drawing.Point(359, 333);
+            this.btnPublicar.Name = "btnPublicar";
+            this.btnPublicar.Size = new System.Drawing.Size(93, 47);
+            this.btnPublicar.TabIndex = 0;
+            this.btnPublicar.Text = "Publicar";
+            this.btnPublicar.UseVisualStyleBackColor = true;
+            // 
+            // btnGuardarBorrador
+            // 
+            this.btnGuardarBorrador.Location = new System.Drawing.Point(242, 333);
+            this.btnGuardarBorrador.Name = "btnGuardarBorrador";
+            this.btnGuardarBorrador.Size = new System.Drawing.Size(93, 47);
+            this.btnGuardarBorrador.TabIndex = 1;
+            this.btnGuardarBorrador.Text = "Guardar como borrador";
+            this.btnGuardarBorrador.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(38, 35);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(63, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Descripcion";
+            // 
+            // txtDescripcion
+            // 
+            this.txtDescripcion.Location = new System.Drawing.Point(188, 32);
+            this.txtDescripcion.Name = "txtDescripcion";
+            this.txtDescripcion.Size = new System.Drawing.Size(125, 20);
+            this.txtDescripcion.TabIndex = 3;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(38, 121);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(36, 13);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Rubro";
+            // 
+            // cmbRubro
+            // 
+            this.cmbRubro.FormattingEnabled = true;
+            this.cmbRubro.Location = new System.Drawing.Point(188, 118);
+            this.cmbRubro.Name = "cmbRubro";
+            this.cmbRubro.Size = new System.Drawing.Size(121, 21);
+            this.cmbRubro.TabIndex = 5;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(38, 78);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(52, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Direccion";
+            // 
+            // txtDireccion
+            // 
+            this.txtDireccion.Location = new System.Drawing.Point(188, 71);
+            this.txtDireccion.Name = "txtDireccion";
+            this.txtDireccion.Size = new System.Drawing.Size(121, 20);
+            this.txtDireccion.TabIndex = 7;
+            // 
+            // txtStock
+            // 
+            this.txtStock.Location = new System.Drawing.Point(188, 214);
+            this.txtStock.Name = "txtStock";
+            this.txtStock.Size = new System.Drawing.Size(121, 20);
+            this.txtStock.TabIndex = 8;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(39, 170);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(108, 13);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "Grado de publicación";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(39, 217);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(35, 13);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Stock";
+            // 
+            // cmbGradoPublicacion
+            // 
+            this.cmbGradoPublicacion.FormattingEnabled = true;
+            this.cmbGradoPublicacion.Location = new System.Drawing.Point(188, 167);
+            this.cmbGradoPublicacion.Name = "cmbGradoPublicacion";
+            this.cmbGradoPublicacion.Size = new System.Drawing.Size(121, 21);
+            this.cmbGradoPublicacion.TabIndex = 14;
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(487, 416);
+            this.Controls.Add(this.cmbGradoPublicacion);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.txtStock);
+            this.Controls.Add(this.txtDireccion);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.cmbRubro);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.txtDescripcion);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnGuardarBorrador);
+            this.Controls.Add(this.btnPublicar);
+            this.Name = "Form1";
+            this.Text = "Generar publicación";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Button btnPublicar;
+        private System.Windows.Forms.Button btnGuardarBorrador;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtDescripcion;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox cmbRubro;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtDireccion;
+        private System.Windows.Forms.TextBox txtStock;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox cmbGradoPublicacion;
     }
 }
