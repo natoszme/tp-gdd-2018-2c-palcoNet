@@ -98,7 +98,7 @@
             this.Controls.Add(this.lblComision);
             this.Controls.Add(this.lblNombre);
             this.Name = "Formulario";
-            this.Text = "Crear grado de publicación";
+            this.Text = "Grado de publicación";
             this.ResumeLayout(false);
             this.PerformLayout();
 
