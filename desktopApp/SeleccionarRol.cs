@@ -12,11 +12,11 @@ namespace PalcoNet
 {
     public partial class SeleccionarRol : Form
     {
-        public SeleccionarRol(int cantidadDeRoles,int idUsuario)
+        public SeleccionarRol(List<String> roles)
         {
             InitializeComponent();
 
-            switch (cantidadDeRoles)
+            /*switch (cantidadDeRoles)
             {
                 case 1:
                 {
@@ -36,7 +36,7 @@ namespace PalcoNet
                     //Traer los role
                     this.cmbBxRol.DataSource = obtenerRoles(idUsuario);
                 } break;
-            }
+            }*/
         }
 
         List<TipoRol> obtenerRoles(int idUsuario)
@@ -99,6 +99,11 @@ namespace PalcoNet
                     throw new Exception("No existe ese rol");
                 } break;
             }
+        }
+
+        private void SeleccionarRol_Load(object sender, EventArgs e)
+        {
+
         }
         
     }

@@ -12,9 +12,6 @@ namespace PalcoNet
 {
     public partial class Login : Form
     {
-
-        int idUsuarioAutenticado;
-
         public Login()
         {
             InitializeComponent();
@@ -22,38 +19,44 @@ namespace PalcoNet
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-            String usuarioIngresado = txtUsuario.Text;
-            String passwordIngresada = txtClave.Text;
+            String usuario = txtUsuario.Text;
+            String password = txtClave.Text;
+            int idUsuario = 0;
 
-            if (validarUsuarioYSetearloSiExiste(usuarioIngresado, passwordIngresada))
+            if (usuario == "" || password == "")
             {
+                MessageBox.Show("Debe ingresar usuario y contraseña", "Datos invalidos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-                SeleccionarRol formRoles = new SeleccionarRol(cantidadRolesDeUsuario(idUsuarioAutenticado),idUsuarioAutenticado);
-               // this.Close(); Ver como cerrar sin que se cierre la app
+            idUsuario = obtenerIdDe(usuario, password);
+
+            if (idUsuario != 0)
+            {
+                Global.loguearUsuario(idUsuario);
+                List<String> roles = obtenerRolesDe(idUsuario);
+                SeleccionarRol formRoles = new SeleccionarRol(roles);
                 this.Hide();
                 formRoles.Show();
-    
+            }
+            else
+            {
+                MessageBox.Show("Verifique los datos ingresados y vuelva a ingresarlos", "Usuario no identificado", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        int cantidadRolesDeUsuario(int id)
+        private int obtenerIdDe(String usuario, String password)
         {
-            int cantidadRoles = 1;
-            //Consultar contra la base
-            return cantidadRoles;
+            //TODO ir a la db
+            return 1;
         }
 
-        bool validarUsuarioYSetearloSiExiste(String usuario, String password)
+        private List<String> obtenerRolesDe(int idUsuario)
         {
-            idUsuarioAutenticado = obtenerIdUsuarioPor(usuario, password);
-            return true;
-        }
-
-        int obtenerIdUsuarioPor(String usuario, String password)
-        {
-            int id = 1;
-            //TODO consultar contra la base y traer ese ID , si no existe pone -1
-            return id;
+            //TODO ir a la db
+            List<String> roles = new List<String>();
+            roles.Add("generarPublicacion");
+            return roles;
         }
     }
 }

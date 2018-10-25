@@ -80,7 +80,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "SeleccionarRol";
             this.Text = "Seleccionar rol";
-           
+            this.Load += new System.EventHandler(this.SeleccionarRol_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

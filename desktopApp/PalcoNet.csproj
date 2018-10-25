@@ -62,18 +62,6 @@
     <Compile Include="Cambiar pass usuario\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Cliente\Listado.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cliente\Listado.Designer.cs">
-      <DependentUpon>Listado.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Cliente\Formulario.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cliente\Formulario.Designer.cs">
-      <DependentUpon>Formulario.cs</DependentUpon>
-    </Compile>
     <Compile Include="Empresa_Espectaculo\Formulario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +80,7 @@
     <Compile Include="Empresa_Espectaculo\Listado.Designer.cs">
       <DependentUpon>Listado.cs</DependentUpon>
     </Compile>
+    <Compile Include="Global.cs" />
     <Compile Include="TipoRol.cs" />
     <Compile Include="Rol\Alta.cs">
       <SubType>Form</SubType>
@@ -184,12 +173,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Cambiar pass usuario\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Cliente\Formulario.resx">
-      <DependentUpon>Formulario.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Cliente\Listado.resx">
-      <DependentUpon>Listado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Empresa_Espectaculo\Formulario.resx">
       <DependentUpon>Formulario.cs</DependentUpon>
