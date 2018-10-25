@@ -92,6 +92,7 @@
     <Compile Include="Empresa_Espectaculo\Listado.Designer.cs">
       <DependentUpon>Listado.cs</DependentUpon>
     </Compile>
+    <Compile Include="TipoRol.cs" />
     <Compile Include="Rol\Alta.cs">
       <SubType>Form</SubType>
     </Compile>
