@@ -37,7 +37,7 @@ namespace PalcoNet
                 SeleccionarRol formRoles = new SeleccionarRol();
                 if (!formRoles.tieneAlgunRol(idUsuario))
                 {
-                    MessageBox.Show("No tiene ningun rol habilitado. Por favor, contáctese con el administrador", "No posee rol", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("No tiene ningún rol habilitado. Por favor, contáctese con el administrador", "No posee rol", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 

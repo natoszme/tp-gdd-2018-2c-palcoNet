@@ -29,7 +29,7 @@ namespace PalcoNet
 
                 default:
                 {
-                    this.cmbBxRol.DataSource = obtenerRoles();
+                    this.cmbBxRol.DataSource = roles;
                 } break;
             }
         }
@@ -48,18 +48,18 @@ namespace PalcoNet
 
         private List<String> obtenerRolesEnTexto()
         {
-            //TODO ir a db (buscar los roles activos)
+            //TODO ir a db (buscar solo los roles activos)
             List<String> roles = new List<String>();
-            roles.Add("Administrativo");
             return roles;
         }
 
-        void redirijirA(TipoRol rol)
+        private void redirijirA(TipoRol rol)
         {
             switch(rol){
                 case TipoRol.Administrativo:
                 {
                     MessageBox.Show("Bienvenido administrativo");
+                    SeleccionarFuncionalidad seleccionarFuncionalidad = new SeleccionarFuncionalidad(rol);
                 } break;
                 case TipoRol.Cliente:
                 {
@@ -68,10 +68,6 @@ namespace PalcoNet
                 case TipoRol.Empresa:
                 {
                     MessageBox.Show("Bienvenido empresa");
-                } break;
-                default:
-                {
-                    //Error
                 } break;
             }
         
