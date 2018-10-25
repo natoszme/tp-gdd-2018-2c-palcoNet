@@ -34,8 +34,13 @@ namespace PalcoNet
             if (idUsuario != 0)
             {
                 Global.loguearUsuario(idUsuario);
-                List<String> roles = obtenerRolesDe(idUsuario);
-                SeleccionarRol formRoles = new SeleccionarRol(roles);
+                SeleccionarRol formRoles = new SeleccionarRol();
+                if (!formRoles.tieneAlgunRol(idUsuario))
+                {
+                    MessageBox.Show("No tiene ningun rol habilitado. Por favor, contáctese con el administrador", "No posee rol", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 this.Hide();
                 formRoles.Show();
             }
@@ -47,16 +52,8 @@ namespace PalcoNet
 
         private int obtenerIdDe(String usuario, String password)
         {
-            //TODO ir a la db
+            //TODO ir a db
             return 1;
-        }
-
-        private List<String> obtenerRolesDe(int idUsuario)
-        {
-            //TODO ir a la db
-            List<String> roles = new List<String>();
-            roles.Add("generarPublicacion");
-            return roles;
         }
     }
 }
