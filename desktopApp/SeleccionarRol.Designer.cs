@@ -90,7 +90,7 @@
 
         private void panel1_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
         {
-            throw new System.NotImplementedException();
+
         }
 
         #endregion

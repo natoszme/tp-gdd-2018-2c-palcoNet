@@ -20,18 +20,7 @@ namespace PalcoNet
             roles.Add(TipoRol.Cliente);
             roles.Add(TipoRol.Administrativo);
 
-            switch (roles.Count)
-            {
-                case 1:
-                {
-                    redirijirA(roles[0]);
-                } break;
-
-                default:
-                {
-                    this.cmbBxRol.DataSource = roles;
-                } break;
-            }
+            this.cmbBxRol.DataSource = roles;
         }
 
         public bool tieneAlgunRol(int idUsuario)
@@ -55,22 +44,9 @@ namespace PalcoNet
 
         private void redirijirA(TipoRol rol)
         {
-            switch(rol){
-                case TipoRol.Administrativo:
-                {
-                    MessageBox.Show("Bienvenido administrativo");
-                    SeleccionarFuncionalidad seleccionarFuncionalidad = new SeleccionarFuncionalidad(rol);
-                } break;
-                case TipoRol.Cliente:
-                {
-                    MessageBox.Show("Bienvenido cliente");
-                } break;
-                case TipoRol.Empresa:
-                {
-                    MessageBox.Show("Bienvenido empresa");
-                } break;
-            }
-        
+            SeleccionarFuncionalidad seleccionarFuncionalidad = new SeleccionarFuncionalidad(rol);
+            this.Hide();
+            seleccionarFuncionalidad.Show();        
         }
         
         private void btnIngresar_Click(object sender, EventArgs e)

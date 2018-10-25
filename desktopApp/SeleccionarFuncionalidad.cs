@@ -20,6 +20,8 @@ namespace PalcoNet
         public SeleccionarFuncionalidad(TipoRol rol)
         {
             InitializeComponent();
+
+            lblRol.Text = rol.ToString();
         }
     }
 }

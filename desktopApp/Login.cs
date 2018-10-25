@@ -33,13 +33,14 @@ namespace PalcoNet
 
             if (idUsuario != 0)
             {
-                Global.loguearUsuario(idUsuario);
                 SeleccionarRol formRoles = new SeleccionarRol();
                 if (!formRoles.tieneAlgunRol(idUsuario))
                 {
                     MessageBox.Show("No tiene ningún rol habilitado. Por favor, contáctese con el administrador", "No posee rol", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+
+                Global.loguearUsuario(idUsuario);
 
                 this.Hide();
                 formRoles.Show();
