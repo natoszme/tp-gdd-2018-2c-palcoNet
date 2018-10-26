@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PalcoNet
 {
-     enum TipoRol
+    public enum TipoRol
     {
         Empresa = 0,
         Administrativo = 1,
