@@ -17,32 +17,12 @@ AS BEGIN
 	UPDATE espectaculo SET id_estado = (SELECT id_estado FROM INSERTED)
 END
 
+--suponiendo que dropeamos el trigger despues de migrar
 CREATE TRIGGER CuilAutomatico ON cliente
 AFTER INSERT
 AS BEGIN
-	DECLARE @id_usuario BIGINT,
-			@numero_documento NUMERIC(18, 0),
-			@cuil BIGINT
-
-	DECLARE clientes_insertados CURSOR FOR
-	SELECT id_usuario, numero_documento, cuil FROM inserted
-
-	OPEN clientes_insertados
-
-	FETCH NEXT FROM clientes_insertados
-	INTO @id_usuario, @numero_documento, @cuil
-
-	WHILE @@FETCH_STATUS = 0 BEGIN
-		IF @cuil IS NULL BEGIN
-			UPDATE cliente SET cuil = @id_usuario + @numero_documento WHERE id_usuario = @id_usuario
-		END
-
-		FETCH NEXT FROM clientes_insertados
-		INTO @id_usuario, @numero_documento, @cuil
-	END
-	
-	CLOSE clientes_insertados
-	DEALLOCATE clientes_insertados
+		UPDATE cliente c SET cuil = i.id_usuario + i.numero_documento
+		JOIN inserted i on i.id_usuario = c.id_usuario
 END
 
 CREATE TRIGGER FinalizarEspectaculo ON compras
