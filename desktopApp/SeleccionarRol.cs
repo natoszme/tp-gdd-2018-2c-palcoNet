@@ -12,41 +12,56 @@ namespace PalcoNet
 {
     public partial class SeleccionarRol : Form
     {
+        BaseDeDatos.BaseDeDatos db = new BaseDeDatos.BaseDeDatos();
         public SeleccionarRol()
         {
             InitializeComponent();
 
-            List<TipoRol> roles = obtenerRoles();
-            roles.Add(TipoRol.Cliente);
-            roles.Add(TipoRol.Administrativo);
+            List<TipoRol> roles = obtenerRolesDeId(Global.idUsuario);
+          //  roles.Add(TipoRol.Cliente);
+            //roles.Add(TipoRol.Administrativo);
 
             this.cmbBxRol.DataSource = roles;
         }
 
         public bool tieneAlgunRol(int idUsuario)
         {
-            //TODO ir a db
-            return true;
+            return db.tieneAlgunRol(idUsuario);
         }
 
-        List<TipoRol> obtenerRoles()
+        List<TipoRol> obtenerRolesDeId(int idUsuario)
         {
             List<TipoRol> roles = new List<TipoRol>();
-            return obtenerRolesEnTexto().Select(rol => convertirStringARol(rol)).ToList();
+            return obtenerRolesPorIdEnTexto(idUsuario).Select(rol => convertirStringARol(rol)).ToList();
         }
 
-        private List<String> obtenerRolesEnTexto()
+        private List<String> obtenerRolesPorIdEnTexto(int idUsuario)
         {
-            //TODO ir a db (buscar solo los roles activos)
-            List<String> roles = new List<String>();
-            return roles;
+            return db.obtenerRolesPorIdEnTexto(idUsuario);     
         }
 
         private void redirijirA(TipoRol rol)
         {
-            SeleccionarFuncionalidad seleccionarFuncionalidad = new SeleccionarFuncionalidad(rol);
-            this.Hide();
-            seleccionarFuncionalidad.Show();        
+            switch (rol){
+                case TipoRol.Administrativo:{
+                    Administrativo.HomeAdministrativo homeAdministrativoForm = new Administrativo.HomeAdministrativo();
+                    this.Hide();
+                    homeAdministrativoForm.Show();  
+                }break;
+                case TipoRol.Cliente:
+                {
+                    Cliente.HomeCliente homeCliente = new Cliente.HomeCliente();
+                    this.Hide();
+                    homeCliente.Show();  
+                } break;
+                case TipoRol.Empresa:
+                 {
+                     Empresa.HomeEmpresa homeEmpresa = new Empresa.HomeEmpresa();
+                     this.Hide();
+                     homeEmpresa.Show();  
+                 } break;
+            };
+                 
         }
         
         private void btnIngresar_Click(object sender, EventArgs e)

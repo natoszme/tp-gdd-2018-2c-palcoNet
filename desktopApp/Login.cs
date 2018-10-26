@@ -7,11 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PalcoNet.BaseDeDatos;
 
 namespace PalcoNet
 {
-    public partial class Login : Form
+    public partial class Login : Form 
     {
+        BaseDeDatos.BaseDeDatos db = new BaseDeDatos.BaseDeDatos();
+        
         public Login()
         {
             InitializeComponent();
@@ -31,17 +34,18 @@ namespace PalcoNet
 
             idUsuario = obtenerIdDe(usuario, password);
 
-            if (idUsuario != 0)
+            if (idUsuario != -1)
             {
-                SeleccionarRol formRoles = new SeleccionarRol();
-                if (!formRoles.tieneAlgunRol(idUsuario))
+                
+                if (!db.tieneAlgunRol(idUsuario))
                 {
                     MessageBox.Show("No tiene ningún rol habilitado. Por favor, contáctese con el administrador", "No posee rol", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 Global.loguearUsuario(idUsuario);
-
+                
+                SeleccionarRol formRoles = new SeleccionarRol();
                 this.Hide();
                 formRoles.Show();
             }
@@ -53,8 +57,7 @@ namespace PalcoNet
 
         private int obtenerIdDe(String usuario, String password)
         {
-            //TODO ir a db
-            return 1;
+            return db.obtenerIdPorUsuarioPass(usuario, password);   
         }
     }
 }
