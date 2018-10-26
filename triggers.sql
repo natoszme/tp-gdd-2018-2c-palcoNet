@@ -17,14 +17,6 @@ AS BEGIN
 	UPDATE espectaculo SET id_estado = (SELECT id_estado FROM INSERTED)
 END
 
---suponiendo que dropeamos el trigger despues de migrar
-CREATE TRIGGER CuilAutomatico ON cliente
-AFTER INSERT
-AS BEGIN
-		UPDATE cliente c SET cuil = i.id_usuario + i.numero_documento
-		JOIN inserted i on i.id_usuario = c.id_usuario
-END
-
 CREATE TRIGGER FinalizarEspectaculo ON compras
 AFTER INSERT
 AS BEGIN
