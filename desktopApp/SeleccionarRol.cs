@@ -56,7 +56,7 @@ namespace PalcoNet
                 } break;
                 case TipoRol.Empresa:
                  {
-                     Empresa.HomeEmpresa homeEmpresa = new Empresa.HomeEmpresa();
+                     Generar_Publicacion.Listado homeEmpresa = new Generar_Publicacion.Listado();
                      this.Hide();
                      homeEmpresa.Show();  
                  } break;

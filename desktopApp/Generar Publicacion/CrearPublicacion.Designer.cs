@@ -1,6 +1,6 @@
 ﻿namespace PalcoNet.Generar_Publicacion
 {
-    partial class Form1
+    partial class CrearPublicacion
     {
         /// <summary>
         /// Required designer variable.
@@ -40,6 +40,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.cmbGradoPublicacion = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btnUbicaciones = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnPublicar
@@ -79,7 +81,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(38, 121);
+            this.label2.Location = new System.Drawing.Point(39, 93);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(36, 13);
             this.label2.TabIndex = 4;
@@ -88,7 +90,7 @@
             // cmbRubro
             // 
             this.cmbRubro.FormattingEnabled = true;
-            this.cmbRubro.Location = new System.Drawing.Point(188, 118);
+            this.cmbRubro.Location = new System.Drawing.Point(188, 90);
             this.cmbRubro.Name = "cmbRubro";
             this.cmbRubro.Size = new System.Drawing.Size(121, 21);
             this.cmbRubro.TabIndex = 5;
@@ -96,7 +98,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(38, 78);
+            this.label3.Location = new System.Drawing.Point(38, 62);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(52, 13);
             this.label3.TabIndex = 6;
@@ -104,7 +106,7 @@
             // 
             // txtDireccion
             // 
-            this.txtDireccion.Location = new System.Drawing.Point(188, 71);
+            this.txtDireccion.Location = new System.Drawing.Point(188, 62);
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(121, 20);
             this.txtDireccion.TabIndex = 7;
@@ -119,7 +121,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(39, 170);
+            this.label4.Location = new System.Drawing.Point(39, 131);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(108, 13);
             this.label4.TabIndex = 11;
@@ -137,16 +139,36 @@
             // cmbGradoPublicacion
             // 
             this.cmbGradoPublicacion.FormattingEnabled = true;
-            this.cmbGradoPublicacion.Location = new System.Drawing.Point(188, 167);
+            this.cmbGradoPublicacion.Location = new System.Drawing.Point(188, 128);
             this.cmbGradoPublicacion.Name = "cmbGradoPublicacion";
             this.cmbGradoPublicacion.Size = new System.Drawing.Size(121, 21);
             this.cmbGradoPublicacion.TabIndex = 14;
             // 
-            // Form1
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(38, 163);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(66, 13);
+            this.label6.TabIndex = 15;
+            this.label6.Text = "Ubicaciones";
+            // 
+            // btnUbicaciones
+            // 
+            this.btnUbicaciones.Location = new System.Drawing.Point(188, 158);
+            this.btnUbicaciones.Name = "btnUbicaciones";
+            this.btnUbicaciones.Size = new System.Drawing.Size(121, 23);
+            this.btnUbicaciones.TabIndex = 16;
+            this.btnUbicaciones.Text = "Cargar ubicaciones";
+            this.btnUbicaciones.UseVisualStyleBackColor = true;
+            // 
+            // CrearPublicacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(487, 416);
+            this.Controls.Add(this.btnUbicaciones);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.cmbGradoPublicacion);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -159,7 +181,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnGuardarBorrador);
             this.Controls.Add(this.btnPublicar);
-            this.Name = "Form1";
+            this.Name = "CrearPublicacion";
             this.Text = "Generar publicación";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -180,5 +202,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cmbGradoPublicacion;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btnUbicaciones;
     }
 }

@@ -111,7 +111,14 @@
     <Compile Include="Empresa_Espectaculo\Listado.Designer.cs">
       <DependentUpon>Listado.cs</DependentUpon>
     </Compile>
+    <Compile Include="Generar Publicacion\Listado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generar Publicacion\Listado.Designer.cs">
+      <DependentUpon>Listado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Global.cs" />
+    <Compile Include="TADs\Publicacion.cs" />
     <Compile Include="TipoRol.cs" />
     <Compile Include="Rol\Alta.cs">
       <SubType>Form</SubType>
@@ -149,11 +156,11 @@
     <Compile Include="Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generar Publicacion\Form1.cs">
+    <Compile Include="Generar Publicacion\CrearPublicacion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Generar Publicacion\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Generar Publicacion\CrearPublicacion.Designer.cs">
+      <DependentUpon>CrearPublicacion.cs</DependentUpon>
     </Compile>
     <Compile Include="Generar Rendicion Comisiones\Form1.cs">
       <SubType>Form</SubType>
@@ -217,8 +224,11 @@
     <EmbeddedResource Include="Empresa_Espectaculo\Listado.resx">
       <DependentUpon>Listado.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Generar Publicacion\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Generar Publicacion\CrearPublicacion.resx">
+      <DependentUpon>CrearPublicacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generar Publicacion\Listado.resx">
+      <DependentUpon>Listado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Registro de Usuario\Formulario.resx">
       <DependentUpon>Formulario.cs</DependentUpon>

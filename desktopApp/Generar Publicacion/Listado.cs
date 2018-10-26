@@ -10,11 +10,17 @@ using System.Windows.Forms;
 
 namespace PalcoNet.Generar_Publicacion
 {
-    public partial class Form1 : Form
+    public partial class Listado : Form
     {
-        public Form1()
+        BaseDeDatos.BaseDeDatos db = new BaseDeDatos.BaseDeDatos();
+        public Listado()
         {
             InitializeComponent();
+        }
+
+        private void Listado_Load(object sender, EventArgs e)
+        {
+           
         }
     }
 }
