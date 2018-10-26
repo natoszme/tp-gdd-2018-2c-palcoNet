@@ -25,7 +25,7 @@ namespace PalcoNet.BaseDeDatos
             List<String> roles = new List<string>();
             //TODO debe traer los roles de la db del usuario
             roles.Add("Cliente");
-            //roles.Add("Administrativo");
+            roles.Add("Administrativo");
             roles.Add("Empresa");
             return roles;
         }
