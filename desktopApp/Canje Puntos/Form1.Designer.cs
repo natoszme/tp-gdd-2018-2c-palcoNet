@@ -28,11 +28,78 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.label1 = new System.Windows.Forms.Label();
+            this.dgvPremios = new System.Windows.Forms.DataGridView();
+            this.premio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.puntosNecesarios = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.acciones = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPremios)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(28, 34);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(101, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Puntos disponibles: ";
+            // 
+            // dgvPremios
+            // 
+            this.dgvPremios.AllowUserToAddRows = false;
+            this.dgvPremios.AllowUserToDeleteRows = false;
+            this.dgvPremios.AllowUserToOrderColumns = true;
+            this.dgvPremios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPremios.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.premio,
+            this.puntosNecesarios,
+            this.acciones});
+            this.dgvPremios.Location = new System.Drawing.Point(21, 85);
+            this.dgvPremios.Name = "dgvPremios";
+            this.dgvPremios.ReadOnly = true;
+            this.dgvPremios.Size = new System.Drawing.Size(364, 179);
+            this.dgvPremios.TabIndex = 3;
+            // 
+            // premio
+            // 
+            this.premio.HeaderText = "Premio";
+            this.premio.Name = "premio";
+            this.premio.ReadOnly = true;
+            // 
+            // puntosNecesarios
+            // 
+            this.puntosNecesarios.HeaderText = "Puntos necesarios";
+            this.puntosNecesarios.Name = "puntosNecesarios";
+            this.puntosNecesarios.ReadOnly = true;
+            // 
+            // acciones
+            // 
+            this.acciones.HeaderText = "Acciones";
+            this.acciones.Name = "acciones";
+            this.acciones.ReadOnly = true;
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(408, 306);
+            this.Controls.Add(this.dgvPremios);
+            this.Controls.Add(this.label1);
+            this.Name = "Form1";
+            this.Text = "Canjer de puntos";
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPremios)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView dgvPremios;
+        private System.Windows.Forms.DataGridViewTextBoxColumn premio;
+        private System.Windows.Forms.DataGridViewTextBoxColumn puntosNecesarios;
+        private System.Windows.Forms.DataGridViewTextBoxColumn acciones;
     }
 }
