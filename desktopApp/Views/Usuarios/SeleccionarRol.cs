@@ -19,8 +19,7 @@ namespace PalcoNet.Usuarios
             InitializeComponent();
 
             List<TipoRol> roles = obtenerRolesDeId(Global.idUsuario);
-          //  roles.Add(TipoRol.Cliente);
-            //roles.Add(TipoRol.Administrativo);
+          
 
             this.cmbBxRol.DataSource = roles;
         }
