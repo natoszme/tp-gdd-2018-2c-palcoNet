@@ -8,8 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.BaseDeDatos;
+using PalcoNet.Usuarios;
 
-namespace PalcoNet
+namespace PalcoNet.Usuarios
 {
     public partial class Login : Form 
     {

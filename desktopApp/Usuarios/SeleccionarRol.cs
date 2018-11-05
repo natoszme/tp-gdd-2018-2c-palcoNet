@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet
+namespace PalcoNet.Usuarios
 {
     public partial class SeleccionarRol : Form
     {
@@ -42,26 +42,8 @@ namespace PalcoNet
 
         private void redirijirA(TipoRol rol)
         {
-            switch (rol){
-                case TipoRol.Administrativo:{
-                    Administrativo.HomeAdministrativo homeAdministrativoForm = new Administrativo.HomeAdministrativo();
-                    this.Hide();
-                    homeAdministrativoForm.Show();  
-                }break;
-                case TipoRol.Cliente:
-                {
-                    Cliente.HomeCliente homeCliente = new Cliente.HomeCliente();
-                    this.Hide();
-                    homeCliente.Show();  
-                } break;
-                case TipoRol.Empresa:
-                 {
-                     Generar_Publicacion.Listado homeEmpresa = new Generar_Publicacion.Listado();
-                     this.Hide();
-                     homeEmpresa.Show();  
-                 } break;
-            };
-                 
+            this.Hide();
+            new Home().Show();
         }
         
         private void btnIngresar_Click(object sender, EventArgs e)

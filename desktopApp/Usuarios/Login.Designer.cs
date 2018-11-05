@@ -1,4 +1,4 @@
-﻿namespace PalcoNet
+﻿namespace PalcoNet.Usuarios
 {
     partial class Login
     {
