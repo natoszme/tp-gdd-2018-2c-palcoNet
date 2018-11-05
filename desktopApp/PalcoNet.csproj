@@ -57,17 +57,17 @@
       <DependentUpon>Formulario.cs</DependentUpon>
     </Compile>
     <Compile Include="BaseDeDatos\BaseDeDatos.cs" />
-    <Compile Include="Cambiar pass admin\Form1.cs">
+    <Compile Include="Usuarios\ModificarClaveAdmin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Cambiar pass admin\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Usuarios\ModificarClaveAdmin.Designer.cs">
+      <DependentUpon>ModificarClaveAdmin.cs</DependentUpon>
     </Compile>
-    <Compile Include="Cambiar pass usuario\Form1.cs">
+    <Compile Include="Usuarios\ModificarClaveUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Cambiar pass usuario\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Usuarios\ModificarClaveUsuario.Designer.cs">
+      <DependentUpon>ModificarClaveUsuario.cs</DependentUpon>
     </Compile>
     <Compile Include="Clientes\Listado.cs">
       <SubType>Form</SubType>
@@ -149,9 +149,7 @@
     <Compile Include="Usuarios\Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generar Publicacion\CrearPublicacion.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="Generar Publicacion\CrearPublicacion.cs" />
     <Compile Include="Generar Publicacion\CrearPublicacion.Designer.cs">
       <DependentUpon>CrearPublicacion.cs</DependentUpon>
     </Compile>
@@ -187,11 +185,11 @@
     <EmbeddedResource Include="Grados\Listado.resx">
       <DependentUpon>Listado.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Cambiar pass admin\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Usuarios\ModificarClaveAdmin.resx">
+      <DependentUpon>ModificarClaveAdmin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Cambiar pass usuario\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Usuarios\ModificarClaveUsuario.resx">
+      <DependentUpon>ModificarClaveUsuario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Clientes\Formulario.resx">
       <DependentUpon>Formulario.cs</DependentUpon>
