@@ -169,6 +169,9 @@
     <EmbeddedResource Include="Views\Grados\Listado.resx">
       <DependentUpon>Listado.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Home.resx">
+      <DependentUpon>Home.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Usuarios\ModificarClaveAdmin.resx">
       <DependentUpon>ModificarClaveAdmin.cs</DependentUpon>
     </EmbeddedResource>
