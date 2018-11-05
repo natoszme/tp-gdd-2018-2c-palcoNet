@@ -11,6 +11,5 @@ namespace PalcoNet
         Empresa = 0,
         Administrativo = 1,
         Cliente = 2
-    }
-    
+    }    
 }
