@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace PalcoNet.Canje_Puntos
 {
-    public partial class Form1 : Form
+    public partial class CanjearPuntos : Form
     {
-        public Form1()
+        public CanjearPuntos()
         {
             InitializeComponent();
         }

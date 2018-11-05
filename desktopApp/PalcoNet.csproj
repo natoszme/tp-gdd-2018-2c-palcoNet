@@ -99,10 +99,10 @@
     <Compile Include="Empresa_Espectaculo\Listado.Designer.cs">
       <DependentUpon>Listado.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generar Publicacion\Listado.cs">
+    <Compile Include="Publicaciones\Listado.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Generar Publicacion\Listado.Designer.cs">
+    <Compile Include="Publicaciones\Listado.Designer.cs">
       <DependentUpon>Listado.cs</DependentUpon>
     </Compile>
     <Compile Include="Global.cs" />
@@ -125,22 +125,16 @@
     <Compile Include="Roles\Listado.Designer.cs">
       <DependentUpon>Listado.cs</DependentUpon>
     </Compile>
-    <Compile Include="Canje Puntos\Form1.cs">
+    <Compile Include="Clientes\CanjearPuntos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Canje Puntos\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Clientes\CanjearPuntos.Designer.cs">
+      <DependentUpon>CanjearPuntos.cs</DependentUpon>
     </Compile>
     <Compile Include="Comprar\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Comprar\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Editar Publicacion\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Editar Publicacion\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Usuarios\Login.cs">
@@ -149,9 +143,11 @@
     <Compile Include="Usuarios\Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generar Publicacion\CrearPublicacion.cs" />
-    <Compile Include="Generar Publicacion\CrearPublicacion.Designer.cs">
-      <DependentUpon>CrearPublicacion.cs</DependentUpon>
+    <Compile Include="Publicaciones\Alta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Publicaciones\Alta.Designer.cs">
+      <DependentUpon>Alta.cs</DependentUpon>
     </Compile>
     <Compile Include="Generar Rendicion Comisiones\Form1.cs">
       <SubType>Form</SubType>
@@ -197,19 +193,16 @@
     <EmbeddedResource Include="Clientes\Listado.resx">
       <DependentUpon>Listado.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Canje Puntos\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Empresa_Espectaculo\Formulario.resx">
       <DependentUpon>Formulario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Empresa_Espectaculo\Listado.resx">
       <DependentUpon>Listado.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Generar Publicacion\CrearPublicacion.resx">
-      <DependentUpon>CrearPublicacion.cs</DependentUpon>
+    <EmbeddedResource Include="Publicaciones\Alta.resx">
+      <DependentUpon>Alta.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Generar Publicacion\Listado.resx">
+    <EmbeddedResource Include="Publicaciones\Listado.resx">
       <DependentUpon>Listado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Registro de Usuario\Formulario.resx">

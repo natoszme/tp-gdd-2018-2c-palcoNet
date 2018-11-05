@@ -1,6 +1,6 @@
 ﻿namespace PalcoNet.Canje_Puntos
 {
-    partial class Form1
+    partial class CanjearPuntos
     {
         /// <summary>
         /// Required designer variable.
@@ -79,14 +79,14 @@
             this.acciones.Name = "acciones";
             this.acciones.ReadOnly = true;
             // 
-            // Form1
+            // CanjearPuntos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(408, 306);
             this.Controls.Add(this.dgvPremios);
             this.Controls.Add(this.label1);
-            this.Name = "Form1";
+            this.Name = "CanjearPuntos";
             this.Text = "Canjer de puntos";
             ((System.ComponentModel.ISupportInitialize)(this.dgvPremios)).EndInit();
             this.ResumeLayout(false);
