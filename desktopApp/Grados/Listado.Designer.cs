@@ -1,4 +1,4 @@
-﻿namespace PalcoNet.Rol
+﻿namespace PalcoNet.Grados
 {
     partial class Listado
     {
@@ -29,88 +29,94 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnNuevo = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.dgvRoles = new System.Windows.Forms.DataGridView();
+            this.dgvGrados = new System.Windows.Forms.DataGridView();
+            this.btnVolver = new System.Windows.Forms.Button();
             this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.comision = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.acciones = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRoles)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvGrados)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.btnNuevo);
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(13, 13);
+            this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(644, 32);
+            this.panel1.Size = new System.Drawing.Size(542, 44);
             this.panel1.TabIndex = 0;
             // 
-            // btnNuevo
+            // button1
             // 
-            this.btnNuevo.Location = new System.Drawing.Point(549, 4);
-            this.btnNuevo.Name = "btnNuevo";
-            this.btnNuevo.Size = new System.Drawing.Size(92, 23);
-            this.btnNuevo.TabIndex = 1;
-            this.btnNuevo.Text = "Nuevo rol";
-            this.btnNuevo.UseVisualStyleBackColor = true;
+            this.button1.Location = new System.Drawing.Point(422, 11);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(102, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Nuevo grado";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 7);
+            this.label1.Location = new System.Drawing.Point(3, 14);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Roles";
+            this.label1.Size = new System.Drawing.Size(167, 20);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Grados de publicación";
             // 
-            // dgvRoles
+            // dgvGrados
             // 
-            this.dgvRoles.AllowUserToAddRows = false;
-            this.dgvRoles.AllowUserToDeleteRows = false;
-            this.dgvRoles.AllowUserToOrderColumns = true;
-            this.dgvRoles.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
-            this.dgvRoles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRoles.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvGrados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvGrados.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nombre,
+            this.comision,
             this.acciones});
-            this.dgvRoles.Location = new System.Drawing.Point(13, 52);
-            this.dgvRoles.Name = "dgvRoles";
-            this.dgvRoles.ReadOnly = true;
-            this.dgvRoles.Size = new System.Drawing.Size(644, 293);
-            this.dgvRoles.TabIndex = 1;
+            this.dgvGrados.Location = new System.Drawing.Point(12, 75);
+            this.dgvGrados.Name = "dgvGrados";
+            this.dgvGrados.Size = new System.Drawing.Size(542, 151);
+            this.dgvGrados.TabIndex = 1;
+            // 
+            // btnVolver
+            // 
+            this.btnVolver.Location = new System.Drawing.Point(469, 247);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(75, 23);
+            this.btnVolver.TabIndex = 2;
+            this.btnVolver.Text = "Volver";
+            this.btnVolver.UseVisualStyleBackColor = true;
             // 
             // nombre
             // 
-            this.nombre.Frozen = true;
             this.nombre.HeaderText = "Nombre";
             this.nombre.Name = "nombre";
-            this.nombre.ReadOnly = true;
-            this.nombre.Width = 69;
+            // 
+            // comision
+            // 
+            this.comision.HeaderText = "Comisión";
+            this.comision.Name = "comision";
             // 
             // acciones
             // 
-            this.acciones.Frozen = true;
             this.acciones.HeaderText = "Acciones";
             this.acciones.Name = "acciones";
-            this.acciones.ReadOnly = true;
-            this.acciones.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.acciones.Width = 57;
             // 
             // Listado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(669, 357);
-            this.Controls.Add(this.dgvRoles);
+            this.ClientSize = new System.Drawing.Size(566, 284);
+            this.Controls.Add(this.btnVolver);
+            this.Controls.Add(this.dgvGrados);
             this.Controls.Add(this.panel1);
             this.Name = "Listado";
-            this.Text = "Listado de roles";
+            this.Text = "Listado de grados de publicación";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvRoles)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvGrados)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -118,10 +124,12 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnNuevo;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dgvRoles;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DataGridView dgvGrados;
+        private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn comision;
         private System.Windows.Forms.DataGridViewTextBoxColumn acciones;
     }
 }

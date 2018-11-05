@@ -1,4 +1,4 @@
-﻿namespace PalcoNet.Rol
+﻿namespace PalcoNet.Roles
 {
     partial class Modificacion
     {
