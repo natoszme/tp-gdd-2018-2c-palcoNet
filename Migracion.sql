@@ -97,7 +97,6 @@ CREATE TABLE RAGNAR.Tipo_ubicacion				(	id_tipo_ubicacion int identity PRIMARY K
 
 CREATE TABLE RAGNAR.Compra						(	id_compra bigint identity PRIMARY KEY,
 													id_cliente bigint FOREIGN KEY references RAGNAR.Cliente(id_usuario) NOT NULL,
-													id_empresa bigint FOREIGN KEY references RAGNAR.Empresa(id_usuario) NOT NULL,
 													fecha datetime NOT NULL, --/Agregar default
 													tarjeta_utilizada varchar(10))
 
@@ -118,7 +117,7 @@ CREATE TABLE RAGNAR.Factura						(	id_factura bigint identity PRIMARY KEY,
 													forma_pago nvarchar(255))
 
 CREATE TABLE RAGNAR.Item_factura				(	id_item bigint identity PRIMARY KEY,
-													id_compra bigint FOREIGN KEY references RAGNAR.Compra(id_compra),
+													id_ubicacion bigint FOREIGN KEY references RAGNAR.Ubicacion_publicacion(id_ubicacion),
 													id_factura bigint FOREIGN KEY references RAGNAR.Factura(id_factura),
 													descripcion nvarchar(60) NOT NULL,
 													monto numeric(18,2) NOT NULL,
@@ -127,6 +126,9 @@ CREATE TABLE RAGNAR.Item_factura				(	id_item bigint identity PRIMARY KEY,
 CREATE TABLE RAGNAR.Premio						(	id_premio int identity PRIMARY KEY,
 													puntos_necesarios int NOT NULL,
 													descripcion varchar(255) NOT NULL)
+
+CREATE TABLE RAGNAR.Canje_premio				(	id_premio int FOREIGN KEY references RAGNAR.Premio(id_premio),
+													id_cliente bigint FOREIGN KEY references RAGNAR.Cliente(id_usuario))
 
 --/Fin de creacion de tablas/--
 
@@ -171,21 +173,21 @@ INSERT INTO RAGNAR.Publicacion(codigo_publicacion, descripcion, fecha_vencimient
 	FROM gd_esquema.Maestra as M JOIN RAGNAR.Rubro as R ON (M.Espectaculo_Rubro_Descripcion = R.descripcion) JOIN RAGNAR.Estado_publicacion as E ON (M.Espectaculo_Estado = E.descripcion)
 	WHERE M.Espectaculo_Cod IS NOT NULL
 
---/Inserts de Ubicaciones/--
+--/Inserts de Ubicaciones y Compras/--
 	
 INSERT INTO RAGNAR.Tipo_ubicacion(codigo, descripcion)
 	SELECT DISTINCT Ubicacion_Tipo_Codigo, Ubicacion_Tipo_Descripcion
 	FROM gd_esquema.Maestra
 	WHERE Ubicacion_Tipo_Codigo IS NOT NULL AND Ubicacion_Tipo_Descripcion IS NOT NULL
 	
-INSERT INTO RAGNAR.Compra(id_cliente, id_empresa, fecha)
-	SELECT DISTINCT C.id_usuario,E.id_usuario, M.Compra_Fecha
-	FROM gd_esquema.Maestra as M JOIN RAGNAR.Cliente as C ON (M.Cli_Dni = C.numero_documento) JOIN RAGNAR.Empresa as E ON (M.Espec_Empresa_Cuit = E.cuit)
+INSERT INTO RAGNAR.Compra(id_cliente, fecha)
+	SELECT DISTINCT C.id_usuario, M.Compra_Fecha
+	FROM gd_esquema.Maestra as M JOIN RAGNAR.Cliente as C ON (M.Cli_Dni = C.numero_documento)
 	WHERE M.Compra_Fecha IS NOT NULL
 	
 INSERT INTO RAGNAR.Ubicacion_publicacion(id_publicacion, id_tipo, fila, asiento, sin_numerar, precio, id_compra, compra_cantidad)
 	SELECT DISTINCT P.id_publicacion, T.id_tipo_ubicacion, M.Ubicacion_Fila, M.Ubicacion_Asiento, M.Ubicacion_Sin_Numerar, M.Ubicacion_Precio,COM.id_compra, M.Compra_Cantidad
-	FROM gd_esquema.Maestra as M JOIN RAGNAR.Publicacion as P ON (M.Espectaculo_Cod = P.codigo_publicacion) JOIN RAGNAR.Tipo_ubicacion as T ON (M.Ubicacion_Tipo_Codigo = T.codigo AND M.Ubicacion_Tipo_Descripcion = T.descripcion) JOIN  RAGNAR.Cliente as C ON (M.Cli_Dni = C.numero_documento) JOIN RAGNAR.Empresa as E ON (M.Espec_Empresa_Cuit = E.cuit) JOIN RAGNAR.Compra as COM ON (COM.id_cliente = C.id_usuario AND COM.id_empresa = E.id_usuario AND COM.fecha = M.Compra_Fecha)
+	FROM gd_esquema.Maestra as M JOIN RAGNAR.Publicacion as P ON (M.Espectaculo_Cod = P.codigo_publicacion) JOIN RAGNAR.Tipo_ubicacion as T ON (M.Ubicacion_Tipo_Codigo = T.codigo AND M.Ubicacion_Tipo_Descripcion = T.descripcion) JOIN  RAGNAR.Cliente as C ON (M.Cli_Dni = C.numero_documento) JOIN RAGNAR.Compra as COM ON (COM.id_cliente = C.id_usuario AND COM.fecha = M.Compra_Fecha)
 	WHERE M.Ubicacion_Sin_Numerar IS NOT NULL AND M.Ubicacion_Precio IS NOT NULL AND M.Compra_Cantidad IS NOT NULL
 
 INSERT INTO RAGNAR.Ubicacion_publicacion(id_publicacion, id_tipo, fila, asiento, sin_numerar, precio)
@@ -195,17 +197,25 @@ INSERT INTO RAGNAR.Ubicacion_publicacion(id_publicacion, id_tipo, fila, asiento,
 	GROUP BY P.id_publicacion, T.id_tipo_ubicacion, M.Ubicacion_Fila, M.Ubicacion_Asiento, M.Ubicacion_Sin_Numerar, M.Ubicacion_Precio
 	HAVING COUNT(M.Compra_Cantidad) = 0
 
+--/Inserts de Facturas/--
+
 INSERT INTO RAGNAR.Factura(numero, fecha, total, forma_pago)
 	SELECT DISTINCT Factura_Nro, Factura_Fecha, Factura_Total, Forma_Pago_Desc
 	FROM gd_esquema.Maestra
 	WHERE Factura_Nro IS NOT NULL AND Factura_Fecha IS NOT NULL AND Factura_Total IS NOT NULL AND Forma_Pago_Desc IS NOT NULL
+
+INSERT INTO RAGNAR.Item_factura(id_factura, id_ubicacion, cantidad, descripcion, monto)
+	SELECT F.id_factura, U.id_ubicacion, M.Item_Factura_Cantidad, M.Item_Factura_Descripcion, M.Item_Factura_Monto
+	FROM gd_esquema.Maestra as M JOIN RAGNAR.Factura as F ON (M.Factura_Nro = F.numero) JOIN RAGNAR.Publicacion as P ON (M.Espectaculo_Cod = P.codigo_publicacion) JOIN RAGNAR.Ubicacion_publicacion as U ON (P.id_publicacion = U.id_publicacion AND M.Ubicacion_Asiento = U.asiento AND M.Ubicacion_Fila = U.fila)
+	WHERE M.Item_Factura_Monto IS NOT NULL
+
 	/*
 /*INSERT INTO GDDRAGNAR.Ubicacion_publicacion(id_publicacion, id_tipo, fila, asiento, sin_numerar, precio)
 	SELECT DISTINCT P.id_publicacion, T.id_tipo_ubicacion, M.Ubicacion_Fila, M.Ubicacion_Asiento, M.Ubicacion_Sin_Numerar, M.Ubicacion_Precio
 	FROM gd_esquema.Maestra as M JOIN GDDRAGNAR.Publicacion as P ON (M.Espectaculo_Cod = P.codigo_publicacion) JOIN GDDRAGNAR.Tipo_ubicacion as T ON (M.Ubicacion_Tipo_Codigo = T.codigo AND M.Ubicacion_Tipo_Descripcion = T.descripcion)
 	WHERE M.Ubicacion_Sin_Numerar IS NOT NULL AND M.Ubicacion_Precio IS NOT NULL*/
 
---/Inserts de Compras/--
+
 
 	
 /*INSERT INTO GDDRAGNAR.Ubicacion_compra(id_ubicacion,id_compra,precio,cantidad)
