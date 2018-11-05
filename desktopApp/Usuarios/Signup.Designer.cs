@@ -1,6 +1,6 @@
-﻿namespace PalcoNet.Registro_de_Usuario
+﻿namespace PalcoNet.Usuarios
 {
-    partial class Formulario
+    partial class Signup
     {
         /// <summary>
         /// Required designer variable.
@@ -142,13 +142,13 @@
             this.btnRegistrarEmpresa.Text = "Registrarme como empresa";
             this.btnRegistrarEmpresa.UseVisualStyleBackColor = true;
             // 
-            // Formulario
+            // Signup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(486, 202);
             this.Controls.Add(this.panel1);
-            this.Name = "Formulario";
+            this.Name = "Signup";
             this.Text = "Registrar usuario";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

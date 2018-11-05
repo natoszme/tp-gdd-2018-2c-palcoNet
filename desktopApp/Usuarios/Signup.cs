@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet.Registro_de_Usuario
+namespace PalcoNet.Usuarios
 {
-    public partial class Formulario : Form
+    public partial class Signup : Form
     {
-        public Formulario()
+        public Signup()
         {
             InitializeComponent();
         }
