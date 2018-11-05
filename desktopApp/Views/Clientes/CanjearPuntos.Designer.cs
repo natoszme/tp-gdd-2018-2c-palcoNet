@@ -1,4 +1,4 @@
-﻿namespace PalcoNet.Canje_Puntos
+﻿namespace PalcoNet.Clientes
 {
     partial class CanjearPuntos
     {

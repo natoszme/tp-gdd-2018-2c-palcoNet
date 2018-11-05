@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet.Canje_Puntos
+namespace PalcoNet.Clientes
 {
     public partial class CanjearPuntos : Form
     {
