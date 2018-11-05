@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PalcoNet.Model;
 
 namespace PalcoNet.Usuarios
 {
@@ -72,7 +73,7 @@ namespace PalcoNet.Usuarios
                 default:
                 {
                     throw new Exception("No existe ese rol");
-                } break;
+                };
             }
 
             return tipo;
