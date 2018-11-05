@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet.Empresa
+namespace PalcoNet.Empresas
 {
     public partial class Listado : Form
     {

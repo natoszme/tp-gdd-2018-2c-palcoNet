@@ -1,4 +1,4 @@
-﻿namespace PalcoNet.Empresa_Espectaculo
+﻿namespace PalcoNet.Empresas
 {
     partial class Formulario
     {

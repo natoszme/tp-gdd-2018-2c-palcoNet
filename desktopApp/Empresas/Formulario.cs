@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet.Empresa_Espectaculo
+namespace PalcoNet.Empresas
 {
     public partial class Formulario : Form
     {

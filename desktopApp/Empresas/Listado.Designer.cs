@@ -1,4 +1,4 @@
-﻿namespace PalcoNet.Empresa
+﻿namespace PalcoNet.Empresas
 {
     partial class Listado
     {
