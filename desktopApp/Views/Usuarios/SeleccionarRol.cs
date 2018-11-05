@@ -43,6 +43,7 @@ namespace PalcoNet.Usuarios
 
         private void redirijirA(TipoRol rol)
         {
+            Global.setearRolDeSesion(rol);
             this.Hide();
             new Home().Show();
         }
