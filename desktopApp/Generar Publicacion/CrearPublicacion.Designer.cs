@@ -1,4 +1,4 @@
-﻿namespace PalcoNet.Generar_Publicacion
+﻿namespace PalcoNet.Publicaciones
 {
     partial class CrearPublicacion
     {

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet.Generar_Publicacion
+namespace PalcoNet.Publicaciones
 {
     public partial class CrearPublicacion : Form
     {
