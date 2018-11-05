@@ -1,6 +1,6 @@
-﻿namespace PalcoNet.Cambiar_pass
+﻿namespace PalcoNet.Usuarios
 {
-    partial class Form1
+    partial class ModificarClaveUsuario
     {
         /// <summary>
         /// Required designer variable.
@@ -94,7 +94,7 @@
             this.btnCambiar.Text = "Cambiar contraseña";
             this.btnCambiar.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // ModificarClaveUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -106,8 +106,8 @@
             this.Controls.Add(this.txtNuevaClave);
             this.Controls.Add(this.txtClaveActual);
             this.Controls.Add(this.label1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "ModificarClaveUsuario";
+            this.Text = "Modificar clave";
             this.ResumeLayout(false);
             this.PerformLayout();
 

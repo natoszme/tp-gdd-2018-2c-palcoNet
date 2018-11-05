@@ -1,6 +1,6 @@
-﻿namespace PalcoNet.Cambiar_pass_admin
+﻿namespace PalcoNet.Usuarios
 {
-    partial class Form1
+    partial class ModificarClaveAdmin
     {
         /// <summary>
         /// Required designer variable.
@@ -76,7 +76,7 @@
             this.txtRepetirClave.Size = new System.Drawing.Size(100, 20);
             this.txtRepetirClave.TabIndex = 4;
             // 
-            // Form1
+            // ModificarClaveAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -86,8 +86,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCambiar);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "ModificarClaveAdmin";
+            this.Text = "Modificar clave";
             this.ResumeLayout(false);
             this.PerformLayout();
 

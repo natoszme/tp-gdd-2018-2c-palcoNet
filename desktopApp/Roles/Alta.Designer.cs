@@ -123,14 +123,14 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Nombre";
             // 
-            // Form1
+            // Alta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(561, 193);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Name = "Form1";
+            this.Name = "Alta";
             this.Text = "Nuevo rol";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

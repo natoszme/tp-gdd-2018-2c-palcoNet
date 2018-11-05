@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet.Cambiar_pass
+namespace PalcoNet.Usuarios
 {
-    public partial class Form1 : Form
+    public partial class ModificarClaveUsuario : Form
     {
-        public Form1()
+        public ModificarClaveUsuario()
         {
             InitializeComponent();
         }

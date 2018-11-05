@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet.Cliente
+namespace PalcoNet.Clientes
 {
     public partial class Listado : Form
     {

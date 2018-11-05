@@ -1,4 +1,4 @@
-﻿namespace PalcoNet.Cliente
+﻿namespace PalcoNet.Clientes
 {
     partial class Formulario
     {

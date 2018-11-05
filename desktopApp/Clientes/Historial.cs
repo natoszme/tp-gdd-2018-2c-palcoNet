@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PalcoNet.Clientes
+namespace PalcoNet.Clientess
 {
     public partial class Historial : Form
     {
