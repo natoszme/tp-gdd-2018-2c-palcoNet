@@ -44,17 +44,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abm Grado\Formulario.cs">
+    <Compile Include="Clientes\Historial.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Grado\Formulario.Designer.cs">
+    <Compile Include="Clientes\Historial.Designer.cs">
+      <DependentUpon>Historial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grados\Formulario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grados\Formulario.Designer.cs">
       <DependentUpon>Formulario.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Administrativo\HomeAdministrativo.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Administrativo\HomeAdministrativo.Designer.cs">
-      <DependentUpon>HomeAdministrativo.cs</DependentUpon>
     </Compile>
     <Compile Include="BaseDeDatos\BaseDeDatos.cs" />
     <Compile Include="Cambiar pass admin\Form1.cs">
@@ -69,29 +69,17 @@
     <Compile Include="Cambiar pass usuario\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="ABMCliente\Listado.cs">
+    <Compile Include="Clientes\Listado.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABMCliente\Listado.Designer.cs">
+    <Compile Include="Clientes\Listado.Designer.cs">
       <DependentUpon>Listado.cs</DependentUpon>
     </Compile>
-    <Compile Include="ABMCliente\Formulario.cs">
+    <Compile Include="Clientes\Formulario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABMCliente\Formulario.Designer.cs">
+    <Compile Include="Clientes\Formulario.Designer.cs">
       <DependentUpon>Formulario.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Cliente\HomeCliente.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cliente\HomeCliente.Designer.cs">
-      <DependentUpon>HomeCliente.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Empresa\HomeEmpresa.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Empresa\HomeEmpresa.Designer.cs">
-      <DependentUpon>HomeEmpresa.cs</DependentUpon>
     </Compile>
     <Compile Include="Empresa_Espectaculo\Formulario.cs">
       <SubType>Form</SubType>
@@ -99,10 +87,10 @@
     <Compile Include="Empresa_Espectaculo\Formulario.Designer.cs">
       <DependentUpon>Formulario.cs</DependentUpon>
     </Compile>
-    <Compile Include="Abm Grado\Listado.cs">
+    <Compile Include="Grados\Listado.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Abm Grado\Listado.Designer.cs">
+    <Compile Include="Grados\Listado.Designer.cs">
       <DependentUpon>Listado.cs</DependentUpon>
     </Compile>
     <Compile Include="Empresa_Espectaculo\Listado.cs">
@@ -118,18 +106,23 @@
       <DependentUpon>Listado.cs</DependentUpon>
     </Compile>
     <Compile Include="Global.cs" />
-    <Compile Include="TADs\Publicacion.cs" />
-    <Compile Include="TipoRol.cs" />
-    <Compile Include="Rol\Alta.cs">
+    <Compile Include="Home.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Rol\Alta.Designer.cs">
+    <Compile Include="Home.Designer.cs">
+      <DependentUpon>Home.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TipoRol.cs" />
+    <Compile Include="Roles\Alta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Roles\Alta.Designer.cs">
       <DependentUpon>Alta.cs</DependentUpon>
     </Compile>
-    <Compile Include="Rol\Listado.cs">
+    <Compile Include="Roles\Listado.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Rol\Listado.Designer.cs">
+    <Compile Include="Roles\Listado.Designer.cs">
       <DependentUpon>Listado.cs</DependentUpon>
     </Compile>
     <Compile Include="Canje Puntos\Form1.cs">
@@ -150,10 +143,10 @@
     <Compile Include="Editar Publicacion\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Login.cs">
+    <Compile Include="Usuarios\Login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Login.Designer.cs">
+    <Compile Include="Usuarios\Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
     <Compile Include="Generar Publicacion\CrearPublicacion.cs">
@@ -166,12 +159,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Generar Rendicion Comisiones\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Historial Cliente\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Historial Cliente\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Listado Estadistico\Form1.cs">
@@ -188,22 +175,22 @@
     <Compile Include="Registro de Usuario\Formulario.Designer.cs">
       <DependentUpon>Formulario.cs</DependentUpon>
     </Compile>
-    <Compile Include="Rol\Modificacion.cs">
+    <Compile Include="Roles\Modificacion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Rol\Modificacion.Designer.cs">
+    <Compile Include="Roles\Modificacion.Designer.cs">
       <DependentUpon>Modificacion.cs</DependentUpon>
     </Compile>
-    <Compile Include="SeleccionarRol.cs">
+    <Compile Include="Usuarios\SeleccionarRol.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SeleccionarRol.Designer.cs">
+    <Compile Include="Usuarios\SeleccionarRol.Designer.cs">
       <DependentUpon>SeleccionarRol.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Abm Grado\Formulario.resx">
+    <EmbeddedResource Include="Grados\Formulario.resx">
       <DependentUpon>Formulario.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Abm Grado\Listado.resx">
+    <EmbeddedResource Include="Grados\Listado.resx">
       <DependentUpon>Listado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Cambiar pass admin\Form1.resx">
@@ -212,10 +199,10 @@
     <EmbeddedResource Include="Cambiar pass usuario\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ABMCliente\Formulario.resx">
+    <EmbeddedResource Include="Clientes\Formulario.resx">
       <DependentUpon>Formulario.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ABMCliente\Listado.resx">
+    <EmbeddedResource Include="Clientes\Listado.resx">
       <DependentUpon>Listado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Canje Puntos\Form1.resx">
@@ -233,16 +220,13 @@
     <EmbeddedResource Include="Generar Publicacion\Listado.resx">
       <DependentUpon>Listado.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Historial Cliente\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Registro de Usuario\Formulario.resx">
       <DependentUpon>Formulario.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Rol\Alta.resx">
+    <EmbeddedResource Include="Roles\Alta.resx">
       <DependentUpon>Alta.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Login.resx">
+    <EmbeddedResource Include="Usuarios\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -254,13 +238,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Rol\Listado.resx">
+    <EmbeddedResource Include="Roles\Listado.resx">
       <DependentUpon>Listado.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Rol\Modificacion.resx">
+    <EmbeddedResource Include="Roles\Modificacion.resx">
       <DependentUpon>Modificacion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SeleccionarRol.resx">
+    <EmbeddedResource Include="Usuarios\SeleccionarRol.resx">
       <DependentUpon>SeleccionarRol.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
