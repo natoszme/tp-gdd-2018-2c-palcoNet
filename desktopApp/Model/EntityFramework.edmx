@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RagnarModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="RagnarModelStoreContainer">
+          <EntitySet Name="Cliente" EntityType="RagnarModel.Store.Cliente" store:Type="Tables" Schema="RAGNAR" />
+          <EntitySet Name="Empresa" EntityType="RagnarModel.Store.Empresa" store:Type="Tables" Schema="RAGNAR" />
+          <EntitySet Name="Usuario" EntityType="RagnarModel.Store.Usuario" store:Type="Tables" Schema="RAGNAR" />
+          <AssociationSet Name="FK__Cliente__id_usua__36B12243" Association="RagnarModel.Store.FK__Cliente__id_usua__36B12243">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Empresa__id_usua__3C69FB99" Association="RagnarModel.Store.FK__Empresa__id_usua__3C69FB99">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Empresa" EntitySet="Empresa" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="bigint" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="apellido" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="tipo_documento" Type="varchar" Nullable="false" MaxLength="3" />
+          <Property Name="numero_documento" Type="numeric" Nullable="false" />
+          <Property Name="cuil" Type="nvarchar" MaxLength="255" />
+          <Property Name="mail" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="telefono" Type="varchar" MaxLength="20" />
+          <Property Name="calle" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="portal" Type="numeric" Nullable="false" />
+          <Property Name="piso" Type="numeric" Nullable="false" />
+          <Property Name="departamento" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="localidad" Type="nvarchar" MaxLength="255" />
+          <Property Name="codigo_postal" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="fecha_nacimiento" Type="datetime" Nullable="false" />
+          <Property Name="fecha_creacion" Type="datetime" />
+          <Property Name="tarjeta_credito" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="bigint" Nullable="false" />
+          <Property Name="razon_social" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="cuit" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="mail" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="telefono" Type="varchar" MaxLength="20" />
+          <Property Name="ciudad" Type="nvarchar" MaxLength="255" />
+          <Property Name="calle" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="portal" Type="numeric" Nullable="false" />
+          <Property Name="piso" Type="numeric" Nullable="false" />
+          <Property Name="departamento" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="localidad" Type="nvarchar" MaxLength="255" />
+          <Property Name="codigo_postal" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="fecha_creacion" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="usuario" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="clave" Type="varchar" Nullable="false" MaxLength="32" />
+          <Property Name="habilitado" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Cliente__id_usua__36B12243">
+          <End Role="Usuario" Type="RagnarModel.Store.Usuario" Multiplicity="1" />
+          <End Role="Cliente" Type="RagnarModel.Store.Cliente" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Empresa__id_usua__3C69FB99">
+          <End Role="Usuario" Type="RagnarModel.Store.Usuario" Multiplicity="1" />
+          <End Role="Empresa" Type="RagnarModel.Store.Empresa" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Empresa">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RagnarModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="GD2C2018Entities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Cliente" EntityType="RagnarModel.Cliente" />
+          <EntitySet Name="Empresa" EntityType="RagnarModel.Empresa" />
+          <EntitySet Name="Usuario" EntityType="RagnarModel.Usuario" />
+          <AssociationSet Name="FK__Cliente__id_usua__36B12243" Association="RagnarModel.FK__Cliente__id_usua__36B12243">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Empresa__id_usua__3C69FB99" Association="RagnarModel.FK__Empresa__id_usua__3C69FB99">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Empresa" EntitySet="Empresa" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="Int64" Nullable="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="apellido" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="tipo_documento" Type="String" Nullable="false" MaxLength="3" Unicode="false" FixedLength="false" />
+          <Property Name="numero_documento" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="cuil" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="mail" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="telefono" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="calle" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="portal" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="piso" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="departamento" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="localidad" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="codigo_postal" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="fecha_nacimiento" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
+          <Property Name="tarjeta_credito" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Usuario" Relationship="RagnarModel.FK__Cliente__id_usua__36B12243" FromRole="Cliente" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="Int64" Nullable="false" />
+          <Property Name="razon_social" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="cuit" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="mail" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="telefono" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="ciudad" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="calle" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="portal" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="piso" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="departamento" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="localidad" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
+          <Property Name="codigo_postal" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="fecha_creacion" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Usuario" Relationship="RagnarModel.FK__Empresa__id_usua__3C69FB99" FromRole="Empresa" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="usuario1" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="clave" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
+          <Property Name="habilitado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="RagnarModel.FK__Cliente__id_usua__36B12243" FromRole="Usuario" ToRole="Cliente" />
+          <NavigationProperty Name="Empresa" Relationship="RagnarModel.FK__Empresa__id_usua__3C69FB99" FromRole="Usuario" ToRole="Empresa" />
+        </EntityType>
+        <Association Name="FK__Cliente__id_usua__36B12243">
+          <End Role="Usuario" Type="RagnarModel.Usuario" Multiplicity="1" />
+          <End Role="Cliente" Type="RagnarModel.Cliente" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Empresa__id_usua__3C69FB99">
+          <End Role="Usuario" Type="RagnarModel.Usuario" Multiplicity="1" />
+          <End Role="Empresa" Type="RagnarModel.Empresa" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Empresa">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RagnarModelStoreContainer" CdmEntityContainer="GD2C2018Entities">
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="RagnarModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="tipo_documento" ColumnName="tipo_documento" />
+                <ScalarProperty Name="numero_documento" ColumnName="numero_documento" />
+                <ScalarProperty Name="cuil" ColumnName="cuil" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="calle" ColumnName="calle" />
+                <ScalarProperty Name="portal" ColumnName="portal" />
+                <ScalarProperty Name="piso" ColumnName="piso" />
+                <ScalarProperty Name="departamento" ColumnName="departamento" />
+                <ScalarProperty Name="localidad" ColumnName="localidad" />
+                <ScalarProperty Name="codigo_postal" ColumnName="codigo_postal" />
+                <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="tarjeta_credito" ColumnName="tarjeta_credito" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empresa">
+            <EntityTypeMapping TypeName="RagnarModel.Empresa">
+              <MappingFragment StoreEntitySet="Empresa">
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="razon_social" ColumnName="razon_social" />
+                <ScalarProperty Name="cuit" ColumnName="cuit" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+                <ScalarProperty Name="calle" ColumnName="calle" />
+                <ScalarProperty Name="portal" ColumnName="portal" />
+                <ScalarProperty Name="piso" ColumnName="piso" />
+                <ScalarProperty Name="departamento" ColumnName="departamento" />
+                <ScalarProperty Name="localidad" ColumnName="localidad" />
+                <ScalarProperty Name="codigo_postal" ColumnName="codigo_postal" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="RagnarModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="usuario1" ColumnName="usuario" />
+                <ScalarProperty Name="clave" ColumnName="clave" />
+                <ScalarProperty Name="habilitado" ColumnName="habilitado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

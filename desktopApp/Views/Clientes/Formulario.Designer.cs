@@ -276,7 +276,6 @@
             this.label10.Size = new System.Drawing.Size(53, 13);
             this.label10.TabIndex = 38;
             this.label10.Text = "Localidad";
-            this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // txtLocalidad
             // 
@@ -284,7 +283,6 @@
             this.txtLocalidad.Name = "txtLocalidad";
             this.txtLocalidad.Size = new System.Drawing.Size(150, 20);
             this.txtLocalidad.TabIndex = 37;
-            this.txtLocalidad.TextChanged += new System.EventHandler(this.txtLocalidad_TextChanged);
             // 
             // label15
             // 
@@ -413,7 +411,6 @@
             this.label16.Size = new System.Drawing.Size(90, 13);
             this.label16.TabIndex = 0;
             this.label16.Text = "Tarjeta de crédito";
-            this.label16.Click += new System.EventHandler(this.label16_Click);
             // 
             // chkBxHabilitado
             // 
@@ -432,7 +429,6 @@
             this.label17.Size = new System.Drawing.Size(54, 13);
             this.label17.TabIndex = 11;
             this.label17.Text = "Habilitado";
-            this.label17.Click += new System.EventHandler(this.label17_Click);
             // 
             // panel5
             // 
@@ -462,7 +458,6 @@
             this.label18.Size = new System.Drawing.Size(95, 13);
             this.label18.TabIndex = 14;
             this.label18.Text = "Nueva contraseña";
-            this.label18.Click += new System.EventHandler(this.label18_Click);
             // 
             // label19
             // 
@@ -472,7 +467,6 @@
             this.label19.Size = new System.Drawing.Size(97, 13);
             this.label19.TabIndex = 13;
             this.label19.Text = "Repetir contraseña";
-            this.label19.Click += new System.EventHandler(this.label19_Click);
             // 
             // txtRepetirClave
             // 
@@ -507,16 +501,6 @@
             this.panel5.PerformLayout();
             this.ResumeLayout(false);
 
-        }
-
-        private void txtLocalidad_TextChanged(object sender, System.EventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        private void label10_Click(object sender, System.EventArgs e)
-        {
-            throw new System.NotImplementedException();
         }
 
         #endregion
