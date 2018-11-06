@@ -81,9 +81,9 @@ namespace PalcoNet
         {
             //Hay algo raro aca, solo te deja hacerlo desde clientess.Historial
             //Se debe haber cagado algo cuando cambiamos todo de nombre
-            //new Clientes.Historial().Show();
-           // this.Hide();
-            MessageBox.Show("Hay un error con los nombres que no permite que funcione, chequear el codigo del onClick y ver el comentario");
+            new Clientes.Historial().Show();
+            this.Hide();
+           // MessageBox.Show("Hay un error con los nombres que no permite que funcione, chequear el codigo del onClick y ver el comentario");
         }
 
         private void btnCanjePuntos_Click(object sender, EventArgs e)
