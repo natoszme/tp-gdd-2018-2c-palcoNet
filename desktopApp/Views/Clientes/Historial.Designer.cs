@@ -1,4 +1,4 @@
-﻿namespace PalcoNet.Clientess
+﻿namespace PalcoNet.Clientes
 {
     partial class Historial
     {
