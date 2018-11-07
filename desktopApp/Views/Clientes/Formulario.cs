@@ -66,8 +66,7 @@ namespace PalcoNet.Clientes
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            // Cierro el dialog al apretar el btn volver
-            this.ParentForm.DialogResult = DialogResult.Cancel;
+            this.Hide();
         }
 
         #region HELPER
