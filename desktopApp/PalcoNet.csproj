@@ -32,14 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -55,31 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Cliente.cs">
-      <DependentUpon>EntityFramework.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Empresa.cs">
-      <DependentUpon>EntityFramework.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\EntityFramework.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EntityFramework.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\EntityFramework.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EntityFramework.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\EntityFramework.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EntityFramework.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Model\Funcionalidad.cs" />
-    <Compile Include="Model\Usuario.cs">
-      <DependentUpon>EntityFramework.tt</DependentUpon>
-    </Compile>
     <Compile Include="Views\Clientes\Historial.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -259,13 +227,6 @@
     <EmbeddedResource Include="Views\Usuarios\SeleccionarRol.resx">
       <DependentUpon>SeleccionarRol.cs</DependentUpon>
     </EmbeddedResource>
-    <EntityDeploy Include="Model\EntityFramework.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>EntityFramework.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Model\EntityFramework.edmx.diagram">
-      <DependentUpon>EntityFramework.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -282,18 +243,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Reportes\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Model\EntityFramework.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EntityFramework.edmx</DependentUpon>
-      <LastGenOutput>EntityFramework.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model\EntityFramework.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EntityFramework.edmx</DependentUpon>
-      <LastGenOutput>EntityFramework.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

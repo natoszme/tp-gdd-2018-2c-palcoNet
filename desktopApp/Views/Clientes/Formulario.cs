@@ -21,7 +21,7 @@ namespace PalcoNet.Clientes
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             // TODO: faltan las validaciones
-            using (GD2C2018Entities db = new GD2C2018Entities()) {
+            /*using (GD2C2018Entities db = new GD2C2018Entities()) {
                 var cliente = new Cliente();
                 cliente.nombre = txtNombre.Text;
                 cliente.apellido = txtApellido.Text;
@@ -42,7 +42,7 @@ namespace PalcoNet.Clientes
 
                 db.Cliente.Add(cliente);
                 db.SaveChanges();
-            }
+            }*/
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
