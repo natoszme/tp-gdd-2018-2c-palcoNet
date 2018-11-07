@@ -68,10 +68,10 @@
             this.chkBxHabilitado = new System.Windows.Forms.CheckBox();
             this.label17 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.txtClave = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
             this.txtRepetirClave = new System.Windows.Forms.TextBox();
+            this.txtClave = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -136,7 +136,7 @@
             this.dtpFechaNacimiento.Location = new System.Drawing.Point(144, 80);
             this.dtpFechaNacimiento.Name = "dtpFechaNacimiento";
             this.dtpFechaNacimiento.Size = new System.Drawing.Size(122, 20);
-            this.dtpFechaNacimiento.TabIndex = 30;
+            this.dtpFechaNacimiento.TabIndex = 5;
             this.dtpFechaNacimiento.Value = new System.DateTime(2018, 10, 13, 0, 0, 0, 0);
             // 
             // label8
@@ -153,7 +153,7 @@
             this.txtCuil.Location = new System.Drawing.Point(428, 81);
             this.txtCuil.Name = "txtCuil";
             this.txtCuil.Size = new System.Drawing.Size(207, 20);
-            this.txtCuil.TabIndex = 17;
+            this.txtCuil.TabIndex = 8;
             // 
             // label7
             // 
@@ -169,7 +169,7 @@
             this.txtTelefono.Location = new System.Drawing.Point(7, 81);
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(130, 20);
-            this.txtTelefono.TabIndex = 15;
+            this.txtTelefono.TabIndex = 4;
             // 
             // label6
             // 
@@ -185,7 +185,7 @@
             this.txtNroDocumento.Location = new System.Drawing.Point(327, 81);
             this.txtNroDocumento.Name = "txtNroDocumento";
             this.txtNroDocumento.Size = new System.Drawing.Size(95, 20);
-            this.txtNroDocumento.TabIndex = 13;
+            this.txtNroDocumento.TabIndex = 7;
             // 
             // label5
             // 
@@ -201,7 +201,7 @@
             this.txtEmail.Location = new System.Drawing.Point(428, 26);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(207, 20);
-            this.txtEmail.TabIndex = 11;
+            this.txtEmail.TabIndex = 3;
             // 
             // label4
             // 
@@ -217,7 +217,7 @@
             this.txtApellido.Location = new System.Drawing.Point(215, 26);
             this.txtApellido.Name = "txtApellido";
             this.txtApellido.Size = new System.Drawing.Size(207, 20);
-            this.txtApellido.TabIndex = 9;
+            this.txtApellido.TabIndex = 2;
             // 
             // cmbBxTipoDocumento
             // 
@@ -241,7 +241,7 @@
             this.txtNombre.Location = new System.Drawing.Point(7, 26);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(202, 20);
-            this.txtNombre.TabIndex = 4;
+            this.txtNombre.TabIndex = 1;
             // 
             // label2
             // 
@@ -266,7 +266,7 @@
             this.txtPortal.Location = new System.Drawing.Point(162, 31);
             this.txtPortal.Name = "txtPortal";
             this.txtPortal.Size = new System.Drawing.Size(106, 20);
-            this.txtPortal.TabIndex = 39;
+            this.txtPortal.TabIndex = 10;
             // 
             // label10
             // 
@@ -282,7 +282,7 @@
             this.txtLocalidad.Location = new System.Drawing.Point(412, 31);
             this.txtLocalidad.Name = "txtLocalidad";
             this.txtLocalidad.Size = new System.Drawing.Size(150, 20);
-            this.txtLocalidad.TabIndex = 37;
+            this.txtLocalidad.TabIndex = 13;
             // 
             // label15
             // 
@@ -298,7 +298,7 @@
             this.txtDireccion.Location = new System.Drawing.Point(6, 31);
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(150, 20);
-            this.txtDireccion.TabIndex = 35;
+            this.txtDireccion.TabIndex = 9;
             // 
             // label13
             // 
@@ -314,7 +314,7 @@
             this.txtCodigoPostal.Location = new System.Drawing.Point(568, 31);
             this.txtCodigoPostal.Name = "txtCodigoPostal";
             this.txtCodigoPostal.Size = new System.Drawing.Size(69, 20);
-            this.txtCodigoPostal.TabIndex = 27;
+            this.txtCodigoPostal.TabIndex = 14;
             // 
             // label12
             // 
@@ -330,7 +330,7 @@
             this.txtDepto.Location = new System.Drawing.Point(344, 31);
             this.txtDepto.Name = "txtDepto";
             this.txtDepto.Size = new System.Drawing.Size(62, 20);
-            this.txtDepto.TabIndex = 25;
+            this.txtDepto.TabIndex = 12;
             // 
             // label11
             // 
@@ -346,7 +346,7 @@
             this.txtNroPiso.Location = new System.Drawing.Point(275, 31);
             this.txtNroPiso.Name = "txtNroPiso";
             this.txtNroPiso.Size = new System.Drawing.Size(62, 20);
-            this.txtNroPiso.TabIndex = 23;
+            this.txtNroPiso.TabIndex = 11;
             // 
             // btnVolver
             // 
@@ -401,7 +401,7 @@
             this.txtTarjeta.Location = new System.Drawing.Point(7, 28);
             this.txtTarjeta.Name = "txtTarjeta";
             this.txtTarjeta.Size = new System.Drawing.Size(149, 20);
-            this.txtTarjeta.TabIndex = 10;
+            this.txtTarjeta.TabIndex = 15;
             // 
             // label16
             // 
@@ -418,7 +418,7 @@
             this.chkBxHabilitado.Location = new System.Drawing.Point(68, 10);
             this.chkBxHabilitado.Name = "chkBxHabilitado";
             this.chkBxHabilitado.Size = new System.Drawing.Size(15, 14);
-            this.chkBxHabilitado.TabIndex = 10;
+            this.chkBxHabilitado.TabIndex = 16;
             this.chkBxHabilitado.UseVisualStyleBackColor = true;
             // 
             // label17
@@ -443,21 +443,19 @@
             this.panel5.Size = new System.Drawing.Size(643, 35);
             this.panel5.TabIndex = 12;
             // 
+            // txtRepetirClave
+            // 
+            this.txtRepetirClave.Location = new System.Drawing.Point(489, 8);
+            this.txtRepetirClave.Name = "txtRepetirClave";
+            this.txtRepetirClave.Size = new System.Drawing.Size(108, 20);
+            this.txtRepetirClave.TabIndex = 18;
+            // 
             // txtClave
             // 
             this.txtClave.Location = new System.Drawing.Point(233, 8);
             this.txtClave.Name = "txtClave";
             this.txtClave.Size = new System.Drawing.Size(112, 20);
-            this.txtClave.TabIndex = 13;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(132, 11);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(95, 13);
-            this.label18.TabIndex = 14;
-            this.label18.Text = "Nueva contraseña";
+            this.txtClave.TabIndex = 17;
             // 
             // label19
             // 
@@ -468,12 +466,14 @@
             this.label19.TabIndex = 13;
             this.label19.Text = "Repetir contraseña";
             // 
-            // txtRepetirClave
+            // label18
             // 
-            this.txtRepetirClave.Location = new System.Drawing.Point(489, 8);
-            this.txtRepetirClave.Name = "txtRepetirClave";
-            this.txtRepetirClave.Size = new System.Drawing.Size(108, 20);
-            this.txtRepetirClave.TabIndex = 14;
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(132, 11);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(95, 13);
+            this.label18.TabIndex = 14;
+            this.label18.Text = "Nueva contraseña";
             // 
             // Formulario
             // 
