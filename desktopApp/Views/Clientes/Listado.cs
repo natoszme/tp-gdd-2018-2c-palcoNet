@@ -33,6 +33,15 @@ namespace PalcoNet.Clientes
             dgvClientes.DataSource = clientes.ToList();
             dgvClientes.Columns["id_usuario"].Visible = false;
         }
+
+        private int? getIdSeleccionado() {
+            try {
+                return int.Parse(dgvClientes.Rows[dgvClientes.CurrentRow.Index].Cells[0].Value.ToString());
+            }
+            catch {
+                return null;
+            }
+        }
         #endregion
 
         private void btnNuevo_Click(object sender, EventArgs e)
@@ -43,6 +52,20 @@ namespace PalcoNet.Clientes
 
             // Actualizo en cuanto se cierra el formulario
             actualizarDataGriedView();
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            int? id = getIdSeleccionado();
+
+            if (id != null) {
+                Formulario frm = new Formulario(id);
+                // Abro en una ventana nueva, hasta que no cierra no puede usar la anterior
+                frm.ShowDialog();
+
+                // Actualizo en cuanto se cierra el formulario
+                actualizarDataGriedView();
+            }            
         }
     }
 }

@@ -43,6 +43,7 @@
             this.txtDocumento = new System.Windows.Forms.TextBox();
             this.txtApellido = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnEditar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -63,6 +64,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnEditar);
             this.panel1.Controls.Add(this.btnNuevo);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(12, 12);
@@ -72,7 +74,7 @@
             // 
             // btnNuevo
             // 
-            this.btnNuevo.Location = new System.Drawing.Point(626, 4);
+            this.btnNuevo.Location = new System.Drawing.Point(514, 4);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(104, 23);
             this.btnNuevo.TabIndex = 1;
@@ -191,6 +193,16 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Nombre";
             // 
+            // btnEditar
+            // 
+            this.btnEditar.Location = new System.Drawing.Point(624, 4);
+            this.btnEditar.Name = "btnEditar";
+            this.btnEditar.Size = new System.Drawing.Size(104, 23);
+            this.btnEditar.TabIndex = 2;
+            this.btnEditar.Text = "Editar cliente";
+            this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
+            // 
             // Listado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -228,5 +240,6 @@
         private System.Windows.Forms.TextBox txtDocumento;
         private System.Windows.Forms.TextBox txtApellido;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnEditar;
     }
 }
