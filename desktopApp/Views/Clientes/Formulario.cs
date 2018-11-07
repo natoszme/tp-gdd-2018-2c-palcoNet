@@ -21,14 +21,15 @@ namespace PalcoNet.Clientes
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             // TODO: faltan las validaciones
-            /*using (GD2C2018Entities db = new GD2C2018Entities()) {
+            using (RagnarEntities db = new RagnarEntities())
+            {
                 var cliente = new Cliente();
                 cliente.nombre = txtNombre.Text;
                 cliente.apellido = txtApellido.Text;
                 cliente.mail = txtEmail.Text;
                 cliente.telefono = txtTelefono.Text;
                 cliente.fecha_nacimiento = dtpFechaNacimiento.Value;
-                cliente.tipo_documento = cmbBxTipoDocumento.SelectedValue.ToString();
+                cliente.tipo_documento = cmbBxTipoDocumento.SelectedValue != null ? cmbBxTipoDocumento.SelectedValue.ToString() : null;
                 cliente.numero_documento = Decimal.Parse(txtNroDocumento.Text);
                 cliente.cuil = txtCuil.Text;
                 // TODO: falta la direccion
@@ -42,7 +43,7 @@ namespace PalcoNet.Clientes
 
                 db.Cliente.Add(cliente);
                 db.SaveChanges();
-            }*/
+            }
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
