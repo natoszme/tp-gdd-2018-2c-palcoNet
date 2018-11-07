@@ -12,16 +12,19 @@ namespace PalcoNet.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Funcionalidad
+    public partial class Factura
     {
-        public Funcionalidad()
+        public Factura()
         {
-            this.Rol = new HashSet<Rol>();
+            this.Item_factura = new HashSet<Item_factura>();
         }
     
-        public int id_funcionalidad { get; set; }
-        public string descripcion { get; set; }
+        public long id_factura { get; set; }
+        public decimal numero { get; set; }
+        public System.DateTime fecha { get; set; }
+        public decimal total { get; set; }
+        public string forma_pago { get; set; }
     
-        public virtual ICollection<Rol> Rol { get; set; }
+        public virtual ICollection<Item_factura> Item_factura { get; set; }
     }
 }

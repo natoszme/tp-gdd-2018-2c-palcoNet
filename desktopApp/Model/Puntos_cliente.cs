@@ -12,16 +12,13 @@ namespace PalcoNet.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Funcionalidad
+    public partial class Puntos_cliente
     {
-        public Funcionalidad()
-        {
-            this.Rol = new HashSet<Rol>();
-        }
+        public long id_puntaje { get; set; }
+        public Nullable<long> id_cliente { get; set; }
+        public Nullable<int> puntos { get; set; }
+        public System.DateTime vencimiento { get; set; }
     
-        public int id_funcionalidad { get; set; }
-        public string descripcion { get; set; }
-    
-        public virtual ICollection<Rol> Rol { get; set; }
+        public virtual Cliente Cliente { get; set; }
     }
 }

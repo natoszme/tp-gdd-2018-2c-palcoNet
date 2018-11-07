@@ -27,12 +27,11 @@ namespace PalcoNet.Clientes
         #region HELPER
         private void actualizarDataGriedView()
         {
-            /*using (GD2C2018Entities db = new GD2C2018Entities()) {
-                var clientes = from c in db.Cliente
-                               select new { c.id_usuario, c.nombre, c.apellido, c.numero_documento, c.mail };
-                dgvClientes.DataSource = clientes.ToList();
-                dgvClientes.Columns["id_usuario"].Visible = false;
-            }*/
+            RagnarEntities db = new RagnarEntities();
+            var clientes = from c in db.Cliente
+                            select new { c.id_usuario, c.nombre, c.apellido, c.numero_documento, c.mail };
+            dgvClientes.DataSource = clientes.ToList();
+            dgvClientes.Columns["id_usuario"].Visible = false;
         }
         #endregion
 

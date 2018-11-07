@@ -12,16 +12,16 @@ namespace PalcoNet.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Funcionalidad
+    public partial class Estado_publicacion
     {
-        public Funcionalidad()
+        public Estado_publicacion()
         {
-            this.Rol = new HashSet<Rol>();
+            this.Publicacion = new HashSet<Publicacion>();
         }
     
-        public int id_funcionalidad { get; set; }
+        public int id_estado { get; set; }
         public string descripcion { get; set; }
     
-        public virtual ICollection<Rol> Rol { get; set; }
+        public virtual ICollection<Publicacion> Publicacion { get; set; }
     }
 }
