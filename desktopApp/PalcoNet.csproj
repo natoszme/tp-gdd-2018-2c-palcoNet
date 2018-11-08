@@ -121,6 +121,9 @@
     <Compile Include="Model\Usuario.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Utils\DataGridViewUtils.cs" />
+    <Compile Include="Utils\SessionUtils.cs" />
+    <Compile Include="Utils\WindowsFormUtils.cs" />
     <Compile Include="Views\Clientes\Historial.cs">
       <SubType>Form</SubType>
     </Compile>
