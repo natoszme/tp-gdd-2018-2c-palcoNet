@@ -83,6 +83,11 @@ namespace PalcoNet.Usuarios
         {
 
         }
+
+        private void cmbBxRol_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
         
     }
 }

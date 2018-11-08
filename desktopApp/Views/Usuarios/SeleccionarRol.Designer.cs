@@ -53,6 +53,7 @@
             this.cmbBxRol.Name = "cmbBxRol";
             this.cmbBxRol.Size = new System.Drawing.Size(313, 21);
             this.cmbBxRol.TabIndex = 6;
+            this.cmbBxRol.SelectedIndexChanged += new System.EventHandler(this.cmbBxRol_SelectedIndexChanged);
             // 
             // btnIngresar
             // 

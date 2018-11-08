@@ -73,5 +73,10 @@ namespace PalcoNet.Clientes
             this.Hide();
             new Home().Show();
         }
+
+        private void btnFiltrar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

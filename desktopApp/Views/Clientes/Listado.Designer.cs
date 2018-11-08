@@ -139,6 +139,7 @@
             this.btnFiltrar.TabIndex = 2;
             this.btnFiltrar.Text = "Filtrar";
             this.btnFiltrar.UseVisualStyleBackColor = true;
+            this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
             // 
             // txtEmail
             // 

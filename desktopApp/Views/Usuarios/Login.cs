@@ -52,7 +52,7 @@ namespace PalcoNet.Usuarios
             }
             else
             {
-                MessageBox.Show("Verifique los datos ingresados y vuelva a ingresarlos", "Usuario no identificado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Verifique los datos ingresados y vuelva a intentarlo", "Usuario no identificado", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
