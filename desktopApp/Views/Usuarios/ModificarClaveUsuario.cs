@@ -21,5 +21,11 @@ namespace PalcoNet.Usuarios
         {
             this.Hide();
         }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new Home().Show();
+        }
     }
 }

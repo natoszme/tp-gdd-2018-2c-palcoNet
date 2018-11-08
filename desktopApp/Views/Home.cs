@@ -101,22 +101,9 @@ namespace PalcoNet
 
         private void btnModificarContraseña_Click(object sender, EventArgs e)
         {
-            if (Global.rolUsuario == Model.TipoRol.Administrativo)
-            {
-                new Usuarios.ModificarClaveAdmin().Show();
-                this.Hide();
-            }
-            else if (Global.rolUsuario == Model.TipoRol.Cliente)
-            {
-                new Usuarios.ModificarClaveUsuario().Show();
-                this.Hide();
-            }
-            else
-            {
-                MessageBox.Show("El cambio de contraseña para un usuario con un rol que no sea cliente o administrativo no esta implementado");
-            }
+            this.Hide();
+            new Usuarios.ModificarClaveUsuario().Show();
         }
-
 
     }
 }

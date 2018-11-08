@@ -40,11 +40,15 @@
             this.btnRendicionComisiones = new System.Windows.Forms.Button();
             this.btnCanjePuntos = new System.Windows.Forms.Button();
             this.btnHistorial = new System.Windows.Forms.Button();
+            this.lblUsername = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAbmRol
             // 
-            this.btnAbmRol.Location = new System.Drawing.Point(12, 34);
+            this.btnAbmRol.Location = new System.Drawing.Point(28, 114);
             this.btnAbmRol.Name = "btnAbmRol";
             this.btnAbmRol.Size = new System.Drawing.Size(126, 23);
             this.btnAbmRol.TabIndex = 0;
@@ -54,7 +58,7 @@
             // 
             // btnRegistroUsuario
             // 
-            this.btnRegistroUsuario.Location = new System.Drawing.Point(144, 34);
+            this.btnRegistroUsuario.Location = new System.Drawing.Point(221, 114);
             this.btnRegistroUsuario.Name = "btnRegistroUsuario";
             this.btnRegistroUsuario.Size = new System.Drawing.Size(126, 23);
             this.btnRegistroUsuario.TabIndex = 1;
@@ -64,7 +68,7 @@
             // 
             // btnAbmEmpresa
             // 
-            this.btnAbmEmpresa.Location = new System.Drawing.Point(144, 63);
+            this.btnAbmEmpresa.Location = new System.Drawing.Point(221, 143);
             this.btnAbmEmpresa.Name = "btnAbmEmpresa";
             this.btnAbmEmpresa.Size = new System.Drawing.Size(126, 23);
             this.btnAbmEmpresa.TabIndex = 3;
@@ -74,7 +78,7 @@
             // 
             // btnAbmClientes
             // 
-            this.btnAbmClientes.Location = new System.Drawing.Point(12, 63);
+            this.btnAbmClientes.Location = new System.Drawing.Point(28, 143);
             this.btnAbmClientes.Name = "btnAbmClientes";
             this.btnAbmClientes.Size = new System.Drawing.Size(126, 23);
             this.btnAbmClientes.TabIndex = 2;
@@ -84,7 +88,7 @@
             // 
             // btnComprar
             // 
-            this.btnComprar.Location = new System.Drawing.Point(144, 121);
+            this.btnComprar.Location = new System.Drawing.Point(221, 201);
             this.btnComprar.Name = "btnComprar";
             this.btnComprar.Size = new System.Drawing.Size(126, 23);
             this.btnComprar.TabIndex = 7;
@@ -94,7 +98,7 @@
             // 
             // btnEditarPublicacion
             // 
-            this.btnEditarPublicacion.Location = new System.Drawing.Point(12, 121);
+            this.btnEditarPublicacion.Location = new System.Drawing.Point(28, 201);
             this.btnEditarPublicacion.Name = "btnEditarPublicacion";
             this.btnEditarPublicacion.Size = new System.Drawing.Size(126, 23);
             this.btnEditarPublicacion.TabIndex = 6;
@@ -104,7 +108,7 @@
             // 
             // btnGenerarPublicacion
             // 
-            this.btnGenerarPublicacion.Location = new System.Drawing.Point(144, 92);
+            this.btnGenerarPublicacion.Location = new System.Drawing.Point(221, 172);
             this.btnGenerarPublicacion.Name = "btnGenerarPublicacion";
             this.btnGenerarPublicacion.Size = new System.Drawing.Size(126, 23);
             this.btnGenerarPublicacion.TabIndex = 5;
@@ -114,7 +118,7 @@
             // 
             // btnAbmGrado
             // 
-            this.btnAbmGrado.Location = new System.Drawing.Point(12, 92);
+            this.btnAbmGrado.Location = new System.Drawing.Point(28, 172);
             this.btnAbmGrado.Name = "btnAbmGrado";
             this.btnAbmGrado.Size = new System.Drawing.Size(126, 23);
             this.btnAbmGrado.TabIndex = 4;
@@ -124,7 +128,7 @@
             // 
             // btnModificarContraseña
             // 
-            this.btnModificarContraseña.Location = new System.Drawing.Point(144, 177);
+            this.btnModificarContraseña.Location = new System.Drawing.Point(214, 8);
             this.btnModificarContraseña.Name = "btnModificarContraseña";
             this.btnModificarContraseña.Size = new System.Drawing.Size(126, 23);
             this.btnModificarContraseña.TabIndex = 11;
@@ -134,7 +138,7 @@
             // 
             // btnRendicionComisiones
             // 
-            this.btnRendicionComisiones.Location = new System.Drawing.Point(12, 177);
+            this.btnRendicionComisiones.Location = new System.Drawing.Point(28, 257);
             this.btnRendicionComisiones.Name = "btnRendicionComisiones";
             this.btnRendicionComisiones.Size = new System.Drawing.Size(126, 23);
             this.btnRendicionComisiones.TabIndex = 10;
@@ -144,7 +148,7 @@
             // 
             // btnCanjePuntos
             // 
-            this.btnCanjePuntos.Location = new System.Drawing.Point(144, 148);
+            this.btnCanjePuntos.Location = new System.Drawing.Point(221, 228);
             this.btnCanjePuntos.Name = "btnCanjePuntos";
             this.btnCanjePuntos.Size = new System.Drawing.Size(126, 23);
             this.btnCanjePuntos.TabIndex = 9;
@@ -154,7 +158,7 @@
             // 
             // btnHistorial
             // 
-            this.btnHistorial.Location = new System.Drawing.Point(12, 148);
+            this.btnHistorial.Location = new System.Drawing.Point(28, 228);
             this.btnHistorial.Name = "btnHistorial";
             this.btnHistorial.Size = new System.Drawing.Size(126, 23);
             this.btnHistorial.TabIndex = 8;
@@ -162,12 +166,41 @@
             this.btnHistorial.UseVisualStyleBackColor = true;
             this.btnHistorial.Click += new System.EventHandler(this.btnHistorial_Click);
             // 
+            // lblUsername
+            // 
+            this.lblUsername.AutoSize = true;
+            this.lblUsername.Location = new System.Drawing.Point(15, 13);
+            this.lblUsername.Name = "lblUsername";
+            this.lblUsername.Size = new System.Drawing.Size(112, 13);
+            this.lblUsername.TabIndex = 12;
+            this.lblUsername.Text = "Bienvenido, username";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(81, 75);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(208, 20);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Funcionalidades disponibles";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btnModificarContraseña);
+            this.panel1.Controls.Add(this.lblUsername);
+            this.panel1.Location = new System.Drawing.Point(15, 16);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(350, 38);
+            this.panel1.TabIndex = 14;
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 246);
-            this.Controls.Add(this.btnModificarContraseña);
+            this.ClientSize = new System.Drawing.Size(377, 306);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnRendicionComisiones);
             this.Controls.Add(this.btnCanjePuntos);
             this.Controls.Add(this.btnHistorial);
@@ -182,7 +215,10 @@
             this.Name = "Home";
             this.Text = "Home";
             this.Load += new System.EventHandler(this.Home_Load);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -200,5 +236,8 @@
         private System.Windows.Forms.Button btnRendicionComisiones;
         private System.Windows.Forms.Button btnCanjePuntos;
         private System.Windows.Forms.Button btnHistorial;
+        private System.Windows.Forms.Label lblUsername;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel1;
     }
 }
