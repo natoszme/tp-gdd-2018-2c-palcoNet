@@ -76,7 +76,43 @@ namespace PalcoNet.Clientes
 
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
+            using (RagnarEntities db = new RagnarEntities())
+            {
+                var clientesFiltrados = db.Cliente.AsQueryable();
 
+                if (!string.IsNullOrWhiteSpace(txtNombre.Text))
+                {
+                    clientesFiltrados = clientesFiltrados.Where(c => c.nombre.Contains(txtNombre.Text));
+                }
+
+                if (!string.IsNullOrWhiteSpace(txtApellido.Text))
+                {
+                    clientesFiltrados = clientesFiltrados.Where(c => c.apellido.Contains(txtApellido.Text));
+                }
+
+                if (!string.IsNullOrWhiteSpace(txtEmail.Text))
+                {
+                    clientesFiltrados = clientesFiltrados.Where(c => c.mail.Contains(txtEmail.Text));
+                }
+
+                if (!string.IsNullOrWhiteSpace(txtDocumento.Text))
+                {
+                    //TODO validar parseo ok a decimal
+                    clientesFiltrados = clientesFiltrados.Where(c => c.numero_documento.ToString().Contains(txtDocumento.Text));
+                }
+
+                var clientes = clientesFiltrados.Select(c => new
+                {
+                    id_usuario = c.id_usuario,
+                    nombre = c.nombre,
+                    apellido = c.apellido,
+                    numero_documento = c.numero_documento,
+                    mail = c.mail
+                });
+
+                dgvClientes.DataSource = clientes.ToList();
+                dgvClientes.Columns["id_usuario"].Visible = false;
+            }
         }
     }
 }
