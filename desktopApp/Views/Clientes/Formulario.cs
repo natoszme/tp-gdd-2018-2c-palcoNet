@@ -98,7 +98,7 @@ namespace PalcoNet.Clientes
 
         private void btnCambiarPass_Click(object sender, EventArgs e)
         {
-            new Usuarios.ModificarClaveUsuario().Show();
+            new Usuarios.ModificarClaveUsuario().ShowDialog();
         }
 
     }
