@@ -28,8 +28,16 @@ namespace PalcoNet.Clientes
         private void actualizarDataGriedView()
         {
             RagnarEntities db = new RagnarEntities();
-            var clientes = from c in db.Cliente
-                            select new { c.id_usuario, c.nombre, c.apellido, c.numero_documento, c.mail };
+
+            var clientes = db.Cliente.Select(c => new
+            {
+                id_usuario = c.id_usuario,
+                nombre = c.nombre,
+                apellido = c.apellido,
+                numero_documento = c.numero_documento,
+                mail = c.mail
+            }).OrderBy(c => c.nombre).ThenBy(c => c.apellido);
+
             dgvClientes.DataSource = clientes.ToList();
             dgvClientes.Columns["id_usuario"].Visible = false;
         }
@@ -78,7 +86,7 @@ namespace PalcoNet.Clientes
         {
             using (RagnarEntities db = new RagnarEntities())
             {
-                var clientesFiltrados = db.Cliente.AsQueryable();
+                IQueryable<Cliente> clientesFiltrados = db.Cliente.AsQueryable();
 
                 if (!string.IsNullOrWhiteSpace(txtNombre.Text))
                 {
@@ -97,7 +105,6 @@ namespace PalcoNet.Clientes
 
                 if (!string.IsNullOrWhiteSpace(txtDocumento.Text))
                 {
-                    //TODO validar parseo ok a decimal
                     clientesFiltrados = clientesFiltrados.Where(c => c.numero_documento.ToString().Contains(txtDocumento.Text));
                 }
 
@@ -108,11 +115,21 @@ namespace PalcoNet.Clientes
                     apellido = c.apellido,
                     numero_documento = c.numero_documento,
                     mail = c.mail
-                });
+                }).OrderBy(c => c.nombre).ThenBy(c => c.apellido);
 
                 dgvClientes.DataSource = clientes.ToList();
                 dgvClientes.Columns["id_usuario"].Visible = false;
             }
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            txtNombre.Text = "";
+            txtApellido.Text = "";
+            txtEmail.Text = "";
+            txtDocumento.Text = "";
+
+            txtNombre.Focus();
         }
     }
 }
