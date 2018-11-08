@@ -45,7 +45,6 @@ namespace PalcoNet.Clientes
                 cliente.tipo_documento = cmbBxTipoDocumento.SelectedValue != null ? cmbBxTipoDocumento.SelectedValue.ToString() : null;
                 cliente.numero_documento = Decimal.Parse(txtNroDocumento.Text);
                 cliente.cuil = txtCuil.Text;
-                // TODO: falta la direccion
                 cliente.portal = Decimal.Parse(txtPortal.Text);
                 cliente.piso = Decimal.Parse(txtNroPiso.Text);
                 cliente.departamento = txtDepto.Text;
