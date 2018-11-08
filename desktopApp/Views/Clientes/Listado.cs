@@ -68,13 +68,13 @@ namespace PalcoNet.Clientes
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            MainUtils.abrirFormulario(new Formulario(), actualizarDataGriedView);
+            WindowsFormUtils.abrirFormulario(new Formulario(), actualizarDataGriedView);
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
             int? id = DataGridViewUtils.obtenerIdSeleccionado(dgvClientes);
-            MainUtils.abrirFormulario(new Formulario(id), actualizarDataGriedView);
+            WindowsFormUtils.abrirFormulario(new Formulario(id), actualizarDataGriedView);
         }
 
         private void btnFiltrar_Click(object sender, EventArgs e)
@@ -94,7 +94,7 @@ namespace PalcoNet.Clientes
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            MainUtils.volverALaHome(this);
+            WindowsFormUtils.volverALaHome(this);
         }
     }
 }
