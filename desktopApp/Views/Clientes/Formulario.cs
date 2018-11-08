@@ -25,7 +25,7 @@ namespace PalcoNet.Clientes
                 cargarDatos();
             }
 
-            //TODO validar si quien esta logueado es admin. Si lo es hay que cambiar el boton de cambio de pass, y mostrar el panel de habilitado
+            //TODO validar si quien esta logueado es admin. Si lo es hay que mostrar el panel pnlDatosUsuario
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -98,7 +98,7 @@ namespace PalcoNet.Clientes
 
         private void btnCambiarPass_Click(object sender, EventArgs e)
         {
-            new Usuarios.ModificarClaveUsuario().ShowDialog();
+            new Usuarios.ModificarClaveAdmin().ShowDialog();
         }
 
     }

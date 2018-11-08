@@ -29,16 +29,17 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnRegistrarEmpresa = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cmbBxRol = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtRepetirClave = new System.Windows.Forms.TextBox();
             this.btnRegistrarCliente = new System.Windows.Forms.Button();
             this.txtClave = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtUsuario = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtRepetirClave = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.cmbBxRol = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.btnRegistrarEmpresa = new System.Windows.Forms.Button();
+            this.btnVolver = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,6 +59,48 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(461, 179);
             this.panel1.TabIndex = 1;
+            // 
+            // btnRegistrarEmpresa
+            // 
+            this.btnRegistrarEmpresa.Location = new System.Drawing.Point(240, 136);
+            this.btnRegistrarEmpresa.Name = "btnRegistrarEmpresa";
+            this.btnRegistrarEmpresa.Size = new System.Drawing.Size(202, 23);
+            this.btnRegistrarEmpresa.TabIndex = 9;
+            this.btnRegistrarEmpresa.Text = "Registrarme como empresa";
+            this.btnRegistrarEmpresa.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(238, 17);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(77, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Seleccionar rol";
+            // 
+            // cmbBxRol
+            // 
+            this.cmbBxRol.FormattingEnabled = true;
+            this.cmbBxRol.Location = new System.Drawing.Point(241, 33);
+            this.cmbBxRol.Name = "cmbBxRol";
+            this.cmbBxRol.Size = new System.Drawing.Size(201, 21);
+            this.cmbBxRol.TabIndex = 7;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(238, 66);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(97, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Repetir contraseña";
+            // 
+            // txtRepetirClave
+            // 
+            this.txtRepetirClave.Location = new System.Drawing.Point(240, 82);
+            this.txtRepetirClave.Name = "txtRepetirClave";
+            this.txtRepetirClave.Size = new System.Drawing.Size(202, 20);
+            this.txtRepetirClave.TabIndex = 5;
             // 
             // btnRegistrarCliente
             // 
@@ -100,53 +143,22 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Usuario";
             // 
-            // txtRepetirClave
+            // btnVolver
             // 
-            this.txtRepetirClave.Location = new System.Drawing.Point(240, 82);
-            this.txtRepetirClave.Name = "txtRepetirClave";
-            this.txtRepetirClave.Size = new System.Drawing.Size(202, 20);
-            this.txtRepetirClave.TabIndex = 5;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(238, 66);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(97, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Repetir contraseña";
-            // 
-            // cmbBxRol
-            // 
-            this.cmbBxRol.FormattingEnabled = true;
-            this.cmbBxRol.Location = new System.Drawing.Point(241, 33);
-            this.cmbBxRol.Name = "cmbBxRol";
-            this.cmbBxRol.Size = new System.Drawing.Size(201, 21);
-            this.cmbBxRol.TabIndex = 7;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(238, 17);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(77, 13);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Seleccionar rol";
-            // 
-            // btnRegistrarEmpresa
-            // 
-            this.btnRegistrarEmpresa.Location = new System.Drawing.Point(240, 136);
-            this.btnRegistrarEmpresa.Name = "btnRegistrarEmpresa";
-            this.btnRegistrarEmpresa.Size = new System.Drawing.Size(202, 23);
-            this.btnRegistrarEmpresa.TabIndex = 9;
-            this.btnRegistrarEmpresa.Text = "Registrarme como empresa";
-            this.btnRegistrarEmpresa.UseVisualStyleBackColor = true;
+            this.btnVolver.Location = new System.Drawing.Point(399, 205);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(75, 23);
+            this.btnVolver.TabIndex = 2;
+            this.btnVolver.Text = "Volver";
+            this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
             // Signup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(486, 202);
+            this.ClientSize = new System.Drawing.Size(486, 240);
+            this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.panel1);
             this.Name = "Signup";
             this.Text = "Registrar usuario";
@@ -169,5 +181,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtUsuario;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnVolver;
     }
 }

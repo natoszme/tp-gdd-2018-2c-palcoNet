@@ -59,7 +59,6 @@
             this.txtDepto = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.txtNroPiso = new System.Windows.Forms.TextBox();
-            this.btnVolver = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -67,15 +66,13 @@
             this.label16 = new System.Windows.Forms.Label();
             this.chkBxHabilitado = new System.Windows.Forms.CheckBox();
             this.label17 = new System.Windows.Forms.Label();
-            this.panel5 = new System.Windows.Forms.Panel();
+            this.pnlDatosUsuario = new System.Windows.Forms.Panel();
             this.btnCambiarPass = new System.Windows.Forms.Button();
-            this.pnlHabilitado = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
-            this.panel5.SuspendLayout();
-            this.pnlHabilitado.SuspendLayout();
+            this.pnlDatosUsuario.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -347,19 +344,9 @@
             this.txtNroPiso.Size = new System.Drawing.Size(62, 20);
             this.txtNroPiso.TabIndex = 11;
             // 
-            // btnVolver
-            // 
-            this.btnVolver.Location = new System.Drawing.Point(580, 381);
-            this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(75, 23);
-            this.btnVolver.TabIndex = 20;
-            this.btnVolver.Text = "Volver";
-            this.btnVolver.UseVisualStyleBackColor = true;
-            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
-            // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(499, 381);
+            this.btnGuardar.Location = new System.Drawing.Point(580, 379);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
             this.btnGuardar.TabIndex = 19;
@@ -414,7 +401,7 @@
             // chkBxHabilitado
             // 
             this.chkBxHabilitado.AutoSize = true;
-            this.chkBxHabilitado.Location = new System.Drawing.Point(75, 11);
+            this.chkBxHabilitado.Location = new System.Drawing.Point(253, 11);
             this.chkBxHabilitado.Name = "chkBxHabilitado";
             this.chkBxHabilitado.Size = new System.Drawing.Size(15, 14);
             this.chkBxHabilitado.TabIndex = 16;
@@ -423,20 +410,22 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(15, 11);
+            this.label17.Location = new System.Drawing.Point(193, 11);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(54, 13);
             this.label17.TabIndex = 11;
             this.label17.Text = "Habilitado";
             // 
-            // panel5
+            // pnlDatosUsuario
             // 
-            this.panel5.Controls.Add(this.pnlHabilitado);
-            this.panel5.Controls.Add(this.btnCambiarPass);
-            this.panel5.Location = new System.Drawing.Point(12, 331);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(643, 35);
-            this.panel5.TabIndex = 12;
+            this.pnlDatosUsuario.Controls.Add(this.chkBxHabilitado);
+            this.pnlDatosUsuario.Controls.Add(this.btnCambiarPass);
+            this.pnlDatosUsuario.Controls.Add(this.label17);
+            this.pnlDatosUsuario.Location = new System.Drawing.Point(12, 331);
+            this.pnlDatosUsuario.Name = "pnlDatosUsuario";
+            this.pnlDatosUsuario.Size = new System.Drawing.Size(643, 35);
+            this.pnlDatosUsuario.TabIndex = 12;
+            this.pnlDatosUsuario.Visible = false;
             // 
             // btnCambiarPass
             // 
@@ -448,27 +437,17 @@
             this.btnCambiarPass.UseVisualStyleBackColor = true;
             this.btnCambiarPass.Click += new System.EventHandler(this.btnCambiarPass_Click);
             // 
-            // pnlHabilitado
-            // 
-            this.pnlHabilitado.Controls.Add(this.chkBxHabilitado);
-            this.pnlHabilitado.Controls.Add(this.label17);
-            this.pnlHabilitado.Location = new System.Drawing.Point(178, 0);
-            this.pnlHabilitado.Name = "pnlHabilitado";
-            this.pnlHabilitado.Size = new System.Drawing.Size(104, 35);
-            this.pnlHabilitado.TabIndex = 18;
-            // 
             // Formulario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(669, 414);
-            this.Controls.Add(this.panel5);
+            this.Controls.Add(this.pnlDatosUsuario);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.btnGuardar);
-            this.Controls.Add(this.btnVolver);
             this.Name = "Formulario";
             this.Text = "Cliente";
             this.panel1.ResumeLayout(false);
@@ -479,9 +458,8 @@
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
-            this.panel5.ResumeLayout(false);
-            this.pnlHabilitado.ResumeLayout(false);
-            this.pnlHabilitado.PerformLayout();
+            this.pnlDatosUsuario.ResumeLayout(false);
+            this.pnlDatosUsuario.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -491,7 +469,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.ComboBox cmbBxTipoDocumento;
         private System.Windows.Forms.Label label3;
@@ -527,9 +504,8 @@
         private System.Windows.Forms.TextBox txtTarjeta;
         private System.Windows.Forms.CheckBox chkBxHabilitado;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel pnlDatosUsuario;
         private System.Windows.Forms.Button btnCambiarPass;
-        private System.Windows.Forms.Panel pnlHabilitado;
 
     }
 }

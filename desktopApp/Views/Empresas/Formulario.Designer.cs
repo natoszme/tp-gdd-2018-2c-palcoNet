@@ -51,19 +51,18 @@
             this.txtLocalidad = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.txtDireccion = new System.Windows.Forms.TextBox();
-            this.btnVolver = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.txtPortal = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.pnlDatosUsuario = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.chkBxHabilitado = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.panel4.SuspendLayout();
+            this.pnlDatosUsuario.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -260,18 +259,9 @@
             this.txtDireccion.Size = new System.Drawing.Size(150, 20);
             this.txtDireccion.TabIndex = 19;
             // 
-            // btnVolver
-            // 
-            this.btnVolver.Location = new System.Drawing.Point(695, 279);
-            this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(75, 23);
-            this.btnVolver.TabIndex = 8;
-            this.btnVolver.Text = "Volver";
-            this.btnVolver.UseVisualStyleBackColor = true;
-            // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(614, 279);
+            this.btnGuardar.Location = new System.Drawing.Point(706, 278);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
             this.btnGuardar.TabIndex = 7;
@@ -316,15 +306,16 @@
             this.label4.Text = "Portal";
             this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
-            // panel4
+            // pnlDatosUsuario
             // 
-            this.panel4.Controls.Add(this.button1);
-            this.panel4.Controls.Add(this.chkBxHabilitado);
-            this.panel4.Controls.Add(this.label6);
-            this.panel4.Location = new System.Drawing.Point(12, 218);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(769, 37);
-            this.panel4.TabIndex = 10;
+            this.pnlDatosUsuario.Controls.Add(this.button1);
+            this.pnlDatosUsuario.Controls.Add(this.chkBxHabilitado);
+            this.pnlDatosUsuario.Controls.Add(this.label6);
+            this.pnlDatosUsuario.Location = new System.Drawing.Point(12, 218);
+            this.pnlDatosUsuario.Name = "pnlDatosUsuario";
+            this.pnlDatosUsuario.Size = new System.Drawing.Size(769, 37);
+            this.pnlDatosUsuario.TabIndex = 10;
+            this.pnlDatosUsuario.Visible = false;
             // 
             // button1
             // 
@@ -359,12 +350,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(794, 313);
-            this.Controls.Add(this.panel4);
+            this.Controls.Add(this.pnlDatosUsuario);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.btnGuardar);
-            this.Controls.Add(this.btnVolver);
             this.Name = "Formulario";
             this.Text = "Empresa de espectáculos";
             this.panel1.ResumeLayout(false);
@@ -373,8 +363,8 @@
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
+            this.pnlDatosUsuario.ResumeLayout(false);
+            this.pnlDatosUsuario.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -412,14 +402,13 @@
         private System.Windows.Forms.TextBox txtTelefono;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtEmail;
-        private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.TextBox txtRazonSocial;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtPortal;
-        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel pnlDatosUsuario;
         private System.Windows.Forms.CheckBox chkBxHabilitado;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button button1;

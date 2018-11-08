@@ -34,6 +34,7 @@
             this.dgvRoles = new System.Windows.Forms.DataGridView();
             this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.acciones = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnVolver = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRoles)).BeginInit();
             this.SuspendLayout();
@@ -99,11 +100,22 @@
             this.acciones.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.acciones.Width = 57;
             // 
+            // btnVolver
+            // 
+            this.btnVolver.Location = new System.Drawing.Point(579, 356);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(75, 23);
+            this.btnVolver.TabIndex = 2;
+            this.btnVolver.Text = "Volver";
+            this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
+            // 
             // Listado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(669, 357);
+            this.ClientSize = new System.Drawing.Size(669, 391);
+            this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.dgvRoles);
             this.Controls.Add(this.panel1);
             this.Name = "Listado";
@@ -123,5 +135,6 @@
         private System.Windows.Forms.DataGridView dgvRoles;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn acciones;
+        private System.Windows.Forms.Button btnVolver;
     }
 }

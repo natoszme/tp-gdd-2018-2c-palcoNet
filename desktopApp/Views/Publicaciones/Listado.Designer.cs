@@ -32,6 +32,7 @@
             this.btnNuevo = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnVolver = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPublicaciones)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -77,11 +78,22 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Publicaciones";
             // 
+            // btnVolver
+            // 
+            this.btnVolver.Location = new System.Drawing.Point(362, 280);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(75, 23);
+            this.btnVolver.TabIndex = 6;
+            this.btnVolver.Text = "Volver";
+            this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
+            // 
             // Listado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(509, 303);
+            this.ClientSize = new System.Drawing.Size(449, 315);
+            this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.dgvPublicaciones);
             this.Controls.Add(this.panel1);
             this.Name = "Listado";
@@ -100,6 +112,7 @@
         private System.Windows.Forms.Button btnNuevo;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnVolver;
 
     }
 }

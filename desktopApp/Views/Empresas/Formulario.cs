@@ -15,11 +15,18 @@ namespace PalcoNet.Empresas
         public Formulario()
         {
             InitializeComponent();
+
+            //TODO validar si quien esta logueado es admin. Si lo es hay que mostrar el panel pnlDatosUsuario
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            new Usuarios.ModificarClaveUsuario().ShowDialog();
+            new Usuarios.ModificarClaveAdmin().ShowDialog();
+        }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
