@@ -33,6 +33,7 @@
             this.premio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.puntosNecesarios = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.acciones = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnVolver = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPremios)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,11 +80,22 @@
             this.acciones.Name = "acciones";
             this.acciones.ReadOnly = true;
             // 
+            // btnVolver
+            // 
+            this.btnVolver.Location = new System.Drawing.Point(321, 280);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(75, 23);
+            this.btnVolver.TabIndex = 4;
+            this.btnVolver.Text = "Volver";
+            this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
+            // 
             // CanjearPuntos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(408, 306);
+            this.ClientSize = new System.Drawing.Size(408, 315);
+            this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.dgvPremios);
             this.Controls.Add(this.label1);
             this.Name = "CanjearPuntos";
@@ -101,5 +113,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn premio;
         private System.Windows.Forms.DataGridViewTextBoxColumn puntosNecesarios;
         private System.Windows.Forms.DataGridViewTextBoxColumn acciones;
+        private System.Windows.Forms.Button btnVolver;
     }
 }
