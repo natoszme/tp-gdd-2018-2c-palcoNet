@@ -16,5 +16,10 @@ namespace PalcoNet.Empresas
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new Usuarios.ModificarClaveUsuario().ShowDialog();
+        }
     }
 }

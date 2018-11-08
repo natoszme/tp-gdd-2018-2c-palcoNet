@@ -38,13 +38,13 @@
             this.txtCuit = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dgvClientes = new System.Windows.Forms.DataGridView();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnNuevo = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.razonSocial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.email = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.acciones = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnNuevo = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
             this.panel1.SuspendLayout();
@@ -151,34 +151,6 @@
             this.dgvClientes.Size = new System.Drawing.Size(733, 192);
             this.dgvClientes.TabIndex = 6;
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.btnNuevo);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(733, 32);
-            this.panel1.TabIndex = 5;
-            // 
-            // btnNuevo
-            // 
-            this.btnNuevo.Location = new System.Drawing.Point(626, 4);
-            this.btnNuevo.Name = "btnNuevo";
-            this.btnNuevo.Size = new System.Drawing.Size(104, 23);
-            this.btnNuevo.TabIndex = 1;
-            this.btnNuevo.Text = "Nueva empresa";
-            this.btnNuevo.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(3, 7);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(193, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Empresas de espectáculo";
-            // 
             // razonSocial
             // 
             this.razonSocial.Frozen = true;
@@ -211,6 +183,35 @@
             this.acciones.ReadOnly = true;
             this.acciones.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.acciones.Width = 57;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btnNuevo);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(733, 32);
+            this.panel1.TabIndex = 5;
+            // 
+            // btnNuevo
+            // 
+            this.btnNuevo.Location = new System.Drawing.Point(626, 4);
+            this.btnNuevo.Name = "btnNuevo";
+            this.btnNuevo.Size = new System.Drawing.Size(104, 23);
+            this.btnNuevo.TabIndex = 1;
+            this.btnNuevo.Text = "Nueva empresa";
+            this.btnNuevo.UseVisualStyleBackColor = true;
+            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(3, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(193, 20);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Empresas de espectáculo";
             // 
             // Listado
             // 
