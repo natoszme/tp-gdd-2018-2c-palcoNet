@@ -34,7 +34,6 @@
             this.chkBxHabilitado = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.chkLstBxFuncionalidades = new System.Windows.Forms.CheckedListBox();
-            this.btnVolver = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -65,7 +64,6 @@
             this.panel2.Controls.Add(this.chkBxHabilitado);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.chkLstBxFuncionalidades);
-            this.panel2.Controls.Add(this.btnVolver);
             this.panel2.Controls.Add(this.btnGuardar);
             this.panel2.Controls.Add(this.txtNombre);
             this.panel2.Controls.Add(this.label2);
@@ -109,18 +107,9 @@
             this.chkLstBxFuncionalidades.Size = new System.Drawing.Size(282, 94);
             this.chkLstBxFuncionalidades.TabIndex = 9;
             // 
-            // btnVolver
-            // 
-            this.btnVolver.Location = new System.Drawing.Point(214, 222);
-            this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(75, 23);
-            this.btnVolver.TabIndex = 8;
-            this.btnVolver.Text = "Volver";
-            this.btnVolver.UseVisualStyleBackColor = true;
-            // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(133, 222);
+            this.btnGuardar.Location = new System.Drawing.Point(214, 221);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
             this.btnGuardar.TabIndex = 7;
@@ -167,7 +156,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.CheckBox chkBxHabilitado;
         private System.Windows.Forms.Label label3;

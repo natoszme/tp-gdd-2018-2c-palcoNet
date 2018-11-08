@@ -31,7 +31,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.btnVolver = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.cmbBxFuncionalidad = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -61,7 +60,6 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.btnVolver);
             this.panel2.Controls.Add(this.btnGuardar);
             this.panel2.Controls.Add(this.cmbBxFuncionalidad);
             this.panel2.Controls.Add(this.label3);
@@ -72,23 +70,15 @@
             this.panel2.Size = new System.Drawing.Size(536, 116);
             this.panel2.TabIndex = 1;
             // 
-            // btnVolver
-            // 
-            this.btnVolver.Location = new System.Drawing.Point(454, 81);
-            this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(75, 23);
-            this.btnVolver.TabIndex = 8;
-            this.btnVolver.Text = "Volver";
-            this.btnVolver.UseVisualStyleBackColor = true;
-            // 
             // btnGuardar
             // 
-            this.btnGuardar.Location = new System.Drawing.Point(373, 81);
+            this.btnGuardar.Location = new System.Drawing.Point(454, 81);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
             this.btnGuardar.TabIndex = 7;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // cmbBxFuncionalidad
             // 
@@ -147,7 +137,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.ComboBox cmbBxFuncionalidad;
         private System.Windows.Forms.Label label3;

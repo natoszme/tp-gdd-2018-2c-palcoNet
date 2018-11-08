@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PalcoNet.Utils;
 
 namespace PalcoNet.Roles
 {
@@ -15,6 +16,11 @@ namespace PalcoNet.Roles
         public Alta()
         {
             InitializeComponent();
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
