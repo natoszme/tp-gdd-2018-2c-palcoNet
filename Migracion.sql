@@ -17,7 +17,8 @@ CREATE TABLE RAGNAR.Funcionalidad_rol			(	id_rol int FOREIGN KEY references RAGN
 CREATE TABLE RAGNAR.Usuario						(	id_usuario bigint identity PRIMARY KEY,
 													usuario	varchar(50) NOT NULL unique,
 													clave	varchar(32) NOT NULL,
-													habilitado bit NOT NULL DEFAULT 1)
+													habilitado bit NOT NULL DEFAULT 1,
+													es_nuevo tinyint NOT NULL DEFAULT 0)
 
 CREATE TABLE RAGNAR.Usuario_rol					(	id_usuario bigint FOREIGN KEY references RAGNAR.Usuario(id_usuario),
 													id_rol int FOREIGN KEY references RAGNAR.Rol(id_rol),
@@ -136,6 +137,8 @@ CREATE TABLE RAGNAR.Canje_premio				(	id_premio int FOREIGN KEY references RAGNA
 
 --/Inserts de usuarios/--
 
+INSERT INTO RAGNAR.Usuario(usuario,clave,habilitado) VALUES ('admin','admin',1) /*Usuario administrador, cambiar la pass con el metodo de encriptacion*/
+
 INSERT INTO RAGNAR.Usuario(usuario,clave,habilitado) 
 	SELECT DISTINCT Cli_Dni, Cli_dni, 1
 	FROM gd_esquema.Maestra
@@ -178,7 +181,7 @@ INSERT INTO RAGNAR.Publicacion(codigo_publicacion, descripcion, fecha_vencimient
 INSERT INTO RAGNAR.Tipo_ubicacion(codigo, descripcion)
 	SELECT DISTINCT Ubicacion_Tipo_Codigo, Ubicacion_Tipo_Descripcion
 	FROM gd_esquema.Maestra
-	WHERE Ubicacion_Tipo_Codigo IS NOT NULL AND Ubicacion_Tipo_Descripcion IS NOT NULL
+	WHERE Ubicacion_Tipo_Codigo IS NOT NULL
 	
 INSERT INTO RAGNAR.Compra(id_cliente, fecha)
 	SELECT DISTINCT C.id_usuario, M.Compra_Fecha
@@ -188,55 +191,145 @@ INSERT INTO RAGNAR.Compra(id_cliente, fecha)
 INSERT INTO RAGNAR.Ubicacion_publicacion(id_publicacion, id_tipo, fila, asiento, sin_numerar, precio, id_compra, compra_cantidad)
 	SELECT DISTINCT P.id_publicacion, T.id_tipo_ubicacion, M.Ubicacion_Fila, M.Ubicacion_Asiento, M.Ubicacion_Sin_Numerar, M.Ubicacion_Precio,COM.id_compra, M.Compra_Cantidad
 	FROM gd_esquema.Maestra as M JOIN RAGNAR.Publicacion as P ON (M.Espectaculo_Cod = P.codigo_publicacion) JOIN RAGNAR.Tipo_ubicacion as T ON (M.Ubicacion_Tipo_Codigo = T.codigo AND M.Ubicacion_Tipo_Descripcion = T.descripcion) JOIN  RAGNAR.Cliente as C ON (M.Cli_Dni = C.numero_documento) JOIN RAGNAR.Compra as COM ON (COM.id_cliente = C.id_usuario AND COM.fecha = M.Compra_Fecha)
-	WHERE M.Ubicacion_Sin_Numerar IS NOT NULL AND M.Ubicacion_Precio IS NOT NULL AND M.Compra_Cantidad IS NOT NULL
+	WHERE M.Ubicacion_Precio IS NOT NULL AND M.Compra_Cantidad IS NOT NULL
 
 INSERT INTO RAGNAR.Ubicacion_publicacion(id_publicacion, id_tipo, fila, asiento, sin_numerar, precio)
 	SELECT DISTINCT P.id_publicacion, T.id_tipo_ubicacion, M.Ubicacion_Fila, M.Ubicacion_Asiento, M.Ubicacion_Sin_Numerar, M.Ubicacion_Precio
 	FROM gd_esquema.Maestra as M JOIN RAGNAR.Publicacion as P ON (M.Espectaculo_Cod = P.codigo_publicacion) JOIN RAGNAR.Tipo_ubicacion as T ON (M.Ubicacion_Tipo_Codigo = T.codigo AND M.Ubicacion_Tipo_Descripcion = T.descripcion)
-	WHERE M.Ubicacion_Sin_Numerar IS NOT NULL AND M.Ubicacion_Precio IS NOT NULL
+	WHERE M.Ubicacion_Precio IS NOT NULL
 	GROUP BY P.id_publicacion, T.id_tipo_ubicacion, M.Ubicacion_Fila, M.Ubicacion_Asiento, M.Ubicacion_Sin_Numerar, M.Ubicacion_Precio
-	HAVING COUNT(M.Compra_Cantidad) = 0
+	HAVING SUM(ISNULL(M.Compra_Cantidad, 0 )) = 0
 
 --/Inserts de Facturas/--
 
 INSERT INTO RAGNAR.Factura(numero, fecha, total, forma_pago)
 	SELECT DISTINCT Factura_Nro, Factura_Fecha, Factura_Total, Forma_Pago_Desc
 	FROM gd_esquema.Maestra
-	WHERE Factura_Nro IS NOT NULL AND Factura_Fecha IS NOT NULL AND Factura_Total IS NOT NULL AND Forma_Pago_Desc IS NOT NULL
+	WHERE Factura_Nro IS NOT NULL
 
 INSERT INTO RAGNAR.Item_factura(id_factura, id_ubicacion, cantidad, descripcion, monto)
 	SELECT F.id_factura, U.id_ubicacion, M.Item_Factura_Cantidad, M.Item_Factura_Descripcion, M.Item_Factura_Monto
 	FROM gd_esquema.Maestra as M JOIN RAGNAR.Factura as F ON (M.Factura_Nro = F.numero) JOIN RAGNAR.Publicacion as P ON (M.Espectaculo_Cod = P.codigo_publicacion) JOIN RAGNAR.Ubicacion_publicacion as U ON (P.id_publicacion = U.id_publicacion AND M.Ubicacion_Asiento = U.asiento AND M.Ubicacion_Fila = U.fila)
 	WHERE M.Item_Factura_Monto IS NOT NULL
 
-	/*
-/*INSERT INTO GDDRAGNAR.Ubicacion_publicacion(id_publicacion, id_tipo, fila, asiento, sin_numerar, precio)
-	SELECT DISTINCT P.id_publicacion, T.id_tipo_ubicacion, M.Ubicacion_Fila, M.Ubicacion_Asiento, M.Ubicacion_Sin_Numerar, M.Ubicacion_Precio
-	FROM gd_esquema.Maestra as M JOIN GDDRAGNAR.Publicacion as P ON (M.Espectaculo_Cod = P.codigo_publicacion) JOIN GDDRAGNAR.Tipo_ubicacion as T ON (M.Ubicacion_Tipo_Codigo = T.codigo AND M.Ubicacion_Tipo_Descripcion = T.descripcion)
-	WHERE M.Ubicacion_Sin_Numerar IS NOT NULL AND M.Ubicacion_Precio IS NOT NULL*/
+--/Inserts Manuales para el funcionamiento del sistema/--
+
+--/Inserts de Estados de Publicacion/--
+
+INSERT INTO RAGNAR.Estado_publicacion(descripcion) VALUES ('Borrador')
+INSERT INTO RAGNAR.Estado_publicacion(descripcion) VALUES ('Finalizada')
+
+--/Inserts de Roles/--
+
+INSERT INTO RAGNAR.Rol(nombre, habilitado) VALUES ('Empresa',1)
+INSERT INTO RAGNAR.Rol(nombre, habilitado) VALUES ('Administrativo',1)
+INSERT INTO RAGNAR.Rol(nombre, habilitado) VALUES ('Cliente',1)
+
+--/Inserts de Funcionalidades/--
+
+INSERT INTO RAGNAR.Funcionalidad(descripcion) VALUES ('ABM de Rol')
+INSERT INTO RAGNAR.Funcionalidad(descripcion) VALUES ('Registro de Usuario')
+INSERT INTO RAGNAR.Funcionalidad(descripcion) VALUES ('ABM de Cliente')
+INSERT INTO RAGNAR.Funcionalidad(descripcion) VALUES ('ABM de Empresa de Espectaculos')
+INSERT INTO RAGNAR.Funcionalidad(descripcion) VALUES ('ABM de Rubro')
+INSERT INTO RAGNAR.Funcionalidad(descripcion) VALUES ('ABM de Grado de Publicacion')
+INSERT INTO RAGNAR.Funcionalidad(descripcion) VALUES ('Generar Publicacion')
+INSERT INTO RAGNAR.Funcionalidad(descripcion) VALUES ('Editar Publicacion')
+INSERT INTO RAGNAR.Funcionalidad(descripcion) VALUES ('Comprar')
+INSERT INTO RAGNAR.Funcionalidad(descripcion) VALUES ('Historial de Cliente')
+INSERT INTO RAGNAR.Funcionalidad(descripcion) VALUES ('Canje y Administracion de Puntos')
+INSERT INTO RAGNAR.Funcionalidad(descripcion) VALUES ('Generar rendicion de comisiones')
+INSERT INTO RAGNAR.Funcionalidad(descripcion) VALUES ('Listado estadistico')
+
+--/ Inserts de Funcionalidad_rol /--
+
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'ABM de Rol'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Administrativo'))
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Registro de Usuario'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Cliente'))
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Registro de Usuario'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Empresa'))
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'ABM de Cliente'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Administrativo'))
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'ABM de Empresa de Espectaculos'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Administrativo'))
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'ABM de Rubro'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Administrativo'))
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'ABM de Grado de Publicacion'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Empresa'))
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Generar Publicacion'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Empresa'))
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Editar Publicacion'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Empresa'))
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Comprar'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Cliente'))
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Historial de Cliente'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Cliente'))
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Canje y Administracion de Puntos'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Cliente'))
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Generar rendicion de comisiones'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Administrativo'))
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Listado estadistico'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Administrativo'))
+
+/*CREATE de Premios a canjear*/
+
+/*ALTER TABLE UNIQUE PUBLICACION*/
+
+/* Store Procedures para los reportes
+
+/* TODO: resolver el tema del trimestre y año ingresado por UI */
+
+-- empresas con > localidades no vendidas (que es visibilidad?)
+-- la fecha de quien es la que se ordena?
+SELECT TOP 5 DISTINCT em.razon_social, COUNT(up.id_ubicacion) - SUM(uco.cantidad)
+	FROM empresa em
+		JOIN publicacion p ON em.id_usuario = p.id_empresa
+		JOIN ubicacion_publicacion up ON p.id_publicacion = up.id_publicacion
+		JOIN espectaculo e ON p.id_publicacion = e.id_publicacion
+		JOIN compra co ON e.id_espectaculo = co.id_espectaculo
+		JOIN ubicacion_compra uco ON co.id_compra = uco.id_compra
+WHERE co.fecha FUERA DEL TRIMESTRE Y AÑO INGRESADO AND co.id_grado = :id_grado
+GROUP BY em.razon_social
+ORDER BY COUNT(up.id_ubicacion) - SUM(uco.cantidad), fecha, id_grado
+
+-- clientes con puntos no vencidos
+SELECT TOP 5 c.id_usuario, c.nombre, c.apellido, SUM(puntos) puntosNoVencidos
+	FROM cliente c
+		LEFT JOIN puntos_cliente pc ON c.id_usuario = pc.id_cliente
+	WHERE vencimiento FUERA DEL TRIMESTRE Y AÑO INGRESADO
+GROUP BY c.id_usuario, c.nombre, c.apellido
+ORDER BY SUM(puntos) DESC
+
+-- clientes con mayor cantidad de compras
+SELECT TOP 5 c.id_usuario, COUNT(id_compra), p.id_empresa
+	FROM cliente c
+		JOIN compra co ON c.id_usuario = co.id_cliente
+		JOIN espectaculo e ON co.id_espectaculo = e.id_espectaculo
+		JOIN publicacion p ON e.id_publicacion = p.id_publicacion
+WHERE co.fecha FUERA DEL TRIMESTRE Y AÑO INGRESADO
+GROUP BY p.id_empresa, c.id_usuario
+ORDER BY count(id_compra) DESC
+
+*/
+
+/* Triggers
+
+CREATE TRIGGER QuitarRolInhabilitado ON rol
+AFTER UPDATE
+AS BEGIN
+	IF ((SELECT habilitado FROM inserted) = 0 AND (SELECT habilitado FROM deleted) = 1) BEGIN
+		DELETE FROM usuario_rol WHERE id_rol = (SELECT id_rol FROM inserted)
+	END
+END
+
+CREATE TRIGGER ValidarPasajeDeEstadoDelEspectaculo ON espectaculo
+INSTEAD OF UPDATE
+AS BEGIN
+	IF (estadoAnterior = activo && estadoActual = borrador ||
+			estadoAnterior = finalizado) BEGIN
+		RAISE ERROR
+	END
+
+	UPDATE espectaculo SET id_estado = (SELECT id_estado FROM INSERTED)
+END
+
+CREATE TRIGGER FinalizarEspectaculo ON compras
+AFTER INSERT
+AS BEGIN
+	IF (noHayMasUbicaciones) BEGIN
+		UPDATE espectaculo SET id_estado = finalizado 
+			WHERE id_espectaculo = (SELECT id_espectaculo FROM inserted)
+	END
+END
+
+*/
 
 
 
-	
-/*INSERT INTO GDDRAGNAR.Ubicacion_compra(id_ubicacion,id_compra,precio,cantidad)
-	SELECT DISTINCT U.id_ubicacion, C.id_compra, M.Ubicacion_Precio, M.Compra_Cantidad
-	FROM gd_esquema.Maestra as M JOIN GDDRAGNAR.Cliente as CLI ON (M.Cli_Dni = CLI.numero_documento) JOIN GDDRAGNAR.Compra as C ON (C.id_cliente = CLI.id_usuario AND M.Compra_Fecha = C.fecha) JOIN GDDRAGNAR.Publicacion as P ON (P.codigo_publicacion = M.Espectaculo_Cod) JOIN GDDRAGNAR.Ubicacion_publicacion as U ON (U.id_publicacion = P.id_publicacion AND U.asiento = M.Ubicacion_Asiento AND U.fila = M.Ubicacion_Fila AND U.sin_numerar = M.Ubicacion_Sin_numerar)
-	WHERE M.Compra_Cantidad IS NOT NULL*/
-
---/Inserts de Facturas/--
-
-
-	/*
-INSERT INTO GDDRAGNAR.Item_factura(cantidad, descripcion, monto, id_factura, id_compra)
-	SELECT M.Item_Factura_Cantidad, Item_Factura_Descripcion, Item_Factura_Monto, F.id_factura, C.id_compra
-	FROM gd_esquema.Maestra as M JOIN GDDRAGNAR.Factura as F ON (M.Factura_Fecha = F.fecha AND M.Factura_Nro = F.numero AND M.Factura_Total = F.total) JOIN GDDRAGNAR.Cliente as CLI ON (CLI.numero_documento = M.Cli_Dni) JOIN GDDRAGNAR.Compra as C ON (C.id_cliente = CLI.id_usuario AND C.fecha = M.Compra_Fecha)
-	WHERE M.Item_Factura_Cantidad IS NOT NULL*/*/
-
-	/*
-INSERT INTO GDDRAGNAR.Ubicacion_publicacion(id_publicacion, id_tipo, fila, asiento, sin_numerar, precio, id_compra, compra_cantidad)
-	SELECT DISTINCT A.id_publicacion, A.id_tipo_ubicacion, A.Ubicacion_Fila, A.Ubicacion_Asiento, A.Ubicacion_Sin_Numerar, A.Ubicacion_Precio, NULL, NULL
-		FROM (SELECT DISTINCT P.id_publicacion, T.id_tipo_ubicacion, M.Ubicacion_Fila, M.Ubicacion_Asiento, M.Ubicacion_Sin_Numerar, M.Ubicacion_Precio, NULL as nulo, COUNT(M.Compra_Cantidad) as nulo2
-				FROM gd_esquema.Maestra as M JOIN GDDRAGNAR.Publicacion as P ON (M.Espectaculo_Cod = P.codigo_publicacion) JOIN GDDRAGNAR.Tipo_ubicacion as T ON (M.Ubicacion_Tipo_Codigo = T.codigo AND M.Ubicacion_Tipo_Descripcion = T.descripcion)
-				WHERE M.Ubicacion_Sin_Numerar IS NOT NULL AND M.Ubicacion_Precio IS NOT NULL
-				GROUP BY P.id_publicacion, T.id_tipo_ubicacion, M.Ubicacion_Fila, M.Ubicacion_Asiento, M.Ubicacion_Sin_Numerar, M.Ubicacion_Precio
-				HAVING COUNT(M.Compra_Cantidad) = 0) as A*/
