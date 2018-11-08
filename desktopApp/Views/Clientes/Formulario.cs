@@ -24,6 +24,8 @@ namespace PalcoNet.Clientes
             if (id != null) {
                 cargarDatos();
             }
+
+            //TODO validar si quien esta logueado es admin. Si lo es hay que cambiar el boton de cambio de pass, y mostrar el panel de habilitado
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -93,6 +95,11 @@ namespace PalcoNet.Clientes
                 }
             }
         #endregion
+
+        private void btnCambiarPass_Click(object sender, EventArgs e)
+        {
+            new Usuarios.ModificarClaveUsuario().Show();
+        }
 
     }
 }

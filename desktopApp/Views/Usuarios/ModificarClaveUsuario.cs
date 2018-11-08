@@ -16,5 +16,10 @@ namespace PalcoNet.Usuarios
         {
             InitializeComponent();
         }
+
+        private void btnCambiar_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
     }
 }

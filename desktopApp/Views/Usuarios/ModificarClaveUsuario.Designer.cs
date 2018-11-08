@@ -93,6 +93,7 @@
             this.btnCambiar.TabIndex = 6;
             this.btnCambiar.Text = "Cambiar contraseña";
             this.btnCambiar.UseVisualStyleBackColor = true;
+            this.btnCambiar.Click += new System.EventHandler(this.btnCambiar_Click);
             // 
             // ModificarClaveUsuario
             // 
