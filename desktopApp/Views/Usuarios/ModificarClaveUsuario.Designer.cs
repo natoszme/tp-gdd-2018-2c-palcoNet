@@ -53,6 +53,7 @@
             this.txtClaveActual.Name = "txtClaveActual";
             this.txtClaveActual.Size = new System.Drawing.Size(100, 20);
             this.txtClaveActual.TabIndex = 1;
+            this.txtClaveActual.UseSystemPasswordChar = true;
             // 
             // txtNuevaClave
             // 
@@ -60,6 +61,7 @@
             this.txtNuevaClave.Name = "txtNuevaClave";
             this.txtNuevaClave.Size = new System.Drawing.Size(100, 20);
             this.txtNuevaClave.TabIndex = 2;
+            this.txtNuevaClave.UseSystemPasswordChar = true;
             // 
             // txtRepetirClave
             // 
@@ -67,6 +69,7 @@
             this.txtRepetirClave.Name = "txtRepetirClave";
             this.txtRepetirClave.Size = new System.Drawing.Size(100, 20);
             this.txtRepetirClave.TabIndex = 3;
+            this.txtRepetirClave.UseSystemPasswordChar = true;
             // 
             // label2
             // 

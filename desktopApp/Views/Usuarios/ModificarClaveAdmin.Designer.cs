@@ -68,6 +68,7 @@
             this.txtNuevaClave.Name = "txtNuevaClave";
             this.txtNuevaClave.Size = new System.Drawing.Size(100, 20);
             this.txtNuevaClave.TabIndex = 3;
+            this.txtNuevaClave.UseSystemPasswordChar = true;
             // 
             // txtRepetirClave
             // 
@@ -75,6 +76,7 @@
             this.txtRepetirClave.Name = "txtRepetirClave";
             this.txtRepetirClave.Size = new System.Drawing.Size(100, 20);
             this.txtRepetirClave.TabIndex = 4;
+            this.txtRepetirClave.UseSystemPasswordChar = true;
             // 
             // ModificarClaveAdmin
             // 

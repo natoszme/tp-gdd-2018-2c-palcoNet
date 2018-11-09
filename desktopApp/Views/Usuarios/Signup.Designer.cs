@@ -101,6 +101,7 @@
             this.txtRepetirClave.Name = "txtRepetirClave";
             this.txtRepetirClave.Size = new System.Drawing.Size(202, 20);
             this.txtRepetirClave.TabIndex = 5;
+            this.txtRepetirClave.UseSystemPasswordChar = true;
             // 
             // btnRegistrarCliente
             // 
@@ -117,6 +118,7 @@
             this.txtClave.Name = "txtClave";
             this.txtClave.Size = new System.Drawing.Size(202, 20);
             this.txtClave.TabIndex = 3;
+            this.txtClave.UseSystemPasswordChar = true;
             // 
             // label2
             // 
