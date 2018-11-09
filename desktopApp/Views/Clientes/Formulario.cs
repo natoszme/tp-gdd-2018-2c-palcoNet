@@ -53,8 +53,11 @@ namespace PalcoNet.Clientes
                     cliente.departamento = txtDepto.Text;
                     cliente.localidad = txtLocalidad.Text;
                     cliente.codigo_postal = txtCodigoPostal.Text;
-                    // TODO: Recortar tarjeta
-                    cliente.tarjeta_credito = txtTarjeta.Text;
+
+                    cliente.tarjeta_credito = recortarTarjetaDeCredito(txtTarjeta.Text);
+
+                    // TODO: chequear si esta el checkbox
+                    cliente.habilitado = chkBxHabilitado.Checked;
 
                     if (id == null) {
                         db.Cliente.Add(cliente);
@@ -67,14 +70,15 @@ namespace PalcoNet.Clientes
             }
         }
 
-        #region
+        #region VALIDACIONES
         private bool camposValidos() {
             bool camposValidos = true;
             try {
                 ValidationsUtils.campoObligatorio(txtNombre, "nombre");
-                ValidationsUtils.campoObligatorio(txtNombre, "apellido");
-                ValidationsUtils.campoObligatorio(txtNombre, "mail");
-                ValidationsUtils.campoObligatorio(txtNombre, "telefono");
+                ValidationsUtils.campoObligatorio(txtApellido, "apellido");
+                ValidationsUtils.campoObligatorio(txtEmail, "mail");
+                ValidationsUtils.emailValido(txtEmail, "mail");
+                ValidationsUtils.campoObligatorio(txtTelefono, "telefono");
                 // TODO: validar que la fecha de nacimiento no puede ser posterior a la del archivo de configuracion
                 ValidationsUtils.campoObligatorio(dtpFechaNacimiento, "fecha de nacimiento");
                 ValidationsUtils.opcionObligatoria(cmbBxTipoDocumento, "tipo de documento");
@@ -122,6 +126,10 @@ namespace PalcoNet.Clientes
         private void btnCambiarPass_Click(object sender, EventArgs e)
         {
             new Usuarios.ModificarClaveAdmin().ShowDialog();
+        }
+
+        private string recortarTarjetaDeCredito(string tarjeta) {
+            return tarjeta.Substring(0, 6) + tarjeta.Substring(tarjeta.Length - 4, 4);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Mail;
 using System.Windows.Forms;
 
 namespace PalcoNet.Utils
@@ -30,6 +31,14 @@ namespace PalcoNet.Utils
                 Double.Parse(input.Text);
             } catch (Exception) {
                 throw new ValidationException("El campo " + nombreInput + " debe ser numerico");
+            }
+        }
+
+        public static void emailValido(TextBox txtBox, string nombreInput) {
+            try {
+                new MailAddress(txtBox.Text.Trim());
+            } catch (Exception) {
+                throw new ValidationException("El email ingresado en el campo " + nombreInput + " es invalido");
             }
         }
 
