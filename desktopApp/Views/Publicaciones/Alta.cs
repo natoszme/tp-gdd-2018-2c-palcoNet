@@ -17,6 +17,11 @@ namespace PalcoNet.Publicaciones
             InitializeComponent();
         }
 
+        private void btnUbicaciones_Click(object sender, EventArgs e)
+        {
+            new Views.Publicaciones.GenerarUbicaciones();
+        }
+
        
     }
 }

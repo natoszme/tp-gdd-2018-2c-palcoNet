@@ -161,8 +161,9 @@
             this.btnUbicaciones.TabIndex = 16;
             this.btnUbicaciones.Text = "Cargar ubicaciones";
             this.btnUbicaciones.UseVisualStyleBackColor = true;
+            this.btnUbicaciones.Click += new System.EventHandler(this.btnUbicaciones_Click);
             // 
-            // CrearPublicacion
+            // Alta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -181,7 +182,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnGuardarBorrador);
             this.Controls.Add(this.btnPublicar);
-            this.Name = "CrearPublicacion";
+            this.Name = "Alta";
             this.Text = "Generar publicación";
             this.ResumeLayout(false);
             this.PerformLayout();
