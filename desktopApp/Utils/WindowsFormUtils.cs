@@ -23,6 +23,10 @@ namespace PalcoNet.Utils
             context.Close();
         }
 
+        public static void mensajeDeError(string error) {
+            MessageBox.Show(error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
         public static void volverALaHome(Control context) {
             context.Hide();
             new Home().Show();
