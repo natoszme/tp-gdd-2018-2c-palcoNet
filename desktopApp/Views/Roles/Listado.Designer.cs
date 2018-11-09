@@ -29,11 +29,10 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnEditar = new System.Windows.Forms.Button();
             this.btnNuevo = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvRoles = new System.Windows.Forms.DataGridView();
-            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.acciones = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnVolver = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRoles)).BeginInit();
@@ -41,6 +40,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnEditar);
             this.panel1.Controls.Add(this.btnNuevo);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(13, 13);
@@ -48,14 +48,25 @@
             this.panel1.Size = new System.Drawing.Size(644, 32);
             this.panel1.TabIndex = 0;
             // 
+            // btnEditar
+            // 
+            this.btnEditar.Location = new System.Drawing.Point(549, 3);
+            this.btnEditar.Name = "btnEditar";
+            this.btnEditar.Size = new System.Drawing.Size(92, 23);
+            this.btnEditar.TabIndex = 2;
+            this.btnEditar.Text = "Editar rol";
+            this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
+            // 
             // btnNuevo
             // 
-            this.btnNuevo.Location = new System.Drawing.Point(549, 4);
+            this.btnNuevo.Location = new System.Drawing.Point(451, 3);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(92, 23);
             this.btnNuevo.TabIndex = 1;
             this.btnNuevo.Text = "Nuevo rol";
             this.btnNuevo.UseVisualStyleBackColor = true;
+            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 
             // label1
             // 
@@ -74,31 +85,11 @@
             this.dgvRoles.AllowUserToOrderColumns = true;
             this.dgvRoles.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.dgvRoles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvRoles.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.nombre,
-            this.acciones});
             this.dgvRoles.Location = new System.Drawing.Point(13, 52);
             this.dgvRoles.Name = "dgvRoles";
             this.dgvRoles.ReadOnly = true;
             this.dgvRoles.Size = new System.Drawing.Size(644, 293);
             this.dgvRoles.TabIndex = 1;
-            // 
-            // nombre
-            // 
-            this.nombre.Frozen = true;
-            this.nombre.HeaderText = "Nombre";
-            this.nombre.Name = "nombre";
-            this.nombre.ReadOnly = true;
-            this.nombre.Width = 69;
-            // 
-            // acciones
-            // 
-            this.acciones.Frozen = true;
-            this.acciones.HeaderText = "Acciones";
-            this.acciones.Name = "acciones";
-            this.acciones.ReadOnly = true;
-            this.acciones.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.acciones.Width = 57;
             // 
             // btnVolver
             // 
@@ -120,6 +111,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "Listado";
             this.Text = "Listado de roles";
+            this.Load += new System.EventHandler(this.Listado_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRoles)).EndInit();
@@ -133,8 +125,7 @@
         private System.Windows.Forms.Button btnNuevo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dgvRoles;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
-        private System.Windows.Forms.DataGridViewTextBoxColumn acciones;
         private System.Windows.Forms.Button btnVolver;
+        private System.Windows.Forms.Button btnEditar;
     }
 }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Model;
+using PalcoNet.Utils;
 
 namespace PalcoNet.Clientes
 {
@@ -25,7 +26,9 @@ namespace PalcoNet.Clientes
                 cargarDatos();
             }
 
-            //TODO validar si quien esta logueado es admin. Si lo es hay que mostrar el panel pnlDatosUsuario
+            if (SessionUtils.esAdmin()) {
+                pnlDatosUsuario.Visible = true;
+            }
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -59,15 +62,8 @@ namespace PalcoNet.Clientes
                     db.Entry(cliente).State = System.Data.Entity.EntityState.Modified;
                 }
 
-                db.SaveChanges();
-
-                this.Close();
+                WindowsFormUtils.guardarYCerrar(db, this);
             }
-        }
-
-        private void btnVolver_Click(object sender, EventArgs e)
-        {
-            this.Hide();
         }
 
         #region HELPER
@@ -99,6 +95,5 @@ namespace PalcoNet.Clientes
         {
             new Usuarios.ModificarClaveAdmin().ShowDialog();
         }
-
     }
 }

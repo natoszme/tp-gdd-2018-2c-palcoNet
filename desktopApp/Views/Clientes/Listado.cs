@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Model;
+using PalcoNet.Utils;
 
 namespace PalcoNet.Clientes
 {
@@ -16,7 +17,6 @@ namespace PalcoNet.Clientes
         public Listado()
         {
             InitializeComponent();
-            actualizarDataGriedView();
         }
 
         private void Listado_Load(object sender, EventArgs e)
@@ -27,56 +27,74 @@ namespace PalcoNet.Clientes
         #region HELPER
         private void actualizarDataGriedView()
         {
-            RagnarEntities db = new RagnarEntities();
-            var clientes = from c in db.Cliente
-                            select new { c.id_usuario, c.nombre, c.apellido, c.numero_documento, c.mail };
-            dgvClientes.DataSource = clientes.ToList();
-            dgvClientes.Columns["id_usuario"].Visible = false;
-        }
+            using (RagnarEntities db = new RagnarEntities())
+            {
 
-        private int? getIdSeleccionado() {
-            try {
-                return int.Parse(dgvClientes.Rows[dgvClientes.CurrentRow.Index].Cells[0].Value.ToString());
-            }
-            catch {
-                return null;
+                IQueryable<Cliente> clientesFiltrados = db.Cliente.AsQueryable();
+
+                if (!string.IsNullOrWhiteSpace(txtNombre.Text))
+                {
+                    clientesFiltrados = clientesFiltrados.Where(c => c.nombre.Contains(txtNombre.Text));
+                }
+
+                if (!string.IsNullOrWhiteSpace(txtApellido.Text))
+                {
+                    clientesFiltrados = clientesFiltrados.Where(c => c.apellido.Contains(txtApellido.Text));
+                }
+
+                if (!string.IsNullOrWhiteSpace(txtEmail.Text))
+                {
+                    clientesFiltrados = clientesFiltrados.Where(c => c.mail.Contains(txtEmail.Text));
+                }
+
+                if (!string.IsNullOrWhiteSpace(txtDocumento.Text))
+                {
+                    clientesFiltrados = clientesFiltrados.Where(c => c.numero_documento.ToString().Contains(txtDocumento.Text));
+                }
+
+                var clientes = clientesFiltrados.Select(c => new
+                {
+                    id_usuario = c.id_usuario,
+                    nombre = c.nombre,
+                    apellido = c.apellido,
+                    numero_documento = c.numero_documento,
+                    mail = c.mail
+                }).OrderBy(c => c.nombre).ThenBy(c => c.apellido);
+
+                DataGridViewUtils.actualizarDataGriedView(dgvClientes, clientes, "id_usuario");
             }
         }
         #endregion
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            Formulario frm = new Formulario();
-            // Abro en una ventana nueva, hasta que no cierra no puede usar la anterior
-            frm.ShowDialog();
-
-            // Actualizo en cuanto se cierra el formulario
-            actualizarDataGriedView();
+            WindowsFormUtils.abrirFormulario(new Formulario(), actualizarDataGriedView);
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            int? id = getIdSeleccionado();
-
-            if (id != null) {
-                Formulario frm = new Formulario(id);
-                // Abro en una ventana nueva, hasta que no cierra no puede usar la anterior
-                frm.ShowDialog();
-
-                // Actualizo en cuanto se cierra el formulario
-                actualizarDataGriedView();
-            }            
-        }
-
-        private void btnVolver_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            new Home().Show();
+            int? id = DataGridViewUtils.obtenerIdSeleccionado(dgvClientes);
+            WindowsFormUtils.abrirFormulario(new Formulario(id), actualizarDataGriedView);
         }
 
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
+            actualizarDataGriedView();
+        }
 
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            txtNombre.Text = "";
+            txtApellido.Text = "";
+            txtEmail.Text = "";
+            txtDocumento.Text = "";
+
+            txtNombre.Focus();
+        }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            WindowsFormUtils.volverALaHome(this);
         }
     }
 }
