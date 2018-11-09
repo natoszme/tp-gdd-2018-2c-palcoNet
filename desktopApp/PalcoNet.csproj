@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Funciones generales\Validaciones.cs" />
     <Compile Include="Model\Cliente.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
@@ -115,6 +116,7 @@
     <Compile Include="Model\Tipo_ubicacion.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Ubicacion.cs" />
     <Compile Include="Model\Ubicacion_publicacion.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
@@ -134,6 +136,12 @@
       <DependentUpon>Formulario.cs</DependentUpon>
     </Compile>
     <Compile Include="BaseDeDatos\BaseDeDatos.cs" />
+    <Compile Include="Views\Publicaciones\GenerarUbicaciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Publicaciones\GenerarUbicaciones.Designer.cs">
+      <DependentUpon>GenerarUbicaciones.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Usuarios\ModificarClaveAdmin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -254,6 +262,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Publicaciones\GenerarUbicaciones.resx">
+      <DependentUpon>GenerarUbicaciones.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Usuarios\ModificarClaveAdmin.resx">
       <DependentUpon>ModificarClaveAdmin.cs</DependentUpon>
