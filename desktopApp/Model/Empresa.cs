@@ -12,7 +12,7 @@ namespace PalcoNet.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Empresa
+    public partial class Empresa : Usuario
     {
         public Empresa()
         {
