@@ -83,7 +83,7 @@ namespace PalcoNet.Clientes
                 ValidationsUtils.campoObligatorio(dtpFechaNacimiento, "fecha de nacimiento");
                 ValidationsUtils.opcionObligatoria(cmbBxTipoDocumento, "tipo de documento");
                 ValidationsUtils.campoNumericoYPositivo(txtNroDocumento, "nro. de documento");
-                ValidationsUtils.campoObligatorio(txtCuil, "CUIL");
+                ValidationsUtils.cuilValido(txtCuil);
                 ValidationsUtils.campoNumericoYPositivo(txtPortal, "portal");
                 ValidationsUtils.campoNumericoYPositivo(txtNroPiso, "piso");
                 ValidationsUtils.campoObligatorio(txtDepto, "depto.");

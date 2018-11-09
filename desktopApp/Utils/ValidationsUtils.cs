@@ -65,5 +65,34 @@ namespace PalcoNet.Utils
             if (cmb.SelectedIndex == -1 || string.IsNullOrWhiteSpace(cmb.SelectedText))
                 throw new ValidationException("Debe seleccionar un " + nombreInput);
         }
+
+        public static int CalcularDigitoCuil(string cuil) {
+            int[] multiplicadores = new[] { 5, 4, 3, 2, 7, 6, 5, 4, 3, 2 };
+            char[] nums = cuil.ToCharArray();
+
+            // Mutiplico cada multiplicador por el digito de la posicion correspondiente y sumo todo
+            int total = multiplicadores.Select((mult, i) => int.Parse(nums[i].ToString()) * mult).Sum();
+
+            var resto = total % 11;
+            return resto == 0 ? 0 : resto == 1 ? 9 : 11 - resto;
+        }
+
+        public static void cuilValido(TextBox txtCuil) {
+            string cuil = txtCuil.Text;
+
+            campoObligatorio(txtCuil, "CUIL");
+
+            // EL cuil sin guiones deberia tener 11 caracteres
+            cuil = cuil.Replace("-", string.Empty);
+            if (cuil.Length != 11) {
+                throw new ValidationException("El CUIL ingresado debe tener 11 caracteres");
+            }
+            
+            int calculado = CalcularDigitoCuil(cuil);
+            int digito = int.Parse(cuil.Substring(10));
+            if (calculado != digito) {
+                throw new ValidationException("El CUIL ingresado es invalido");
+            }
+        }
     }
 }
