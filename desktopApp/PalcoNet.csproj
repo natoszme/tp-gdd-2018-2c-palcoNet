@@ -70,6 +70,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Headspring\Enumeration.cs" />
+    <Compile Include="Model\TipoDocumento.cs" />
     <Compile Include="Utils\ValidationsUtils.cs" />
     <Compile Include="Model\Cliente.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
@@ -363,6 +365,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Headspring\LICENSE.txt" />
     <Content Include="Model\EntityModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>EntityModel.edmx</DependentUpon>
