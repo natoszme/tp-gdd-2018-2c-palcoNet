@@ -33,41 +33,69 @@ namespace PalcoNet.Clientes
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            // TODO: faltan las validaciones
             using (RagnarEntities db = new RagnarEntities())
             {
-                if (id != null) {
-                    cliente = new Cliente();
+                if (camposValidos()) {
+                    if (id != null) {
+                        cliente = new Cliente();
+                    }
+
+                    cliente.nombre = txtNombre.Text;
+                    cliente.apellido = txtApellido.Text;
+                    cliente.mail = txtEmail.Text;
+                    cliente.telefono = txtTelefono.Text;
+                    cliente.fecha_nacimiento = dtpFechaNacimiento.Value;
+                    cliente.tipo_documento = cmbBxTipoDocumento.SelectedValue != null ? cmbBxTipoDocumento.SelectedValue.ToString() : null;
+                    cliente.numero_documento = Decimal.Parse(txtNroDocumento.Text);
+                    cliente.cuil = txtCuil.Text;
+                    cliente.portal = Decimal.Parse(txtPortal.Text);
+                    cliente.piso = Decimal.Parse(txtNroPiso.Text);
+                    cliente.departamento = txtDepto.Text;
+                    cliente.localidad = txtLocalidad.Text;
+                    cliente.codigo_postal = txtCodigoPostal.Text;
+                    // TODO: Recortar tarjeta
+                    cliente.tarjeta_credito = txtTarjeta.Text;
+
+                    if (id == null) {
+                        db.Cliente.Add(cliente);
+                    } else {
+                        db.Entry(cliente).State = System.Data.Entity.EntityState.Modified;
+                    }
+
+                    WindowsFormUtils.guardarYCerrar(db, this);
                 }
-
-                cliente.nombre = txtNombre.Text;
-                cliente.apellido = txtApellido.Text;
-                cliente.mail = txtEmail.Text;
-                cliente.telefono = txtTelefono.Text;
-                cliente.fecha_nacimiento = dtpFechaNacimiento.Value;
-                cliente.tipo_documento = cmbBxTipoDocumento.SelectedValue != null ? cmbBxTipoDocumento.SelectedValue.ToString() : null;
-                cliente.numero_documento = Decimal.Parse(txtNroDocumento.Text);
-                cliente.cuil = txtCuil.Text;
-                cliente.portal = Decimal.Parse(txtPortal.Text);
-                cliente.piso = Decimal.Parse(txtNroPiso.Text);
-                cliente.departamento = txtDepto.Text;
-                cliente.localidad = txtLocalidad.Text;
-                cliente.codigo_postal = txtCodigoPostal.Text;
-                // TODO: Recortar tarjeta
-                cliente.tarjeta_credito = txtTarjeta.Text;
-
-                if (id == null) {
-                    db.Cliente.Add(cliente);
-                } else {
-                    db.Entry(cliente).State = System.Data.Entity.EntityState.Modified;
-                }
-
-                WindowsFormUtils.guardarYCerrar(db, this);
             }
         }
 
+        #region
+        private bool camposValidos() {
+            bool camposValidos = true;
+            try {
+                ValidationsUtils.campoObligatorio(txtNombre, "nombre");
+                ValidationsUtils.campoObligatorio(txtNombre, "apellido");
+                ValidationsUtils.campoObligatorio(txtNombre, "mail");
+                ValidationsUtils.campoObligatorio(txtNombre, "telefono");
+                // TODO: validar que la fecha de nacimiento no puede ser posterior a la del archivo de configuracion
+                ValidationsUtils.campoObligatorio(dtpFechaNacimiento, "fecha de nacimiento");
+                ValidationsUtils.opcionObligatoria(cmbBxTipoDocumento, "tipo de documento");
+                ValidationsUtils.campoNumericoYPositivo(txtNroDocumento, "nro. de documento");
+                ValidationsUtils.campoObligatorio(txtCuil, "CUIL");
+                ValidationsUtils.campoNumericoYPositivo(txtPortal, "portal");
+                ValidationsUtils.campoNumericoYPositivo(txtNroPiso, "piso");
+                ValidationsUtils.campoObligatorio(txtDepto, "depto.");
+                ValidationsUtils.campoObligatorio(txtLocalidad, "localidad");
+                ValidationsUtils.campoObligatorio(txtCodigoPostal, "codigo postal");
+                ValidationsUtils.campoObligatorio(txtTarjeta, "tarjeta de credito");
+            } catch(ValidationException e) {
+                WindowsFormUtils.mensajeDeError(e.Message);
+                camposValidos = false;
+            }
+            return camposValidos;
+        }
+        #endregion
+
         #region HELPER
-            private void cargarDatos() {
+        private void cargarDatos() {
                 using (RagnarEntities db = new RagnarEntities()) {
                     cliente = db.Cliente.Find(id);
 

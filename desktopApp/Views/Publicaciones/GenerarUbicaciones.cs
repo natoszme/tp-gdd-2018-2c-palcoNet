@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Model;
+using PalcoNet.Utils;
 
 namespace PalcoNet.Views.Publicaciones
 {
@@ -21,54 +22,42 @@ namespace PalcoNet.Views.Publicaciones
             InitializeComponent();
         }
 
-        private void btnAgregar_Click(object sender, EventArgs e)
-        {
+        private void btnAgregar_Click(object sender, EventArgs e) {
             string filaIngresada = txtFila.Text;
             string asientoIngresado = txtAsiento.Text;
-            if (ubicacionValida())
-            {
+            if (ubicacionValida()) {
                 MessageBox.Show("Ubicacion creada con exito");
-                
                 dgvUbicaciones.Update();
                 dgvUbicaciones.Refresh();
-                
-                
             }
         }
 
-        bool ubicacionValida()
-        {
+        private bool ubicacionValida() {
           
             List<Control> inputs = new List<Control>();
             inputs.Add(txtFila);
             inputs.Add(txtAsiento);
             inputs.Add(txtPrecio);
-            if (new Funciones_generales.Validaciones().todosNumericos(inputs))
-            {
-                if (new Funciones_generales.Validaciones().campoVacio(cboTipo))
-                {
-                    MessageBox.Show("Debe seleccionar un tipo de ubicacion");
-                }
-                else
-                {
-                    Ubicacion nuevaUbicacion = new Ubicacion(int.Parse(txtFila.Text), int.Parse(txtAsiento.Text), int.Parse(txtPrecio.Text), new Tipo_ubicacion(), cbxNumerada.Checked);
-                    if (ubicaciones.Any(ubicacion => esMismaUbicacion(ubicacion, nuevaUbicacion)))
-                    {
-                        MessageBox.Show("Esa ubicacion ya esta ingresada");
-                    }
-                    else
-                    {
-                        ubicaciones.Add(nuevaUbicacion);
-                        return true;
-                    }
-                   
-                }
+
+            try {
+                ValidationsUtils.camposNumericos(inputs, "fila, asiento y precio");
+                ValidationsUtils.opcionObligatoria(cboTipo, "tipo de ubicacion");
+            } catch (ValidationException e) {
+                WindowsFormUtils.mensajeDeError(e.Message);
+                return false;
             }
-            else
-            {
-                MessageBox.Show("Debe ingresar campos numericos");
+            
+            Ubicacion nuevaUbicacion = new Ubicacion(int.Parse(txtFila.Text), int.Parse(txtAsiento.Text), int.Parse(txtPrecio.Text), new Tipo_ubicacion(), cbxNumerada.Checked);
+            if (ubicaciones.Any(ubicacion => esMismaUbicacion(ubicacion, nuevaUbicacion))) {
+                WindowsFormUtils.mensajeDeError("Esa ubicacion ya esta ingresada");
+            } else {
+                ubicaciones.Add(nuevaUbicacion);
+                return true;
             }
-            /*if (new Funciones_generales.Validaciones().campoVacio(txtFila))
+
+            /*
+             * TODO: usar las funciones del utils
+             * if (new ValidationsUtils.campoVacio(txtFila))
             {
                 MessageBox.Show("Campo vacio");
             }
@@ -77,7 +66,7 @@ namespace PalcoNet.Views.Publicaciones
                 MessageBox.Show("No vacio");
             }
 
-            if (new Funciones_generales.Validaciones().esNumerico(txtFila))
+            if (new ValidationsUtils.esNumerico(txtFila))
             {
                 MessageBox.Show("Es numerico");
             }
@@ -91,22 +80,12 @@ namespace PalcoNet.Views.Publicaciones
         }
 
 
-        bool esMismaUbicacion(Ubicacion existente, Ubicacion nuevaUbicacion)
-        {
+        private bool esMismaUbicacion(Ubicacion existente, Ubicacion nuevaUbicacion) {
             return (existente.fila == nuevaUbicacion.fila && existente.asiento == nuevaUbicacion.asiento);
         }
 
-        private void GenerarUbicaciones_Load(object sender, EventArgs e)
-        {
+        private void GenerarUbicaciones_Load(object sender, EventArgs e) {
             dgvUbicaciones.DataSource = ubicaciones;
         }
-
-     
-
-        
-        
-
-     
-
     }
 }
