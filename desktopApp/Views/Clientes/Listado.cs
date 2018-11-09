@@ -32,24 +32,20 @@ namespace PalcoNet.Clientes
 
                 IQueryable<Cliente> clientesFiltrados = db.Cliente.AsQueryable();
 
-                if (!string.IsNullOrWhiteSpace(txtNombre.Text))
-                {
+                if (!string.IsNullOrWhiteSpace(txtNombre.Text)) {
                     clientesFiltrados = clientesFiltrados.Where(c => c.nombre.Contains(txtNombre.Text));
                 }
 
-                if (!string.IsNullOrWhiteSpace(txtApellido.Text))
-                {
+                if (!string.IsNullOrWhiteSpace(txtApellido.Text)) {
                     clientesFiltrados = clientesFiltrados.Where(c => c.apellido.Contains(txtApellido.Text));
                 }
 
-                if (!string.IsNullOrWhiteSpace(txtEmail.Text))
-                {
+                if (!string.IsNullOrWhiteSpace(txtEmail.Text)) {
                     clientesFiltrados = clientesFiltrados.Where(c => c.mail.Contains(txtEmail.Text));
                 }
 
-                if (!string.IsNullOrWhiteSpace(txtDocumento.Text))
-                {
-                    clientesFiltrados = clientesFiltrados.Where(c => c.numero_documento.ToString().Contains(txtDocumento.Text));
+                if (!string.IsNullOrWhiteSpace(txtDocumento.Text)) {
+                    clientesFiltrados = clientesFiltrados.Where(c => c.numero_documento.ToString() == txtDocumento.Text);
                 }
 
                 var clientes = clientesFiltrados.Select(c => new
@@ -90,6 +86,7 @@ namespace PalcoNet.Clientes
             txtDocumento.Text = "";
 
             txtNombre.Focus();
+            actualizarDataGriedView();
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
