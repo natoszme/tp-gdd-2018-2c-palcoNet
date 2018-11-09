@@ -450,6 +450,7 @@
             this.Controls.Add(this.btnGuardar);
             this.Name = "Formulario";
             this.Text = "Cliente";
+            this.Load += new System.EventHandler(this.Formulario_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);

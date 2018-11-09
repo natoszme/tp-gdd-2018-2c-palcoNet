@@ -131,5 +131,13 @@ namespace PalcoNet.Clientes
         private string recortarTarjetaDeCredito(string tarjeta) {
             return tarjeta.Substring(0, 6) + tarjeta.Substring(tarjeta.Length - 4, 4);
         }
+
+        private void Formulario_Load(object sender, EventArgs e)
+        {
+            /* TODO: cargar todos los tipos en el combo de tipos de documento
+             * TipoDocumento.GetAll().Select(
+                tipoDoc => 
+            );*/
+        }
     }
 }
