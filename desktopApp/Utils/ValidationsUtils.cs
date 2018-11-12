@@ -27,11 +27,8 @@ namespace PalcoNet.Utils
         }
 
         public static void campoNumerico(Control input, string nombreInput) {
-            try {
-                Double.Parse(input.Text);
-            } catch (Exception) {
+            if (!input.Text.All(chr => char.IsDigit(chr)))
                 throw new ValidationException("El campo " + nombreInput + " debe ser numerico");
-            }
         }
 
         public static void emailValido(TextBox txtBox, string nombreInput) {
