@@ -84,7 +84,7 @@ namespace PalcoNet.Clientes
                 ValidationsUtils.campoNumericoYPositivo(txtTelefono, "telefono");
                 // TODO: validar que la fecha de nacimiento no puede ser posterior a la del archivo de configuracion
                 ValidationsUtils.campoObligatorio(dtpFechaNacimiento, "fecha de nacimiento");
-                //ValidationsUtils.campoObligatorio(cmbBxTipoDocumento, "tipo de documento");
+                ValidationsUtils.campoObligatorio(cmbBxTipoDocumento, "tipo de documento");
                 ValidationsUtils.campoLongitudFija(txtNroDocumento, "nro. de documento", 8);
                 ValidationsUtils.campoNumericoYPositivo(txtNroDocumento, "nro. de documento");
                 ValidationsUtils.cuilValido(txtCuil);
