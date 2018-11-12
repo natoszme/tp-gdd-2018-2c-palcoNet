@@ -61,6 +61,12 @@ namespace PalcoNet.Utils
                 throw new ValidationException("El campo " + nombreInput + " es obligatorio");
         }
 
+        public static void campoAlfabetico(Control input, string nombreInput)
+        {
+            if (!input.Text.All(chr => char.IsLetter(chr)))
+                throw new ValidationException("El campo " + nombreInput + " sólo acepta letras");
+        }
+
         public static void opcionObligatoria(ComboBox cmb, string nombreInput) {
             if (cmb.SelectedIndex == -1 || string.IsNullOrWhiteSpace(cmb.SelectedText))
                 throw new ValidationException("Debe seleccionar un " + nombreInput);
