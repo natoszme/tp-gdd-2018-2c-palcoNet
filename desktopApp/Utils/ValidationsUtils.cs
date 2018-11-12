@@ -51,10 +51,10 @@ namespace PalcoNet.Utils
             }
         }
 
-        public static void campoLongitudMaxima(Control input, string nombreInput, int longitud)
+        public static void campoLongitudMaxima(Control input, string nombreInput, int longitudMinima, int longitudMaxima)
         {
-            if (!(input.Text.Length <= longitud))
-                throw new ValidationException("El campo " + nombreInput + " puede tener hasta " + longitud + " caracteres");
+            if (!(input.Text.Length >= longitudMinima) || !(input.Text.Length <= longitudMaxima))
+                throw new ValidationException("El campo " + nombreInput + " debe tener entre " + longitudMinima + " y " + longitudMaxima + " caracteres");
         }
 
         public static void campoLongitudFija(Control input, string nombreInput, int longitud)
