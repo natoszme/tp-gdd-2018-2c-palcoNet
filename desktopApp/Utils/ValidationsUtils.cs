@@ -45,10 +45,22 @@ namespace PalcoNet.Utils
         public static void campoNumericoYPositivo(Control input, string nombreInput) {
             campoNumerico(input, nombreInput);
 
-            int value = int.Parse(input.Text);
+            double value = Double.Parse(input.Text);
             if (value < 0) {
-                throw new ValidationException("El campo " + nombreInput + " debe ser mayor a 0");
+                throw new ValidationException("El campo " + nombreInput + " debe ser positivo");
             }
+        }
+
+        public static void campoLongitudMaxima(Control input, string nombreInput, int longitud)
+        {
+            if (!(input.Text.Length <= longitud))
+                throw new ValidationException("El campo " + nombreInput + " puede tener hasta " + longitud + " caracteres");
+        }
+
+        public static void campoLongitudFija(Control input, string nombreInput, int longitud)
+        {
+            if (!(input.Text.Length == longitud))
+                throw new ValidationException("El campo " + nombreInput + " debe tener " + longitud + " caracteres");
         }
 
         public static void campoObligatorio(DateTimePicker dtp, string nombreInput) {
@@ -86,13 +98,8 @@ namespace PalcoNet.Utils
         public static void cuilValido(TextBox txtCuil) {
             string cuil = txtCuil.Text;
 
-            campoObligatorio(txtCuil, "CUIL");
-
-            // EL cuil sin guiones deberia tener 11 caracteres
-            cuil = cuil.Replace("-", string.Empty);
-            if (cuil.Length != 11) {
-                throw new ValidationException("El CUIL ingresado debe tener 11 caracteres");
-            }
+            campoNumericoYPositivo(txtCuil, "CUIL");
+            campoLongitudFija(txtCuil, "CUIL", 11);
             
             int calculado = CalcularDigitoCuil(cuil);
             int digito = int.Parse(cuil.Substring(10));

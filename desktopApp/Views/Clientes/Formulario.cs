@@ -80,18 +80,20 @@ namespace PalcoNet.Clientes
                 ValidationsUtils.campoAlfabetico(txtApellido, "apellido");
                 ValidationsUtils.campoObligatorio(txtEmail, "mail");
                 ValidationsUtils.emailValido(txtEmail, "mail");
-                ValidationsUtils.campoObligatorio(txtTelefono, "telefono");
+                ValidationsUtils.campoLongitudMaxima(txtTelefono, "telefono", 11);
                 ValidationsUtils.campoNumericoYPositivo(txtTelefono, "telefono");
                 // TODO: validar que la fecha de nacimiento no puede ser posterior a la del archivo de configuracion
                 ValidationsUtils.campoObligatorio(dtpFechaNacimiento, "fecha de nacimiento");
-                ValidationsUtils.opcionObligatoria(cmbBxTipoDocumento, "tipo de documento");
+                ValidationsUtils.campoLongitudFija(txtNroDocumento, "nro. de documento", 8);
                 ValidationsUtils.campoNumericoYPositivo(txtNroDocumento, "nro. de documento");
                 ValidationsUtils.cuilValido(txtCuil);
+                ValidationsUtils.campoObligatorio(txtDireccion, "dirección");
                 ValidationsUtils.campoNumericoYPositivo(txtPortal, "portal");
-                ValidationsUtils.campoNumericoYPositivo(txtNroPiso, "piso");
-                ValidationsUtils.campoObligatorio(txtDepto, "depto.");
                 ValidationsUtils.campoObligatorio(txtLocalidad, "localidad");
+                ValidationsUtils.campoAlfabetico(txtLocalidad, "localidad");
+                //TODO validar codigo postal que sea valido (al menos para argentina)
                 ValidationsUtils.campoObligatorio(txtCodigoPostal, "codigo postal");
+                //TODO validar maxima longitud
                 ValidationsUtils.campoObligatorio(txtTarjeta, "tarjeta de credito");
             } catch(ValidationException e) {
                 WindowsFormUtils.mensajeDeError(e.Message);
