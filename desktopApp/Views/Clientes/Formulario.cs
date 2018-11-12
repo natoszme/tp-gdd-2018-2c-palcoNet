@@ -16,6 +16,7 @@ namespace PalcoNet.Clientes
     {
         int? id;
         Cliente cliente = new Cliente();
+        private String caracteresOcultosTarjeta = "****";
 
         public Formulario(int? id = null)
         {
@@ -140,8 +141,7 @@ namespace PalcoNet.Clientes
                     txtDepto.Text = cliente.departamento;
                     txtLocalidad.Text = cliente.localidad;
                     txtCodigoPostal.Text = cliente.codigo_postal;
-                    // TODO: Recortar tarjeta
-                    txtTarjeta.Text = cliente.tarjeta_credito;
+                    txtTarjeta.Text = tarjetaConAsteriscos(cliente.tarjeta_credito);
                 }
             }
         #endregion
@@ -153,6 +153,16 @@ namespace PalcoNet.Clientes
 
         private string recortarTarjetaDeCredito(string tarjeta) {
             return tarjeta.Substring(0, 6) + tarjeta.Substring(tarjeta.Length - 4, 4);
+        }
+
+        private string tarjetaConAsteriscos(string tarjeta)
+        {
+            if (tarjeta != null)
+            {
+                return tarjeta.Substring(0, 6) + caracteresOcultosTarjeta + tarjeta.Substring(tarjeta.Length - 4, 4);
+            }
+
+            return "";
         }
 
         private void Formulario_Load(object sender, EventArgs e)
