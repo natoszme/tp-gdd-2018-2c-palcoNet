@@ -22,13 +22,18 @@ namespace PalcoNet.Clientes
             this.id = id;
             InitializeComponent();
             
-            if (id != null) {
+            if (editando()) {
                 cargarDatos();
             }
 
             if (SessionUtils.esAdmin()) {
                 pnlDatosUsuario.Visible = true;
             }
+        }
+
+        private bool editando()
+        {
+            return id != null;
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -45,7 +50,7 @@ namespace PalcoNet.Clientes
                     cliente.mail = txtEmail.Text;
                     cliente.telefono = txtTelefono.Text;
                     cliente.fecha_nacimiento = dtpFechaNacimiento.Value;
-                    cliente.tipo_documento = cmbBxTipoDocumento.SelectedValue != null ? cmbBxTipoDocumento.SelectedValue.ToString() : null;
+                    cliente.tipo_documento = cmbBxTipoDocumento.SelectedValue.ToString();
                     cliente.numero_documento = Decimal.Parse(txtNroDocumento.Text);
                     cliente.cuil = txtCuil.Text;
                     cliente.portal = Decimal.Parse(txtPortal.Text);
@@ -53,13 +58,12 @@ namespace PalcoNet.Clientes
                     cliente.departamento = txtDepto.Text;
                     cliente.localidad = txtLocalidad.Text;
                     cliente.codigo_postal = txtCodigoPostal.Text;
-
                     cliente.tarjeta_credito = recortarTarjetaDeCredito(txtTarjeta.Text);
 
                     // TODO: chequear si esta el checkbox
                     cliente.habilitado = chkBxHabilitado.Checked;
 
-                    if (id == null) {
+                    if (!editando()) {
                         db.Cliente.Add(cliente);
                     } else {
                         db.Entry(cliente).State = System.Data.Entity.EntityState.Modified;
@@ -80,26 +84,35 @@ namespace PalcoNet.Clientes
                 ValidationsUtils.campoAlfabetico(txtApellido, "apellido");
                 ValidationsUtils.campoObligatorio(txtEmail, "mail");
                 ValidationsUtils.emailValido(txtEmail, "mail");
-                ValidationsUtils.campoLongitudMaxima(txtTelefono, "telefono", 8, 11);
-                ValidationsUtils.campoNumericoYPositivo(txtTelefono, "telefono");
+                if (validable(txtTelefono))
+                {
+                    ValidationsUtils.campoLongitudMaxima(txtTelefono, "telefono", 8, 11);
+                    ValidationsUtils.campoNumericoYPositivo(txtTelefono, "telefono");
+                }
                 // TODO: validar que la fecha de nacimiento no puede ser posterior a la del archivo de configuracion
                 ValidationsUtils.campoObligatorio(dtpFechaNacimiento, "fecha de nacimiento");
                 ValidationsUtils.campoObligatorio(cmbBxTipoDocumento, "tipo de documento");
                 ValidationsUtils.campoLongitudFija(txtNroDocumento, "nro. de documento", 8);
                 ValidationsUtils.campoNumericoYPositivo(txtNroDocumento, "nro. de documento");
-                ValidationsUtils.cuilValido(txtCuil);
+                if (validable(txtCuil)) ValidationsUtils.cuilValido(txtCuil);
                 ValidationsUtils.campoObligatorio(txtDireccion, "dirección");
                 ValidationsUtils.campoObligatorio(txtPortal, "portal");
                 ValidationsUtils.campoNumericoYPositivo(txtPortal, "portal");
                 ValidationsUtils.campoObligatorio(txtNroPiso, "nro. piso");
                 ValidationsUtils.campoNumericoYPositivo(txtNroPiso, "nro. piso");
                 ValidationsUtils.campoObligatorio(txtDepto, "departamento");
-                ValidationsUtils.campoObligatorio(txtLocalidad, "localidad");
-                ValidationsUtils.campoAlfabetico(txtLocalidad, "localidad");
+                if (validable(txtLocalidad))
+                {
+                    ValidationsUtils.campoObligatorio(txtLocalidad, "localidad");
+                    ValidationsUtils.campoAlfabetico(txtLocalidad, "localidad");
+                }
                 //TODO validar codigo postal que sea valido (al menos para argentina)
                 ValidationsUtils.campoObligatorio(txtCodigoPostal, "codigo postal");
-                ValidationsUtils.campoLongitudMaxima(txtTarjeta, "tarjeta de credito", 15, 16);
-                ValidationsUtils.campoNumericoYPositivo(txtTarjeta, "tarjeta de credito");
+                if (validable(txtTarjeta))
+                {
+                    ValidationsUtils.campoLongitudMaxima(txtTarjeta, "tarjeta de credito", 15, 16);
+                    ValidationsUtils.campoNumericoYPositivo(txtTarjeta, "tarjeta de credito");
+                }
             } catch(ValidationException e) {
                 WindowsFormUtils.mensajeDeError(e.Message);
                 camposValidos = false;
@@ -121,7 +134,7 @@ namespace PalcoNet.Clientes
                     cmbBxTipoDocumento.SelectedValue = cliente.tipo_documento;
                     txtNroDocumento.Text = cliente.numero_documento.ToString();
                     txtCuil.Text = cliente.cuil;
-                    // TODO: falta la direccion
+                    txtDireccion.Text = cliente.calle;
                     txtPortal.Text = cliente.portal.ToString();
                     txtNroPiso.Text = cliente.piso.ToString();
                     txtDepto.Text = cliente.departamento;
@@ -148,6 +161,11 @@ namespace PalcoNet.Clientes
              * TipoDocumento.GetAll().Select(
                 tipoDoc => 
             );*/
+        }
+
+        private bool validable(Control input)
+        {
+            return !editando() || (editando() && input.Text != "");
         }
     }
 }
