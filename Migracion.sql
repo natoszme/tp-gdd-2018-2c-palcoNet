@@ -135,8 +135,34 @@ CREATE TABLE RAGNAR.Canje_premio				(	id_premio int FOREIGN KEY references RAGNA
 
 --/Migracion de la tabla maestra/--
 
---/Inserts de usuarios/--
+--/Funcion para encriptar la contraseña/--
+GO
+CREATE FUNCTION RAGNAR.FuncionHasheoDeClave (@Clave varchar(32))
+RETURNS varchar(32)
+AS
+BEGIN
+	RETURN CONVERT(varchar(32),HASHBYTES('SHA2_256',@Clave))
+END
 
+
+GO
+CREATE TRIGGER RAGNAR.HasheoDeClaveDeUsuario ON RAGNAR.Usuario INSTEAD OF INSERT
+AS
+BEGIN
+	DECLARE @Usuario varchar(50), @Clave varchar(32), @Habilitado bit
+	DECLARE CUsuarios CURSOR FOR (SELECT usuario, clave, habilitado FROM INSERTED)
+	OPEN CUsuarios
+	FETCH NEXT FROM CUsuarios INTO @Usuario, @Clave, @Habilitado
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		INSERT INTO RAGNAR.Usuario(usuario, clave, habilitado) VALUES (@Usuario, RAGNAR.FuncionHasheoDeClave(@Clave), @Habilitado)
+		FETCH NEXT FROM CUsuarios INTO @Usuario, @Clave, @Habilitado
+	END
+	CLOSE CUsuarios
+	DEALLOCATE CUsuarios
+END
+--/Inserts de usuarios/--
+GO
 INSERT INTO RAGNAR.Usuario(usuario,clave,habilitado) VALUES ('admin','admin',1) /*Usuario administrador, cambiar la pass con el metodo de encriptacion*/
 
 INSERT INTO RAGNAR.Usuario(usuario,clave,habilitado) 
