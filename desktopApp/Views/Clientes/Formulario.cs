@@ -28,7 +28,10 @@ namespace PalcoNet.Clientes
             }
 
             if (SessionUtils.esAdmin()) {
-                pnlDatosUsuario.Visible = true;
+                if(editando())
+                {
+                    pnlDatosUsuario.Visible = true;
+                }
             }
         }
 
