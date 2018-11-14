@@ -101,7 +101,11 @@ namespace PalcoNet.Clientes
                 ValidationsUtils.opcionObligatoria(cmbBxTipoDocumento, "tipo de documento");
                 ValidationsUtils.campoLongitudFija(txtNroDocumento, "nro. de documento", 8);
                 ValidationsUtils.campoNumericoYPositivo(txtNroDocumento, "nro. de documento");
-                if (validable(txtCuil)) ValidationsUtils.cuilValido(txtCuil);
+                if (validable(txtCuil))
+                {
+                    ValidationsUtils.campoObligatorio(txtCuil, "cuil");
+                    ValidationsUtils.cuilValido(txtCuil);
+                }
                 ValidationsUtils.campoObligatorio(txtDireccion, "dirección");
                 ValidationsUtils.campoObligatorio(txtPortal, "portal");
                 ValidationsUtils.campoNumericoYPositivo(txtPortal, "portal");
