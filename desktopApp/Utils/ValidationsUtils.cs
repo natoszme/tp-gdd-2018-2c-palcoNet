@@ -48,7 +48,7 @@ namespace PalcoNet.Utils
             }
         }
 
-        public static void campoLongitudMaxima(Control input, string nombreInput, int longitudMinima, int longitudMaxima)
+        public static void campoLongitudEntre(Control input, string nombreInput, int longitudMinima, int longitudMaxima)
         {
             if (!(input.Text.Length >= longitudMinima) || !(input.Text.Length <= longitudMaxima))
                 throw new ValidationException("El campo " + nombreInput + " debe tener entre " + longitudMinima + " y " + longitudMaxima + " caracteres");
@@ -77,7 +77,8 @@ namespace PalcoNet.Utils
         }
 
         public static void opcionObligatoria(ComboBox cmb, string nombreInput) {
-            if (cmb.SelectedIndex == -1 || string.IsNullOrWhiteSpace(cmb.SelectedText))
+            Console.WriteLine(cmb.SelectedItem);
+            if (cmb.SelectedIndex == -1)
                 throw new ValidationException("Debe seleccionar un " + nombreInput);
         }
 
