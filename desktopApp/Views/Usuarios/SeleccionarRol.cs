@@ -13,7 +13,6 @@ namespace PalcoNet.Usuarios
 {
     public partial class SeleccionarRol : Form
     {
-        BaseDeDatos.BaseDeDatos db = new BaseDeDatos.BaseDeDatos();
         public SeleccionarRol()
         {
             InitializeComponent();
@@ -26,7 +25,7 @@ namespace PalcoNet.Usuarios
 
         public bool tieneAlgunRol(int idUsuario)
         {
-            return db.tieneAlgunRol(idUsuario);
+            return BaseDeDatos.BaseDeDatos.tieneAlgunRol(idUsuario);
         }
 
         List<TipoRol> obtenerRolesDeId(int idUsuario)
@@ -37,7 +36,7 @@ namespace PalcoNet.Usuarios
 
         private List<String> obtenerRolesPorIdEnTexto(int idUsuario)
         {
-            return db.obtenerRolesPorIdEnTexto(idUsuario);     
+            return BaseDeDatos.BaseDeDatos.obtenerRolesPorIdEnTexto(idUsuario);     
         }
 
         private void redirijirA(TipoRol rol)

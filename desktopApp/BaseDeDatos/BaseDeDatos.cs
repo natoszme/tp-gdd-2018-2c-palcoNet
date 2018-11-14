@@ -8,19 +8,19 @@ namespace PalcoNet.BaseDeDatos
 {
     class BaseDeDatos
     {
-        public int obtenerIdPorUsuarioPass(String usuario, String password)
+        public static int obtenerIdPorUsuarioPass(String usuario, String password)
         {
             //Debe traer el id de la base de datos que tiene ese usuario, -1 en caso de no existir
             return 1;
         }
 
-        public bool tieneAlgunRol(int idUsuario)
+        public static bool tieneAlgunRol(int idUsuario)
         {
             //Debe obtener si existe algun rol para ese id
             return true;
         }
 
-        public List<String> obtenerRolesPorIdEnTexto(int id)
+        public static List<String> obtenerRolesPorIdEnTexto(int id)
         {
             List<String> roles = new List<string>();
             //TODO debe traer los roles de la db del usuario
@@ -28,6 +28,12 @@ namespace PalcoNet.BaseDeDatos
             roles.Add("Administrativo");
             roles.Add("Empresa");
             return roles;
+        }
+
+        public static bool existeUsuario(String username)
+        {
+            //TODO fijarse si existe un usuario con este username, en ese caso devolver true
+            return false;
         }
 
     }

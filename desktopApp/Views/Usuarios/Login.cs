@@ -37,8 +37,8 @@ namespace PalcoNet.Usuarios
 
             if (idUsuario != -1)
             {
-                
-                if (!db.tieneAlgunRol(idUsuario))
+
+                if (!BaseDeDatos.BaseDeDatos.tieneAlgunRol(idUsuario))
                 {
                     MessageBox.Show("No tiene ningún rol habilitado. Por favor, contáctese con el administrador", "No posee rol", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -58,7 +58,7 @@ namespace PalcoNet.Usuarios
 
         private int obtenerIdDe(String usuario, String password)
         {
-            return db.obtenerIdPorUsuarioPass(usuario, password);   
+            return BaseDeDatos.BaseDeDatos.obtenerIdPorUsuarioPass(usuario, password);   
         }
     }
 }

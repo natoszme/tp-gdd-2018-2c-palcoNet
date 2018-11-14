@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Model;
 using PalcoNet.Utils;
+using PalcoNet.Views.Usuarios;
 
 namespace PalcoNet.Clientes
 {
@@ -65,9 +66,11 @@ namespace PalcoNet.Clientes
                     cliente.tarjeta_credito = recortarTarjetaDeCredito(txtTarjeta.Text);
 
                     // TODO: chequear si esta el checkbox
+                    //keko esto es solo para el caso del admin, y cuando esta editando (aclaro por las dudas)
                     cliente.habilitado = chkBxHabilitado.Checked;
 
                     if (!editando()) {
+                        cliente.id_usuario = UsuariosUtils.idAAsignar(cliente.nombre, cliente.apellido);
                         db.Cliente.Add(cliente);
                     } else {
                         db.Entry(cliente).State = System.Data.Entity.EntityState.Modified;

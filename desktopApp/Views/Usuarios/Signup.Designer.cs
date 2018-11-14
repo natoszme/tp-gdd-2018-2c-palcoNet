@@ -68,6 +68,7 @@
             this.btnRegistrarEmpresa.TabIndex = 9;
             this.btnRegistrarEmpresa.Text = "Registrarme como empresa";
             this.btnRegistrarEmpresa.UseVisualStyleBackColor = true;
+            this.btnRegistrarEmpresa.Click += new System.EventHandler(this.btnRegistrarEmpresa_Click);
             // 
             // label4
             // 
@@ -111,6 +112,7 @@
             this.btnRegistrarCliente.TabIndex = 4;
             this.btnRegistrarCliente.Text = "Registrarme como cliente";
             this.btnRegistrarCliente.UseVisualStyleBackColor = true;
+            this.btnRegistrarCliente.Click += new System.EventHandler(this.btnRegistrarCliente_Click);
             // 
             // txtClave
             // 
