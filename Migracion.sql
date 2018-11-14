@@ -179,10 +179,10 @@ BEGIN
 	END
 	ELSE
 	BEGIN
-		IF ((SELECT COUNT(*) FROM RAGNAR.Usuario WHERE id_usuario = @ID AND clave = @ClaveEncriptada) = 0) --La contraseña ingresada no es correcta
+		IF (NOT EXISTS (SELECT * FROM RAGNAR.Usuario WHERE id_usuario = @ID AND clave = @ClaveEncriptada)) --La contraseña ingresada no es correcta
 		BEGIN
 			PRINT('La contraseña ingresada no es correcta')
-			IF((SELECT COUNT(*) FROM RAGNAR.Login_fallido WHERE id_usuario = @ID) = 0)
+			IF(NOT EXISTS (SELECT * FROM RAGNAR.Login_fallido WHERE id_usuario = @ID))
 				INSERT INTO RAGNAR.Login_fallido(id_usuario, nro_intento) VALUES (@ID, 1)
 			ELSE
 				UPDATE RAGNAR.Login_fallido SET nro_intento = nro_intento + 1 WHERE id_usuario = @ID
@@ -214,6 +214,30 @@ BEGIN
 	END
 	CLOSE CLogin
 	DEALLOCATE CLogin
+END
+GO
+
+--/StoredProcedure para cargar la fecha del archivo config y funcion para obtener esa fecha, tiene que ir arriba del todo/--
+
+CREATE PROCEDURE RAGNAR.SP_CargarEnLaBaseFechaDelConfig
+AS
+BEGIN
+	IF(EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Fecha_config'))
+		DROP TABLE RAGNAR.Fecha_config
+	CREATE TABLE RAGNAR.Fecha_config (fecha smalldatetime)
+	BULK INSERT RAGNAR.Fecha_config FROM 'C:\Gestion De Datos\TP2C2018\Aplicacion Desktop\PalcoNet\config.txt' WITH (FIRSTROW = 1,FIELDTERMINATOR = ',',ROWTERMINATOR = '') --Cambiar la ruta
+END
+GO
+
+--/ RECORDAR QUE LUEGO DE UN CAMBIO EN EL CONFIG SE DEBE SI O SI LLAMAR AL STORED PROCEDURE PARA ACTUALIZAR LA FECHA EN LA BASE
+
+CREATE FUNCTION RAGNAR.F_ObtenerFechaDelConfig ()
+RETURNS smalldatetime
+AS
+BEGIN
+	DECLARE @Fecha smalldatetime
+	SET @Fecha = (SELECT * FROM RAGNAR.Fecha_config)
+	RETURN @Fecha
 END
 GO
 
