@@ -77,7 +77,8 @@ namespace PalcoNet.Utils
         }
 
         public static void opcionObligatoria(ComboBox cmb, string nombreInput) {
-            if (cmb.SelectedIndex == -1 || string.IsNullOrWhiteSpace(cmb.SelectedText))
+            Console.WriteLine(cmb.SelectedItem);
+            if (cmb.SelectedIndex == -1)
                 throw new ValidationException("Debe seleccionar un " + nombreInput);
         }
 

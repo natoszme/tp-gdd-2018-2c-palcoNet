@@ -51,7 +51,7 @@ namespace PalcoNet.Clientes
                     cliente.mail = txtEmail.Text;
                     cliente.telefono = txtTelefono.Text;
                     cliente.fecha_nacimiento = dtpFechaNacimiento.Value;
-                    cliente.tipo_documento = cmbBxTipoDocumento.SelectedValue.ToString();
+                    cliente.tipo_documento = cmbBxTipoDocumento.SelectedItem.ToString();
                     cliente.numero_documento = Decimal.Parse(txtNroDocumento.Text);
                     cliente.cuil = txtCuil.Text;
                     cliente.portal = Decimal.Parse(txtPortal.Text);
@@ -92,7 +92,7 @@ namespace PalcoNet.Clientes
                 }
                 // TODO: validar que la fecha de nacimiento no puede ser posterior a la del archivo de configuracion
                 ValidationsUtils.campoObligatorio(dtpFechaNacimiento, "fecha de nacimiento");
-                ValidationsUtils.campoObligatorio(cmbBxTipoDocumento, "tipo de documento");
+                ValidationsUtils.opcionObligatoria(cmbBxTipoDocumento, "tipo de documento");
                 ValidationsUtils.campoLongitudFija(txtNroDocumento, "nro. de documento", 8);
                 ValidationsUtils.campoNumericoYPositivo(txtNroDocumento, "nro. de documento");
                 if (validable(txtCuil)) ValidationsUtils.cuilValido(txtCuil);
@@ -166,14 +166,9 @@ namespace PalcoNet.Clientes
         }
 
         private void Formulario_Load(object sender, EventArgs e) {
-            var tipos = TipoDocumento.GetAll().Select(
-                tipoDoc => new {
-                    id = tipoDoc.Value,
-                    nombre = tipoDoc.ToString()
-                }
+            TipoDocumento.GetAll().ToList().ForEach(
+                tipoDoc => cmbBxTipoDocumento.Items.Insert(tipoDoc.Value, tipoDoc.DisplayName)
             );
-
-            tipos.ToList().ForEach(tipo => Console.WriteLine("Id:. . . . {0:N}\nNombre:. . . . {0:G}\n", tipo.id, tipo.nombre));
         }
 
         private bool validable(Control input) {
