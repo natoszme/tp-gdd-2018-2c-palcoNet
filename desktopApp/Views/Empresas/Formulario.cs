@@ -17,6 +17,7 @@ namespace PalcoNet.Empresas
             InitializeComponent();
 
             //TODO validar si quien esta logueado es admin. Si lo es hay que mostrar el panel pnlDatosUsuario
+            //solo en el caso de que sea edicion!!
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -25,6 +26,11 @@ namespace PalcoNet.Empresas
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
         {
 
         }
