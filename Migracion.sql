@@ -170,7 +170,7 @@ CREATE PROCEDURE RAGNAR.SP_LoginDeUsuario (@Usuario varchar(50), @Clave varchar(
 AS
 BEGIN
 	DECLARE @ClaveEncriptada varchar(32), @ID bigint
-	SET @ClaveEncriptada = CONVERT(varchar(32),HASHBYTES('SHA2_256',@Clave))
+	SET @ClaveEncriptada = RAGNAR.F_HasheoDeClave(@Clave)
 	SET @ID = (SELECT id_usuario FROM RAGNAR.Usuario WHERE usuario = @Usuario)
 	IF (@ID IS NULL)
 	BEGIN
