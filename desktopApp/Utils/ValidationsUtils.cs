@@ -48,7 +48,7 @@ namespace PalcoNet.Utils
             }
         }
 
-        public static void campoLongitudMaxima(Control input, string nombreInput, int longitudMinima, int longitudMaxima)
+        public static void campoLongitudEntre(Control input, string nombreInput, int longitudMinima, int longitudMaxima)
         {
             if (!(input.Text.Length >= longitudMinima) || !(input.Text.Length <= longitudMaxima))
                 throw new ValidationException("El campo " + nombreInput + " debe tener entre " + longitudMinima + " y " + longitudMaxima + " caracteres");

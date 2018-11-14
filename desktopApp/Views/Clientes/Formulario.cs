@@ -87,7 +87,7 @@ namespace PalcoNet.Clientes
                 ValidationsUtils.emailValido(txtEmail, "mail");
                 if (validable(txtTelefono))
                 {
-                    ValidationsUtils.campoLongitudMaxima(txtTelefono, "telefono", 8, 11);
+                    ValidationsUtils.campoLongitudEntre(txtTelefono, "telefono", 8, 11);
                     ValidationsUtils.campoNumericoYPositivo(txtTelefono, "telefono");
                 }
                 // TODO: validar que la fecha de nacimiento no puede ser posterior a la del archivo de configuracion
@@ -111,7 +111,7 @@ namespace PalcoNet.Clientes
                 ValidationsUtils.campoObligatorio(txtCodigoPostal, "codigo postal");
                 if (validable(txtTarjeta))
                 {
-                    ValidationsUtils.campoLongitudMaxima(txtTarjeta, "tarjeta de credito", 15, 16);
+                    ValidationsUtils.campoLongitudEntre(txtTarjeta, "tarjeta de credito", 15, 16);
                     ValidationsUtils.campoNumericoYPositivo(txtTarjeta, "tarjeta de credito");
                 }
             } catch(ValidationException e) {
@@ -165,16 +165,18 @@ namespace PalcoNet.Clientes
             return "";
         }
 
-        private void Formulario_Load(object sender, EventArgs e)
-        {
-            /* TODO: cargar todos los tipos en el combo de tipos de documento
-             * TipoDocumento.GetAll().Select(
-                tipoDoc => 
-            );*/
+        private void Formulario_Load(object sender, EventArgs e) {
+            var tipos = TipoDocumento.GetAll().Select(
+                tipoDoc => new {
+                    id = tipoDoc.Value,
+                    nombre = tipoDoc.ToString()
+                }
+            );
+
+            tipos.ToList().ForEach(tipo => Console.WriteLine("Id:. . . . {0:N}\nNombre:. . . . {0:G}\n", tipo.id, tipo.nombre));
         }
 
-        private bool validable(Control input)
-        {
+        private bool validable(Control input) {
             return !editando() || (editando() && input.Text != "");
         }
     }
