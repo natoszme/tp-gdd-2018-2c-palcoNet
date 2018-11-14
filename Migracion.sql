@@ -26,7 +26,8 @@ CREATE TABLE RAGNAR.Usuario_rol					(	id_usuario bigint FOREIGN KEY references R
 													
 
 CREATE TABLE RAGNAR.Login_fallido				(	id_usuario bigint FOREIGN KEY references RAGNAR.Usuario(id_usuario),
-													nro_intento tinyint NOT NULL)
+													nro_intento tinyint NOT NULL,
+													PRIMARY KEY(id_usuario))
 
 CREATE TABLE RAGNAR.Cliente						(	id_usuario bigint FOREIGN KEY references RAGNAR.Usuario(id_usuario) PRIMARY KEY,
 													nombre nvarchar(255) NOT NULL,
@@ -130,22 +131,22 @@ CREATE TABLE RAGNAR.Premio						(	id_premio int identity PRIMARY KEY,
 
 CREATE TABLE RAGNAR.Canje_premio				(	id_premio int FOREIGN KEY references RAGNAR.Premio(id_premio),
 													id_cliente bigint FOREIGN KEY references RAGNAR.Cliente(id_usuario))
-
+GO
 --/Fin de creacion de tablas/--
 
 --/Migracion de la tabla maestra/--
 
 --/Funcion para encriptar la contraseña/--
-GO
-CREATE FUNCTION RAGNAR.FuncionHasheoDeClave (@Clave varchar(32))
+
+CREATE FUNCTION RAGNAR.F_HasheoDeClave (@Clave varchar(32))
 RETURNS varchar(32)
 AS
 BEGIN
 	RETURN CONVERT(varchar(32),HASHBYTES('SHA2_256',@Clave))
 END
-
-
 GO
+
+
 CREATE TRIGGER RAGNAR.HasheoDeClaveDeUsuario ON RAGNAR.Usuario INSTEAD OF INSERT
 AS
 BEGIN
@@ -155,14 +156,69 @@ BEGIN
 	FETCH NEXT FROM CUsuarios INTO @Usuario, @Clave, @Habilitado
 	WHILE @@FETCH_STATUS = 0
 	BEGIN
-		INSERT INTO RAGNAR.Usuario(usuario, clave, habilitado) VALUES (@Usuario, RAGNAR.FuncionHasheoDeClave(@Clave), @Habilitado)
+		INSERT INTO RAGNAR.Usuario(usuario, clave, habilitado) VALUES (@Usuario, RAGNAR.F_HasheoDeClave(@Clave), @Habilitado)
 		FETCH NEXT FROM CUsuarios INTO @Usuario, @Clave, @Habilitado
 	END
 	CLOSE CUsuarios
 	DEALLOCATE CUsuarios
 END
---/Inserts de usuarios/--
 GO
+
+--/SP para el login de usuarios, puede ir al final/--
+
+CREATE PROCEDURE RAGNAR.SP_LoginDeUsuario (@Usuario varchar(50), @Clave varchar(32))
+AS
+BEGIN
+	DECLARE @ClaveEncriptada varchar(32), @ID bigint
+	SET @ClaveEncriptada = CONVERT(varchar(32),HASHBYTES('SHA2_256',@Clave))
+	SET @ID = (SELECT id_usuario FROM RAGNAR.Usuario WHERE usuario = @Usuario)
+	IF (@ID IS NULL)
+	BEGIN
+		PRINT('El usuario ingresado no existe') --Se puede cambiar a un RAISEERROR?
+		RETURN 0
+	END
+	ELSE
+	BEGIN
+		IF ((SELECT COUNT(*) FROM RAGNAR.Usuario WHERE id_usuario = @ID AND clave = @ClaveEncriptada) = 0) --La contraseña ingresada no es correcta
+		BEGIN
+			PRINT('La contraseña ingresada no es correcta')
+			IF((SELECT COUNT(*) FROM RAGNAR.Login_fallido WHERE id_usuario = @ID) = 0)
+				INSERT INTO RAGNAR.Login_fallido(id_usuario, nro_intento) VALUES (@ID, 1)
+			ELSE
+				UPDATE RAGNAR.Login_fallido SET nro_intento = nro_intento + 1 WHERE id_usuario = @ID
+			RETURN 2
+		END
+		ELSE
+			RETURN 1 --El login fue exitoso
+	END
+END
+GO
+
+--/Trigger de la tabla Login_fallido, puede ir al final/--
+
+CREATE TRIGGER RAGNAR.LoginFallido ON RAGNAR.Login_fallido AFTER UPDATE
+AS
+BEGIN
+	DECLARE @ID bigint, @Intento tinyint
+	DECLARE CLogin CURSOR FOR (SELECT id_usuario, nro_intento FROM INSERTED)
+	OPEN CLogin
+	FETCH NEXT FROM CLogin INTO @ID, @Intento
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		IF(@Intento >= 3)
+		BEGIN
+			UPDATE RAGNAR.Usuario SET habilitado = 0 WHERE id_usuario = @ID
+			DELETE FROM RAGNAR.Login_fallido WHERE id_usuario = @ID
+		END
+		FETCH NEXT FROM CLogin INTO @ID, @Intento
+	END
+	CLOSE CLogin
+	DEALLOCATE CLogin
+END
+GO
+
+--/Inserts de usuarios/--
+
 INSERT INTO RAGNAR.Usuario(usuario,clave,habilitado) VALUES ('admin','admin',1) /*Usuario administrador, cambiar la pass con el metodo de encriptacion*/
 
 INSERT INTO RAGNAR.Usuario(usuario,clave,habilitado) 
