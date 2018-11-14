@@ -1,8 +1,36 @@
 USE GDDPrueba
 GO
+
 CREATE SCHEMA RAGNAR
 GO
---/ CREACION DE TABLAS /--
+
+--/ StoredProcedure para cargar la fecha del archivo config y funcion para obtener esa fecha /--
+
+CREATE PROCEDURE RAGNAR.SP_CargarEnLaBaseFechaDelConfig
+AS
+BEGIN
+	IF(EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Fecha_config'))
+		DROP TABLE RAGNAR.Fecha_config
+	CREATE TABLE RAGNAR.Fecha_config (fecha smalldatetime)
+	BULK INSERT RAGNAR.Fecha_config FROM 'C:\Gestion De Datos\TP2C2018\Aplicacion Desktop\PalcoNet\config.txt' WITH (FIRSTROW = 1,FIELDTERMINATOR = ',',ROWTERMINATOR = '') --Cambiar la ruta
+END
+GO
+--/ RECORDAR QUE LUEGO DE UN CAMBIO EN EL CONFIG SE DEBE SI O SI LLAMAR AL STORED PROCEDURE PARA ACTUALIZAR LA FECHA EN LA BASE
+
+--/ Funcion para usar la fecha del config /--
+
+CREATE FUNCTION RAGNAR.F_ObtenerFechaDelConfig ()
+RETURNS smalldatetime
+AS
+BEGIN
+	DECLARE @Fecha smalldatetime
+	SET @Fecha = (SELECT * FROM RAGNAR.Fecha_config)
+	RETURN @Fecha
+END
+GO
+
+--/ Creacion de tablas /--
+
 CREATE TABLE RAGNAR.Funcionalidad				(	id_funcionalidad int identity PRIMARY KEY,
 													descripcion varchar(255) NOT NULL)
 
@@ -131,12 +159,12 @@ CREATE TABLE RAGNAR.Premio						(	id_premio int identity PRIMARY KEY,
 
 CREATE TABLE RAGNAR.Canje_premio				(	id_premio int FOREIGN KEY references RAGNAR.Premio(id_premio),
 													id_cliente bigint FOREIGN KEY references RAGNAR.Cliente(id_usuario))
+
+--/ Fin de creacion de tablas /--
+
 GO
---/Fin de creacion de tablas/--
 
---/Migracion de la tabla maestra/--
-
---/Funcion para encriptar la contraseña/--
+--/ Funcion para encriptar la contraseña /--
 
 CREATE FUNCTION RAGNAR.F_HasheoDeClave (@Clave varchar(32))
 RETURNS varchar(32)
@@ -146,6 +174,7 @@ BEGIN
 END
 GO
 
+--/ Trigger para encriptar la contraseña ingresada /--
 
 CREATE TRIGGER RAGNAR.HasheoDeClaveDeUsuario ON RAGNAR.Usuario INSTEAD OF INSERT
 AS
@@ -164,84 +193,9 @@ BEGIN
 END
 GO
 
---/SP para el login de usuarios, puede ir al final/--
+--/ Migracion de la tabla maestra /--
 
-CREATE PROCEDURE RAGNAR.SP_LoginDeUsuario (@Usuario varchar(50), @Clave varchar(32))
-AS
-BEGIN
-	DECLARE @ClaveEncriptada varchar(32), @ID bigint
-	SET @ClaveEncriptada = RAGNAR.F_HasheoDeClave(@Clave)
-	SET @ID = (SELECT id_usuario FROM RAGNAR.Usuario WHERE usuario = @Usuario)
-	IF (@ID IS NULL)
-	BEGIN
-		PRINT('El usuario ingresado no existe') --Se puede cambiar a un RAISEERROR?
-		RETURN 0
-	END
-	ELSE
-	BEGIN
-		IF (NOT EXISTS (SELECT * FROM RAGNAR.Usuario WHERE id_usuario = @ID AND clave = @ClaveEncriptada)) --La contraseña ingresada no es correcta
-		BEGIN
-			PRINT('La contraseña ingresada no es correcta')
-			IF(NOT EXISTS (SELECT * FROM RAGNAR.Login_fallido WHERE id_usuario = @ID))
-				INSERT INTO RAGNAR.Login_fallido(id_usuario, nro_intento) VALUES (@ID, 1)
-			ELSE
-				UPDATE RAGNAR.Login_fallido SET nro_intento = nro_intento + 1 WHERE id_usuario = @ID
-			RETURN 2
-		END
-		ELSE
-			RETURN 1 --El login fue exitoso
-	END
-END
-GO
-
---/Trigger de la tabla Login_fallido, puede ir al final/--
-
-CREATE TRIGGER RAGNAR.LoginFallido ON RAGNAR.Login_fallido AFTER UPDATE
-AS
-BEGIN
-	DECLARE @ID bigint, @Intento tinyint
-	DECLARE CLogin CURSOR FOR (SELECT id_usuario, nro_intento FROM INSERTED)
-	OPEN CLogin
-	FETCH NEXT FROM CLogin INTO @ID, @Intento
-	WHILE @@FETCH_STATUS = 0
-	BEGIN
-		IF(@Intento >= 3)
-		BEGIN
-			UPDATE RAGNAR.Usuario SET habilitado = 0 WHERE id_usuario = @ID
-			DELETE FROM RAGNAR.Login_fallido WHERE id_usuario = @ID
-		END
-		FETCH NEXT FROM CLogin INTO @ID, @Intento
-	END
-	CLOSE CLogin
-	DEALLOCATE CLogin
-END
-GO
-
---/StoredProcedure para cargar la fecha del archivo config y funcion para obtener esa fecha, tiene que ir arriba del todo/--
-
-CREATE PROCEDURE RAGNAR.SP_CargarEnLaBaseFechaDelConfig
-AS
-BEGIN
-	IF(EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Fecha_config'))
-		DROP TABLE RAGNAR.Fecha_config
-	CREATE TABLE RAGNAR.Fecha_config (fecha smalldatetime)
-	BULK INSERT RAGNAR.Fecha_config FROM 'C:\Gestion De Datos\TP2C2018\Aplicacion Desktop\PalcoNet\config.txt' WITH (FIRSTROW = 1,FIELDTERMINATOR = ',',ROWTERMINATOR = '') --Cambiar la ruta
-END
-GO
-
---/ RECORDAR QUE LUEGO DE UN CAMBIO EN EL CONFIG SE DEBE SI O SI LLAMAR AL STORED PROCEDURE PARA ACTUALIZAR LA FECHA EN LA BASE
-
-CREATE FUNCTION RAGNAR.F_ObtenerFechaDelConfig ()
-RETURNS smalldatetime
-AS
-BEGIN
-	DECLARE @Fecha smalldatetime
-	SET @Fecha = (SELECT * FROM RAGNAR.Fecha_config)
-	RETURN @Fecha
-END
-GO
-
---/Inserts de usuarios/--
+--/ Inserts de usuarios /--
 
 INSERT INTO RAGNAR.Usuario(usuario,clave,habilitado) VALUES ('admin','admin',1) /*Usuario administrador, cambiar la pass con el metodo de encriptacion*/
 
@@ -265,7 +219,7 @@ INSERT INTO RAGNAR.Empresa(id_usuario, razon_social, cuit, fecha_creacion, mail,
 	FROM gd_esquema.Maestra as M JOIN RAGNAR.Usuario as U ON (M.Espec_Empresa_Cuit = U.usuario)
 	WHERE Espec_Empresa_Cuit IS NOT NULL
 
---/Inserts de Espectaculos/--
+--/ Inserts de Espectaculos /--
 
 INSERT INTO RAGNAR.Rubro(descripcion)
 	SELECT DISTINCT Espectaculo_Rubro_Descripcion
@@ -282,7 +236,7 @@ INSERT INTO RAGNAR.Publicacion(codigo_publicacion, descripcion, fecha_vencimient
 	FROM gd_esquema.Maestra as M JOIN RAGNAR.Rubro as R ON (M.Espectaculo_Rubro_Descripcion = R.descripcion) JOIN RAGNAR.Estado_publicacion as E ON (M.Espectaculo_Estado = E.descripcion)
 	WHERE M.Espectaculo_Cod IS NOT NULL
 
---/Inserts de Ubicaciones y Compras/--
+--/ Inserts de Ubicaciones y Compras /--
 	
 INSERT INTO RAGNAR.Tipo_ubicacion(codigo, descripcion)
 	SELECT DISTINCT Ubicacion_Tipo_Codigo, Ubicacion_Tipo_Descripcion
@@ -306,7 +260,7 @@ INSERT INTO RAGNAR.Ubicacion_publicacion(id_publicacion, id_tipo, fila, asiento,
 	GROUP BY P.id_publicacion, T.id_tipo_ubicacion, M.Ubicacion_Fila, M.Ubicacion_Asiento, M.Ubicacion_Sin_Numerar, M.Ubicacion_Precio
 	HAVING SUM(ISNULL(M.Compra_Cantidad, 0 )) = 0
 
---/Inserts de Facturas/--
+--/ Inserts de Facturas /--
 
 INSERT INTO RAGNAR.Factura(numero, fecha, total, forma_pago)
 	SELECT DISTINCT Factura_Nro, Factura_Fecha, Factura_Total, Forma_Pago_Desc
@@ -318,20 +272,20 @@ INSERT INTO RAGNAR.Item_factura(id_factura, id_ubicacion, cantidad, descripcion,
 	FROM gd_esquema.Maestra as M JOIN RAGNAR.Factura as F ON (M.Factura_Nro = F.numero) JOIN RAGNAR.Publicacion as P ON (M.Espectaculo_Cod = P.codigo_publicacion) JOIN RAGNAR.Ubicacion_publicacion as U ON (P.id_publicacion = U.id_publicacion AND M.Ubicacion_Asiento = U.asiento AND M.Ubicacion_Fila = U.fila)
 	WHERE M.Item_Factura_Monto IS NOT NULL
 
---/Inserts Manuales para el funcionamiento del sistema/--
+--/ Inserts Manuales para el funcionamiento del sistema /--
 
---/Inserts de Estados de Publicacion/--
+--/ Inserts de Estados de Publicacion /--
 
 INSERT INTO RAGNAR.Estado_publicacion(descripcion) VALUES ('Borrador')
 INSERT INTO RAGNAR.Estado_publicacion(descripcion) VALUES ('Finalizada')
 
---/Inserts de Roles/--
+--/ Inserts de Roles /--
 
 INSERT INTO RAGNAR.Rol(nombre, habilitado) VALUES ('Empresa',1)
 INSERT INTO RAGNAR.Rol(nombre, habilitado) VALUES ('Administrativo',1)
 INSERT INTO RAGNAR.Rol(nombre, habilitado) VALUES ('Cliente',1)
 
---/Inserts de Funcionalidades/--
+--/ Inserts de Funcionalidades /--
 
 INSERT INTO RAGNAR.Funcionalidad(descripcion) VALUES ('ABM de Rol')
 INSERT INTO RAGNAR.Funcionalidad(descripcion) VALUES ('Registro de Usuario')
@@ -363,6 +317,76 @@ INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT 
 INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Canje y Administracion de Puntos'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Cliente'))
 INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Generar rendicion de comisiones'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Administrativo'))
 INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Listado estadistico'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Administrativo'))
+
+--/ Fin de Inserts /--
+
+GO
+
+--/ STORED PROCEDURES /--
+
+--/ StoredProcedure para el login de usuarios/--
+
+CREATE PROCEDURE RAGNAR.SP_LoginDeUsuario (@Usuario varchar(50), @Clave varchar(32))
+AS
+BEGIN
+	DECLARE @ClaveEncriptada varchar(32), @ID bigint
+	SET @ClaveEncriptada = RAGNAR.F_HasheoDeClave(@Clave)
+	SET @ID = (SELECT id_usuario FROM RAGNAR.Usuario WHERE usuario = @Usuario)
+	IF (@ID IS NULL)
+	BEGIN
+		PRINT('El usuario ingresado no existe') --Se puede cambiar a un RAISEERROR?
+		RETURN 0
+	END
+	ELSE
+	BEGIN
+		IF (NOT EXISTS (SELECT * FROM RAGNAR.Usuario WHERE id_usuario = @ID AND clave = @ClaveEncriptada)) --La contraseña ingresada no es correcta
+		BEGIN
+			PRINT('La contraseña ingresada no es correcta')
+			IF(NOT EXISTS (SELECT * FROM RAGNAR.Login_fallido WHERE id_usuario = @ID))
+				INSERT INTO RAGNAR.Login_fallido(id_usuario, nro_intento) VALUES (@ID, 1)
+			ELSE
+				UPDATE RAGNAR.Login_fallido SET nro_intento = nro_intento + 1 WHERE id_usuario = @ID
+			RETURN 2
+		END
+		ELSE
+			RETURN 1 --El login fue exitoso
+	END
+END
+GO
+
+--/ TRIGGERS /--
+
+--/ Trigger de la tabla Login_fallido /--
+
+CREATE TRIGGER RAGNAR.LoginFallido ON RAGNAR.Login_fallido AFTER UPDATE
+AS
+BEGIN
+	DECLARE @ID bigint, @Intento tinyint
+	SELECT @ID = id_usuario, @Intento = nro_intento FROM INSERTED
+	IF(@Intento >= 3)
+	BEGIN
+		UPDATE RAGNAR.Usuario SET habilitado = 0 WHERE id_usuario = @ID
+		DELETE FROM RAGNAR.Login_fallido WHERE id_usuario = @ID
+	END
+END
+GO
+
+--/ Trigger para quitar a todos los usuarios los roles que hayan sido inhabilitados /--
+
+CREATE TRIGGER RAGNAR.QuitarRolInhabilitadoAUsuario ON RAGNAR.Rol AFTER UPDATE
+AS
+BEGIN
+	DECLARE @Rol int
+	DECLARE CRoles CURSOR FOR (SELECT id_rol FROM INSERTED WHERE habilitado = 0)
+	OPEN CRoles
+	FETCH NEXT FROM CRoles INTO @Rol
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		DELETE FROM RAGNAR.Usuario_rol WHERE id_rol = @Rol
+		FETCH NEXT FROM CRoles INTO @Rol
+	END
+END
+GO
 
 /*CREATE de Premios a canjear*/
 
