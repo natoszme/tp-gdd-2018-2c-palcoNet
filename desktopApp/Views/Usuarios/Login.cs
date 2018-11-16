@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.BaseDeDatos;
 using PalcoNet.Usuarios;
+using PalcoNet.Model;
 
 namespace PalcoNet.Usuarios
 {
@@ -23,28 +24,24 @@ namespace PalcoNet.Usuarios
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-            String usuario = txtUsuario.Text;
+            String username = txtUsuario.Text;
             String password = txtClave.Text;
-            int idUsuario = 0;
 
-            if (usuario == "" || password == "")
-            {
+            if (username == "" || password == "") {
                 MessageBox.Show("Debe ingresar usuario y contraseña", "Datos invalidos", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            idUsuario = obtenerIdDe(usuario, password);
+            Usuario usuario = obtenerUsuarioDe(username, password);
 
-            if (idUsuario != -1)
-            {
+            if (username != null) {
 
-                if (!BaseDeDatos.BaseDeDatos.tieneAlgunRol(idUsuario))
-                {
+                if (!BaseDeDatos.BaseDeDatos.tieneAlgunRol(usuario)) {
                     MessageBox.Show("No tiene ningún rol habilitado. Por favor, contáctese con el administrador", "No posee rol", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                Global.loguearUsuario(idUsuario);
+                Global.loguearUsuario(usuario);
                 
                 SeleccionarRol formRoles = new SeleccionarRol();
                 this.Hide();
@@ -56,9 +53,8 @@ namespace PalcoNet.Usuarios
             }
         }
 
-        private int obtenerIdDe(String usuario, String password)
-        {
-            return BaseDeDatos.BaseDeDatos.obtenerIdPorUsuarioPass(usuario, password);   
+        private Usuario obtenerUsuarioDe(String usuario, String password) {
+            return BaseDeDatos.BaseDeDatos.obtenerUsuarioPorCredenciales(usuario, password);   
         }
     }
 }

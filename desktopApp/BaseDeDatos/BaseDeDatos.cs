@@ -3,38 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PalcoNet.Model;
 
 namespace PalcoNet.BaseDeDatos
 {
     class BaseDeDatos
     {
-        public static int obtenerIdPorUsuarioPass(String usuario, String password)
-        {
-            //Debe traer el id de la base de datos que tiene ese usuario, -1 en caso de no existir
-            return 1;
+        private static RagnarEntities dbContext = new RagnarEntities();
+
+        public static Usuario obtenerUsuarioPorCredenciales(String usuario, String password) {
+            return dbContext.Usuario
+                    .Where(user => user.usuario == usuario)
+                    .Where(user => user.clave == password)
+                    .FirstOrDefault();
         }
 
-        public static bool tieneAlgunRol(int idUsuario)
-        {
-            //Debe obtener si existe algun rol para ese id
+        public static bool tieneAlgunRol(Usuario usuario) {
+            // TODO: fijarse si tiene algun rol
             return true;
         }
 
-        public static List<String> obtenerRolesPorIdEnTexto(int id)
-        {
+        public static List<String> obtenerRolesDelUsuario(Usuario usuario) {
             List<String> roles = new List<string>();
-            //TODO debe traer los roles de la db del usuario
+            // TODO: esto se deberia poder resolver con Usuario.Roles, no es necesario llamar a BaseDeDatos
             roles.Add("Cliente");
             roles.Add("Administrativo");
             roles.Add("Empresa");
             return roles;
         }
 
-        public static bool existeUsuario(String username)
-        {
-            //TODO fijarse si existe un usuario con este username, en ese caso devolver true
-            return false;
+        public static bool existeUsuario(String username) {
+            return dbContext.Usuario.Count(user => user.usuario == username) > 0;
         }
-
     }
 }

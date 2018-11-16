@@ -9,32 +9,27 @@ namespace PalcoNet
 {
     public static class Global
     {
-        public static int idUsuario;
-        public static TipoRol rolUsuario;
-        public static long idUsuarioGenerado = 0;
+        public static Usuario usuarioLogueado {get; set;}
+        public static TipoRol rolUsuario { get; set; }
+        
+        public static Usuario usuarioGenerado { get; set; }
 
-        public static void loguearUsuario(int id)
-        {
-            idUsuario = id;
-        }
-        public static void setearRolDeSesion(TipoRol rol)
-        {
-            rolUsuario = rol;
+        public static void loguearUsuario(Usuario usuario) {
+            usuarioLogueado = usuario;
         }
 
-        public static long getIdUsuarioGenerado()
-        {
-            return idUsuarioGenerado;
+        public static Usuario obtenerYLimpiarUsuarioGenerado() {
+            Usuario usrGenerado = usuarioGenerado;
+            limpiarUsuarioGenerado();
+            return usrGenerado;
         }
 
-        public static void limpiarIdGenerado()
-        {
-            idUsuarioGenerado = 0;
+        public static void limpiarUsuarioGenerado() {
+            usuarioGenerado = null;
         }
 
-        public static bool hayIdGenerado()
-        {
-            return idUsuarioGenerado != 0;
+        public static bool hayUsuarioGenerado() {
+            return usuarioGenerado != null;
         }
     }
 }

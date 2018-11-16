@@ -17,31 +17,28 @@ namespace PalcoNet.Usuarios
         {
             InitializeComponent();
 
-            List<TipoRol> roles = obtenerRolesDeId(Global.idUsuario);
-          
-
+            List<TipoRol> roles = obtenerRolesDeId(Global.usuarioLogueado);
             this.cmbBxRol.DataSource = roles;
         }
 
-        public bool tieneAlgunRol(int idUsuario)
+        public bool tieneAlgunRol(Usuario usuario)
         {
-            return BaseDeDatos.BaseDeDatos.tieneAlgunRol(idUsuario);
+            return BaseDeDatos.BaseDeDatos.tieneAlgunRol(usuario);
         }
 
-        List<TipoRol> obtenerRolesDeId(int idUsuario)
+        List<TipoRol> obtenerRolesDeId(Usuario usuario)
         {
             List<TipoRol> roles = new List<TipoRol>();
-            return obtenerRolesPorIdEnTexto(idUsuario).Select(rol => convertirStringARol(rol)).ToList();
+            return obtenerRolesPorIdEnTexto(usuario).Select(rol => convertirStringARol(rol)).ToList();
         }
 
-        private List<String> obtenerRolesPorIdEnTexto(int idUsuario)
+        private List<String> obtenerRolesPorIdEnTexto(Usuario usuario)
         {
-            return BaseDeDatos.BaseDeDatos.obtenerRolesPorIdEnTexto(idUsuario);     
+            return BaseDeDatos.BaseDeDatos.obtenerRolesDelUsuario(usuario);     
         }
 
-        private void redirijirA(TipoRol rol)
-        {
-            Global.setearRolDeSesion(rol);
+        private void redirijirA(TipoRol rol) {
+            Global.rolUsuario = rol;
             this.Hide();
             new Home().Show();
         }

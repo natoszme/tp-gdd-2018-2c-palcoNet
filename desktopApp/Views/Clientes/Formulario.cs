@@ -64,7 +64,6 @@ namespace PalcoNet.Clientes
                 if (camposValidos()) {
                     if (id == null) {
                         cliente = new Cliente();
-                        cliente.Usuario = crearYobtenerUsuario(db);
                     }
 
                     cliente.nombre = txtNombre.Text;
@@ -91,8 +90,8 @@ namespace PalcoNet.Clientes
                     }
 
                     if (!editando()) {
-                        // TODO: nato, porque se busca el id a asignar por nombre y apellido?
-                        cliente.id_usuario = UsuariosUtils.idAAsignar(cliente.nombre, cliente.apellido);
+                        UsuariosUtils.dbContext = db;
+                        cliente.Usuario = UsuariosUtils.usuarioAAsignar(UsuariosUtils.generarUsername(cliente), cliente);
                         db.Cliente.Add(cliente);
                     } else {
                         db.Entry(cliente).State = System.Data.Entity.EntityState.Modified;
@@ -101,16 +100,6 @@ namespace PalcoNet.Clientes
                     WindowsFormUtils.guardarYCerrar(db, this);
                 }
             }
-        }
-
-        // TODO: pasar a un metodo mas generico que genere y devuelva un usuario
-        public Usuario crearYobtenerUsuario(RagnarEntities db) {
-            Usuario usuario = new Usuario();
-            usuario.usuario = "kevinrequetecapo";
-            usuario.clave = "1234";
-            usuario.habilitado = true;
-            db.Usuario.Add(usuario);
-            return usuario;
         }
 
         #region VALIDACIONES
@@ -185,7 +174,7 @@ namespace PalcoNet.Clientes
                         txtLocalidad.Text = cliente.localidad;
                         txtCodigoPostal.Text = cliente.codigo_postal;
                         txtTarjeta.Text = tarjetaConAsteriscos(cliente.tarjeta_credito);
-                    } catch (Exception e) {
+                    } catch (Exception) {
                         WindowsFormUtils.mensajeDeError("Error al intentar cargar al cliente");
                     }
                 }
