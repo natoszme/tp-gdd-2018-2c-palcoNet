@@ -72,6 +72,8 @@
   <ItemGroup>
     <Compile Include="Headspring\Enumeration.cs" />
     <Compile Include="Model\TipoDocumento.cs" />
+    <Compile Include="Utils\ComboBoxItem.cs" />
+    <Compile Include="Utils\DBUtils.cs" />
     <Compile Include="Utils\ValidationsUtils.cs" />
     <Compile Include="Model\Cliente.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>

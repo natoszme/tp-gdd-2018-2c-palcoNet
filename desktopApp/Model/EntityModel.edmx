@@ -835,7 +835,7 @@
             <PropertyRef Name="id_usuario" />
           </Key>
           <Property Name="id_usuario" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="usuario1" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="usuario" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="clave" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
           <Property Name="habilitado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Cliente" Relationship="RagnarModel.FK__Cliente__id_usua__36B12243" FromRole="Usuario" ToRole="Cliente" />
@@ -1230,7 +1230,7 @@
             <EntityTypeMapping TypeName="RagnarModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
                 <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
-                <ScalarProperty Name="usuario1" ColumnName="usuario" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
                 <ScalarProperty Name="clave" ColumnName="clave" />
                 <ScalarProperty Name="habilitado" ColumnName="habilitado" />
               </MappingFragment>

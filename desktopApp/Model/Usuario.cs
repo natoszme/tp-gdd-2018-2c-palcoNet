@@ -21,7 +21,7 @@ namespace PalcoNet.Model
         }
     
         public long id_usuario { get; set; }
-        public string usuario1 { get; set; }
+        public string usuario { get; set; }
         public string clave { get; set; }
         public bool habilitado { get; set; }
     

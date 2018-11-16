@@ -19,7 +19,7 @@ namespace PalcoNet.Utils
         }
 
         public static void guardarYCerrar(RagnarEntities db, Form context) {
-            db.SaveChanges();
+            DBUtils.guardar(db);
             context.Close();
         }
 
