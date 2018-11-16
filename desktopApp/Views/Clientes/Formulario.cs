@@ -29,7 +29,7 @@ namespace PalcoNet.Clientes
             }
 
             // TODO: sacar cuando funque, lo dejo para no completar todo a mano todo el tiempo
-            txtNombre.Text = "Kevin";
+            /*txtNombre.Text = "Kevin";
             txtApellido.Text = "Szuchet";
             txtEmail.Text = "kevinszuchet@gmail.com";
             txtTelefono.Text = "1140495754";
@@ -41,7 +41,7 @@ namespace PalcoNet.Clientes
             txtDepto.Text = "A";
             txtLocalidad.Text = "CABA";
             txtCodigoPostal.Text = "1414";
-            txtTarjeta.Text = "1234567891011121";
+            txtTarjeta.Text = "1234567891011121";*/
 
             if (SessionUtils.esAdmin()) {
                 if(editando())
