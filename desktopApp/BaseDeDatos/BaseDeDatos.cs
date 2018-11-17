@@ -13,8 +13,8 @@ namespace PalcoNet.BaseDeDatos
 
         public static Usuario obtenerUsuarioPorCredenciales(String usuario, String password) {
             return dbContext.Usuario
-                    .Where(user => user.usuario == usuario)
-                    .Where(user => user.clave == password)
+                    .Where(user => user.usuario.Equals(usuario))
+                    .Where(user => user.clave.Equals(password))
                     .FirstOrDefault();
         }
 
@@ -25,7 +25,6 @@ namespace PalcoNet.BaseDeDatos
 
         public static List<String> obtenerRolesDelUsuario(Usuario usuario) {
             List<String> roles = new List<string>();
-            // TODO: esto se deberia poder resolver con Usuario.Roles, no es necesario llamar a BaseDeDatos
             roles.Add("Cliente");
             roles.Add("Administrativo");
             roles.Add("Empresa");
@@ -33,7 +32,7 @@ namespace PalcoNet.BaseDeDatos
         }
 
         public static bool existeUsuario(String username) {
-            return dbContext.Usuario.Count(user => user.usuario == username) > 0;
+            return dbContext.Usuario.Any(user => user.usuario.Equals(username));
         }
     }
 }
