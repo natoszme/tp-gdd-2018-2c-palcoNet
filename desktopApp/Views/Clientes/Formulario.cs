@@ -189,7 +189,11 @@ namespace PalcoNet.Clientes
 
         private string recortarTarjetaDeCredito(string tarjeta)
         {
-            return tarjeta.Substring(0, digitosBaseTarjeta) + tarjeta.Substring(tarjeta.Length - digitosFinalTarjeta, digitosFinalTarjeta);
+            if (tarjeta != "")
+            {
+                return tarjeta.Substring(0, digitosBaseTarjeta) + tarjeta.Substring(tarjeta.Length - digitosFinalTarjeta, digitosFinalTarjeta);
+            }
+            return null;
         }
 
         private string tarjetaConAsteriscos(string tarjeta)
