@@ -18,7 +18,9 @@ namespace PalcoNet.Clientes
         int? id;
         Cliente cliente = new Cliente();
         private String caracteresOcultosTarjeta = "****";
-        Dictionary<string, string> noObligatoriosEdicion = new Dictionary<string, string>();
+        private Dictionary<string, string> noObligatoriosEdicion = new Dictionary<string, string>();
+        private int digitosBaseTarjeta = 6;
+        private int digitosFinalTarjeta = 4;
 
         public Formulario(int? id = null)
         {
@@ -84,7 +86,7 @@ namespace PalcoNet.Clientes
                     cliente.departamento = txtDepto.Text;
                     cliente.localidad = txtLocalidad.Text;
                     cliente.codigo_postal = txtCodigoPostal.Text;
-                    cliente.tarjeta_credito = recortarTarjetaDeCredito(txtTarjeta.Text);
+                    cliente.tarjeta_credito = recortarTarjetaDeCredito();
 
                     if (SessionUtils.esAdmin() || editando()) {
                         cliente.habilitado = chkBxHabilitado.Checked;
@@ -139,12 +141,10 @@ namespace PalcoNet.Clientes
                     ValidationsUtils.campoObligatorio(txtLocalidad, "localidad");
                     ValidationsUtils.campoAlfabetico(txtLocalidad, "localidad");
                 }
-                //TODO validar codigo postal que sea valido (al menos para argentina)
                 ValidationsUtils.campoObligatorio(txtCodigoPostal, "codigo postal");
                 if (validable(txtTarjeta, "tarjetaCredito"))
                 {
-                    ValidationsUtils.campoLongitudEntre(txtTarjeta, "tarjeta de credito", 15, 16);
-                    ValidationsUtils.campoNumericoYPositivo(txtTarjeta, "tarjeta de credito");
+                    validarTarjeta();
                 }
             } catch(ValidationException e) {
                 WindowsFormUtils.mensajeDeError(e.Message);
@@ -187,8 +187,9 @@ namespace PalcoNet.Clientes
             new Usuarios.ModificarClaveAdmin().ShowDialog();
         }
 
-        private string recortarTarjetaDeCredito(string tarjeta) {
-            return tarjeta.Substring(0, 6) + tarjeta.Substring(tarjeta.Length - 4, 4);
+        private string recortarTarjetaDeCredito() {
+            string tarjeta = txtTarjeta.Text;
+            return tarjeta.Substring(0, digitosBaseTarjeta) + tarjeta.Substring(tarjeta.Length - digitosFinalTarjeta, digitosFinalTarjeta);
         }
 
         private string tarjetaConAsteriscos(string tarjeta)
@@ -224,6 +225,32 @@ namespace PalcoNet.Clientes
 
         private bool validable(Control input, String nombreCampo) {
             return !editando() || (editando() && noObligatoriosEdicion[nombreCampo] != "");
+        }
+
+        private void validarLongitudTarjeta()
+        {
+            if (editando())
+            {
+                ValidationsUtils.campoLongitudFija(txtTarjeta, "tarjeta de credito", digitosBaseTarjeta + digitosFinalTarjeta + caracteresOcultosTarjeta.Length);
+            }
+            else
+            {
+                ValidationsUtils.campoLongitudEntre(txtTarjeta, "tarjeta de credito", 15, 16);
+            }
+        }
+
+        private void validarTarjeta()
+        {
+            if (editando())
+            {
+                //TODO mejorar esto. no se puede editar toda la tarjeta, ni tampoco se valida que los caracteres sean todos numericos!
+                ValidationsUtils.campoLongitudFija(txtTarjeta, "tarjeta de credito", digitosBaseTarjeta + digitosFinalTarjeta + caracteresOcultosTarjeta.Length);
+            }
+            else
+            {
+                ValidationsUtils.campoLongitudEntre(txtTarjeta, "tarjeta de credito", 15, 16);
+                ValidationsUtils.campoNumericoYPositivo(txtTarjeta, "tarjeta de credito");
+            }
         }
     }
 }
