@@ -18,6 +18,7 @@ namespace PalcoNet.Clientes
         int? id;
         Cliente cliente = new Cliente();
         private String caracteresOcultosTarjeta = "****";
+        Dictionary<string, string> obligatoriosEdicion = new Dictionary<string, string>();
 
         public Formulario(int? id = null)
         {
@@ -112,7 +113,7 @@ namespace PalcoNet.Clientes
                 ValidationsUtils.campoAlfabetico(txtApellido, "apellido");
                 ValidationsUtils.campoObligatorio(txtEmail, "mail");
                 ValidationsUtils.emailValido(txtEmail, "mail");
-                if (validable(txtTelefono))
+                if (validable(txtTelefono, "telefono"))
                 {
                     ValidationsUtils.campoLongitudEntre(txtTelefono, "telefono", 8, 11);
                     ValidationsUtils.campoNumericoYPositivo(txtTelefono, "telefono");
@@ -122,7 +123,7 @@ namespace PalcoNet.Clientes
                 ValidationsUtils.opcionObligatoria(cmbBxTipoDocumento, "tipo de documento");
                 ValidationsUtils.campoLongitudFija(txtNroDocumento, "nro. de documento", 8);
                 ValidationsUtils.campoNumericoYPositivo(txtNroDocumento, "nro. de documento");
-                if (validable(txtCuil))
+                if (validable(txtCuil, "cuil"))
                 {
                     ValidationsUtils.campoObligatorio(txtCuil, "cuil");
                     ValidationsUtils.cuilValido(txtCuil);
@@ -133,14 +134,14 @@ namespace PalcoNet.Clientes
                 ValidationsUtils.campoObligatorio(txtNroPiso, "nro. piso");
                 ValidationsUtils.campoNumericoYPositivo(txtNroPiso, "nro. piso");
                 ValidationsUtils.campoObligatorio(txtDepto, "departamento");
-                if (validable(txtLocalidad))
+                if (validable(txtLocalidad, "localidad"))
                 {
                     ValidationsUtils.campoObligatorio(txtLocalidad, "localidad");
                     ValidationsUtils.campoAlfabetico(txtLocalidad, "localidad");
                 }
                 //TODO validar codigo postal que sea valido (al menos para argentina)
                 ValidationsUtils.campoObligatorio(txtCodigoPostal, "codigo postal");
-                if (validable(txtTarjeta))
+                if (validable(txtTarjeta, "tarjetaCredito"))
                 {
                     ValidationsUtils.campoLongitudEntre(txtTarjeta, "tarjeta de credito", 15, 16);
                     ValidationsUtils.campoNumericoYPositivo(txtTarjeta, "tarjeta de credito");
@@ -206,10 +207,18 @@ namespace PalcoNet.Clientes
             ).ToList();
             cmbBxTipoDocumento.ValueMember = "value";
             cmbBxTipoDocumento.DisplayMember = "text";
+
+            if (editando())
+            {
+                obligatoriosEdicion.Add("cuil", txtCuil.Text);
+                obligatoriosEdicion.Add("telefono", txtTelefono.Text);
+                obligatoriosEdicion.Add("localidad", txtLocalidad.Text);
+                obligatoriosEdicion.Add("tarjetaCredito", txtTarjeta.Text);
+            }
         }
 
-        private bool validable(Control input) {
-            return !editando() || (editando() && input.Text != "");
+        private bool validable(Control input, String nombreCampo) {
+            return !editando() || (editando() && obligatoriosEdicion[nombreCampo] != "");
         }
     }
 }
