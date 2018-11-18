@@ -18,7 +18,7 @@ namespace PalcoNet.Clientes
         int? id;
         Cliente cliente = new Cliente();
         private String caracteresOcultosTarjeta = "****";
-        Dictionary<string, string> obligatoriosEdicion = new Dictionary<string, string>();
+        Dictionary<string, string> noObligatoriosEdicion = new Dictionary<string, string>();
 
         public Formulario(int? id = null)
         {
@@ -210,15 +210,20 @@ namespace PalcoNet.Clientes
 
             if (editando())
             {
-                obligatoriosEdicion.Add("cuil", txtCuil.Text);
-                obligatoriosEdicion.Add("telefono", txtTelefono.Text);
-                obligatoriosEdicion.Add("localidad", txtLocalidad.Text);
-                obligatoriosEdicion.Add("tarjetaCredito", txtTarjeta.Text);
+                cargarDatosNoValidablesEnEdicion();
             }
         }
 
+        private void cargarDatosNoValidablesEnEdicion()
+        {
+            noObligatoriosEdicion.Add("cuil", txtCuil.Text);
+            noObligatoriosEdicion.Add("telefono", txtTelefono.Text);
+            noObligatoriosEdicion.Add("localidad", txtLocalidad.Text);
+            noObligatoriosEdicion.Add("tarjetaCredito", txtTarjeta.Text);
+        }
+
         private bool validable(Control input, String nombreCampo) {
-            return !editando() || (editando() && obligatoriosEdicion[nombreCampo] != "");
+            return !editando() || (editando() && noObligatoriosEdicion[nombreCampo] != "");
         }
     }
 }
