@@ -86,7 +86,7 @@ namespace PalcoNet.Clientes
                     cliente.departamento = txtDepto.Text;
                     cliente.localidad = txtLocalidad.Text;
                     cliente.codigo_postal = txtCodigoPostal.Text;
-                    cliente.tarjeta_credito = recortarTarjetaDeCredito();
+                    cliente.tarjeta_credito = recortarTarjetaDeCredito(txtTarjeta.Text);
 
                     if (SessionUtils.esAdmin() || editando()) {
                         cliente.habilitado = chkBxHabilitado.Checked;
@@ -187,8 +187,8 @@ namespace PalcoNet.Clientes
             new Usuarios.ModificarClaveAdmin().ShowDialog();
         }
 
-        private string recortarTarjetaDeCredito() {
-            string tarjeta = txtTarjeta.Text;
+        private string recortarTarjetaDeCredito(string tarjeta)
+        {
             return tarjeta.Substring(0, digitosBaseTarjeta) + tarjeta.Substring(tarjeta.Length - digitosFinalTarjeta, digitosFinalTarjeta);
         }
 
@@ -196,7 +196,7 @@ namespace PalcoNet.Clientes
         {
             if (tarjeta != null)
             {
-                return tarjeta.Substring(0, 6) + caracteresOcultosTarjeta + tarjeta.Substring(tarjeta.Length - 4, 4);
+                return tarjeta.Substring(0, digitosBaseTarjeta) + caracteresOcultosTarjeta + tarjeta.Substring(tarjeta.Length - digitosFinalTarjeta, digitosFinalTarjeta);
             }
 
             return "";
@@ -225,18 +225,6 @@ namespace PalcoNet.Clientes
 
         private bool validable(Control input, String nombreCampo) {
             return !editando() || (editando() && noObligatoriosEdicion[nombreCampo] != "");
-        }
-
-        private void validarLongitudTarjeta()
-        {
-            if (editando())
-            {
-                ValidationsUtils.campoLongitudFija(txtTarjeta, "tarjeta de credito", digitosBaseTarjeta + digitosFinalTarjeta + caracteresOcultosTarjeta.Length);
-            }
-            else
-            {
-                ValidationsUtils.campoLongitudEntre(txtTarjeta, "tarjeta de credito", 15, 16);
-            }
         }
 
         private void validarTarjeta()
