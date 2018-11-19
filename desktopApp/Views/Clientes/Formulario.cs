@@ -67,7 +67,10 @@ namespace PalcoNet.Clientes
             {
                 if (camposValidos()) {
 
-                    validarDominio();
+                    if (!validarDominio())
+                    {
+                        return;
+                    }
 
                     if (id == null) {
                         cliente = new Cliente();
@@ -108,16 +111,32 @@ namespace PalcoNet.Clientes
             }
         }
 
-        private void validarDominio()
+        private bool validarDominio()
         {
-            documentoNoRepetido();
-            //cuilNoRepetido();
+            try
+            {
+                documentoNoRepetido();
+                //cuilNoRepetido();
+            }
+            catch (ValidationException e)
+            {
+                WindowsFormUtils.mensajeDeError(e.Message);
+                return false;
+            }
+            return true;
         }
 
         private void documentoNoRepetido()
         {
             String tipoDoc = Utils.WindowsFormUtils.seleccionadoDe(cmbBxTipoDocumento);
-            //if(BaseDeDatos.BaseDeDatos.obtenerUsuarioPorDocumento(tipoDoc, txtNroDocumento.Text))
+            Cliente otroCliente = BaseDeDatos.BaseDeDatos.clientePorDocumento(tipoDoc, txtNroDocumento.Text);
+            if (otroCliente != null)
+            {
+                if ((editando() && id != otroCliente.id_usuario) || !editando())
+                {
+                    throw new ValidationException("Ya existe otro cliente con este tipo y numero de documento");
+                }
+            }                
         }
 
         #region VALIDACIONES

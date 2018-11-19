@@ -35,5 +35,13 @@ namespace PalcoNet.BaseDeDatos
         public static bool existeUsuario(String username) {
             return dbContext.Usuario.Any(user => user.usuario.Equals(username));
         }
+
+        public static Cliente clientePorDocumento(String tipoDoc, String numeroDoc)
+        {
+            decimal nroDoc = decimal.Parse(numeroDoc);
+            return dbContext.Cliente
+                .Where(cliente => cliente.tipo_documento.Equals(tipoDoc) && cliente.numero_documento.Equals(nroDoc))
+                .FirstOrDefault();
+        }
     }
 }
