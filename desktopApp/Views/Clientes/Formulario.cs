@@ -97,7 +97,7 @@ namespace PalcoNet.Clientes
                     cliente.tarjeta_credito = recortarTarjetaDeCredito(txtTarjeta.Text);
 
                     if (SessionUtils.esAdmin() && editando()) {
-                        cliente.habilitado = chkBxHabilitado.Checked;
+                        cliente.Usuario.habilitado = chkBxHabilitado.Checked;
                     }
 
                     if (!editando()) {
@@ -107,6 +107,7 @@ namespace PalcoNet.Clientes
                         cliente.Usuario = UsuariosUtils.usuarioAAsignar(UsuariosUtils.generarUsername(cliente), cliente);
                         db.Cliente.Add(cliente);
                     } else {
+                        db.Entry(cliente.Usuario).State = System.Data.Entity.EntityState.Modified;
                         db.Entry(cliente).State = System.Data.Entity.EntityState.Modified;
                     }
 
