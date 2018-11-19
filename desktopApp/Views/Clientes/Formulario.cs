@@ -116,7 +116,7 @@ namespace PalcoNet.Clientes
             try
             {
                 documentoNoRepetido();
-                //cuilNoRepetido();
+                cuilNoRepetido();
             }
             catch (ValidationException e)
             {
@@ -137,6 +137,20 @@ namespace PalcoNet.Clientes
                     throw new ValidationException("Ya existe otro cliente con este tipo y numero de documento");
                 }
             }                
+        }
+
+        private void cuilNoRepetido()
+        {
+            if (!validable(txtCuil, "cuil")) return;
+
+            Cliente otroCliente = BaseDeDatos.BaseDeDatos.clientePorCuil(txtCuil.Text);
+            if (otroCliente != null)
+            {
+                if ((editando() && id != otroCliente.id_usuario) || !editando())
+                {
+                    throw new ValidationException("Ya existe otro cliente con este cuil");
+                }
+            }  
         }
 
         #region VALIDACIONES

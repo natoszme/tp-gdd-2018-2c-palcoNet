@@ -43,5 +43,12 @@ namespace PalcoNet.BaseDeDatos
                 .Where(cliente => cliente.tipo_documento.Equals(tipoDoc) && cliente.numero_documento.Equals(nroDoc))
                 .FirstOrDefault();
         }
+
+        internal static Cliente clientePorCuil(String cuil)
+        {
+            return dbContext.Cliente
+                .Where(cliente => cliente.cuil.Equals(cuil))
+                .FirstOrDefault();
+        }
     }
 }
