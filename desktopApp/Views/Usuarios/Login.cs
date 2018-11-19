@@ -34,7 +34,7 @@ namespace PalcoNet.Usuarios
 
             Usuario usuario = obtenerUsuarioDe(username, password);
 
-            if (username != null) {
+            if (usuario != null) {
 
                 if (!BaseDeDatos.BaseDeDatos.tieneAlgunRol(usuario)) {
                     MessageBox.Show("No tiene ningún rol habilitado. Por favor, contáctese con el administrador", "No posee rol", MessageBoxButtons.OK, MessageBoxIcon.Error);
