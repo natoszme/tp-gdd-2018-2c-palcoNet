@@ -58,6 +58,7 @@ namespace PalcoNet.Usuarios
         {
             try
             {
+                Utils.ValidationsUtils.campoObligatorio(txtUsuario, "usuario");
                 Utils.ValidationsUtils.campoAlfabetico(txtUsuario, "usuario");
                 Utils.ValidationsUtils.campoObligatorio(txtClave, "contraseña");
                 Utils.ValidationsUtils.campoObligatorio(txtRepetirClave, "comprobación de contraseña");
