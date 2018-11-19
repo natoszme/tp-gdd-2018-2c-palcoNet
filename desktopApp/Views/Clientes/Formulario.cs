@@ -96,7 +96,7 @@ namespace PalcoNet.Clientes
                     cliente.codigo_postal = txtCodigoPostal.Text;
                     cliente.tarjeta_credito = recortarTarjetaDeCredito(txtTarjeta.Text);
 
-                    if (SessionUtils.esAdmin() || editando()) {
+                    if (SessionUtils.esAdmin() && editando()) {
                         cliente.habilitado = chkBxHabilitado.Checked;
                     }
 
@@ -225,6 +225,7 @@ namespace PalcoNet.Clientes
                         txtLocalidad.Text = cliente.localidad;
                         txtCodigoPostal.Text = cliente.codigo_postal;
                         txtTarjeta.Text = tarjetaConAsteriscos(cliente.tarjeta_credito);
+                        chkBxHabilitado.Checked = cliente.habilitado;
                     } catch (Exception) {
                         WindowsFormUtils.mensajeDeError("Error al intentar cargar al cliente");
                     }
