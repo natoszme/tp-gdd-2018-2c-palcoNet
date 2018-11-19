@@ -63,8 +63,10 @@ namespace PalcoNet.Clientes
         {
             using (RagnarEntities db = new RagnarEntities())
             {
-                // TODO: falta validar dominio
                 if (camposValidos()) {
+
+                    validarDominio();
+
                     if (id == null) {
                         cliente = new Cliente();
                     }
@@ -74,10 +76,9 @@ namespace PalcoNet.Clientes
                     cliente.mail = txtEmail.Text;
                     cliente.telefono = txtTelefono.Text;
                     cliente.fecha_nacimiento = dtpFechaNacimiento.Value;
-                    ComboBoxItem selectedItem = (ComboBoxItem) cmbBxTipoDocumento.SelectedItem;
                     // Justo en este caso se guarda el string como tipo de documento
                     // TODO: revisar si esta bien o es mejor manejarlo numericamente
-                    cliente.tipo_documento = selectedItem.text;
+                    cliente.tipo_documento = Utils.WindowsFormUtils.seleccionadoDe(cmbBxTipoDocumento);
                     cliente.numero_documento = Decimal.Parse(txtNroDocumento.Text);
                     cliente.cuil = txtCuil.Text;
                     cliente.calle = txtDireccion.Text;
@@ -103,6 +104,18 @@ namespace PalcoNet.Clientes
                     WindowsFormUtils.guardarYCerrar(db, this);
                 }
             }
+        }
+
+        private void validarDominio()
+        {
+            documentoNoRepetido();
+            //cuilNoRepetido();
+        }
+
+        private void documentoNoRepetido()
+        {
+            String tipoDoc = Utils.WindowsFormUtils.seleccionadoDe(cmbBxTipoDocumento);
+            //if(BaseDeDatos.BaseDeDatos.obtenerUsuarioPorDocumento(tipoDoc, txtNroDocumento.Text))
         }
 
         #region VALIDACIONES

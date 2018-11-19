@@ -23,6 +23,7 @@ namespace PalcoNet.BaseDeDatos
             return true;
         }
 
+        //TODO esto esta harcodeado, no deberia
         public static List<String> obtenerRolesDelUsuario(Usuario usuario) {
             List<String> roles = new List<string>();
             roles.Add("Cliente");

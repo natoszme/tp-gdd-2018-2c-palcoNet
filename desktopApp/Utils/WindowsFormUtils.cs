@@ -31,5 +31,11 @@ namespace PalcoNet.Utils
             context.Hide();
             new Home().Show();
         }
+
+        public static String seleccionadoDe(ComboBox combo)
+        {
+            ComboBoxItem selectedItem = (ComboBoxItem)combo.SelectedItem;
+            return selectedItem.text;
+        }
     }
 }
