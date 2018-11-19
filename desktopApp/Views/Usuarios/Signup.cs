@@ -30,15 +30,15 @@ namespace PalcoNet.Usuarios
 
         private void btnRegistrarCliente_Click(object sender, EventArgs e)
         {
-            validarCampos();
+            if (!validarCampos()) return;
             UsuariosUtils.guardarUsuario(username, pass);
             this.Hide();
-            new Clientes.Formulario().Show();
+            new Clientes.Formulario(null, new Home()).Show();
         }
 
         private void btnRegistrarEmpresa_Click(object sender, EventArgs e)
         {
-            validarCampos();
+            if (!validarCampos()) return;
             UsuariosUtils.guardarUsuario(username, pass);
             this.Hide();
             new Empresas.Formulario().Show();
@@ -49,6 +49,8 @@ namespace PalcoNet.Usuarios
             try
             {
                 Utils.ValidationsUtils.campoAlfabetico(txtUsuario, "usuario");
+                Utils.ValidationsUtils.campoObligatorio(txtClave, "contraseña");
+                Utils.ValidationsUtils.campoObligatorio(txtRepetirClave, "comprobación de contraseña");
             }
             catch (ValidationException e)
             {
@@ -58,13 +60,13 @@ namespace PalcoNet.Usuarios
 
             if (txtClave.Text != txtRepetirClave.Text)
             {
-                MessageBox.Show("Las contraseñas no coinciden", "Error", MessageBoxButtons.OK);
+                WindowsFormUtils.mensajeDeError("Las contraseñas no coinciden");
                 return false;
             }
 
-            if (BaseDeDatos.BaseDeDatos.existeUsuario(username))
+            if (BaseDeDatos.BaseDeDatos.existeUsuario(txtUsuario.Text))
             {
-                MessageBox.Show("El usuario ya existe", "Error", MessageBoxButtons.OK);
+                WindowsFormUtils.mensajeDeError("El usuario ya existe");
                 return false;
             }
 

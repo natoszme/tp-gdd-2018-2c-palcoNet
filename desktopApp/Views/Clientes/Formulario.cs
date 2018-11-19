@@ -21,10 +21,12 @@ namespace PalcoNet.Clientes
         private Dictionary<string, string> noObligatoriosEdicion = new Dictionary<string, string>();
         private int digitosBaseTarjeta = 6;
         private int digitosFinalTarjeta = 4;
+        private Form destino;
 
-        public Formulario(int? id = null)
+        public Formulario(int? id = null, Form destino = null)
         {
             this.id = id;
+            this.destino = destino;
             InitializeComponent();
 
             cargarComboTipoDocumento();
@@ -106,7 +108,7 @@ namespace PalcoNet.Clientes
                         db.Entry(cliente).State = System.Data.Entity.EntityState.Modified;
                     }
 
-                    WindowsFormUtils.guardarYCerrar(db, this);
+                    WindowsFormUtils.guardarYCerrar(db, this, destino);
                 }
             }
         }

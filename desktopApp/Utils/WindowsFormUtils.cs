@@ -18,9 +18,10 @@ namespace PalcoNet.Utils
             callback();
         }
 
-        public static void guardarYCerrar(RagnarEntities db, Form context) {
+        public static void guardarYCerrar(RagnarEntities db, Form context, Form destino = null) {
             DBUtils.guardar(db);
             context.Close();
+            if (destino != null) destino.Show();
         }
 
         public static void mensajeDeError(string error) {
