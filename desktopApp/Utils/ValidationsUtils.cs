@@ -72,7 +72,7 @@ namespace PalcoNet.Utils
 
         public static void campoAlfabetico(Control input, string nombreInput)
         {
-            if (!input.Text.All(chr => char.IsLetter(chr)))
+            if (!input.Text.All(chr => char.IsLetter(chr) || char.IsWhiteSpace(chr)))
                 throw new ValidationException("El campo " + nombreInput + " sólo acepta letras");
         }
 
