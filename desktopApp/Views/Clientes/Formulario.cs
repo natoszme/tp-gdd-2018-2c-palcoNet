@@ -102,6 +102,8 @@ namespace PalcoNet.Clientes
 
                     if (!editando()) {
                         UsuariosUtils.dbContext = db;
+                        //TODO testear esto
+                        cliente.Rol.Add(BaseDeDatos.BaseDeDatos.obtenerRol(Model.TipoRol.CLIENTE.DisplayName));
                         cliente.Usuario = UsuariosUtils.usuarioAAsignar(UsuariosUtils.generarUsername(cliente), cliente);
                         db.Cliente.Add(cliente);
                     } else {

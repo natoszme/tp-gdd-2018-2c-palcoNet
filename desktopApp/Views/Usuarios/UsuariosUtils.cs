@@ -20,7 +20,7 @@ namespace PalcoNet.Views.Usuarios
         }
 
         public static Usuario generarUsuarioRandom(String username, Usuario usuario) {
-            return insertarYObtenerUsuario(username, generarPassword(usuario));
+            return insertarYObtenerUsuario(username, generarPassword(usuario), usuario.Rol.First());
         }
 
         #region Generar credenciales
@@ -37,15 +37,16 @@ namespace PalcoNet.Views.Usuarios
         }
         #endregion
 
-        public static void guardarUsuario(String username, String pass) {
-            Global.usuarioGenerado = insertarYObtenerUsuario(username, pass);
+        public static void guardarUsuario(String username, String pass, Rol rol) {
+            Global.usuarioGenerado = insertarYObtenerUsuario(username, pass, rol);
         }
 
-        private static Usuario insertarYObtenerUsuario(String username, String pass) {
+        private static Usuario insertarYObtenerUsuario(String username, String pass, Rol rol) {
             Usuario usuario = new Usuario();
             usuario.usuario = username;
             usuario.clave = pass;
             usuario.habilitado = true;
+            usuario.Rol.Add(rol);
             
             if (dbContext == null) {
                 dbContext = new RagnarEntities();

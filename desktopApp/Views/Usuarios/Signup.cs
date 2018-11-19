@@ -41,7 +41,8 @@ namespace PalcoNet.Usuarios
         private void btnRegistrarCliente_Click(object sender, EventArgs e)
         {
             if (!validarCampos()) return;
-            UsuariosUtils.guardarUsuario(username, pass);
+            Model.Rol rolSelecc = rolSeleccionado();
+            UsuariosUtils.guardarUsuario(username, pass, rolSelecc);
             this.Hide();
             new Clientes.Formulario(null, new Home()).Show();
         }
@@ -49,7 +50,7 @@ namespace PalcoNet.Usuarios
         private void btnRegistrarEmpresa_Click(object sender, EventArgs e)
         {
             if (!validarCampos()) return;
-            UsuariosUtils.guardarUsuario(username, pass);
+            UsuariosUtils.guardarUsuario(username, pass, rolSeleccionado());
             this.Hide();
             new Empresas.Formulario().Show();
         }
@@ -85,6 +86,11 @@ namespace PalcoNet.Usuarios
             pass = txtClave.Text;
 
             return true;
+        }
+
+        private Model.Rol rolSeleccionado()
+        {
+            return BaseDeDatos.BaseDeDatos.obtenerRol(cmbBxRol.GetItemText(cmbBxRol.SelectedItem));
         }
     }
 }

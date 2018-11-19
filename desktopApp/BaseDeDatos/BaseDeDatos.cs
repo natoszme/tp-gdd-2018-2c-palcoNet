@@ -50,5 +50,12 @@ namespace PalcoNet.BaseDeDatos
                 .Where(cliente => cliente.cuil.Equals(cuil))
                 .FirstOrDefault();
         }
+
+        internal static Rol obtenerRol(String nombreRol)
+        {
+            return dbContext.Rol
+                .Where(rol => rol.nombre.Equals(nombreRol))
+                .FirstOrDefault();
+        }
     }
 }
