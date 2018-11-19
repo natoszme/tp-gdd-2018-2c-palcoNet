@@ -26,6 +26,8 @@ namespace PalcoNet.Clientes
         {
             this.id = id;
             InitializeComponent();
+
+            cargarComboTipoDocumento();
             
             if (editando()) {
                 cargarDatos();
@@ -178,7 +180,7 @@ namespace PalcoNet.Clientes
                         txtEmail.Text = cliente.mail;
                         txtTelefono.Text = cliente.telefono;
                         dtpFechaNacimiento.Value = cliente.fecha_nacimiento;
-                        cmbBxTipoDocumento.SelectedValue = cliente.tipo_documento;
+                        cmbBxTipoDocumento.Text = cliente.tipo_documento;
                         txtNroDocumento.Text = cliente.numero_documento.ToString();
                         txtCuil.Text = cliente.cuil;
                         txtDireccion.Text = cliente.calle;
@@ -220,16 +222,19 @@ namespace PalcoNet.Clientes
         }
 
         private void Formulario_Load(object sender, EventArgs e) {
+            if (editando())
+            {
+                cargarDatosNoValidablesEnEdicion();
+            }
+        }
+
+        private void cargarComboTipoDocumento()
+        {
             cmbBxTipoDocumento.DataSource = TipoDocumento.GetAll().Select(
                 tipoDoc => new ComboBoxItem(tipoDoc.Value, tipoDoc.DisplayName)
             ).ToList();
             cmbBxTipoDocumento.ValueMember = "value";
             cmbBxTipoDocumento.DisplayMember = "text";
-
-            if (editando())
-            {
-                cargarDatosNoValidablesEnEdicion();
-            }
         }
 
         private void cargarDatosNoValidablesEnEdicion()
