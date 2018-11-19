@@ -41,6 +41,7 @@ namespace PalcoNet.Usuarios
         private void btnRegistrarCliente_Click(object sender, EventArgs e)
         {
             if (!validarCampos()) return;
+            //TODO testear esto
             Model.Rol rolSelecc = rolSeleccionado();
             UsuariosUtils.guardarUsuario(username, pass, rolSelecc);
             this.Hide();

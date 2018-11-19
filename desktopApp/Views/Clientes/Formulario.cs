@@ -211,7 +211,6 @@ namespace PalcoNet.Clientes
                 using (RagnarEntities db = new RagnarEntities()) {
                     try {
                         cliente = db.Cliente.Find(id);
-
                         txtNombre.Text = cliente.nombre;
                         txtApellido.Text = cliente.apellido;
                         txtEmail.Text = cliente.mail;
@@ -227,7 +226,7 @@ namespace PalcoNet.Clientes
                         txtLocalidad.Text = cliente.localidad;
                         txtCodigoPostal.Text = cliente.codigo_postal;
                         txtTarjeta.Text = tarjetaConAsteriscos(cliente.tarjeta_credito);
-                        chkBxHabilitado.Checked = cliente.habilitado;
+                        chkBxHabilitado.Checked = cliente.Usuario.habilitado;
                     } catch (Exception) {
                         WindowsFormUtils.mensajeDeError("Error al intentar cargar al cliente");
                     }
