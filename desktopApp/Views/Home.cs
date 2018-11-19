@@ -20,6 +20,12 @@ namespace PalcoNet
         private void Home_Load(object sender, EventArgs e)
         {
             habilitarBotonesFuncionalidades();
+            lblUsername.Text = "Bienvenido, " + obtenerUsernameUsuarioActual();
+        }
+
+        private string obtenerUsernameUsuarioActual()
+        {
+            return Global.usuarioLogueado.usuario;
         }
 
         public void habilitarBotonesFuncionalidades()
