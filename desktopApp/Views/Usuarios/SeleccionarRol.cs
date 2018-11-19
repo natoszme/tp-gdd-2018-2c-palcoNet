@@ -56,15 +56,15 @@ namespace PalcoNet.Usuarios
             {
                 case "Administrativo":
                 {
-                    tipo = TipoRol.Administrativo;
+                    tipo = TipoRol.ADMINISTRATIVO;
                 } break;
                 case "Cliente":
                 {
-                    tipo = TipoRol.Cliente;
+                    tipo = TipoRol.CLIENTE;
                 } break;
                 case "Empresa":
                 {
-                    tipo = TipoRol.Empresa;
+                    tipo = TipoRol.EMPRESA;
                 } break;
                 default:
                 {

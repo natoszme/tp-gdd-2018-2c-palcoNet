@@ -20,6 +20,16 @@ namespace PalcoNet.Usuarios
         public Signup()
         {
             InitializeComponent();
+            cargarComboRoles();
+        }
+
+        private void cargarComboRoles()
+        {
+            cmbBxRol.DataSource = Model.TipoRol.GetAll().Select(
+                tipoDoc => new ComboBoxItem(tipoDoc.Value, tipoDoc.DisplayName)
+            ).ToList();
+            cmbBxRol.ValueMember = "value";
+            cmbBxRol.DisplayMember = "text";
         }
 
         private void btnVolver_Click(object sender, EventArgs e)

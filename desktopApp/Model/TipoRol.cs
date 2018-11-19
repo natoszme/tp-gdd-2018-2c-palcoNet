@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace PalcoNet.Model
 {
-    public enum TipoRol
-    {
-        Empresa = 0,
-        Administrativo = 1,
-        Cliente = 2
-    }    
+    public class TipoRol : Headspring.Enumeration<TipoRol, int> {
+        public static readonly TipoRol EMPRESA = new TipoRol(0, "Empresa");
+        public static readonly TipoRol ADMINISTRATIVO = new TipoRol(1, "Administrativo");
+        public static readonly TipoRol CLIENTE = new TipoRol(2, "Cliente");
+
+        private TipoRol(int value, string displayName) : base(value, displayName) {}
+    } 
 }
