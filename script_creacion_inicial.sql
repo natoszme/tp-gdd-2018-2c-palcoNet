@@ -11,19 +11,19 @@ AS
 BEGIN
 	IF(EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Fecha_config'))
 		DROP TABLE RAGNAR.Fecha_config
-	CREATE TABLE RAGNAR.Fecha_config (fecha smalldatetime)
-	BULK INSERT RAGNAR.Fecha_config FROM 'C:\Gestion De Datos\TP2C2018\Aplicacion Desktop\PalcoNet\config.txt' WITH (FIRSTROW = 1,FIELDTERMINATOR = ',',ROWTERMINATOR = '') --Cambiar la ruta
+	CREATE TABLE RAGNAR.Fecha_config (fecha datetime)
+	BULK INSERT RAGNAR.Fecha_config FROM 'C:\TP2C2018 K3522 RAGNAR 20\src\Config.txt' WITH (FIRSTROW = 1,FIELDTERMINATOR = ',',ROWTERMINATOR = '') --Cambiar la ruta
 END
 GO
 --/ RECORDAR QUE LUEGO DE UN CAMBIO EN EL CONFIG SE DEBE SI O SI LLAMAR AL STORED PROCEDURE PARA ACTUALIZAR LA FECHA EN LA BASE
 
 --/ Funcion para usar la fecha del config /--
 
-CREATE FUNCTION RAGNAR.F_ObtenerFechaDelConfig ()
-RETURNS smalldatetime
+CREATE FUNCTION RAGNAR.F_ObtenerFechaDelConfig()
+RETURNS datetime
 AS
 BEGIN
-	DECLARE @Fecha smalldatetime
+	DECLARE @Fecha datetime
 	SET @Fecha = (SELECT * FROM RAGNAR.Fecha_config)
 	RETURN @Fecha
 END
@@ -72,7 +72,7 @@ CREATE TABLE RAGNAR.Cliente						(	id_usuario bigint FOREIGN KEY references RAGN
 													localidad nvarchar(255),
 													codigo_postal nvarchar(255) NOT NULL,
 													fecha_nacimiento datetime NOT NULL,
-													fecha_creacion datetime, /*Refiere a la fecha de creacion del cliente en el sistema, se puede definir un default a futuro*/
+													fecha_creacion datetime DEFAULT RAGNAR.F_ObtenerFechaDelConfig(), 
 													tarjeta_credito varchar(10),
 													CONSTRAINT [Documento] UNIQUE NONCLUSTERED
 														 ([tipo_documento], [numero_documento]))
@@ -93,7 +93,7 @@ CREATE TABLE RAGNAR.Empresa						(	id_usuario bigint FOREIGN KEY references RAGN
 
 CREATE TABLE RAGNAR.Puntos_cliente				(	id_puntaje bigint identity PRIMARY KEY,
 													id_cliente bigint FOREIGN KEY references RAGNAR.Cliente(id_usuario),
-													puntos int,
+													puntos int NOT NULL,
 													vencimiento date NOT NULL)
 
 CREATE TABLE RAGNAR.Grado_publicacion			(	id_grado int identity PRIMARY KEY,
@@ -112,7 +112,7 @@ CREATE TABLE RAGNAR.Publicacion					(	id_publicacion bigint identity PRIMARY KEY
 													codigo_publicacion numeric(18,0), /*Resolver como vamos a implementar estos 2 campos*/
 													descripcion nvarchar(255) NOT NULL,
 													stock int, /*No existe en la maestra o es producto de la suma de registros?*/
-													fecha_publicacion datetime, /*Agregar Default?*/
+													fecha_publicacion datetime DEFAULT RAGNAR.F_ObtenerFechaDelConfig(),
 													id_rubro int FOREIGN KEY references RAGNAR.Rubro(id_rubro) NOT NULL, 
 													direccion varchar(255),
 													id_grado int FOREIGN KEY references RAGNAR.Grado_publicacion(id_grado),
@@ -127,14 +127,14 @@ CREATE TABLE RAGNAR.Tipo_ubicacion				(	id_tipo_ubicacion int identity PRIMARY K
 
 CREATE TABLE RAGNAR.Compra						(	id_compra bigint identity PRIMARY KEY,
 													id_cliente bigint FOREIGN KEY references RAGNAR.Cliente(id_usuario) NOT NULL,
-													fecha datetime NOT NULL, --/Agregar default
+													fecha datetime NOT NULL DEFAULT RAGNAR.F_ObtenerFechaDelConfig(),
 													tarjeta_utilizada varchar(10))
 
 CREATE TABLE RAGNAR.Ubicacion_publicacion		(	id_ubicacion bigint identity PRIMARY KEY,
 													id_publicacion bigint FOREIGN KEY references RAGNAR.Publicacion(id_publicacion),
 													fila varchar(3),
 													asiento numeric(18,0),
-													sin_numerar bit NOT NULL, /*No seteo el default porque pueder ser 1 o 0*/
+													sin_numerar bit NOT NULL,
 													precio numeric(18,0) NOT NULL,
 													id_tipo	int FOREIGN KEY references RAGNAR.Tipo_ubicacion(id_tipo_ubicacion) NOT NULL,
 													id_compra bigint FOREIGN KEY references RAGNAR.Compra(id_compra),
@@ -142,7 +142,7 @@ CREATE TABLE RAGNAR.Ubicacion_publicacion		(	id_ubicacion bigint identity PRIMAR
 
 CREATE TABLE RAGNAR.Factura						(	id_factura bigint identity PRIMARY KEY,
 													numero numeric(18,0) NOT NULL,
-													fecha datetime NOT NULL,
+													fecha datetime NOT NULL DEFAULT RAGNAR.F_ObtenerFechaDelConfig(),
 													total numeric(18,2) NOT NULL,
 													forma_pago nvarchar(255))
 
@@ -164,7 +164,7 @@ CREATE TABLE RAGNAR.Canje_premio				(	id_premio int FOREIGN KEY references RAGNA
 
 GO
 
---/ Funcion para encriptar la contraseÃ±a /--
+--/ Funcion para encriptar la contraseña /--
 
 CREATE FUNCTION RAGNAR.F_HasheoDeClave (@Clave varchar(32))
 RETURNS varchar(32)
@@ -174,7 +174,7 @@ BEGIN
 END
 GO
 
---/ Trigger para encriptar la contraseÃ±a ingresada /--
+--/ Trigger para encriptar la contraseña ingresada /--
 
 CREATE TRIGGER RAGNAR.HasheoDeClaveDeUsuario ON RAGNAR.Usuario INSTEAD OF INSERT
 AS
@@ -197,7 +197,7 @@ GO
 
 --/ Inserts de usuarios /--
 
-INSERT INTO RAGNAR.Usuario(usuario,clave,habilitado) VALUES ('admin','admin',1) /*Usuario administrador, cambiar la pass con el metodo de encriptacion*/
+INSERT INTO RAGNAR.Usuario(usuario,clave,habilitado) VALUES ('admin','w23e',1) /*Usuario administrador, cambiar la pass con el metodo de encriptacion*/
 
 INSERT INTO RAGNAR.Usuario(usuario,clave,habilitado) 
 	SELECT DISTINCT Cli_Dni, Cli_dni, 1
@@ -339,9 +339,9 @@ BEGIN
 	END
 	ELSE
 	BEGIN
-		IF (NOT EXISTS (SELECT * FROM RAGNAR.Usuario WHERE id_usuario = @ID AND clave = @ClaveEncriptada)) --La contraseÃ±a ingresada no es correcta
+		IF (NOT EXISTS (SELECT * FROM RAGNAR.Usuario WHERE id_usuario = @ID AND clave = @ClaveEncriptada)) --La contraseña ingresada no es correcta
 		BEGIN
-			PRINT('La contraseÃ±a ingresada no es correcta')
+			PRINT('La contraseña ingresada no es correcta')
 			IF(NOT EXISTS (SELECT * FROM RAGNAR.Login_fallido WHERE id_usuario = @ID))
 				INSERT INTO RAGNAR.Login_fallido(id_usuario, nro_intento) VALUES (@ID, 1)
 			ELSE
@@ -394,7 +394,7 @@ GO
 
 /* Store Procedures para los reportes
 
-/* TODO: resolver el tema del trimestre y aÃ±o ingresado por UI */
+/* TODO: resolver el tema del trimestre y año ingresado por UI */
 
 -- empresas con > localidades no vendidas (que es visibilidad?)
 -- la fecha de quien es la que se ordena?
@@ -405,7 +405,7 @@ SELECT TOP 5 DISTINCT em.razon_social, COUNT(up.id_ubicacion) - SUM(uco.cantidad
 		JOIN espectaculo e ON p.id_publicacion = e.id_publicacion
 		JOIN compra co ON e.id_espectaculo = co.id_espectaculo
 		JOIN ubicacion_compra uco ON co.id_compra = uco.id_compra
-WHERE co.fecha FUERA DEL TRIMESTRE Y AÃ‘O INGRESADO AND co.id_grado = :id_grado
+WHERE co.fecha FUERA DEL TRIMESTRE Y AÑO INGRESADO AND co.id_grado = :id_grado
 GROUP BY em.razon_social
 ORDER BY COUNT(up.id_ubicacion) - SUM(uco.cantidad), fecha, id_grado
 
@@ -413,7 +413,7 @@ ORDER BY COUNT(up.id_ubicacion) - SUM(uco.cantidad), fecha, id_grado
 SELECT TOP 5 c.id_usuario, c.nombre, c.apellido, SUM(puntos) puntosNoVencidos
 	FROM cliente c
 		LEFT JOIN puntos_cliente pc ON c.id_usuario = pc.id_cliente
-	WHERE vencimiento FUERA DEL TRIMESTRE Y AÃ‘O INGRESADO
+	WHERE vencimiento FUERA DEL TRIMESTRE Y AÑO INGRESADO
 GROUP BY c.id_usuario, c.nombre, c.apellido
 ORDER BY SUM(puntos) DESC
 
@@ -423,7 +423,7 @@ SELECT TOP 5 c.id_usuario, COUNT(id_compra), p.id_empresa
 		JOIN compra co ON c.id_usuario = co.id_cliente
 		JOIN espectaculo e ON co.id_espectaculo = e.id_espectaculo
 		JOIN publicacion p ON e.id_publicacion = p.id_publicacion
-WHERE co.fecha FUERA DEL TRIMESTRE Y AÃ‘O INGRESADO
+WHERE co.fecha FUERA DEL TRIMESTRE Y AÑO INGRESADO
 GROUP BY p.id_empresa, c.id_usuario
 ORDER BY count(id_compra) DESC
 
