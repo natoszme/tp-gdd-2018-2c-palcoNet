@@ -15,6 +15,9 @@ BEGIN
 	BULK INSERT RAGNAR.Fecha_config FROM 'C:\TP2C2018 K3522 RAGNAR 20\src\Config.txt' WITH (FIRSTROW = 1,FIELDTERMINATOR = ',',ROWTERMINATOR = '') --Cambiar la ruta
 END
 GO
+
+EXEC [RAGNAR].[SP_CargarEnLaBaseFechaDelConfig]
+GO
 --/ RECORDAR QUE LUEGO DE UN CAMBIO EN EL CONFIG SE DEBE SI O SI LLAMAR AL STORED PROCEDURE PARA ACTUALIZAR LA FECHA EN LA BASE
 
 --/ Funcion para usar la fecha del config /--
@@ -109,7 +112,7 @@ CREATE TABLE RAGNAR.Estado_publicacion			(	id_estado int identity PRIMARY KEY,
 													descripcion nvarchar(255) NOT NULL)
 
 CREATE TABLE RAGNAR.Publicacion					(	id_publicacion bigint identity PRIMARY KEY,
-													codigo_publicacion numeric(18,0), /*Resolver como vamos a implementar estos 2 campos*/
+													codigo_publicacion numeric(18,0),
 													descripcion nvarchar(255) NOT NULL,
 													stock int, /*No existe en la maestra o es producto de la suma de registros?*/
 													fecha_publicacion datetime DEFAULT RAGNAR.F_ObtenerFechaDelConfig(),
@@ -119,7 +122,9 @@ CREATE TABLE RAGNAR.Publicacion					(	id_publicacion bigint identity PRIMARY KEY
 													id_empresa bigint FOREIGN KEY references RAGNAR.Empresa(id_usuario),
 													fecha_vencimiento datetime NOT NULL,
 													fecha_espectaculo datetime NOT NULL,
-													id_estado int FOREIGN KEY references RAGNAR.Estado_publicacion(id_estado) NOT NULL)
+													id_estado int FOREIGN KEY references RAGNAR.Estado_publicacion(id_estado) NOT NULL,
+													CONSTRAINT [Espectaculo] UNIQUE NONCLUSTERED
+														 ([descripcion], [fecha_espectaculo]))
 
 CREATE TABLE RAGNAR.Tipo_ubicacion				(	id_tipo_ubicacion int identity PRIMARY KEY,
 													codigo numeric(18,0), /*De la maestra, resolver con la linea de arriba*/
@@ -354,6 +359,17 @@ BEGIN
 END
 GO
 
+--/ StoredProcedure para calcular el stock de una publicacion /--
+
+CREATE PROCEDURE RAGNAR.SP_StockDePublicacion (@IdPublicacion bigint)
+AS
+BEGIN
+	DECLARE @Stock int
+	SET @Stock = (SELECT COUNT(*) FROM RAGNAR.Ubicacion_publicacion WHERE id_publicacion = @IdPublicacion AND id_compra IS NULL)
+	UPDATE RAGNAR.Publicacion SET stock = @Stock WHERE id_publicacion = @IdPublicacion
+END
+GO
+
 --/ TRIGGERS /--
 
 --/ Trigger de la tabla Login_fallido /--
@@ -387,6 +403,27 @@ BEGIN
 	END
 END
 GO
+
+--/ Trigger para el calculo de stock /--
+
+CREATE TRIGGER RAGNAR.CalculoDeStockDePublicacion ON RAGNAR.Ubicacion_publicacion AFTER UPDATE
+AS
+BEGIN
+	DECLARE @Publicacion bigint, @CompraActual numeric(18,0), @CompraPasada numeric(18,0)
+	DECLARE CUbicacion CURSOR FOR (SELECT I.id_publicacion, I.id_compra, D.id_compra FROM INSERTED as I JOIN DELETED as D ON (I.asiento = D.asiento AND I.fila = D.fila AND I.id_publicacion = D.id_publicacion AND I.id_tipo = D.id_tipo AND I.precio = D.precio AND I.sin_numerar = D.sin_numerar) WHERE I.compra_cantidad = 1)
+	OPEN C1
+	FETCH NEXT FROM CUbicacion INTO @Publicacion, @CompraActual, @CompraPasada
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		IF(@CompraActual IS NOT NULL AND @CompraPasada IS NULL)
+		BEGIN
+		UPDATE RAGNAR.Publicacion SET stock = (stock - 1) WHERE id_publicacion = @Publicacion
+		END
+		FETCH NEXT FROM CUbicacion INTO @Publicacion, @CompraActual, @CompraPasada
+	END
+END
+GO
+
 
 /*CREATE de Premios a canjear*/
 
