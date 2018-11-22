@@ -236,9 +236,9 @@ INSERT INTO RAGNAR.Estado_publicacion(descripcion)
 	FROM gd_esquema.Maestra
 	WHERE Espectaculo_Estado IS NOT NULL
 	
-INSERT INTO RAGNAR.Publicacion(codigo_publicacion, descripcion, fecha_vencimiento, id_rubro , fecha_espectaculo, id_estado)
-	SELECT DISTINCT M.Espectaculo_Cod, M.Espectaculo_Descripcion, M.Espectaculo_Fecha_Venc, R.id_rubro, M.Espectaculo_Fecha, E.id_estado
-	FROM gd_esquema.Maestra as M JOIN RAGNAR.Rubro as R ON (M.Espectaculo_Rubro_Descripcion = R.descripcion) JOIN RAGNAR.Estado_publicacion as E ON (M.Espectaculo_Estado = E.descripcion)
+INSERT INTO RAGNAR.Publicacion(codigo_publicacion, descripcion, fecha_vencimiento, id_rubro , fecha_espectaculo, id_estado, id_empresa)
+	SELECT DISTINCT M.Espectaculo_Cod, M.Espectaculo_Descripcion, M.Espectaculo_Fecha_Venc, R.id_rubro, M.Espectaculo_Fecha, E.id_estado, EMP.id_usuario
+	FROM gd_esquema.Maestra as M JOIN RAGNAR.Rubro as R ON (M.Espectaculo_Rubro_Descripcion = R.descripcion) JOIN RAGNAR.Estado_publicacion as E ON (M.Espectaculo_Estado = E.descripcion) JOIN RAGNAR.Empresa as EMP ON (M.Espec_Empresa_Cuit = EMP.cuit)
 	WHERE M.Espectaculo_Cod IS NOT NULL
 
 --/ Inserts de Ubicaciones y Compras /--
@@ -325,6 +325,44 @@ INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT 
 
 --/ Fin de Inserts /--
 
+GO
+
+--/ VISTAS /--
+
+--/ FUNCIONES /--
+
+--/ Funcion para ver el historial de un cliente /--
+
+CREATE FUNCTION RAGNAR.F_HistorialDeCliente (@Cliente bigint)
+RETURNS TABLE
+AS
+	RETURN (SELECT P.descripcion as Espectaculo, P.fecha_espectaculo as FechaEspectaculo, C.fecha as FechaDeCompra, ISNULL(C.tarjeta_utilizada,'Efectivo') as FormaDePago, U.precio as Precio, U.asiento as Asiento, U.fila as Fila, U.sin_numerar as EsSinNumerar, T.descripcion as TipodeUbicacion FROM RAGNAR.Compra as C JOIN RAGNAR.Ubicacion_publicacion as U ON (C.id_compra = U.id_compra) JOIN RAGNAR.Publicacion as P ON (U.id_publicacion = P.id_publicacion) JOIN RAGNAR.Tipo_ubicacion as T ON (U.id_tipo = T.id_tipo_ubicacion) WHERE C.id_cliente = @Cliente)
+GO
+
+--/ Funciones del Listado Estadistico /--
+
+--/ Funcion para listado de empresas con mayor cantidad de localidades no vendidas ACOMODAR /--
+
+CREATE FUNCTION RAGNAR.F_EmpresasConMasLocalidadesNoVencidas (@Fecha datetime)
+RETURNS TABLE
+AS
+RETURN (SELECT * FROM RAGNAR.Empresa as E JOIN RAGNAR.Publicacion as P ON (E.id_usuario = P.id_empresa))
+GO
+
+--/ Funcion para listado de clientes con mas puntos vencidos /--
+
+CREATE FUNCTION RAGNAR.F_ClientesConMasPuntosVencidos (@Fecha datetime)
+RETURNS TABLE
+AS
+RETURN (SELECT TOP 5 C.nombre as Nombre, C.apellido as Apellido, C.tipo_documento as TipoDeDocumento, C.numero_documento as NumeroDeDocumento, C.cuil as CUIL, SUM(P.puntos) as PuntosVencidos FROM RAGNAR.Puntos_cliente as P JOIN RAGNAR.Cliente as C ON (P.id_cliente = C.id_usuario) WHERE YEAR(P.vencimiento) = YEAR(@Fecha) AND (MONTH(@Fecha) - MONTH(P.vencimiento)) < 3 GROUP BY C.id_usuario, C.nombre, C.apellido, C.tipo_documento, C.numero_documento, C.cuil ORDER BY 6 DESC)
+GO
+
+--/ Funcion para listado de clientes con mayor cantidad de compras /--
+
+CREATE FUNCTION RAGNAR.F_ClientesConMasCompras (@Fecha datetime)
+RETURNS TABLE
+AS
+RETURN (SELECT TOP 5 CLI.nombre as Nombre, CLI.apellido as Apellido, CLI.tipo_documento as TipoDeDocumento, CLI.numero_documento as NumeroDeDocumento, CLI.cuil as CUIL, COUNT(*) as CantidadDeCompras FROM RAGNAR.Compra as C JOIN RAGNAR.Cliente as CLI ON (CLI.id_usuario = C.id_cliente) JOIN RAGNAR.Ubicacion_publicacion as U ON (C.id_compra = U.id_compra) JOIN RAGNAR.Publicacion as P ON (U.id_publicacion = P.id_publicacion) WHERE YEAR(C.fecha) = YEAR(@Fecha) AND (MONTH(@Fecha) - MONTH(C.fecha)) < 3 GROUP BY P.id_empresa, CLI.nombre, CLI.apellido, CLI.tipo_documento, CLI.numero_documento, CLI.cuil ORDER BY 6 DESC)
 GO
 
 --/ STORED PROCEDURES /--
