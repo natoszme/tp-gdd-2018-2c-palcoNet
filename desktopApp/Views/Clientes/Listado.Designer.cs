@@ -45,6 +45,8 @@
             this.txtApellido = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnVolver = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtTipoDocumento = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -60,7 +62,7 @@
             this.dgvClientes.Location = new System.Drawing.Point(12, 152);
             this.dgvClientes.Name = "dgvClientes";
             this.dgvClientes.ReadOnly = true;
-            this.dgvClientes.Size = new System.Drawing.Size(733, 192);
+            this.dgvClientes.Size = new System.Drawing.Size(833, 192);
             this.dgvClientes.TabIndex = 3;
             // 
             // panel1
@@ -70,12 +72,12 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(733, 32);
+            this.panel1.Size = new System.Drawing.Size(833, 32);
             this.panel1.TabIndex = 2;
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(624, 4);
+            this.btnEditar.Location = new System.Drawing.Point(717, 4);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(104, 23);
             this.btnEditar.TabIndex = 2;
@@ -85,7 +87,7 @@
             // 
             // btnNuevo
             // 
-            this.btnNuevo.Location = new System.Drawing.Point(514, 4);
+            this.btnNuevo.Location = new System.Drawing.Point(607, 4);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(104, 23);
             this.btnNuevo.TabIndex = 1;
@@ -105,6 +107,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtTipoDocumento);
+            this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.btnLimpiar);
             this.groupBox1.Controls.Add(this.btnFiltrar);
             this.groupBox1.Controls.Add(this.txtEmail);
@@ -117,14 +121,14 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(12, 61);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(734, 85);
+            this.groupBox1.Size = new System.Drawing.Size(833, 85);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros";
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(653, 43);
+            this.btnLimpiar.Location = new System.Drawing.Point(746, 42);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpiar.TabIndex = 12;
@@ -134,7 +138,7 @@
             // 
             // btnFiltrar
             // 
-            this.btnFiltrar.Location = new System.Drawing.Point(572, 44);
+            this.btnFiltrar.Location = new System.Drawing.Point(665, 43);
             this.btnFiltrar.Name = "btnFiltrar";
             this.btnFiltrar.Size = new System.Drawing.Size(75, 23);
             this.btnFiltrar.TabIndex = 2;
@@ -146,13 +150,13 @@
             // 
             this.txtEmail.Location = new System.Drawing.Point(274, 46);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(162, 20);
+            this.txtEmail.Size = new System.Drawing.Size(148, 20);
             this.txtEmail.TabIndex = 11;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(439, 30);
+            this.label5.Location = new System.Drawing.Point(541, 29);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(62, 13);
             this.label5.TabIndex = 10;
@@ -185,9 +189,9 @@
             // 
             // txtDocumento
             // 
-            this.txtDocumento.Location = new System.Drawing.Point(442, 45);
+            this.txtDocumento.Location = new System.Drawing.Point(544, 45);
             this.txtDocumento.Name = "txtDocumento";
-            this.txtDocumento.Size = new System.Drawing.Size(124, 20);
+            this.txtDocumento.Size = new System.Drawing.Size(106, 20);
             this.txtDocumento.TabIndex = 6;
             // 
             // txtApellido
@@ -216,11 +220,27 @@
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(425, 30);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(84, 13);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Tipo documento";
+            // 
+            // txtTipoDocumento
+            // 
+            this.txtTipoDocumento.Location = new System.Drawing.Point(428, 45);
+            this.txtTipoDocumento.Name = "txtTipoDocumento";
+            this.txtTipoDocumento.Size = new System.Drawing.Size(110, 20);
+            this.txtTipoDocumento.TabIndex = 14;
+            // 
             // Listado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(758, 399);
+            this.ClientSize = new System.Drawing.Size(857, 399);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dgvClientes);
@@ -256,5 +276,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Button btnVolver;
+        private System.Windows.Forms.TextBox txtTipoDocumento;
+        private System.Windows.Forms.Label label6;
     }
 }

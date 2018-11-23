@@ -45,6 +45,11 @@ namespace PalcoNet.Clientes
                     clientesFiltrados = clientesFiltrados.Where(c => c.mail.Contains(txtEmail.Text));
                 }
 
+                if (!string.IsNullOrWhiteSpace(txtTipoDocumento.Text))
+                {
+                    clientesFiltrados = clientesFiltrados.Where(c => c.tipo_documento.ToString() == txtTipoDocumento.Text);
+                }
+
                 if (!string.IsNullOrWhiteSpace(txtDocumento.Text)) {
                     clientesFiltrados = clientesFiltrados.Where(c => c.numero_documento.ToString() == txtDocumento.Text);
                 }
@@ -54,6 +59,7 @@ namespace PalcoNet.Clientes
                     id_usuario = c.id_usuario,
                     nombre = c.nombre,
                     apellido = c.apellido,
+                    tipo_documento = c.tipo_documento,
                     numero_documento = c.numero_documento,
                     mail = c.mail
                 }).OrderBy(c => c.nombre).ThenBy(c => c.apellido);
