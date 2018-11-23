@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PalcoNet.Model;
+using PalcoNet.Utils;
 
 namespace PalcoNet.Usuarios
 {
@@ -15,6 +17,16 @@ namespace PalcoNet.Usuarios
         public ModificarClaveAdmin()
         {
             InitializeComponent();
+        }
+
+        private void btnCambiar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            WindowsFormUtils.volverALaHome(this);
         }
     }
 }
