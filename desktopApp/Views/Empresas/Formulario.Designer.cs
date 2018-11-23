@@ -372,12 +372,10 @@
 
         private void label4_Click(object sender, System.EventArgs e)
         {
-            throw new System.NotImplementedException();
         }
 
         private void txtLocalidad_TextChanged(object sender, System.EventArgs e)
         {
-            throw new System.NotImplementedException();
         }
 
         #endregion

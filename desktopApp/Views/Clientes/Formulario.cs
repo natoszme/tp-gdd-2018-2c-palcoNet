@@ -113,18 +113,6 @@ namespace PalcoNet.Clientes
             }                
         }
 
-        private void cuilNoRepetido()
-        {
-            Cliente otroCliente = BaseDeDatos.BaseDeDatos.clientePorCuil(txtCuil.Text);
-            if (otroCliente != null)
-            {
-                if ((editando() && id != otroCliente.id_usuario) || !editando())
-                {
-                    throw new ValidationException("Ya existe otro cliente con este cuil");
-                }
-            }  
-        }
-
         #region VALIDACIONES
         override protected bool validarDominio()
         {
@@ -157,8 +145,8 @@ namespace PalcoNet.Clientes
                 ValidationsUtils.opcionObligatoria(cmbBxTipoDocumento, "tipo de documento");
                 ValidationsUtils.campoLongitudFija(txtNroDocumento, "nro. de documento", 8);
                 ValidationsUtils.campoNumericoYPositivo(txtNroDocumento, "nro. de documento");
-                ValidationsUtils.campoObligatorio(txtCuil, "cuil");
-                ValidationsUtils.cuilValido(txtCuil);
+                ValidationsUtils.campoObligatorio(txtCuil, "CUIL");
+                ValidationsUtils.cuilOCuitValido(txtCuil, "CUIL");
                 ValidationsUtils.campoObligatorio(txtDireccion, "dirección");
                 ValidationsUtils.campoObligatorio(txtPortal, "portal");
                 ValidationsUtils.campoNumericoYPositivo(txtPortal, "portal");
@@ -177,7 +165,7 @@ namespace PalcoNet.Clientes
         }
         #endregion
 
-        #region HELPER
+        #region CARGADATOS
         override protected void cargarDatos() {
                 using (RagnarEntities db = new RagnarEntities()) {
                     try {
@@ -248,6 +236,11 @@ namespace PalcoNet.Clientes
                 ValidationsUtils.campoLongitudEntre(txtTarjeta, "tarjeta de credito", 15, 16);
                 ValidationsUtils.campoNumericoYPositivo(txtTarjeta, "tarjeta de credito");
             }
+        }
+
+        protected override TextBox textBoxCuil()
+        {
+            return txtCuil;
         }
     }
 }
