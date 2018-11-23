@@ -18,7 +18,6 @@ namespace PalcoNet.Clientes
         int? id;
         Cliente cliente = new Cliente();
         private String caracteresOcultosTarjeta = "****";
-        private Dictionary<string, string> noObligatoriosEdicion = new Dictionary<string, string>();
         private int digitosBaseTarjeta = 6;
         private int digitosFinalTarjeta = 4;
         private Form destino;
@@ -147,8 +146,6 @@ namespace PalcoNet.Clientes
 
         private void cuilNoRepetido()
         {
-            if (!validable(txtCuil, "cuil")) return;
-
             Cliente otroCliente = BaseDeDatos.BaseDeDatos.clientePorCuil(txtCuil.Text);
             if (otroCliente != null)
             {
@@ -169,37 +166,25 @@ namespace PalcoNet.Clientes
                 ValidationsUtils.campoAlfabetico(txtApellido, "apellido");
                 ValidationsUtils.campoObligatorio(txtEmail, "mail");
                 ValidationsUtils.emailValido(txtEmail, "mail");
-                if (validable(txtTelefono, "telefono"))
-                {
-                    ValidationsUtils.campoLongitudEntre(txtTelefono, "telefono", 8, 11);
-                    ValidationsUtils.campoNumericoYPositivo(txtTelefono, "telefono");
-                }
+                ValidationsUtils.campoLongitudEntre(txtTelefono, "telefono", 8, 11);
+                ValidationsUtils.campoNumericoYPositivo(txtTelefono, "telefono");
                 // TODO: validar que la fecha de nacimiento no puede ser posterior a la del archivo de configuracion
                 ValidationsUtils.campoObligatorio(dtpFechaNacimiento, "fecha de nacimiento");
                 ValidationsUtils.opcionObligatoria(cmbBxTipoDocumento, "tipo de documento");
                 ValidationsUtils.campoLongitudFija(txtNroDocumento, "nro. de documento", 8);
                 ValidationsUtils.campoNumericoYPositivo(txtNroDocumento, "nro. de documento");
-                if (validable(txtCuil, "cuil"))
-                {
-                    ValidationsUtils.campoObligatorio(txtCuil, "cuil");
-                    ValidationsUtils.cuilValido(txtCuil);
-                }
+                ValidationsUtils.campoObligatorio(txtCuil, "cuil");
+                ValidationsUtils.cuilValido(txtCuil);
                 ValidationsUtils.campoObligatorio(txtDireccion, "dirección");
                 ValidationsUtils.campoObligatorio(txtPortal, "portal");
                 ValidationsUtils.campoNumericoYPositivo(txtPortal, "portal");
                 ValidationsUtils.campoObligatorio(txtNroPiso, "nro. piso");
                 ValidationsUtils.campoNumericoYPositivo(txtNroPiso, "nro. piso");
                 ValidationsUtils.campoObligatorio(txtDepto, "departamento");
-                if (validable(txtLocalidad, "localidad"))
-                {
-                    ValidationsUtils.campoObligatorio(txtLocalidad, "localidad");
-                    ValidationsUtils.campoAlfabetico(txtLocalidad, "localidad");
-                }
+                ValidationsUtils.campoObligatorio(txtLocalidad, "localidad");
+                ValidationsUtils.campoAlfabetico(txtLocalidad, "localidad");
                 ValidationsUtils.campoObligatorio(txtCodigoPostal, "codigo postal");
-                if (validable(txtTarjeta, "tarjetaCredito"))
-                {
-                    validarTarjeta();
-                }
+                validarTarjeta();
             } catch(ValidationException e) {
                 WindowsFormUtils.mensajeDeError(e.Message);
                 camposValidos = false;
@@ -261,10 +246,6 @@ namespace PalcoNet.Clientes
         }
 
         private void Formulario_Load(object sender, EventArgs e) {
-            if (editando())
-            {
-                cargarDatosNoValidablesEnEdicion();
-            }
         }
 
         private void cargarComboTipoDocumento()
@@ -274,18 +255,6 @@ namespace PalcoNet.Clientes
             ).ToList();
             cmbBxTipoDocumento.ValueMember = "value";
             cmbBxTipoDocumento.DisplayMember = "text";
-        }
-
-        private void cargarDatosNoValidablesEnEdicion()
-        {
-            noObligatoriosEdicion.Add("cuil", txtCuil.Text);
-            noObligatoriosEdicion.Add("telefono", txtTelefono.Text);
-            noObligatoriosEdicion.Add("localidad", txtLocalidad.Text);
-            noObligatoriosEdicion.Add("tarjetaCredito", txtTarjeta.Text);
-        }
-
-        private bool validable(Control input, String nombreCampo) {
-            return !editando() || (editando() && noObligatoriosEdicion[nombreCampo] != "");
         }
 
         private void validarTarjeta()
