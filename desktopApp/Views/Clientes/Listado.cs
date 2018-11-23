@@ -22,6 +22,7 @@ namespace PalcoNet.Clientes
         private void Listado_Load(object sender, EventArgs e)
         {
             actualizarDataGriedView();
+            dgvClientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
         #region HELPER
