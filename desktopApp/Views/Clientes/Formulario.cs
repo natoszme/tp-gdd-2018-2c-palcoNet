@@ -36,19 +36,22 @@ namespace PalcoNet.Clientes
             }
 
             // TODO: sacar cuando funque, lo dejo para no completar todo a mano todo el tiempo
-            /*txtNombre.Text = "Kevin";
-            txtApellido.Text = "Szuchet";
-            txtEmail.Text = "kevinszuchet@gmail.com";
-            txtTelefono.Text = "1140495754";
-            txtNroDocumento.Text = "40539748";
-            txtCuil.Text = "20405397480";
-            txtDireccion.Text = "JRV";
-            txtPortal.Text = "225";
-            txtNroPiso.Text = "1";
-            txtDepto.Text = "A";
-            txtLocalidad.Text = "CABA";
-            txtCodigoPostal.Text = "1414";
-            txtTarjeta.Text = "1234567891011121";*/
+            if (!editando())
+            {
+                txtNombre.Text = "Kevin";
+                txtApellido.Text = "Szuchet";
+                txtEmail.Text = "kevinszuchet@gmail.com";
+                txtTelefono.Text = "1140495754";
+                txtNroDocumento.Text = "40539748";
+                txtCuil.Text = "20405397480";
+                txtDireccion.Text = "JRV";
+                txtPortal.Text = "225";
+                txtNroPiso.Text = "1";
+                txtDepto.Text = "A";
+                txtLocalidad.Text = "CABA";
+                txtCodigoPostal.Text = "1414";
+                txtTarjeta.Text = "1234567891011121";
+            }
 
             if (SessionUtils.esAdmin()) {
                 if(editando())
@@ -101,12 +104,12 @@ namespace PalcoNet.Clientes
                     }
 
                     if (!editando()) {
-                        UsuariosUtils.dbContext = db;
                         //TODO testear esto
-                        cliente.Rol.Add(BaseDeDatos.BaseDeDatos.obtenerRol(Model.TipoRol.CLIENTE.DisplayName));
-                        cliente.Usuario = UsuariosUtils.usuarioAAsignar(UsuariosUtils.generarUsername(cliente), cliente);
+                        //cliente.Rol.Add(BaseDeDatos.BaseDeDatos.obtenerRol());
+                        cliente.Usuario = UsuariosUtils.usuarioAAsignar(db, UsuariosUtils.generarUsername(cliente), cliente, Model.TipoRol.CLIENTE);
                         db.Cliente.Add(cliente);
                     } else {
+                        //actualizamos tambien el usuario porque podria haber cambiado el checkbox de habilitado
                         db.Entry(cliente.Usuario).State = System.Data.Entity.EntityState.Modified;
                         db.Entry(cliente).State = System.Data.Entity.EntityState.Modified;
                     }

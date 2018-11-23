@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Utils;
 using PalcoNet.Views.Usuarios;
+using PalcoNet.Model;
 
 namespace PalcoNet.Usuarios
 {
@@ -20,16 +21,6 @@ namespace PalcoNet.Usuarios
         public Signup()
         {
             InitializeComponent();
-            cargarComboRoles();
-        }
-
-        private void cargarComboRoles()
-        {
-            cmbBxRol.DataSource = Model.TipoRol.GetAll().Select(
-                tipoDoc => new ComboBoxItem(tipoDoc.Value, tipoDoc.DisplayName)
-            ).ToList();
-            cmbBxRol.ValueMember = "value";
-            cmbBxRol.DisplayMember = "text";
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
@@ -41,9 +32,7 @@ namespace PalcoNet.Usuarios
         private void btnRegistrarCliente_Click(object sender, EventArgs e)
         {
             if (!validarCampos()) return;
-            //TODO testear esto
-            Model.Rol rolSelecc = rolSeleccionado();
-            UsuariosUtils.guardarUsuario(username, pass, rolSelecc);
+            UsuariosUtils.guardarUsuario(username, pass, TipoRol.CLIENTE);
             this.Hide();
             new Clientes.Formulario(null, new Home()).Show();
         }
@@ -51,7 +40,7 @@ namespace PalcoNet.Usuarios
         private void btnRegistrarEmpresa_Click(object sender, EventArgs e)
         {
             if (!validarCampos()) return;
-            UsuariosUtils.guardarUsuario(username, pass, rolSeleccionado());
+            UsuariosUtils.guardarUsuario(username, pass, TipoRol.EMPRESA);
             this.Hide();
             new Empresas.Formulario().Show();
         }
@@ -87,11 +76,6 @@ namespace PalcoNet.Usuarios
             pass = txtClave.Text;
 
             return true;
-        }
-
-        private Model.Rol rolSeleccionado()
-        {
-            return BaseDeDatos.BaseDeDatos.obtenerRol(cmbBxRol.GetItemText(cmbBxRol.SelectedItem));
         }
     }
 }

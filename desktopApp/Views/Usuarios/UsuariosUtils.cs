@@ -9,18 +9,16 @@ namespace PalcoNet.Views.Usuarios
 {
     public static class UsuariosUtils
     {
-        public static RagnarEntities dbContext { get; set; }
-
-        public static Usuario usuarioAAsignar(String username, Usuario usuario) {
+        public static Usuario usuarioAAsignar(RagnarEntities db, String username, Usuario usuario, TipoRol rol) {
 
             if (!Global.hayUsuarioGenerado())
-                return generarUsuarioRandom(username, usuario);
+                return generarUsuarioRandom(db, username, usuario, rol);
 
             return Global.obtenerYLimpiarUsuarioGenerado();
         }
 
-        public static Usuario generarUsuarioRandom(String username, Usuario usuario) {
-            return insertarYObtenerUsuario(username, generarPassword(usuario), usuario.Rol.First());
+        public static Usuario generarUsuarioRandom(RagnarEntities db, String username, Usuario usuario, TipoRol rol) {
+            return BaseDeDatos.BaseDeDatos.insertarYObtenerUsuario(db, username, generarPassword(usuario), rol);
         }
 
         #region Generar credenciales
@@ -37,23 +35,9 @@ namespace PalcoNet.Views.Usuarios
         }
         #endregion
 
-        public static void guardarUsuario(String username, String pass, Rol rol) {
-            Global.usuarioGenerado = insertarYObtenerUsuario(username, pass, rol);
-        }
-
-        private static Usuario insertarYObtenerUsuario(String username, String pass, Rol rol) {
-            Usuario usuario = new Usuario();
-            usuario.usuario = username;
-            usuario.clave = pass;
-            usuario.habilitado = true;
-            usuario.Rol.Add(rol);
-            
-            if (dbContext == null) {
-                dbContext = new RagnarEntities();
-            }
-            dbContext.Usuario.Add(usuario);
-
-            return usuario;
+        public static void guardarUsuario(String username, String pass, TipoRol rol)
+        {
+            Global.usuarioGenerado = BaseDeDatos.BaseDeDatos.insertarYObtenerUsuario(null, username, pass, rol);
         }
     }
 }

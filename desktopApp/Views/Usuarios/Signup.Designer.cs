@@ -30,8 +30,6 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnRegistrarEmpresa = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.cmbBxRol = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtRepetirClave = new System.Windows.Forms.TextBox();
             this.btnRegistrarCliente = new System.Windows.Forms.Button();
@@ -46,8 +44,6 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.btnRegistrarEmpresa);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.cmbBxRol);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.txtRepetirClave);
             this.panel1.Controls.Add(this.btnRegistrarCliente);
@@ -65,27 +61,10 @@
             this.btnRegistrarEmpresa.Location = new System.Drawing.Point(240, 136);
             this.btnRegistrarEmpresa.Name = "btnRegistrarEmpresa";
             this.btnRegistrarEmpresa.Size = new System.Drawing.Size(202, 23);
-            this.btnRegistrarEmpresa.TabIndex = 9;
+            this.btnRegistrarEmpresa.TabIndex = 5;
             this.btnRegistrarEmpresa.Text = "Registrarme como empresa";
             this.btnRegistrarEmpresa.UseVisualStyleBackColor = true;
             this.btnRegistrarEmpresa.Click += new System.EventHandler(this.btnRegistrarEmpresa_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(238, 17);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(77, 13);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Seleccionar rol";
-            // 
-            // cmbBxRol
-            // 
-            this.cmbBxRol.FormattingEnabled = true;
-            this.cmbBxRol.Location = new System.Drawing.Point(241, 33);
-            this.cmbBxRol.Name = "cmbBxRol";
-            this.cmbBxRol.Size = new System.Drawing.Size(201, 21);
-            this.cmbBxRol.TabIndex = 7;
             // 
             // label3
             // 
@@ -101,7 +80,7 @@
             this.txtRepetirClave.Location = new System.Drawing.Point(240, 82);
             this.txtRepetirClave.Name = "txtRepetirClave";
             this.txtRepetirClave.Size = new System.Drawing.Size(202, 20);
-            this.txtRepetirClave.TabIndex = 5;
+            this.txtRepetirClave.TabIndex = 3;
             this.txtRepetirClave.UseSystemPasswordChar = true;
             // 
             // btnRegistrarCliente
@@ -119,7 +98,7 @@
             this.txtClave.Location = new System.Drawing.Point(19, 82);
             this.txtClave.Name = "txtClave";
             this.txtClave.Size = new System.Drawing.Size(202, 20);
-            this.txtClave.TabIndex = 3;
+            this.txtClave.TabIndex = 2;
             this.txtClave.UseSystemPasswordChar = true;
             // 
             // label2
@@ -152,7 +131,7 @@
             this.btnVolver.Location = new System.Drawing.Point(399, 205);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(75, 23);
-            this.btnVolver.TabIndex = 2;
+            this.btnVolver.TabIndex = 6;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
@@ -176,8 +155,6 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnRegistrarEmpresa;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox cmbBxRol;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtRepetirClave;
         private System.Windows.Forms.Button btnRegistrarCliente;
