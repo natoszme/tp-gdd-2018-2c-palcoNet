@@ -104,8 +104,6 @@ namespace PalcoNet.Clientes
                     }
 
                     if (!editando()) {
-                        //TODO testear esto
-                        //cliente.Rol.Add(BaseDeDatos.BaseDeDatos.obtenerRol());
                         cliente.Usuario = UsuariosUtils.usuarioAAsignar(db, UsuariosUtils.generarUsername(cliente), cliente, Model.TipoRol.CLIENTE);
                         db.Cliente.Add(cliente);
                     } else {

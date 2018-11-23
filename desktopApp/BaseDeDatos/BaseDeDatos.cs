@@ -51,22 +51,23 @@ namespace PalcoNet.BaseDeDatos
                 .FirstOrDefault();
         }
 
-        internal static Rol obtenerRol(RagnarEntities db, TipoRol nombreRol)
+        internal static Rol obtenerRol(TipoRol nombreRol)
         {
-            return finalDb(db).Rol
+            return dbContext.Rol
                 .Where(rol => rol.nombre.Equals(nombreRol.DisplayName))
                 .FirstOrDefault();
         }
 
-        public static Usuario insertarYObtenerUsuario(RagnarEntities db, String username, String pass, TipoRol rol)
+        public static Usuario insertarYObtenerUsuario(String username, String pass, TipoRol rol)
         {
             Usuario usuario = new Usuario();
             usuario.usuario = username;
             usuario.clave = pass;
             usuario.habilitado = true;
-            usuario.Rol.Add(obtenerRol(db, rol));           
+            usuario.Rol.Add(obtenerRol(rol));
 
-            finalDb(db).Usuario.Add(usuario);
+            dbContext.Usuario.Add(usuario);
+            Utils.DBUtils.guardar(dbContext);
 
             return usuario;
         }
