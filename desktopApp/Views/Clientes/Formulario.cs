@@ -68,51 +68,54 @@ namespace PalcoNet.Clientes
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            if (camposValidos()) {
+            using (RagnarEntities db = new RagnarEntities())
+            {
+                if (camposValidos()) {
 
-                if (!validarDominio())
-                {
-                    return;
+                    if (!validarDominio())
+                    {
+                        return;
+                    }
+
+                    if (id == null) {
+                        cliente = new Cliente();
+                    }
+
+                    cliente.nombre = txtNombre.Text;
+                    cliente.apellido = txtApellido.Text;
+                    cliente.mail = txtEmail.Text;
+                    cliente.telefono = txtTelefono.Text;
+                    cliente.fecha_nacimiento = dtpFechaNacimiento.Value;
+                    // Justo en este caso se guarda el string como tipo de documento
+                    // TODO: revisar si esta bien o es mejor manejarlo numericamente
+                    cliente.tipo_documento = Utils.WindowsFormUtils.seleccionadoDe(cmbBxTipoDocumento);
+                    cliente.numero_documento = Decimal.Parse(txtNroDocumento.Text);
+                    cliente.cuil = txtCuil.Text;
+                    cliente.calle = txtDireccion.Text;
+                    cliente.portal = Decimal.Parse(txtPortal.Text);
+                    cliente.piso = Decimal.Parse(txtNroPiso.Text);
+                    cliente.departamento = txtDepto.Text;
+                    cliente.localidad = txtLocalidad.Text;
+                    cliente.codigo_postal = txtCodigoPostal.Text;
+                    cliente.tarjeta_credito = recortarTarjetaDeCredito(txtTarjeta.Text);
+
+                    if (SessionUtils.esAdmin() && editando()) {
+                        cliente.Usuario.habilitado = chkBxHabilitado.Checked;
+                    }
+
+                    if (!editando()) {
+                        //TODO testear esto
+                        //cliente.Rol.Add(BaseDeDatos.BaseDeDatos.obtenerRol());
+                        cliente.Usuario = UsuariosUtils.usuarioAAsignar(db, UsuariosUtils.generarUsername(cliente), cliente, Model.TipoRol.CLIENTE);
+                        db.Cliente.Add(cliente);
+                    } else {
+                        //actualizamos tambien el usuario porque podria haber cambiado el checkbox de habilitado
+                        db.Entry(cliente.Usuario).State = System.Data.Entity.EntityState.Modified;
+                        db.Entry(cliente).State = System.Data.Entity.EntityState.Modified;
+                    }
+
+                    WindowsFormUtils.guardarYCerrar(db, this, destino);
                 }
-
-                if (id == null) {
-                    cliente = new Cliente();
-                }
-
-                cliente.nombre = txtNombre.Text;
-                cliente.apellido = txtApellido.Text;
-                cliente.mail = txtEmail.Text;
-                cliente.telefono = txtTelefono.Text;
-                cliente.fecha_nacimiento = dtpFechaNacimiento.Value;
-                // Justo en este caso se guarda el string como tipo de documento
-                // TODO: revisar si esta bien o es mejor manejarlo numericamente
-                cliente.tipo_documento = Utils.WindowsFormUtils.seleccionadoDe(cmbBxTipoDocumento);
-                cliente.numero_documento = Decimal.Parse(txtNroDocumento.Text);
-                cliente.cuil = txtCuil.Text;
-                cliente.calle = txtDireccion.Text;
-                cliente.portal = Decimal.Parse(txtPortal.Text);
-                cliente.piso = Decimal.Parse(txtNroPiso.Text);
-                cliente.departamento = txtDepto.Text;
-                cliente.localidad = txtLocalidad.Text;
-                cliente.codigo_postal = txtCodigoPostal.Text;
-                cliente.tarjeta_credito = recortarTarjetaDeCredito(txtTarjeta.Text);
-
-                if (SessionUtils.esAdmin() && editando()) {
-                    cliente.Usuario.habilitado = chkBxHabilitado.Checked;
-                }
-
-                if (!editando()) {
-                    //TODO testear esto
-                    //cliente.Rol.Add(BaseDeDatos.BaseDeDatos.obtenerRol());
-                    cliente.Usuario = UsuariosUtils.usuarioAAsignar(UsuariosUtils.generarUsername(cliente), cliente, Model.TipoRol.CLIENTE);
-                    //db.Cliente.Add(cliente);
-                    BaseDeDatos.BaseDeDatos.guardarCliente(cliente);
-                } else {
-                    //actualizamos tambien el usuario porque podria haber cambiado el checkbox de habilitado
-                    BaseDeDatos.BaseDeDatos.actualizarCliente(cliente);
-                }
-
-                WindowsFormUtils.guardarYCerrar(this, destino);
             }
         }
 
