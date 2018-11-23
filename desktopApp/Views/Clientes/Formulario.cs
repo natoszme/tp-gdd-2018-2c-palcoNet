@@ -36,7 +36,7 @@ namespace PalcoNet.Clientes
             }
 
             // TODO: sacar cuando funque, lo dejo para no completar todo a mano todo el tiempo
-            if (!editando())
+            /*if (!editando())
             {
                 txtNombre.Text = "Kevin";
                 txtApellido.Text = "Szuchet";
@@ -51,7 +51,7 @@ namespace PalcoNet.Clientes
                 txtLocalidad.Text = "CABA";
                 txtCodigoPostal.Text = "1414";
                 txtTarjeta.Text = "1234567891011121";
-            }
+            }*/
 
             if (SessionUtils.esAdmin()) {
                 if(editando())
@@ -68,8 +68,10 @@ namespace PalcoNet.Clientes
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            //primero validamos los datos ingresados, a nivel tipo de dato
             if (camposValidos()) {
 
+                //luego validamos los datos para ver si cumplen las restricciones de dominio (ej clientes con distinto cuil)
                 if (!validarDominio())
                 {
                     return;
@@ -101,11 +103,9 @@ namespace PalcoNet.Clientes
                     cliente.Usuario.habilitado = chkBxHabilitado.Checked;
                 }
 
+                //si se esta creando un cliente, voy a buscar su usuario asignado. puede ser uno generado automaticamente, o no
                 if (!editando()) {
-                    //TODO testear esto
-                    //cliente.Rol.Add(BaseDeDatos.BaseDeDatos.obtenerRol());
                     cliente.Usuario = UsuariosUtils.usuarioAAsignar(UsuariosUtils.generarUsername(cliente), cliente, Model.TipoRol.CLIENTE);
-                    //db.Cliente.Add(cliente);
                     BaseDeDatos.BaseDeDatos.guardarCliente(cliente);
                 } else {
                     //actualizamos tambien el usuario porque podria haber cambiado el checkbox de habilitado
