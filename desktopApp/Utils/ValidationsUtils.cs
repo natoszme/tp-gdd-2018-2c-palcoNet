@@ -104,5 +104,11 @@ namespace PalcoNet.Utils
                 throw new ValidationException("El CUIL ingresado es invalido");
             }
         }
+
+        public static void clavesCoincidentes(TextBox txtNuevaClave, TextBox txtRepetirClave) {
+            if (txtNuevaClave.Text != txtRepetirClave.Text) {
+                throw new ValidationException("La nueva clave ingresada, no coincide con la repetición");
+            }
+        }
     }
 }
