@@ -20,6 +20,15 @@ namespace PalcoNet.Utils
 
         public static void guardarYCerrar(RagnarEntities db, Form context, Form destino = null) {
             DBUtils.guardar(db);
+            cerrar(context, destino);
+        }
+
+        public static void guardarYCerrar(Form context, Form destino = null) {
+            DBUtils.guardar();
+            cerrar(context, destino);
+        }
+
+        private static void cerrar(Form context, Form destino = null) {
             context.Close();
             if (destino != null) destino.Show();
         }
