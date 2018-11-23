@@ -13,12 +13,23 @@ namespace PalcoNet.Utils
         public static int? obtenerIdSeleccionado(DataGridView dgv) {
             try
             {
-                return int.Parse(dgv.Rows[dgv.CurrentRow.Index].Cells[0].Value.ToString());
+                if (!haySeleccionado(dgv)) return obtenerIdDe(dgv, 0);
+                return obtenerIdDe(dgv, dgv.CurrentRow.Index);
             }
             catch
             {
                 return null;
             }
+        }
+
+        public static int obtenerIdDe(DataGridView dgv, int fila)
+        {
+            return int.Parse(dgv.Rows[fila].Cells[0].Value.ToString());
+        }
+
+        public static Boolean haySeleccionado(DataGridView dgv)
+        {
+            return dgv.CurrentRow != null;
         }
 
         public static void actualizarDataGriedView(DataGridView dgv, IQueryable<Object> query, string idOculto = null)
