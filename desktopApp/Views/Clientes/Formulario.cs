@@ -20,12 +20,10 @@ namespace PalcoNet.Clientes
         private String caracteresOcultosTarjeta = "****";
         private int digitosBaseTarjeta = 6;
         private int digitosFinalTarjeta = 4;
-        private Form destino;
 
-        public Formulario(int? id = null, Form destino = null)
+        public Formulario(int? id = null)
         {
             this.id = id;
-            this.destino = destino;
             InitializeComponent();
 
             cargarComboTipoDocumento();
@@ -111,7 +109,7 @@ namespace PalcoNet.Clientes
                         db.Entry(cliente).State = System.Data.Entity.EntityState.Modified;
                     }
 
-                    WindowsFormUtils.guardarYCerrar(db, this, destino);
+                    WindowsFormUtils.guardarYCerrar(db, this);
                 }
             }
         }

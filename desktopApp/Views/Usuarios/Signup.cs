@@ -33,8 +33,7 @@ namespace PalcoNet.Usuarios
         {
             if (!validarCampos()) return;
             UsuariosUtils.guardarUsuario(username, pass, TipoRol.CLIENTE);
-            this.Hide();
-            new Clientes.Formulario(null, new Home()).Show();
+            WindowsFormUtils.abrirFormulario(new Clientes.Formulario(), () => WindowsFormUtils.volverALaHome(this));
         }
 
         private void btnRegistrarEmpresa_Click(object sender, EventArgs e)
