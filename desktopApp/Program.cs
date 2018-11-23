@@ -19,6 +19,7 @@ namespace PalcoNet
             Application.SetCompatibleTextRenderingDefault(false);
             // Application.Run(new Clientes.Listado());
             Application.Run(new Login());
+            //Application.Run(new Usuarios.Signup());
         }
     }
 }

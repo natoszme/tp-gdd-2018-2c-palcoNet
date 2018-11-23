@@ -12,13 +12,13 @@ namespace PalcoNet.Views.Usuarios
         public static Usuario usuarioAAsignar(RagnarEntities db, String username, Usuario usuario, TipoRol rol) {
 
             if (!Global.hayUsuarioGenerado())
-                return generarUsuarioRandom(db, username, usuario, rol);
+                generarUsuarioRandom(username, usuario, rol);
 
-            return Global.obtenerYLimpiarUsuarioGenerado();
+            return db.Usuario.Find(Global.obtenerYLimpiarUsuarioGenerado().id_usuario);
         }
 
-        public static Usuario generarUsuarioRandom(RagnarEntities db, String username, Usuario usuario, TipoRol rol) {
-            return BaseDeDatos.BaseDeDatos.insertarYObtenerUsuario(db, username, generarPassword(usuario), rol);
+        public static void generarUsuarioRandom(String username, Usuario usuario, TipoRol rol) {
+            guardarUsuario(username, generarPassword(usuario), rol);
         }
 
         #region Generar credenciales
@@ -37,7 +37,7 @@ namespace PalcoNet.Views.Usuarios
 
         public static void guardarUsuario(String username, String pass, TipoRol rol)
         {
-            Global.usuarioGenerado = BaseDeDatos.BaseDeDatos.insertarYObtenerUsuario(null, username, pass, rol);
+            Global.usuarioGenerado = BaseDeDatos.BaseDeDatos.insertarYObtenerUsuario(username, pass, rol);
         }
     }
 }

@@ -5,11 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using PalcoNet.Model;
 using System.Data.Entity.Validation;
+using PalcoNet.BaseDeDatos;
 
 namespace PalcoNet.Utils
 {
     class DBUtils {
         public static void guardar(RagnarEntities db) {
+            save(db);
+        }
+
+        public static void guardar() {
+            save(BaseDeDatos.BaseDeDatos.finalDb(null));
+        }
+
+        private static void save(RagnarEntities db) {
             try {
                 db.SaveChanges();
             } catch (DbEntityValidationException e) {
@@ -28,5 +37,5 @@ namespace PalcoNet.Utils
                 throw;
             }
         }
-    }
+    }    
 }
