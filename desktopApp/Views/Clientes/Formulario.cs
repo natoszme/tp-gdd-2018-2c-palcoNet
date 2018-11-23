@@ -13,24 +13,18 @@ using PalcoNet.Views.Usuarios;
 
 namespace PalcoNet.Clientes
 {
-    public partial class Formulario : Form
+    public partial class Formulario : UsuarioFormulario
     {
-        int? id;
         Cliente cliente = new Cliente();
         private String caracteresOcultosTarjeta = "****";
         private int digitosBaseTarjeta = 6;
         private int digitosFinalTarjeta = 4;
 
-        public Formulario(int? id = null)
+        public Formulario(int? id = null) : base(id)
         {
-            this.id = id;
             InitializeComponent();
 
-            cargarComboTipoDocumento();
-            
-            if (editando()) {
-                cargarDatos();
-            }
+            cargarComboTipoDocumento();          
 
             // TODO: sacar cuando funque, lo dejo para no completar todo a mano todo el tiempo
             if (!editando())
@@ -50,83 +44,60 @@ namespace PalcoNet.Clientes
                 txtTarjeta.Text = "1234567891011121";
             }
 
-            if (SessionUtils.esAdmin()) {
-                if(editando())
-                {
-                    pnlDatosUsuario.Visible = true;
-                }
+            if (editando())
+            {
+                cargarDatos();
             }
+
+            if (hayQueMostrarPanelAdmin()) mostrarPanelAdmin();
         }
 
-        private bool editando()
+        override protected void mostrarPanelAdmin()
         {
-            return id != null;
+            pnlDatosUsuario.Visible = true;
         }
 
-        private void btnGuardar_Click(object sender, EventArgs e)
+        protected override void asignarEntidades(RagnarEntities db)
         {
-            using (RagnarEntities db = new RagnarEntities())
+            if (id == null)
             {
-                if (camposValidos()) {
-
-                    if (!validarDominio())
-                    {
-                        return;
-                    }
-
-                    if (id == null) {
-                        cliente = new Cliente();
-                    }
-
-                    cliente.nombre = txtNombre.Text;
-                    cliente.apellido = txtApellido.Text;
-                    cliente.mail = txtEmail.Text;
-                    cliente.telefono = txtTelefono.Text;
-                    cliente.fecha_nacimiento = dtpFechaNacimiento.Value;
-                    // Justo en este caso se guarda el string como tipo de documento
-                    // TODO: revisar si esta bien o es mejor manejarlo numericamente
-                    cliente.tipo_documento = Utils.WindowsFormUtils.seleccionadoDe(cmbBxTipoDocumento);
-                    cliente.numero_documento = Decimal.Parse(txtNroDocumento.Text);
-                    cliente.cuil = txtCuil.Text;
-                    cliente.calle = txtDireccion.Text;
-                    cliente.portal = Decimal.Parse(txtPortal.Text);
-                    cliente.piso = Decimal.Parse(txtNroPiso.Text);
-                    cliente.departamento = txtDepto.Text;
-                    cliente.localidad = txtLocalidad.Text;
-                    cliente.codigo_postal = txtCodigoPostal.Text;
-                    cliente.tarjeta_credito = recortarTarjetaDeCredito(txtTarjeta.Text);
-
-                    if (SessionUtils.esAdmin() && editando()) {
-                        cliente.Usuario.habilitado = chkBxHabilitado.Checked;
-                    }
-
-                    if (!editando()) {
-                        cliente.Usuario = UsuariosUtils.usuarioAAsignar(db, UsuariosUtils.generarUsername(cliente), cliente, Model.TipoRol.CLIENTE);
-                        db.Cliente.Add(cliente);
-                    } else {
-                        //actualizamos tambien el usuario porque podria haber cambiado el checkbox de habilitado
-                        db.Entry(cliente.Usuario).State = System.Data.Entity.EntityState.Modified;
-                        db.Entry(cliente).State = System.Data.Entity.EntityState.Modified;
-                    }
-
-                    WindowsFormUtils.guardarYCerrar(db, this);
-                }
+                cliente = new Cliente();
             }
-        }
 
-        private bool validarDominio()
-        {
-            try
+            cliente.nombre = txtNombre.Text;
+            cliente.apellido = txtApellido.Text;
+            cliente.mail = txtEmail.Text;
+            cliente.telefono = txtTelefono.Text;
+            cliente.fecha_nacimiento = dtpFechaNacimiento.Value;
+            // Justo en este caso se guarda el string como tipo de documento
+            // TODO: revisar si esta bien o es mejor manejarlo numericamente
+            cliente.tipo_documento = Utils.WindowsFormUtils.seleccionadoDe(cmbBxTipoDocumento);
+            cliente.numero_documento = Decimal.Parse(txtNroDocumento.Text);
+            cliente.cuil = txtCuil.Text;
+            cliente.calle = txtDireccion.Text;
+            cliente.portal = Decimal.Parse(txtPortal.Text);
+            cliente.piso = Decimal.Parse(txtNroPiso.Text);
+            cliente.departamento = txtDepto.Text;
+            cliente.localidad = txtLocalidad.Text;
+            cliente.codigo_postal = txtCodigoPostal.Text;
+            cliente.tarjeta_credito = recortarTarjetaDeCredito(txtTarjeta.Text);
+
+            if (SessionUtils.esAdmin() && editando())
             {
-                documentoNoRepetido();
-                cuilNoRepetido();
+                cliente.Usuario.habilitado = chkBxHabilitado.Checked;
             }
-            catch (ValidationException e)
+
+            if (!editando())
             {
-                WindowsFormUtils.mensajeDeError(e.Message);
-                return false;
+                cliente.Usuario = UsuariosUtils.usuarioAAsignar(db, UsuariosUtils.generarUsername(cliente), cliente, Model.TipoRol.CLIENTE);
+                db.Cliente.Add(cliente);
             }
-            return true;
+            else
+            {
+                //actualizamos tambien el usuario porque podria haber cambiado el checkbox de habilitado
+                db.Entry(cliente.Usuario).State = System.Data.Entity.EntityState.Modified;
+                db.Entry(cliente).State = System.Data.Entity.EntityState.Modified;
+            }
         }
 
         private void documentoNoRepetido()
@@ -155,7 +126,22 @@ namespace PalcoNet.Clientes
         }
 
         #region VALIDACIONES
-        private bool camposValidos() {
+        override protected bool validarDominio()
+        {
+            try
+            {
+                documentoNoRepetido();
+                cuilNoRepetido();
+            }
+            catch (ValidationException e)
+            {
+                WindowsFormUtils.mensajeDeError(e.Message);
+                return false;
+            }
+            return true;
+        }
+
+        override protected bool camposValidos() {
             bool camposValidos = true;
             try {
                 ValidationsUtils.campoObligatorio(txtNombre, "nombre");
@@ -192,7 +178,7 @@ namespace PalcoNet.Clientes
         #endregion
 
         #region HELPER
-        private void cargarDatos() {
+        override protected void cargarDatos() {
                 using (RagnarEntities db = new RagnarEntities()) {
                     try {
                         cliente = db.Cliente.Find(id);
@@ -218,11 +204,6 @@ namespace PalcoNet.Clientes
                 }
             }
         #endregion
-
-        private void btnCambiarPass_Click(object sender, EventArgs e)
-        {
-            new Usuarios.ModificarClaveAdmin().ShowDialog();
-        }
 
         private string recortarTarjetaDeCredito(string tarjeta)
         {

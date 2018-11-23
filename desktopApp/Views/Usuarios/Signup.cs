@@ -41,7 +41,7 @@ namespace PalcoNet.Usuarios
             if (!validarCampos()) return;
             UsuariosUtils.guardarUsuario(username, pass, TipoRol.EMPRESA);
             this.Hide();
-            new Empresas.Formulario().Show();
+            WindowsFormUtils.abrirFormulario(new Empresas.Formulario(), () => WindowsFormUtils.volverALaHome(this));
         }
 
         private bool validarCampos()
