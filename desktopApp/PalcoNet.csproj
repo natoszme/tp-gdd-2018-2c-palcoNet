@@ -164,6 +164,7 @@
     <Compile Include="Views\Publicaciones\GenerarUbicaciones.Designer.cs">
       <DependentUpon>GenerarUbicaciones.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Usuarios\DescriptionProvider.cs" />
     <Compile Include="Views\Usuarios\ModificarClaveAdmin.cs">
       <SubType>Form</SubType>
     </Compile>

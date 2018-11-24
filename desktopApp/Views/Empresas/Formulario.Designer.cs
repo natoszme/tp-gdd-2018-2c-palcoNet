@@ -59,6 +59,7 @@
             this.btnCambiarPass = new System.Windows.Forms.Button();
             this.chkBxHabilitado = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.btnVolver = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -346,11 +347,22 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Habilitado";
             // 
+            // btnVolver
+            // 
+            this.btnVolver.Location = new System.Drawing.Point(625, 278);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(75, 23);
+            this.btnVolver.TabIndex = 11;
+            this.btnVolver.Text = "Volver";
+            this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click_1);
+            // 
             // Formulario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(794, 313);
+            this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.pnlDatosUsuario);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
@@ -411,5 +423,6 @@
         private System.Windows.Forms.CheckBox chkBxHabilitado;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnCambiarPass;
+        private System.Windows.Forms.Button btnVolver;
     }
 }

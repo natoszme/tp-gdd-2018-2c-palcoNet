@@ -158,5 +158,10 @@ namespace PalcoNet.Empresas
         {
             return txtCuit;
         }
+
+        private void btnVolver_Click_1(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
     }
 }
