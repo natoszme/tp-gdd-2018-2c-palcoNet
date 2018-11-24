@@ -82,5 +82,26 @@ namespace PalcoNet.BaseDeDatos
         {
             Utils.DBUtils.guardar(db);
         }
+
+        internal static Rol rolPorNombre(String nombreRol)
+        {
+            return dbContext.Rol
+                .Where(rol => rol.nombre.Equals(nombreRol))
+                .FirstOrDefault();
+        }
+
+        /*internal static object obtenerFuncionalidades()
+        {
+            return dbContext.Funcionalidad.All();
+            var clientes = clientesFiltrados.Select(c => new
+            {
+                id_usuario = c.id_usuario,
+                nombre = c.nombre,
+                apellido = c.apellido,
+                tipo_documento = c.tipo_documento,
+                numero_documento = c.numero_documento,
+                mail = c.mail
+            }).OrderBy(c => c.nombre).ThenBy(c => c.apellido);
+        }*/
     }
 }
