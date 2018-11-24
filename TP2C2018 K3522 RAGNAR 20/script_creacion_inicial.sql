@@ -75,7 +75,7 @@ CREATE TABLE RAGNAR.Cliente						(	id_usuario bigint FOREIGN KEY references RAGN
 													localidad nvarchar(255),
 													codigo_postal nvarchar(255) NOT NULL,
 													fecha_nacimiento datetime NOT NULL,
-													fecha_creacion datetime NOT NULL DEFAULT RAGNAR.F_ObtenerFechaDelConfig(), 
+													fecha_creacion datetime DEFAULT RAGNAR.F_ObtenerFechaDelConfig(), 
 													tarjeta_credito varchar(10),
 													CONSTRAINT [Documento] UNIQUE NONCLUSTERED
 														 ([tipo_documento], [numero_documento]))
@@ -114,7 +114,7 @@ CREATE TABLE RAGNAR.Estado_publicacion			(	id_estado int identity PRIMARY KEY,
 CREATE TABLE RAGNAR.Publicacion					(	id_publicacion bigint identity PRIMARY KEY,
 													codigo_publicacion numeric(18,0),
 													descripcion nvarchar(255) NOT NULL,
-													stock int NOT NULL DEFAULT 0,
+													stock int DEFAULT 0,
 													fecha_publicacion datetime DEFAULT RAGNAR.F_ObtenerFechaDelConfig(),
 													id_rubro int FOREIGN KEY references RAGNAR.Rubro(id_rubro) NOT NULL, 
 													direccion varchar(255),
@@ -144,7 +144,7 @@ CREATE TABLE RAGNAR.Ubicacion_publicacion		(	id_ubicacion bigint identity PRIMAR
 													id_tipo	int FOREIGN KEY references RAGNAR.Tipo_ubicacion(id_tipo_ubicacion) NOT NULL,
 													id_compra bigint FOREIGN KEY references RAGNAR.Compra(id_compra),
 													compra_cantidad numeric(18,0),
-													habilitado bit NOT NULL DEFAULT 1)
+													habilitado bit DEFAULT 1)
 
 CREATE TABLE RAGNAR.Factura						(	id_factura bigint identity PRIMARY KEY,
 													numero numeric(18,0) NOT NULL,
@@ -193,7 +193,7 @@ BEGIN
 		FETCH NEXT FROM CUsuarios INTO @Usuario, @Clave, @Habilitado, @Nuevo
 		WHILE @@FETCH_STATUS = 0
 		BEGIN
-			INSERT INTO RAGNAR.Usuario(usuario, clave, habilitado, es_nuevo) VALUES (@Usuario, RAGNAR.F_HasheoDeClave(@Clave), @Habilitado, @Nuevo)
+			UPDATE RAGNAR.Usuario SET clave = RAGNAR.F_HasheoDeClave(@Clave) WHERE usuario = @Usuario
 			FETCH NEXT FROM CUsuarios INTO @Usuario, @Clave, @Habilitado, @Nuevo
 		END
 		CLOSE CUsuarios
@@ -461,18 +461,19 @@ GO
 --/ Funciones del Listado Estadistico /--
 
 --/ Funcion para listado de empresas con mayor cantidad de localidades no vendidas /--
-/*
-CREATE FUNCTION RAGNAR.F_EmpresasConMasLocalidadesNoVencidas (@Fecha datetime)
+
+CREATE FUNCTION RAGNAR.F_EmpresasConMasLocalidadesNoVencidas (@Grado nvarchar(255), @Mes nvarchar(10), @Año nvarchar(10))
 RETURNS TABLE
 AS
-RETURN (SELECT * FROM RAGNAR.Empresa as E JOIN RAGNAR.Publicacion as P ON (E.id_usuario = P.id_empresa) WHERE YEAR(fecha_publicacion))
-GO*/
+RETURN (SELECT TOP 5 E.razon_social FROM RAGNAR.Empresa as E JOIN RAGNAR.Publicacion as P ON (E.id_usuario = P.id_empresa) JOIN RAGNAR.Grado_publicacion as G ON (P.id_grado = G.id_grado) WHERE YEAR(fecha_publicacion) = @Año AND MONTH(fecha_publicacion) = @Mes AND G.descripcion = @Grado GROUP BY E.razon_social ORDER BY SUM(P.stock) DESC)
+GO
+/*
 CREATE FUNCTION RAGNAR.F_EmpresasConMasLocalidadesNoVencidas (@Fecha datetime)
 RETURNS TABLE
 AS
 RETURN (SELECT TOP 5 MONTH(P.fecha_publicacion) as Mes, G.descripcion as GradoDePublicacion, (SELECT TOP 1 EMP.razon_social FROM RAGNAR.Empresa as EMP JOIN RAGNAR.Publicacion as PUB ON (EMP.id_usuario = PUB.id_empresa) WHERE YEAR(PUB.fecha_publicacion) = YEAR(P.fecha_publicacion) AND MONTH(PUB.fecha_publicacion) = MONTH(P.fecha_publicacion) AND PUB.id_grado = P.id_grado GROUP BY EMP.razon_social ORDER BY SUM(PUB.stock) DESC) as EmpresaConMasStock FROM RAGNAR.Publicacion as P JOIN RAGNAR.Grado_publicacion as G ON (G.id_grado = P.id_grado) WHERE YEAR(P.fecha_publicacion) = YEAR(@Fecha) AND (MONTH(@Fecha) - MONTH(P.fecha_publicacion)) < 3 GROUP BY MONTH(P.fecha_publicacion), G.descripcion, P.fecha_publicacion, P.id_grado ORDER BY MONTH(P.fecha_publicacion) ASC, G.descripcion ASC)
 GO
-
+*/
 
 --/ Funcion para listado de clientes con mas puntos vencidos /--
 
@@ -620,7 +621,6 @@ GO
 /*ALTER TABLE UNIQUE PUBLICACION*/
 
 /* Triggers
-
 CREATE TRIGGER ValidarPasajeDeEstadoDelEspectaculo ON espectaculo
 INSTEAD OF UPDATE
 AS BEGIN
@@ -628,10 +628,8 @@ AS BEGIN
 			estadoAnterior = finalizado) BEGIN
 		RAISE ERROR
 	END
-
 	UPDATE espectaculo SET id_estado = (SELECT id_estado FROM INSERTED)
 END
-
 CREATE TRIGGER FinalizarEspectaculo ON compras
 AFTER INSERT
 AS BEGIN
@@ -640,8 +638,4 @@ AS BEGIN
 			WHERE id_espectaculo = (SELECT id_espectaculo FROM inserted)
 	END
 END
-
 */
-
-
-
