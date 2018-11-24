@@ -61,11 +61,15 @@ namespace PalcoNet.Usuarios
         {
             if (camposValidos())
             {
-
                 if (!validarDominio()) return;
 
-                Global.usuarioLogueado.clave = txtNuevaClave.Text;
-                WindowsFormUtils.guardarYCerrar(this);
+                using (RagnarEntities db = new RagnarEntities())
+                {
+                    Usuario usuario = db.Usuario.Find(Global.usuarioLogueado.id_usuario);
+                    usuario.clave = txtNuevaClave.Text;
+                    db.Entry(usuario).State = System.Data.Entity.EntityState.Modified;
+                    WindowsFormUtils.guardarYCerrar(db, this, new Home());
+                }
             }
         }
     }
