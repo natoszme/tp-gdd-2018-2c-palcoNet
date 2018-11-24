@@ -91,7 +91,7 @@ namespace PalcoNet.Empresas
             bool camposValidos = true;
             try
             {
-                /*ValidationsUtils.campoObligatorio(txtRazonSocial, "razon social");
+                ValidationsUtils.campoObligatorio(txtRazonSocial, "razon social");
                 ValidationsUtils.campoAlfabetico(txtRazonSocial, "razon social");
                 ValidationsUtils.campoObligatorio(txtEmail, "mail");
                 ValidationsUtils.emailValido(txtEmail, "mail");
@@ -109,7 +109,7 @@ namespace PalcoNet.Empresas
                 ValidationsUtils.campoAlfabetico(txtCuidad, "ciudad");
                 ValidationsUtils.campoObligatorio(txtLocalidad, "localidad");
                 ValidationsUtils.campoAlfabetico(txtLocalidad, "localidad");
-                ValidationsUtils.campoObligatorio(txtCodigoPostal, "codigo postal");*/
+                ValidationsUtils.campoObligatorio(txtCodigoPostal, "codigo postal");
             }
             catch (ValidationException e)
             {
