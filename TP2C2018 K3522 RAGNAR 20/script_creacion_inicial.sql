@@ -53,12 +53,12 @@ CREATE TABLE RAGNAR.Usuario						(	id_usuario bigint identity PRIMARY KEY,
 
 CREATE TABLE RAGNAR.Usuario_rol					(	id_usuario bigint FOREIGN KEY references RAGNAR.Usuario(id_usuario),
 													id_rol int FOREIGN KEY references RAGNAR.Rol(id_rol),
-													PRIMARY KEY(id_rol,id_usuario))
+													PRIMARY KEY(id_rol,id_usuario),
+													habilitado bit NOT NULL DEFAULT 1)
 													
 
 CREATE TABLE RAGNAR.Login_fallido				(	id_usuario bigint PRIMARY KEY FOREIGN KEY references RAGNAR.Usuario(id_usuario),
-													nro_intento tinyint NOT NULL
-												)
+													nro_intento tinyint NOT NULL)
 
 CREATE TABLE RAGNAR.Cliente						(	id_usuario bigint FOREIGN KEY references RAGNAR.Usuario(id_usuario) PRIMARY KEY,
 													nombre nvarchar(255) NOT NULL,
@@ -75,7 +75,7 @@ CREATE TABLE RAGNAR.Cliente						(	id_usuario bigint FOREIGN KEY references RAGN
 													localidad nvarchar(255),
 													codigo_postal nvarchar(255) NOT NULL,
 													fecha_nacimiento datetime NOT NULL,
-													fecha_creacion datetime DEFAULT RAGNAR.F_ObtenerFechaDelConfig(), 
+													fecha_creacion datetime NOT NULL DEFAULT RAGNAR.F_ObtenerFechaDelConfig(), 
 													tarjeta_credito varchar(10),
 													CONSTRAINT [Documento] UNIQUE NONCLUSTERED
 														 ([tipo_documento], [numero_documento]))
@@ -92,7 +92,7 @@ CREATE TABLE RAGNAR.Empresa						(	id_usuario bigint FOREIGN KEY references RAGN
 													departamento nvarchar(50) NOT NULL,
 													localidad nvarchar(255),
 													codigo_postal nvarchar(50) NOT NULL,
-													fecha_creacion datetime NOT NULL)
+													fecha_creacion datetime)
 
 CREATE TABLE RAGNAR.Puntos_cliente				(	id_puntaje bigint identity PRIMARY KEY,
 													id_cliente bigint FOREIGN KEY references RAGNAR.Cliente(id_usuario),
@@ -114,7 +114,7 @@ CREATE TABLE RAGNAR.Estado_publicacion			(	id_estado int identity PRIMARY KEY,
 CREATE TABLE RAGNAR.Publicacion					(	id_publicacion bigint identity PRIMARY KEY,
 													codigo_publicacion numeric(18,0),
 													descripcion nvarchar(255) NOT NULL,
-													stock int, /*No existe en la maestra o es producto de la suma de registros?*/
+													stock int NOT NULL DEFAULT 0,
 													fecha_publicacion datetime DEFAULT RAGNAR.F_ObtenerFechaDelConfig(),
 													id_rubro int FOREIGN KEY references RAGNAR.Rubro(id_rubro) NOT NULL, 
 													direccion varchar(255),
@@ -143,7 +143,8 @@ CREATE TABLE RAGNAR.Ubicacion_publicacion		(	id_ubicacion bigint identity PRIMAR
 													precio numeric(18,0) NOT NULL,
 													id_tipo	int FOREIGN KEY references RAGNAR.Tipo_ubicacion(id_tipo_ubicacion) NOT NULL,
 													id_compra bigint FOREIGN KEY references RAGNAR.Compra(id_compra),
-													compra_cantidad numeric(18,0))
+													compra_cantidad numeric(18,0),
+													habilitado bit NOT NULL DEFAULT 1)
 
 CREATE TABLE RAGNAR.Factura						(	id_factura bigint identity PRIMARY KEY,
 													numero numeric(18,0) NOT NULL,
@@ -181,20 +182,94 @@ GO
 
 --/ Trigger para encriptar la contraseña ingresada /--
 
-CREATE TRIGGER RAGNAR.HasheoDeClaveDeUsuario ON RAGNAR.Usuario INSTEAD OF INSERT
+CREATE TRIGGER RAGNAR.HasheoDeClaveDeUsuario ON RAGNAR.Usuario INSTEAD OF INSERT, UPDATE
 AS
 BEGIN
-	DECLARE @Usuario varchar(50), @Clave varchar(32), @Habilitado bit
-	DECLARE CUsuarios CURSOR FOR (SELECT usuario, clave, habilitado FROM INSERTED)
-	OPEN CUsuarios
-	FETCH NEXT FROM CUsuarios INTO @Usuario, @Clave, @Habilitado
+	DECLARE @Usuario varchar(50), @Clave varchar(32), @Habilitado bit, @Nuevo tinyint
+	IF(EXISTS (SELECT * FROM DELETED)) --/Es un update
+	BEGIN
+		DECLARE CUsuarios CURSOR FOR (SELECT I.usuario, I.clave, I.habilitado, I.es_nuevo FROM INSERTED as I JOIN DELETED as D ON (I.usuario = D.usuario AND I.habilitado = D.habilitado AND I.es_nuevo = D.es_nuevo))
+		OPEN CUsuarios
+		FETCH NEXT FROM CUsuarios INTO @Usuario, @Clave, @Habilitado, @Nuevo
+		WHILE @@FETCH_STATUS = 0
+		BEGIN
+			INSERT INTO RAGNAR.Usuario(usuario, clave, habilitado, es_nuevo) VALUES (@Usuario, RAGNAR.F_HasheoDeClave(@Clave), @Habilitado, @Nuevo)
+			FETCH NEXT FROM CUsuarios INTO @Usuario, @Clave, @Habilitado, @Nuevo
+		END
+		CLOSE CUsuarios
+		DEALLOCATE CUsuarios
+	END
+	ELSE --/Es un insert
+	BEGIN
+		DECLARE CUsuarios CURSOR FOR (SELECT usuario, clave, habilitado, es_nuevo FROM INSERTED)
+		OPEN CUsuarios
+		FETCH NEXT FROM CUsuarios INTO @Usuario, @Clave, @Habilitado, @Nuevo
+		WHILE @@FETCH_STATUS = 0
+		BEGIN
+			INSERT INTO RAGNAR.Usuario(usuario, clave, habilitado, es_nuevo) VALUES (@Usuario, RAGNAR.F_HasheoDeClave(@Clave), @Habilitado, @Nuevo)
+			FETCH NEXT FROM CUsuarios INTO @Usuario, @Clave, @Habilitado, @Nuevo
+		END
+		CLOSE CUsuarios
+		DEALLOCATE CUsuarios
+	END
+END
+GO
+
+--/ Triggers para el calculo de stock /--
+
+CREATE TRIGGER RAGNAR.SumaDeStockDePublicacion ON RAGNAR.Ubicacion_publicacion AFTER INSERT
+AS
+BEGIN
+	DECLARE @Publicacion bigint
+	DECLARE CUbicacion CURSOR FOR (SELECT I.id_publicacion FROM INSERTED as I WHERE I.id_compra IS NULL)
+	OPEN CUbicacion
+	FETCH NEXT FROM CUbicacion INTO @Publicacion
 	WHILE @@FETCH_STATUS = 0
 	BEGIN
-		INSERT INTO RAGNAR.Usuario(usuario, clave, habilitado) VALUES (@Usuario, RAGNAR.F_HasheoDeClave(@Clave), @Habilitado)
-		FETCH NEXT FROM CUsuarios INTO @Usuario, @Clave, @Habilitado
+		UPDATE RAGNAR.Publicacion SET stock = (stock + 1) WHERE id_publicacion = @Publicacion
+		FETCH NEXT FROM CUbicacion INTO @Publicacion
 	END
-	CLOSE CUsuarios
-	DEALLOCATE CUsuarios
+	CLOSE CUbicacion
+	DEALLOCATE CUbicacion
+END
+GO
+
+CREATE TRIGGER RAGNAR.RestaDeStockDePublicacion ON RAGNAR.Ubicacion_publicacion AFTER UPDATE
+AS
+BEGIN
+	DECLARE @Publicacion bigint, @CompraActual numeric(18,0), @CompraPasada numeric(18,0), @HabilitadoActual bit, @HabilitadoAnterior bit
+	--/Cuando se vende una ubicacion/--
+	DECLARE CUbicacion CURSOR FOR (SELECT I.id_publicacion, I.id_compra, D.id_compra FROM INSERTED as I JOIN DELETED as D ON (I.asiento = D.asiento AND I.fila = D.fila AND I.id_publicacion = D.id_publicacion AND I.id_tipo = D.id_tipo AND I.precio = D.precio AND I.sin_numerar = D.sin_numerar) WHERE I.id_compra IS NOT NULL)
+	OPEN CUbicacion
+	FETCH NEXT FROM CUbicacion INTO @Publicacion, @CompraActual, @CompraPasada
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		IF(@CompraActual IS NOT NULL AND @CompraPasada IS NULL)
+		BEGIN
+		UPDATE RAGNAR.Publicacion SET stock = (stock - 1) WHERE id_publicacion = @Publicacion
+		END
+		FETCH NEXT FROM CUbicacion INTO @Publicacion, @CompraActual, @CompraPasada
+	END
+	CLOSE CUbicacion
+	DEALLOCATE CUbicacion
+	--/Cuando se borran ubicaciones de una publicacion o se rehabilitan ubicaciones/--
+	DECLARE CUbicacion CURSOR FOR (SELECT I.id_publicacion, I.habilitado, D.habilitado FROM INSERTED as I JOIN DELETED as D ON (I.asiento = D.asiento AND I.fila = D.fila AND I.id_publicacion = D.id_publicacion AND I.id_tipo = D.id_tipo AND I.precio = D.precio AND I.sin_numerar = D.sin_numerar AND I.id_compra = D.id_compra) WHERE I.id_compra IS NULL)
+	OPEN CUbicacion
+	FETCH NEXT FROM CUbicacion INTO @Publicacion, @HabilitadoActual, @HabilitadoAnterior
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		IF(@HabilitadoActual = 0 AND @HabilitadoAnterior = 1)
+		BEGIN
+		UPDATE RAGNAR.Publicacion SET stock = (stock - 1) WHERE id_publicacion = @Publicacion
+		END
+		IF(@HabilitadoActual = 1 AND @HabilitadoAnterior = 0)
+		BEGIN
+		UPDATE RAGNAR.Publicacion SET stock = (stock + 1) WHERE id_publicacion = @Publicacion
+		END
+		FETCH NEXT FROM CUbicacion INTO @Publicacion, @HabilitadoActual, @HabilitadoAnterior
+	END
+	CLOSE CUbicacion
+	DEALLOCATE CUbicacion
 END
 GO
 
@@ -235,9 +310,13 @@ INSERT INTO RAGNAR.Estado_publicacion(descripcion)
 	SELECT DISTINCT Espectaculo_Estado
 	FROM gd_esquema.Maestra
 	WHERE Espectaculo_Estado IS NOT NULL
+
+INSERT INTO RAGNAR.Grado_publicacion (descripcion, comision, habilitado) VALUES ('Alta',CONVERT(numeric(4,3),0.25),1)
+INSERT INTO RAGNAR.Grado_publicacion (descripcion, comision, habilitado) VALUES ('Media',CONVERT(numeric(4,3),0.1),1)
+INSERT INTO RAGNAR.Grado_publicacion (descripcion, comision, habilitado) VALUES ('Baja',CONVERT(numeric(4,3),0.05),1)
 	
-INSERT INTO RAGNAR.Publicacion(codigo_publicacion, descripcion, fecha_vencimiento, id_rubro , fecha_espectaculo, id_estado, id_empresa)
-	SELECT DISTINCT M.Espectaculo_Cod, M.Espectaculo_Descripcion, M.Espectaculo_Fecha_Venc, R.id_rubro, M.Espectaculo_Fecha, E.id_estado, EMP.id_usuario
+INSERT INTO RAGNAR.Publicacion(codigo_publicacion, descripcion, fecha_vencimiento, id_rubro , fecha_espectaculo, id_estado, id_empresa, id_grado)
+	SELECT DISTINCT M.Espectaculo_Cod, M.Espectaculo_Descripcion, M.Espectaculo_Fecha_Venc, R.id_rubro, M.Espectaculo_Fecha, E.id_estado, EMP.id_usuario, 2
 	FROM gd_esquema.Maestra as M JOIN RAGNAR.Rubro as R ON (M.Espectaculo_Rubro_Descripcion = R.descripcion) JOIN RAGNAR.Estado_publicacion as E ON (M.Espectaculo_Estado = E.descripcion) JOIN RAGNAR.Empresa as EMP ON (M.Espec_Empresa_Cuit = EMP.cuit)
 	WHERE M.Espectaculo_Cod IS NOT NULL
 
@@ -289,6 +368,7 @@ INSERT INTO RAGNAR.Estado_publicacion(descripcion) VALUES ('Finalizada')
 INSERT INTO RAGNAR.Rol(nombre, habilitado) VALUES ('Empresa',1)
 INSERT INTO RAGNAR.Rol(nombre, habilitado) VALUES ('Administrativo',1)
 INSERT INTO RAGNAR.Rol(nombre, habilitado) VALUES ('Cliente',1)
+INSERT INTO RAGNAR.Rol(nombre, habilitado) VALUES ('AdminParaTests',1)
 
 --/ Inserts de Funcionalidades /--
 
@@ -322,6 +402,45 @@ INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT 
 INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Canje y Administracion de Puntos'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Cliente'))
 INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Generar rendicion de comisiones'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Administrativo'))
 INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Listado estadistico'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Administrativo'))
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'ABM de Rol'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Registro de Usuario'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'ABM de Cliente'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'ABM de Empresa de Espectaculos'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'ABM de Rubro'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'ABM de Grado de Publicacion'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Generar Publicacion'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Editar Publicacion'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Comprar'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Historial de Cliente'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Canje y Administracion de Puntos'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Generar rendicion de comisiones'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Listado estadistico'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
+
+--/ Inserts de roles de cada usuario /--
+
+INSERT INTO RAGNAR.Usuario_rol (id_usuario, id_rol) VALUES ((SELECT id_usuario FROM RAGNAR.Usuario WHERE usuario = 'Admin'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
+
+INSERT INTO RAGNAR.Usuario_rol (id_usuario, id_rol)
+	SELECT id_usuario, (SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Cliente')
+	FROM RAGNAR.Cliente
+
+INSERT INTO RAGNAR.Usuario_rol (id_usuario, id_rol)
+	SELECT id_usuario, (SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Empresa')
+	FROM RAGNAR.Empresa
+
+--/ Inserts de premios /--
+
+INSERT INTO RAGNAR.Premio (descripcion, puntos_necesarios) VALUES ('Cafetera',2250)
+INSERT INTO RAGNAR.Premio (descripcion, puntos_necesarios) VALUES ('Licuadora',1000)
+INSERT INTO RAGNAR.Premio (descripcion, puntos_necesarios) VALUES ('Horno electrico',5000)
+INSERT INTO RAGNAR.Premio (descripcion, puntos_necesarios) VALUES ('Aspiradora',2000)
+INSERT INTO RAGNAR.Premio (descripcion, puntos_necesarios) VALUES ('Pelota de futbol',250)
+INSERT INTO RAGNAR.Premio (descripcion, puntos_necesarios) VALUES ('2 dias de estadia en un spa',7500)
+INSERT INTO RAGNAR.Premio (descripcion, puntos_necesarios) VALUES ('Remera de la seleccion argentina',450)
+INSERT INTO RAGNAR.Premio (descripcion, puntos_necesarios) VALUES ('Caja de herramientas',7500)
+INSERT INTO RAGNAR.Premio (descripcion, puntos_necesarios) VALUES ('Viaje a Mar del Plata',10000)
+INSERT INTO RAGNAR.Premio (descripcion, puntos_necesarios) VALUES ('Viaje a Bariloche',20000)
+INSERT INTO RAGNAR.Premio (descripcion, puntos_necesarios) VALUES ('Viaje a Miami',50000)
 
 --/ Fin de Inserts /--
 
@@ -341,13 +460,19 @@ GO
 
 --/ Funciones del Listado Estadistico /--
 
---/ Funcion para listado de empresas con mayor cantidad de localidades no vendidas ACOMODAR /--
-
+--/ Funcion para listado de empresas con mayor cantidad de localidades no vendidas /--
+/*
 CREATE FUNCTION RAGNAR.F_EmpresasConMasLocalidadesNoVencidas (@Fecha datetime)
 RETURNS TABLE
 AS
-RETURN (SELECT * FROM RAGNAR.Empresa as E JOIN RAGNAR.Publicacion as P ON (E.id_usuario = P.id_empresa))
+RETURN (SELECT * FROM RAGNAR.Empresa as E JOIN RAGNAR.Publicacion as P ON (E.id_usuario = P.id_empresa) WHERE YEAR(fecha_publicacion))
+GO*/
+CREATE FUNCTION RAGNAR.F_EmpresasConMasLocalidadesNoVencidas (@Fecha datetime)
+RETURNS TABLE
+AS
+RETURN (SELECT TOP 5 MONTH(P.fecha_publicacion) as Mes, G.descripcion as GradoDePublicacion, (SELECT TOP 1 EMP.razon_social FROM RAGNAR.Empresa as EMP JOIN RAGNAR.Publicacion as PUB ON (EMP.id_usuario = PUB.id_empresa) WHERE YEAR(PUB.fecha_publicacion) = YEAR(P.fecha_publicacion) AND MONTH(PUB.fecha_publicacion) = MONTH(P.fecha_publicacion) AND PUB.id_grado = P.id_grado GROUP BY EMP.razon_social ORDER BY SUM(PUB.stock) DESC) as EmpresaConMasStock FROM RAGNAR.Publicacion as P JOIN RAGNAR.Grado_publicacion as G ON (G.id_grado = P.id_grado) WHERE YEAR(P.fecha_publicacion) = YEAR(@Fecha) AND (MONTH(@Fecha) - MONTH(P.fecha_publicacion)) < 3 GROUP BY MONTH(P.fecha_publicacion), G.descripcion, P.fecha_publicacion, P.id_grado ORDER BY MONTH(P.fecha_publicacion) ASC, G.descripcion ASC)
 GO
+
 
 --/ Funcion para listado de clientes con mas puntos vencidos /--
 
@@ -397,7 +522,7 @@ BEGIN
 END
 GO
 
---/ StoredProcedure para calcular el stock de una publicacion /--
+--/ StoredProcedure para calcular el stock de una publicacion YA NO SE USA /--
 
 CREATE PROCEDURE RAGNAR.SP_StockDePublicacion (@IdPublicacion bigint)
 AS
@@ -405,6 +530,35 @@ BEGIN
 	DECLARE @Stock int
 	SET @Stock = (SELECT COUNT(*) FROM RAGNAR.Ubicacion_publicacion WHERE id_publicacion = @IdPublicacion AND id_compra IS NULL)
 	UPDATE RAGNAR.Publicacion SET stock = @Stock WHERE id_publicacion = @IdPublicacion
+END
+GO
+
+--/ StoredProcedure para rendicion de comisiones /--
+
+CREATE PROCEDURE RAGNAR.SP_RendicionDeComisiones (@CantidadAFacturar int)
+AS
+BEGIN
+	DECLARE @NumeroDeFactura numeric(18,0), @Empresa bigint, @EmpresaAnterior bigint, @IdUbicacion bigint, @PrecioUbicacion numeric(18,0), @PrecioComision numeric(18,2), @Comision numeric(4,3), @Total numeric(18,2)
+	DECLARE CUbicacionesAFacturar CURSOR FOR (SELECT * FROM (SELECT TOP (@CantidadAFacturar) U.id_ubicacion, U.precio, G.comision, P.id_empresa FROM RAGNAR.Ubicacion_publicacion as U JOIN RAGNAR.Compra as C ON (C.id_compra = U.id_compra) JOIN RAGNAR.Publicacion as P ON (P.id_publicacion = U.id_publicacion) JOIN RAGNAR.Grado_publicacion as G ON (G.id_grado = P.id_grado) WHERE U.id_ubicacion NOT IN (SELECT I.id_ubicacion FROM RAGNAR.Item_factura as I) ORDER BY C.fecha ASC) as TablaParaUsarOrderBy)
+	OPEN CUbicacionesAFacturar
+	FETCH NEXT FROM CUbicacionesAFacturar INTO @IdUbicacion, @PrecioUbicacion, @Comision, @Empresa
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		SET @Total = 0
+		SET @EmpresaAnterior = @Empresa
+		SET @NumeroDeFactura = (SELECT TOP 1 numero FROM RAGNAR.Factura ORDER BY numero DESC) + 1
+		INSERT INTO RAGNAR.Factura (numero, fecha) VALUES (@NumeroDeFactura, RAGNAR.F_ObtenerFechaDelConfig())
+		WHILE(@Empresa = @EmpresaAnterior) --/Misma factura
+		BEGIN
+			SET @PrecioComision = @PrecioUbicacion * @Comision
+			SET @Total = @Total + @PrecioComision
+			INSERT INTO RAGNAR.Item_factura (id_ubicacion, id_factura, monto) VALUES (@IdUbicacion, (SELECT id_factura FROM RAGNAR.Factura WHERE numero = @NumeroDeFactura), @PrecioComision)
+			FETCH NEXT FROM CUbicacionesAFacturar INTO @IdUbicacion, @PrecioUbicacion, @Comision, @Empresa
+		END
+		UPDATE RAGNAR.Factura SET total = @Total WHERE numero = @NumeroDeFactura
+	END
+	CLOSE CUbicacionesAFacturar
+	DEALLOCATE CUbicacionesAFacturar
 END
 GO
 
@@ -420,7 +574,7 @@ BEGIN
 	IF(@Intento >= 3)
 	BEGIN
 		UPDATE RAGNAR.Usuario SET habilitado = 0 WHERE id_usuario = @ID
-		DELETE FROM RAGNAR.Login_fallido WHERE id_usuario = @ID
+		UPDATE RAGNAR.Login_fallido SET nro_intento = 0 WHERE id_usuario = @ID
 	END
 END
 GO
@@ -436,83 +590,36 @@ BEGIN
 	FETCH NEXT FROM CRoles INTO @Rol
 	WHILE @@FETCH_STATUS = 0
 	BEGIN
-		DELETE FROM RAGNAR.Usuario_rol WHERE id_rol = @Rol
+		UPDATE RAGNAR.Usuario_rol SET habilitado = 0 WHERE id_rol = @Rol
 		FETCH NEXT FROM CRoles INTO @Rol
 	END
+	CLOSE CRoles
+	DEALLOCATE CRoles
 END
 GO
 
---/ Trigger para el calculo de stock /--
+--/ Trigger para suma de puntos ante una compra /--
 
-CREATE TRIGGER RAGNAR.CalculoDeStockDePublicacion ON RAGNAR.Ubicacion_publicacion AFTER UPDATE
+CREATE TRIGGER RAGNAR.SumarPuntos ON RAGNAR.Compra AFTER INSERT
 AS
 BEGIN
-	DECLARE @Publicacion bigint, @CompraActual numeric(18,0), @CompraPasada numeric(18,0)
-	DECLARE CUbicacion CURSOR FOR (SELECT I.id_publicacion, I.id_compra, D.id_compra FROM INSERTED as I JOIN DELETED as D ON (I.asiento = D.asiento AND I.fila = D.fila AND I.id_publicacion = D.id_publicacion AND I.id_tipo = D.id_tipo AND I.precio = D.precio AND I.sin_numerar = D.sin_numerar) WHERE I.compra_cantidad = 1)
-	OPEN C1
-	FETCH NEXT FROM CUbicacion INTO @Publicacion, @CompraActual, @CompraPasada
+	DECLARE @Cliente bigint, @Fecha datetime
+	DECLARE CCliente CURSOR FOR (SELECT id_cliente, fecha FROM INSERTED)
+	OPEN CCliente
+	FETCH NEXT FROM CCliente INTO @Cliente
 	WHILE @@FETCH_STATUS = 0
 	BEGIN
-		IF(@CompraActual IS NOT NULL AND @CompraPasada IS NULL)
-		BEGIN
-		UPDATE RAGNAR.Publicacion SET stock = (stock - 1) WHERE id_publicacion = @Publicacion
-		END
-		FETCH NEXT FROM CUbicacion INTO @Publicacion, @CompraActual, @CompraPasada
+		INSERT INTO RAGNAR.Puntos_cliente (id_cliente,puntos,vencimiento) VALUES (@Cliente, 50, DATEADD(year,1,@Fecha))
+		FETCH NEXT FROM CCliente INTO @Cliente, @Fecha
 	END
+	CLOSE CCliente
+	DEALLOCATE CCliente
 END
 GO
-
-
-/*CREATE de Premios a canjear*/
 
 /*ALTER TABLE UNIQUE PUBLICACION*/
 
-/* Store Procedures para los reportes
-
-/* TODO: resolver el tema del trimestre y año ingresado por UI */
-
--- empresas con > localidades no vendidas (que es visibilidad?)
--- la fecha de quien es la que se ordena?
-SELECT TOP 5 DISTINCT em.razon_social, COUNT(up.id_ubicacion) - SUM(uco.cantidad)
-	FROM empresa em
-		JOIN publicacion p ON em.id_usuario = p.id_empresa
-		JOIN ubicacion_publicacion up ON p.id_publicacion = up.id_publicacion
-		JOIN espectaculo e ON p.id_publicacion = e.id_publicacion
-		JOIN compra co ON e.id_espectaculo = co.id_espectaculo
-		JOIN ubicacion_compra uco ON co.id_compra = uco.id_compra
-WHERE co.fecha FUERA DEL TRIMESTRE Y AÑO INGRESADO AND co.id_grado = :id_grado
-GROUP BY em.razon_social
-ORDER BY COUNT(up.id_ubicacion) - SUM(uco.cantidad), fecha, id_grado
-
--- clientes con puntos no vencidos
-SELECT TOP 5 c.id_usuario, c.nombre, c.apellido, SUM(puntos) puntosNoVencidos
-	FROM cliente c
-		LEFT JOIN puntos_cliente pc ON c.id_usuario = pc.id_cliente
-	WHERE vencimiento FUERA DEL TRIMESTRE Y AÑO INGRESADO
-GROUP BY c.id_usuario, c.nombre, c.apellido
-ORDER BY SUM(puntos) DESC
-
--- clientes con mayor cantidad de compras
-SELECT TOP 5 c.id_usuario, COUNT(id_compra), p.id_empresa
-	FROM cliente c
-		JOIN compra co ON c.id_usuario = co.id_cliente
-		JOIN espectaculo e ON co.id_espectaculo = e.id_espectaculo
-		JOIN publicacion p ON e.id_publicacion = p.id_publicacion
-WHERE co.fecha FUERA DEL TRIMESTRE Y AÑO INGRESADO
-GROUP BY p.id_empresa, c.id_usuario
-ORDER BY count(id_compra) DESC
-
-*/
-
 /* Triggers
-
-CREATE TRIGGER QuitarRolInhabilitado ON rol
-AFTER UPDATE
-AS BEGIN
-	IF ((SELECT habilitado FROM inserted) = 0 AND (SELECT habilitado FROM deleted) = 1) BEGIN
-		DELETE FROM usuario_rol WHERE id_rol = (SELECT id_rol FROM inserted)
-	END
-END
 
 CREATE TRIGGER ValidarPasajeDeEstadoDelEspectaculo ON espectaculo
 INSTEAD OF UPDATE
