@@ -59,7 +59,6 @@ namespace PalcoNet.Usuarios
 
         private void btnCambiar_Click(object sender, EventArgs e)
         {
-
             if (camposValidos())
             {
 
