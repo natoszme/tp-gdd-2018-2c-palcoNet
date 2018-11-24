@@ -61,6 +61,7 @@
             this.btnGuardarBorrador.TabIndex = 1;
             this.btnGuardarBorrador.Text = "Guardar como borrador";
             this.btnGuardarBorrador.UseVisualStyleBackColor = true;
+            this.btnGuardarBorrador.Click += new System.EventHandler(this.btnGuardarBorrador_Click);
             // 
             // label1
             // 
