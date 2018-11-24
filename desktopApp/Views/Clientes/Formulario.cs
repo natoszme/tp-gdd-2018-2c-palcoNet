@@ -100,19 +100,6 @@ namespace PalcoNet.Clientes
             }
         }
 
-        private void documentoNoRepetido()
-        {
-            String tipoDoc = Utils.WindowsFormUtils.seleccionadoDe(cmbBxTipoDocumento);
-            Cliente otroCliente = BaseDeDatos.BaseDeDatos.clientePorDocumento(tipoDoc, txtNroDocumento.Text);
-            if (otroCliente != null)
-            {
-                if ((editando() && id != otroCliente.id_usuario) || !editando())
-                {
-                    throw new ValidationException("Ya existe otro cliente con este tipo y numero de documento");
-                }
-            }                
-        }
-
         #region VALIDACIONES
         override protected bool validarDominio()
         {
@@ -163,6 +150,19 @@ namespace PalcoNet.Clientes
             }
             return camposValidos;
         }
+
+        private void documentoNoRepetido()
+        {
+            String tipoDoc = Utils.WindowsFormUtils.seleccionadoDe(cmbBxTipoDocumento);
+            Cliente otroCliente = BaseDeDatos.BaseDeDatos.clientePorDocumento(tipoDoc, txtNroDocumento.Text);
+            if (otroCliente != null)
+            {
+                if ((editando() && id != otroCliente.id_usuario) || !editando())
+                {
+                    throw new ValidationException("Ya existe otro cliente con este tipo y numero de documento");
+                }
+            }
+        }
         #endregion
 
         #region CARGADATOS
@@ -193,6 +193,7 @@ namespace PalcoNet.Clientes
             }
         #endregion
 
+        #region TARJETACREDITO
         private string recortarTarjetaDeCredito(string tarjeta)
         {
             if (tarjeta != "")
@@ -212,18 +213,6 @@ namespace PalcoNet.Clientes
             return "";
         }
 
-        private void Formulario_Load(object sender, EventArgs e) {
-        }
-
-        private void cargarComboTipoDocumento()
-        {
-            cmbBxTipoDocumento.DataSource = TipoDocumento.GetAll().Select(
-                tipoDoc => new ComboBoxItem(tipoDoc.Value, tipoDoc.DisplayName)
-            ).ToList();
-            cmbBxTipoDocumento.ValueMember = "value";
-            cmbBxTipoDocumento.DisplayMember = "text";
-        }
-
         private void validarTarjeta()
         {
             if (editando())
@@ -236,6 +225,19 @@ namespace PalcoNet.Clientes
                 ValidationsUtils.campoLongitudEntre(txtTarjeta, "tarjeta de credito", 15, 16);
                 ValidationsUtils.campoNumericoYPositivo(txtTarjeta, "tarjeta de credito");
             }
+        }
+        #endregion
+
+        private void Formulario_Load(object sender, EventArgs e) {
+        }
+
+        private void cargarComboTipoDocumento()
+        {
+            cmbBxTipoDocumento.DataSource = TipoDocumento.GetAll().Select(
+                tipoDoc => new ComboBoxItem(tipoDoc.Value, tipoDoc.DisplayName)
+            ).ToList();
+            cmbBxTipoDocumento.ValueMember = "value";
+            cmbBxTipoDocumento.DisplayMember = "text";
         }
 
         protected override TextBox textBoxCuil()

@@ -91,7 +91,7 @@ namespace PalcoNet.Empresas
             bool camposValidos = true;
             try
             {
-                ValidationsUtils.campoObligatorio(txtRazonSocial, "razon social");
+                /*ValidationsUtils.campoObligatorio(txtRazonSocial, "razon social");
                 ValidationsUtils.campoAlfabetico(txtRazonSocial, "razon social");
                 ValidationsUtils.campoObligatorio(txtEmail, "mail");
                 ValidationsUtils.emailValido(txtEmail, "mail");
@@ -109,7 +109,7 @@ namespace PalcoNet.Empresas
                 ValidationsUtils.campoAlfabetico(txtCuidad, "ciudad");
                 ValidationsUtils.campoObligatorio(txtLocalidad, "localidad");
                 ValidationsUtils.campoAlfabetico(txtLocalidad, "localidad");
-                ValidationsUtils.campoObligatorio(txtCodigoPostal, "codigo postal");
+                ValidationsUtils.campoObligatorio(txtCodigoPostal, "codigo postal");*/
             }
             catch (ValidationException e)
             {
@@ -128,22 +128,18 @@ namespace PalcoNet.Empresas
                 try
                 {
                     empresa = db.Empresa.Find(id);
-                    /*txtNombre.Text = cliente.nombre;
-                    txtApellido.Text = cliente.apellido;
-                    txtEmail.Text = cliente.mail;
-                    txtTelefono.Text = cliente.telefono;
-                    dtpFechaNacimiento.Value = cliente.fecha_nacimiento;
-                    cmbBxTipoDocumento.Text = cliente.tipo_documento;
-                    txtNroDocumento.Text = cliente.numero_documento.ToString();
-                    txtCuil.Text = cliente.cuil;
-                    txtDireccion.Text = cliente.calle;
-                    txtPortal.Text = cliente.portal.ToString();
-                    txtNroPiso.Text = cliente.piso.ToString();
-                    txtDepto.Text = cliente.departamento;
-                    txtLocalidad.Text = cliente.localidad;
-                    txtCodigoPostal.Text = cliente.codigo_postal;
-                    txtTarjeta.Text = tarjetaConAsteriscos(cliente.tarjeta_credito);
-                    chkBxHabilitado.Checked = cliente.Usuario.habilitado;*/
+                    txtRazonSocial.Text = empresa.razon_social;
+                    txtEmail.Text = empresa.mail;
+                    txtCuit.Text = empresa.cuit;
+                    txtTelefono.Text = empresa.telefono;
+                    txtDireccion.Text = empresa.calle;
+                    txtPortal.Text = empresa.portal.ToString();
+                    txtNroPiso.Text = empresa.piso.ToString();
+                    txtDepto.Text = empresa.departamento;
+                    txtCuidad.Text = empresa.ciudad;
+                    txtLocalidad.Text = empresa.localidad;
+                    txtCodigoPostal.Text = empresa.codigo_postal;
+                    chkBxHabilitado.Checked = empresa.Usuario.habilitado;
                 }
                 catch (Exception)
                 {

@@ -27,7 +27,13 @@ namespace PalcoNet.Empresas
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            new Formulario().ShowDialog();
+            WindowsFormUtils.abrirFormulario(new Formulario(), actualizarDataGriedView);
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            int? id = DataGridViewUtils.obtenerIdSeleccionado(dgvEmpresas);
+            WindowsFormUtils.abrirFormulario(new Formulario(id), actualizarDataGriedView);
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
