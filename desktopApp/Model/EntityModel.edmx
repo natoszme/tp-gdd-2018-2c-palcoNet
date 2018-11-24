@@ -15,12 +15,7 @@
           <EntitySet Name="Funcionalidad_rol" EntityType="RagnarModel.Store.Funcionalidad_rol" store:Type="Tables" Schema="RAGNAR" />
           <EntitySet Name="Grado_publicacion" EntityType="RagnarModel.Store.Grado_publicacion" store:Type="Tables" Schema="RAGNAR" />
           <EntitySet Name="Item_factura" EntityType="RagnarModel.Store.Item_factura" store:Type="Tables" Schema="RAGNAR" />
-          <EntitySet Name="Login_fallido" EntityType="RagnarModel.Store.Login_fallido" store:Type="Tables" store:Schema="RAGNAR" store:Name="Login_fallido">
-            <DefiningQuery>SELECT 
-      [Login_fallido].[id_usuario] AS [id_usuario], 
-      [Login_fallido].[nro_intento] AS [nro_intento]
-      FROM [RAGNAR].[Login_fallido] AS [Login_fallido]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="Login_fallido" EntityType="RagnarModel.Store.Login_fallido" store:Type="Tables" Schema="RAGNAR" />
           <EntitySet Name="Premio" EntityType="RagnarModel.Store.Premio" store:Type="Tables" Schema="RAGNAR" />
           <EntitySet Name="Publicacion" EntityType="RagnarModel.Store.Publicacion" store:Type="Tables" Schema="RAGNAR" />
           <EntitySet Name="Puntos_cliente" EntityType="RagnarModel.Store.Puntos_cliente" store:Type="Tables" Schema="RAGNAR" />
@@ -62,7 +57,7 @@
             <End Role="Factura" EntitySet="Factura" />
             <End Role="Item_factura" EntitySet="Item_factura" />
           </AssociationSet>
-          <AssociationSet Name="FK__Login_fal__id_us__32E0915F" Association="RagnarModel.Store.FK__Login_fal__id_us__32E0915F">
+          <AssociationSet Name="FK__Login_fal__id_us__74AE54BC" Association="RagnarModel.Store.FK__Login_fal__id_us__74AE54BC">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Login_fallido" EntitySet="Login_fallido" />
           </AssociationSet>
@@ -209,14 +204,11 @@
           <Property Name="monto" Type="numeric" Nullable="false" Scale="2" />
           <Property Name="cantidad" Type="numeric" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'GD2C2018.RAGNAR.Login_fallido' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
         <EntityType Name="Login_fallido">
           <Key>
-            <PropertyRef Name="nro_intento" />
+            <PropertyRef Name="id_usuario" />
           </Key>
-          <Property Name="id_usuario" Type="bigint" />
+          <Property Name="id_usuario" Type="bigint" Nullable="false" />
           <Property Name="nro_intento" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="Premio">
@@ -404,9 +396,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Login_fal__id_us__32E0915F">
-          <End Role="Usuario" Type="RagnarModel.Store.Usuario" Multiplicity="0..1" />
-          <End Role="Login_fallido" Type="RagnarModel.Store.Login_fallido" Multiplicity="*" />
+        <Association Name="FK__Login_fal__id_us__74AE54BC">
+          <End Role="Usuario" Type="RagnarModel.Store.Usuario" Multiplicity="1" />
+          <End Role="Login_fallido" Type="RagnarModel.Store.Login_fallido" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
               <PropertyRef Name="id_usuario" />
@@ -536,6 +528,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="F_HasheoDeClave" ReturnType="varchar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="RAGNAR">
+          <Parameter Name="Clave" Type="varchar" Mode="In" />
+        </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -739,9 +734,9 @@
         </EntityType>
         <EntityType Name="Login_fallido">
           <Key>
-            <PropertyRef Name="nro_intento" />
+            <PropertyRef Name="id_usuario" />
           </Key>
-          <Property Name="id_usuario" Type="Int64" />
+          <Property Name="id_usuario" Type="Int64" Nullable="false" />
           <Property Name="nro_intento" Type="Byte" Nullable="false" />
           <NavigationProperty Name="Usuario" Relationship="RagnarModel.FK__Login_fal__id_us__32E0915F" FromRole="Login_fallido" ToRole="Usuario" />
         </EntityType>
@@ -976,8 +971,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Login_fal__id_us__32E0915F">
-          <End Role="Usuario" Type="RagnarModel.Usuario" Multiplicity="0..1" />
-          <End Role="Login_fallido" Type="RagnarModel.Login_fallido" Multiplicity="*" />
+          <End Role="Usuario" Type="RagnarModel.Usuario" Multiplicity="1" />
+          <End Role="Login_fallido" Type="RagnarModel.Login_fallido" Multiplicity="1" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
               <PropertyRef Name="id_usuario" />
