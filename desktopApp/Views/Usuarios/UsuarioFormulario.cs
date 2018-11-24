@@ -50,7 +50,8 @@ namespace PalcoNet.Views.Usuarios
 
         protected void btnCambiarPass_Click(object sender, EventArgs e)
         {
-            new ModificarClaveAdmin().ShowDialog();
+            int idUsuarioAEditarPass = id ?? default(int);
+            new ModificarClaveAdmin(idUsuarioAEditarPass).ShowDialog();
         }
 
         public bool editando()

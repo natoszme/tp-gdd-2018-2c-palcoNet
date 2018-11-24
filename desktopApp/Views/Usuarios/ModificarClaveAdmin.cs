@@ -12,9 +12,11 @@ namespace PalcoNet.Usuarios
 {
     public partial class ModificarClaveAdmin : Form
     {
-        public ModificarClaveAdmin()
+        int id;
+        public ModificarClaveAdmin(int id)
         {
             InitializeComponent();
+            this.id = id;
         }
     }
 }
