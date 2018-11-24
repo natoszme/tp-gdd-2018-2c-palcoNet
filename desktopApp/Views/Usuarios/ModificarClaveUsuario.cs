@@ -54,13 +54,11 @@ namespace PalcoNet.Usuarios
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            new Home().Show();
+            WindowsFormUtils.volverALaHome(this);
         }
 
         private void btnCambiar_Click(object sender, EventArgs e)
         {
-
             if (camposValidos())
             {
 

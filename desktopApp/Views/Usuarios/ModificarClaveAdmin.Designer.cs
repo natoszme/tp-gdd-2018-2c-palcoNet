@@ -33,16 +33,18 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtNuevaClave = new System.Windows.Forms.TextBox();
             this.txtRepetirClave = new System.Windows.Forms.TextBox();
+            this.btnVolver = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCambiar
             // 
-            this.btnCambiar.Location = new System.Drawing.Point(75, 142);
+            this.btnCambiar.Location = new System.Drawing.Point(131, 141);
             this.btnCambiar.Name = "btnCambiar";
             this.btnCambiar.Size = new System.Drawing.Size(129, 23);
             this.btnCambiar.TabIndex = 0;
             this.btnCambiar.Text = "Cambiar contraseña";
             this.btnCambiar.UseVisualStyleBackColor = true;
+            this.btnCambiar.Click += new System.EventHandler(this.btnCambiar_Click);
             // 
             // label1
             // 
@@ -78,11 +80,22 @@
             this.txtRepetirClave.TabIndex = 4;
             this.txtRepetirClave.UseSystemPasswordChar = true;
             // 
+            // btnVolver
+            // 
+            this.btnVolver.Location = new System.Drawing.Point(34, 141);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(75, 23);
+            this.btnVolver.TabIndex = 8;
+            this.btnVolver.Text = "Volver";
+            this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
+            // 
             // ModificarClaveAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 191);
+            this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.txtRepetirClave);
             this.Controls.Add(this.txtNuevaClave);
             this.Controls.Add(this.label2);
@@ -102,5 +115,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtNuevaClave;
         private System.Windows.Forms.TextBox txtRepetirClave;
+        private System.Windows.Forms.Button btnVolver;
     }
 }
