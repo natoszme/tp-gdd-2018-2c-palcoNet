@@ -41,8 +41,7 @@ namespace PalcoNet
 
         private void btnRegistroUsuario_Click(object sender, EventArgs e)
         {
-            new Usuarios.Signup().Show();
-            this.Hide();
+
         }
 
         private void btnAbmClientes_Click(object sender, EventArgs e)

@@ -14,7 +14,7 @@ namespace PalcoNet.Model
     
     public partial class Login_fallido
     {
-        public Nullable<long> id_usuario { get; set; }
+        public long id_usuario { get; set; }
         public byte nro_intento { get; set; }
     
         public virtual Usuario Usuario { get; set; }

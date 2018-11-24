@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.btnAbmRol = new System.Windows.Forms.Button();
-            this.btnRegistroUsuario = new System.Windows.Forms.Button();
             this.btnAbmEmpresa = new System.Windows.Forms.Button();
             this.btnAbmClientes = new System.Windows.Forms.Button();
             this.btnComprar = new System.Windows.Forms.Button();
@@ -56,19 +55,9 @@
             this.btnAbmRol.UseVisualStyleBackColor = true;
             this.btnAbmRol.Click += new System.EventHandler(this.btnAbmRol_Click);
             // 
-            // btnRegistroUsuario
-            // 
-            this.btnRegistroUsuario.Location = new System.Drawing.Point(221, 114);
-            this.btnRegistroUsuario.Name = "btnRegistroUsuario";
-            this.btnRegistroUsuario.Size = new System.Drawing.Size(126, 23);
-            this.btnRegistroUsuario.TabIndex = 1;
-            this.btnRegistroUsuario.Text = "Registrar Usuario";
-            this.btnRegistroUsuario.UseVisualStyleBackColor = true;
-            this.btnRegistroUsuario.Click += new System.EventHandler(this.btnRegistroUsuario_Click);
-            // 
             // btnAbmEmpresa
             // 
-            this.btnAbmEmpresa.Location = new System.Drawing.Point(221, 143);
+            this.btnAbmEmpresa.Location = new System.Drawing.Point(28, 143);
             this.btnAbmEmpresa.Name = "btnAbmEmpresa";
             this.btnAbmEmpresa.Size = new System.Drawing.Size(126, 23);
             this.btnAbmEmpresa.TabIndex = 3;
@@ -78,7 +67,7 @@
             // 
             // btnAbmClientes
             // 
-            this.btnAbmClientes.Location = new System.Drawing.Point(28, 143);
+            this.btnAbmClientes.Location = new System.Drawing.Point(221, 114);
             this.btnAbmClientes.Name = "btnAbmClientes";
             this.btnAbmClientes.Size = new System.Drawing.Size(126, 23);
             this.btnAbmClientes.TabIndex = 2;
@@ -88,7 +77,7 @@
             // 
             // btnComprar
             // 
-            this.btnComprar.Location = new System.Drawing.Point(221, 201);
+            this.btnComprar.Location = new System.Drawing.Point(28, 199);
             this.btnComprar.Name = "btnComprar";
             this.btnComprar.Size = new System.Drawing.Size(126, 23);
             this.btnComprar.TabIndex = 7;
@@ -98,7 +87,7 @@
             // 
             // btnEditarPublicacion
             // 
-            this.btnEditarPublicacion.Location = new System.Drawing.Point(28, 201);
+            this.btnEditarPublicacion.Location = new System.Drawing.Point(221, 172);
             this.btnEditarPublicacion.Name = "btnEditarPublicacion";
             this.btnEditarPublicacion.Size = new System.Drawing.Size(126, 23);
             this.btnEditarPublicacion.TabIndex = 6;
@@ -108,7 +97,7 @@
             // 
             // btnGenerarPublicacion
             // 
-            this.btnGenerarPublicacion.Location = new System.Drawing.Point(221, 172);
+            this.btnGenerarPublicacion.Location = new System.Drawing.Point(28, 172);
             this.btnGenerarPublicacion.Name = "btnGenerarPublicacion";
             this.btnGenerarPublicacion.Size = new System.Drawing.Size(126, 23);
             this.btnGenerarPublicacion.TabIndex = 5;
@@ -118,7 +107,7 @@
             // 
             // btnAbmGrado
             // 
-            this.btnAbmGrado.Location = new System.Drawing.Point(28, 172);
+            this.btnAbmGrado.Location = new System.Drawing.Point(221, 143);
             this.btnAbmGrado.Name = "btnAbmGrado";
             this.btnAbmGrado.Size = new System.Drawing.Size(126, 23);
             this.btnAbmGrado.TabIndex = 4;
@@ -138,7 +127,7 @@
             // 
             // btnRendicionComisiones
             // 
-            this.btnRendicionComisiones.Location = new System.Drawing.Point(28, 257);
+            this.btnRendicionComisiones.Location = new System.Drawing.Point(221, 228);
             this.btnRendicionComisiones.Name = "btnRendicionComisiones";
             this.btnRendicionComisiones.Size = new System.Drawing.Size(126, 23);
             this.btnRendicionComisiones.TabIndex = 10;
@@ -148,7 +137,7 @@
             // 
             // btnCanjePuntos
             // 
-            this.btnCanjePuntos.Location = new System.Drawing.Point(221, 228);
+            this.btnCanjePuntos.Location = new System.Drawing.Point(28, 228);
             this.btnCanjePuntos.Name = "btnCanjePuntos";
             this.btnCanjePuntos.Size = new System.Drawing.Size(126, 23);
             this.btnCanjePuntos.TabIndex = 9;
@@ -158,7 +147,7 @@
             // 
             // btnHistorial
             // 
-            this.btnHistorial.Location = new System.Drawing.Point(28, 228);
+            this.btnHistorial.Location = new System.Drawing.Point(221, 199);
             this.btnHistorial.Name = "btnHistorial";
             this.btnHistorial.Size = new System.Drawing.Size(126, 23);
             this.btnHistorial.TabIndex = 8;
@@ -210,7 +199,6 @@
             this.Controls.Add(this.btnAbmGrado);
             this.Controls.Add(this.btnAbmEmpresa);
             this.Controls.Add(this.btnAbmClientes);
-            this.Controls.Add(this.btnRegistroUsuario);
             this.Controls.Add(this.btnAbmRol);
             this.Name = "Home";
             this.Text = "Home";
@@ -225,7 +213,6 @@
         #endregion
 
         private System.Windows.Forms.Button btnAbmRol;
-        private System.Windows.Forms.Button btnRegistroUsuario;
         private System.Windows.Forms.Button btnAbmEmpresa;
         private System.Windows.Forms.Button btnAbmClientes;
         private System.Windows.Forms.Button btnComprar;

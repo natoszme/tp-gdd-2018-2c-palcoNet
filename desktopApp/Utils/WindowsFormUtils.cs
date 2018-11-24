@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows.Forms;
 using PalcoNet.Model;
+using PalcoNet.Views.Usuarios;
 
 namespace PalcoNet.Utils
 {
@@ -40,6 +41,12 @@ namespace PalcoNet.Utils
         public static void volverALaHome(Control context) {
             context.Hide();
             new Home().Show();
+        }
+
+        public static void volverALogin(Control context)
+        {
+            context.Hide();
+            new Usuarios.Login().Show();
         }
 
         public static String seleccionadoDe(ComboBox combo)

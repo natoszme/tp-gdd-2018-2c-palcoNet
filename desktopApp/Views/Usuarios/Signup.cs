@@ -25,23 +25,21 @@ namespace PalcoNet.Usuarios
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            new Home().Show();
+            WindowsFormUtils.volverALogin(this);
         }
 
         private void btnRegistrarCliente_Click(object sender, EventArgs e)
         {
             if (!validarCampos()) return;
-            UsuariosUtils.guardarUsuario(username, pass, TipoRol.CLIENTE);
-            WindowsFormUtils.abrirFormulario(new Clientes.Formulario(), () => WindowsFormUtils.volverALaHome(this));
+            UsuariosUtils.guardarUsuarioYSetearLogueado(username, pass, TipoRol.CLIENTE);
+            WindowsFormUtils.abrirFormulario(new Clientes.Formulario(), () => { });
         }
 
         private void btnRegistrarEmpresa_Click(object sender, EventArgs e)
         {
             if (!validarCampos()) return;
-            UsuariosUtils.guardarUsuario(username, pass, TipoRol.EMPRESA);
-            this.Hide();
-            WindowsFormUtils.abrirFormulario(new Empresas.Formulario(), () => WindowsFormUtils.volverALaHome(this));
+            UsuariosUtils.guardarUsuarioYSetearLogueado(username, pass, TipoRol.EMPRESA);
+            WindowsFormUtils.abrirFormulario(new Empresas.Formulario(), () => { });
         }
 
         private bool validarCampos()
@@ -55,18 +53,21 @@ namespace PalcoNet.Usuarios
             }
             catch (ValidationException e)
             {
+                limpiarPasses();
                 WindowsFormUtils.mensajeDeError(e.Message);
                 return false;
             }
 
             if (txtClave.Text != txtRepetirClave.Text)
             {
+                limpiarPasses();
                 WindowsFormUtils.mensajeDeError("Las contraseñas no coinciden");
                 return false;
             }
 
             if (BaseDeDatos.BaseDeDatos.existeUsuario(txtUsuario.Text))
             {
+                limpiarPasses();
                 WindowsFormUtils.mensajeDeError("El usuario ya existe");
                 return false;
             }
@@ -75,6 +76,12 @@ namespace PalcoNet.Usuarios
             pass = txtClave.Text;
 
             return true;
+        }
+
+        private void limpiarPasses()
+        {
+            txtClave.Text = "";
+            txtRepetirClave.Text = "";
         }
     }
 }

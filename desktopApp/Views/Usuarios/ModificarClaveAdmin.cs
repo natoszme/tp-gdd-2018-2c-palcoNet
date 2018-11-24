@@ -42,11 +42,12 @@ namespace PalcoNet.Usuarios
         private void btnCambiar_Click(object sender, EventArgs e)
         {
             using (RagnarEntities db = new RagnarEntities()) {
-                Usuario usuarioAModificar = db.Usuario.Find(id);
+                Usuario usuario = db.Usuario.Find(id);
                 
                 if (camposValidos()) {
-                    usuarioAModificar.clave = txtNuevaClave.Text;
-                    WindowsFormUtils.guardarYCerrar(db, this);
+                    usuario.clave = txtNuevaClave.Text;
+                    db.Entry(usuario).State = System.Data.Entity.EntityState.Modified;
+                    WindowsFormUtils.guardarYCerrar(db, this, new Home());
                 }
             }            
         }

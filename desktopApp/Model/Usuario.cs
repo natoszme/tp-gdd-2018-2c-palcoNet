@@ -16,7 +16,7 @@ namespace PalcoNet.Model
     {
         public Usuario()
         {
-            this.Login_fallido = new HashSet<Login_fallido>();
+            this.Login_fallido = new Login_fallido();
             this.Rol = new HashSet<Rol>();
         }
     
@@ -27,7 +27,7 @@ namespace PalcoNet.Model
     
         public virtual Cliente Cliente { get; set; }
         public virtual Empresa Empresa { get; set; }
-        public virtual ICollection<Login_fallido> Login_fallido { get; set; }
+        public virtual Login_fallido Login_fallido { get; set; }
         public virtual ICollection<Rol> Rol { get; set; }
     }
 }

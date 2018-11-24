@@ -68,6 +68,7 @@
             this.label17 = new System.Windows.Forms.Label();
             this.pnlDatosUsuario = new System.Windows.Forms.Panel();
             this.btnCambiarPass = new System.Windows.Forms.Button();
+            this.btnVolver = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -437,11 +438,22 @@
             this.btnCambiarPass.UseVisualStyleBackColor = true;
             this.btnCambiarPass.Click += new System.EventHandler(this.btnCambiarPass_Click);
             // 
+            // btnVolver
+            // 
+            this.btnVolver.Location = new System.Drawing.Point(499, 379);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(75, 23);
+            this.btnVolver.TabIndex = 20;
+            this.btnVolver.Text = "Volver";
+            this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
+            // 
             // Formulario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(669, 414);
+            this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.pnlDatosUsuario);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
@@ -507,6 +519,7 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Panel pnlDatosUsuario;
         private System.Windows.Forms.Button btnCambiarPass;
+        private System.Windows.Forms.Button btnVolver;
 
     }
 }
