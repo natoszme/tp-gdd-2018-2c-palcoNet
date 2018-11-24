@@ -25,23 +25,21 @@ namespace PalcoNet.Usuarios
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            new Home().Show();
+            WindowsFormUtils.volverALogin(this);
         }
 
         private void btnRegistrarCliente_Click(object sender, EventArgs e)
         {
             if (!validarCampos()) return;
-            UsuariosUtils.guardarUsuario(username, pass, TipoRol.CLIENTE);
-            WindowsFormUtils.abrirFormulario(new Clientes.Formulario(), () => WindowsFormUtils.volverALaHome(this));
+            UsuariosUtils.guardarUsuarioYSetearLogueado(username, pass, TipoRol.CLIENTE);
+            WindowsFormUtils.abrirFormulario(new Clientes.Formulario(), () => { });
         }
 
         private void btnRegistrarEmpresa_Click(object sender, EventArgs e)
         {
             if (!validarCampos()) return;
-            UsuariosUtils.guardarUsuario(username, pass, TipoRol.EMPRESA);
-            this.Hide();
-            WindowsFormUtils.abrirFormulario(new Empresas.Formulario(), () => WindowsFormUtils.volverALaHome(this));
+            UsuariosUtils.guardarUsuarioYSetearLogueado(username, pass, TipoRol.EMPRESA);
+            WindowsFormUtils.abrirFormulario(new Empresas.Formulario(), () => { });
         }
 
         private bool validarCampos()

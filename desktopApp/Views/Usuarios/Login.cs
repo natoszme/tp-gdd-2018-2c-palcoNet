@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using PalcoNet.BaseDeDatos;
 using PalcoNet.Usuarios;
 using PalcoNet.Model;
+using PalcoNet.Utils;
 
 namespace PalcoNet.Usuarios
 {
@@ -55,6 +56,12 @@ namespace PalcoNet.Usuarios
 
         private Usuario obtenerUsuarioDe(String usuario, String password) {
             return BaseDeDatos.BaseDeDatos.obtenerUsuarioPorCredenciales(usuario, password);   
+        }
+
+        private void btnRegistrarme_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            WindowsFormUtils.abrirFormulario(new Usuarios.Signup(), () => { });
         }
     }
 }

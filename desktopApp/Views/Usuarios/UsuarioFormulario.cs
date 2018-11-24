@@ -13,6 +13,7 @@ using PalcoNet.Usuarios;
 
 namespace PalcoNet.Views.Usuarios
 {
+    [TypeDescriptionProvider(typeof(DescriptionProvider<UsuarioFormulario, Form>))]
     public abstract partial class UsuarioFormulario : Form
     {
         protected int? id;
@@ -20,6 +21,7 @@ namespace PalcoNet.Views.Usuarios
         public UsuarioFormulario(int? id = null)
         {
             InitializeComponent();
+            this.ControlBox = false;
 
             this.id = id;
         }

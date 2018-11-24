@@ -38,6 +38,13 @@ namespace PalcoNet.Views.Usuarios
         public static void guardarUsuario(String username, String pass, TipoRol rol)
         {
             Global.usuarioGenerado = BaseDeDatos.BaseDeDatos.insertarYObtenerUsuario(username, pass, rol);
+            
+        }
+
+        public static void guardarUsuarioYSetearLogueado(String username, String pass, TipoRol rol)
+        {
+            guardarUsuario(username, pass, rol);
+            Global.loguearUsuario(Global.usuarioGenerado);
         }
     }
 }
