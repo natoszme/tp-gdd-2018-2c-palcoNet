@@ -53,18 +53,21 @@ namespace PalcoNet.Usuarios
             }
             catch (ValidationException e)
             {
+                limpiarPasses();
                 WindowsFormUtils.mensajeDeError(e.Message);
                 return false;
             }
 
             if (txtClave.Text != txtRepetirClave.Text)
             {
+                limpiarPasses();
                 WindowsFormUtils.mensajeDeError("Las contraseñas no coinciden");
                 return false;
             }
 
             if (BaseDeDatos.BaseDeDatos.existeUsuario(txtUsuario.Text))
             {
+                limpiarPasses();
                 WindowsFormUtils.mensajeDeError("El usuario ya existe");
                 return false;
             }
@@ -73,6 +76,12 @@ namespace PalcoNet.Usuarios
             pass = txtClave.Text;
 
             return true;
+        }
+
+        private void limpiarPasses()
+        {
+            txtClave.Text = "";
+            txtRepetirClave.Text = "";
         }
     }
 }
