@@ -92,16 +92,16 @@ namespace PalcoNet.Utils
             return resto == 0 ? 0 : resto == 1 ? 9 : 11 - resto;
         }
 
-        public static void cuilValido(TextBox txtCuil) {
-            string cuil = txtCuil.Text;
+        public static void cuilOCuitValido(TextBox txtCuilOCuit, string nombreInput) {
+            string cuil = txtCuilOCuit.Text;
 
-            campoNumericoYPositivo(txtCuil, "CUIL");
-            campoLongitudFija(txtCuil, "CUIL", 11);
+            campoNumericoYPositivo(txtCuilOCuit, nombreInput);
+            campoLongitudFija(txtCuilOCuit, nombreInput, 11);
             
             int calculado = CalcularDigitoCuil(cuil);
             int digito = int.Parse(cuil.Substring(10));
             if (calculado != digito) {
-                throw new ValidationException("El CUIL ingresado es invalido");
+                throw new ValidationException("El " + nombreInput + " ingresado es invalido");
             }
         }
 

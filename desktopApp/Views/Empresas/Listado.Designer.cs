@@ -37,17 +37,14 @@
             this.txtRazonSocial = new System.Windows.Forms.TextBox();
             this.txtCuit = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.dgvClientes = new System.Windows.Forms.DataGridView();
-            this.razonSocial = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.acciones = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvEmpresas = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnNuevo = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btnVolver = new System.Windows.Forms.Button();
+            this.btnEditar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEmpresas)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,6 +73,7 @@
             this.btnLimpiar.TabIndex = 12;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // btnFiltrar
             // 
@@ -85,6 +83,7 @@
             this.btnFiltrar.TabIndex = 2;
             this.btnFiltrar.Text = "Filtrar";
             this.btnFiltrar.UseVisualStyleBackColor = true;
+            this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
             // 
             // txtEmail
             // 
@@ -134,59 +133,22 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Razón social";
             // 
-            // dgvClientes
+            // dgvEmpresas
             // 
-            this.dgvClientes.AllowUserToAddRows = false;
-            this.dgvClientes.AllowUserToDeleteRows = false;
-            this.dgvClientes.AllowUserToOrderColumns = true;
-            this.dgvClientes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
-            this.dgvClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvClientes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.razonSocial,
-            this.email,
-            this.telefono,
-            this.acciones});
-            this.dgvClientes.Location = new System.Drawing.Point(12, 152);
-            this.dgvClientes.Name = "dgvClientes";
-            this.dgvClientes.ReadOnly = true;
-            this.dgvClientes.Size = new System.Drawing.Size(733, 192);
-            this.dgvClientes.TabIndex = 6;
-            // 
-            // razonSocial
-            // 
-            this.razonSocial.Frozen = true;
-            this.razonSocial.HeaderText = "Razón social";
-            this.razonSocial.Name = "razonSocial";
-            this.razonSocial.ReadOnly = true;
-            this.razonSocial.Width = 93;
-            // 
-            // email
-            // 
-            this.email.Frozen = true;
-            this.email.HeaderText = "Email";
-            this.email.Name = "email";
-            this.email.ReadOnly = true;
-            this.email.Width = 57;
-            // 
-            // telefono
-            // 
-            this.telefono.Frozen = true;
-            this.telefono.HeaderText = "Telefono";
-            this.telefono.Name = "telefono";
-            this.telefono.ReadOnly = true;
-            this.telefono.Width = 74;
-            // 
-            // acciones
-            // 
-            this.acciones.Frozen = true;
-            this.acciones.HeaderText = "Acciones";
-            this.acciones.Name = "acciones";
-            this.acciones.ReadOnly = true;
-            this.acciones.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.acciones.Width = 57;
+            this.dgvEmpresas.AllowUserToAddRows = false;
+            this.dgvEmpresas.AllowUserToDeleteRows = false;
+            this.dgvEmpresas.AllowUserToOrderColumns = true;
+            this.dgvEmpresas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.dgvEmpresas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvEmpresas.Location = new System.Drawing.Point(12, 152);
+            this.dgvEmpresas.Name = "dgvEmpresas";
+            this.dgvEmpresas.ReadOnly = true;
+            this.dgvEmpresas.Size = new System.Drawing.Size(733, 192);
+            this.dgvEmpresas.TabIndex = 6;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnEditar);
             this.panel1.Controls.Add(this.btnNuevo);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(12, 12);
@@ -196,7 +158,7 @@
             // 
             // btnNuevo
             // 
-            this.btnNuevo.Location = new System.Drawing.Point(626, 4);
+            this.btnNuevo.Location = new System.Drawing.Point(518, 6);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(104, 23);
             this.btnNuevo.TabIndex = 1;
@@ -224,6 +186,16 @@
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
+            // btnEditar
+            // 
+            this.btnEditar.Location = new System.Drawing.Point(628, 6);
+            this.btnEditar.Name = "btnEditar";
+            this.btnEditar.Size = new System.Drawing.Size(100, 23);
+            this.btnEditar.TabIndex = 2;
+            this.btnEditar.Text = "Editar empresa";
+            this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
+            // 
             // Listado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -231,13 +203,14 @@
             this.ClientSize = new System.Drawing.Size(758, 393);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.dgvClientes);
+            this.Controls.Add(this.dgvEmpresas);
             this.Controls.Add(this.panel1);
             this.Name = "Listado";
             this.Text = "Listado de empesas de espectáculos";
+            this.Load += new System.EventHandler(this.Listado_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvClientes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEmpresas)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -255,14 +228,11 @@
         private System.Windows.Forms.TextBox txtRazonSocial;
         private System.Windows.Forms.TextBox txtCuit;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DataGridView dgvClientes;
-        private System.Windows.Forms.DataGridViewTextBoxColumn razonSocial;
-        private System.Windows.Forms.DataGridViewTextBoxColumn email;
-        private System.Windows.Forms.DataGridViewTextBoxColumn telefono;
-        private System.Windows.Forms.DataGridViewTextBoxColumn acciones;
+        private System.Windows.Forms.DataGridView dgvEmpresas;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnNuevo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnVolver;
+        private System.Windows.Forms.Button btnEditar;
     }
 }

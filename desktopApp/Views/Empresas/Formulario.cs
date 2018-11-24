@@ -7,23 +7,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PalcoNet.Model;
 using PalcoNet.Utils;
+using PalcoNet.Views.Usuarios;
 
 namespace PalcoNet.Empresas
 {
-    public partial class Formulario : Form
+    public partial class Formulario : UsuarioFormulario
     {
-        public Formulario()
+        Empresa empresa = new Empresa();
+
+        public Formulario(int? id = null) : base(id)
         {
             InitializeComponent();
 
-            //TODO validar si quien esta logueado es admin. Si lo es hay que mostrar el panel pnlDatosUsuario
-            //solo en el caso de que sea edicion!!
-        }
+            if (editando())
+            {
+                cargarDatos();
+            }
 
-        private void btnCambiarPass_Click(object sender, EventArgs e)
-        {
-            new Usuarios.ModificarClaveAdmin().ShowDialog();
+            if (hayQueMostrarPanelAdmin()) mostrarPanelAdmin();
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
@@ -31,12 +34,45 @@ namespace PalcoNet.Empresas
 
         }
 
-        private void btnGuardar_Click(object sender, EventArgs e)
+        protected override void asignarEntidades(RagnarEntities db)
         {
+            if (id == null)
+            {
+                empresa = new Empresa();
+            }
 
+            empresa.razon_social = txtRazonSocial.Text;
+            empresa.mail = txtEmail.Text;
+            empresa.telefono = txtTelefono.Text;
+            empresa.cuit = txtCuit.Text;
+            empresa.calle = txtDireccion.Text;
+            empresa.portal = Decimal.Parse(txtPortal.Text);
+            empresa.piso = Decimal.Parse(txtNroPiso.Text);
+            empresa.departamento = txtDepto.Text;
+            empresa.ciudad = txtCuidad.Text;
+            empresa.localidad = txtLocalidad.Text;
+            empresa.codigo_postal = txtCodigoPostal.Text;
+
+            if (SessionUtils.esAdmin() && editando())
+            {
+                empresa.Usuario.habilitado = chkBxHabilitado.Checked;
+            }
+
+            if (!editando())
+            {
+                empresa.Usuario = UsuariosUtils.usuarioAAsignar(db, UsuariosUtils.generarUsername(empresa), empresa, Model.TipoRol.EMPRESA);
+                db.Empresa.Add(empresa);
+            }
+            else
+            {
+                //actualizamos tambien el usuario porque podria haber cambiado el checkbox de habilitado
+                db.Entry(empresa.Usuario).State = System.Data.Entity.EntityState.Modified;
+                db.Entry(empresa).State = System.Data.Entity.EntityState.Modified;
+            }
         }
 
-        private bool validarDominio()
+        #region VALIDACIONES
+        override protected bool validarDominio()
         {
             try
             {
@@ -50,20 +86,7 @@ namespace PalcoNet.Empresas
             return true;
         }
 
-        private void cuilNoRepetido()
-        {
-            /*Cliente otroCliente = BaseDeDatos.BaseDeDatos.clientePorCuil(txtCuil.Text);
-            if (otroCliente != null)
-            {
-                if ((editando() && id != otroCliente.id_usuario) || !editando())
-                {
-                    throw new ValidationException("Ya existe otro cliente con este cuil");
-                }
-            }*/
-        }
-
-        #region VALIDACIONES
-        private bool camposValidos()
+        override protected bool camposValidos()
         {
             bool camposValidos = true;
             try
@@ -74,8 +97,8 @@ namespace PalcoNet.Empresas
                 ValidationsUtils.emailValido(txtEmail, "mail");
                 ValidationsUtils.campoLongitudEntre(txtTelefono, "telefono", 8, 11);
                 ValidationsUtils.campoNumericoYPositivo(txtTelefono, "telefono");
-                ValidationsUtils.campoObligatorio(txtCuit, "cuit");
-                ValidationsUtils.cuilValido(txtCuit);
+                ValidationsUtils.campoObligatorio(txtCuit, "CUIT");
+                ValidationsUtils.cuilOCuitValido(txtCuit, "CUIT");
                 ValidationsUtils.campoObligatorio(txtDireccion, "dirección");
                 ValidationsUtils.campoObligatorio(txtPortal, "portal");
                 ValidationsUtils.campoNumericoYPositivo(txtPortal, "portal");
@@ -96,5 +119,44 @@ namespace PalcoNet.Empresas
             return camposValidos;
         }
         #endregion
+
+        #region CARGADATOS
+        override protected void cargarDatos()
+        {
+            using (RagnarEntities db = new RagnarEntities())
+            {
+                try
+                {
+                    empresa = db.Empresa.Find(id);
+                    txtRazonSocial.Text = empresa.razon_social;
+                    txtEmail.Text = empresa.mail;
+                    txtCuit.Text = empresa.cuit;
+                    txtTelefono.Text = empresa.telefono;
+                    txtDireccion.Text = empresa.calle;
+                    txtPortal.Text = empresa.portal.ToString();
+                    txtNroPiso.Text = empresa.piso.ToString();
+                    txtDepto.Text = empresa.departamento;
+                    txtCuidad.Text = empresa.ciudad;
+                    txtLocalidad.Text = empresa.localidad;
+                    txtCodigoPostal.Text = empresa.codigo_postal;
+                    chkBxHabilitado.Checked = empresa.Usuario.habilitado;
+                }
+                catch (Exception)
+                {
+                    WindowsFormUtils.mensajeDeError("Error al intentar cargar a la empresa de espectáculos");
+                }
+            }
+        }
+        #endregion
+
+        override protected void mostrarPanelAdmin()
+        {
+            pnlDatosUsuario.Visible = true;
+        }
+
+        protected override TextBox textBoxCuil()
+        {
+            return txtCuit;
+        }
     }
 }
