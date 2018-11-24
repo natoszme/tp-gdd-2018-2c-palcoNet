@@ -56,9 +56,9 @@ CREATE TABLE RAGNAR.Usuario_rol					(	id_usuario bigint FOREIGN KEY references R
 													PRIMARY KEY(id_rol,id_usuario))
 													
 
-CREATE TABLE RAGNAR.Login_fallido				(	id_usuario bigint FOREIGN KEY references RAGNAR.Usuario(id_usuario),
-													nro_intento tinyint NOT NULL,
-													PRIMARY KEY(id_usuario))
+CREATE TABLE RAGNAR.Login_fallido				(	id_usuario bigint PRIMARY KEY FOREIGN KEY references RAGNAR.Usuario(id_usuario),
+													nro_intento tinyint NOT NULL
+												)
 
 CREATE TABLE RAGNAR.Cliente						(	id_usuario bigint FOREIGN KEY references RAGNAR.Usuario(id_usuario) PRIMARY KEY,
 													nombre nvarchar(255) NOT NULL,
