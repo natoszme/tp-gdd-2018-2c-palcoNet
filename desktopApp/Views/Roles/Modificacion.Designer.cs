@@ -71,6 +71,7 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(304, 258);
             this.panel2.TabIndex = 1;
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // chkBxHabilitado
             // 
@@ -115,6 +116,7 @@
             this.btnGuardar.TabIndex = 7;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // txtNombre
             // 
@@ -141,6 +143,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "Modificacion";
             this.Text = "Modificar rol";
+            this.Load += new System.EventHandler(this.Modificacion_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);

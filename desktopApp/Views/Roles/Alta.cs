@@ -100,5 +100,10 @@ namespace PalcoNet.Roles
                 cmbBxFuncionalidad.DataSource = (from f in db.Funcionalidad select f.descripcion).ToList(); 
             }
         }
+
+        private void Alta_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
