@@ -119,7 +119,7 @@ namespace PalcoNet.Clientes
         override protected bool camposValidos() {
             bool camposValidos = true;
             try {
-                /*ValidationsUtils.campoObligatorio(txtNombre, "nombre");
+                ValidationsUtils.campoObligatorio(txtNombre, "nombre");
                 ValidationsUtils.campoAlfabetico(txtNombre, "nombre");
                 ValidationsUtils.campoObligatorio(txtApellido, "apellido");
                 ValidationsUtils.campoAlfabetico(txtApellido, "apellido");
@@ -143,7 +143,7 @@ namespace PalcoNet.Clientes
                 ValidationsUtils.campoObligatorio(txtLocalidad, "localidad");
                 ValidationsUtils.campoAlfabetico(txtLocalidad, "localidad");
                 ValidationsUtils.campoObligatorio(txtCodigoPostal, "codigo postal");
-                validarTarjeta();*/
+                validarTarjeta();
             } catch(ValidationException e) {
                 WindowsFormUtils.mensajeDeError(e.Message);
                 camposValidos = false;
