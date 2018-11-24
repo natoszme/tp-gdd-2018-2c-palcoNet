@@ -58,6 +58,7 @@
             this.btnNuevo.TabIndex = 1;
             this.btnNuevo.Text = "Nueva Publicacion";
             this.btnNuevo.UseVisualStyleBackColor = true;
+            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 
             // panel1
             // 

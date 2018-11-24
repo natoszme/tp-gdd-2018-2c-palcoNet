@@ -19,7 +19,7 @@ namespace PalcoNet.Publicaciones
 
         private void btnUbicaciones_Click(object sender, EventArgs e)
         {
-            new Views.Publicaciones.GenerarUbicaciones();
+            new Views.Publicaciones.GenerarUbicaciones().Show();
         }
 
        

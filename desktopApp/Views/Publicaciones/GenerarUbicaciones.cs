@@ -87,5 +87,10 @@ namespace PalcoNet.Views.Publicaciones
         private void GenerarUbicaciones_Load(object sender, EventArgs e) {
             dgvUbicaciones.DataSource = ubicaciones;
         }
+
+        private void btnFinalizar_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
     }
 }

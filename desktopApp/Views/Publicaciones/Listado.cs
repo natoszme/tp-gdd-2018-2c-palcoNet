@@ -28,5 +28,10 @@ namespace PalcoNet.Publicaciones
             this.Hide();
             new Home().Show();
         }
+
+        private void btnNuevo_Click(object sender, EventArgs e)
+        {
+            new Alta().Show();
+        }
     }
 }
