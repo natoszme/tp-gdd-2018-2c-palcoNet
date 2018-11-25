@@ -71,6 +71,7 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(304, 258);
             this.panel2.TabIndex = 1;
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // chkBxHabilitado
             // 
@@ -96,12 +97,19 @@
             // 
             this.chkLstBxFuncionalidades.FormattingEnabled = true;
             this.chkLstBxFuncionalidades.Items.AddRange(new object[] {
-            "Facturar",
+            "ABM de Rol",
+            "Registro de Usuario",
+            "ABM de Cliente",
+            "ABM de Empresa de Espectaculos",
+            "ABM de Rubro",
+            "ABM de Grado de Publicacion",
+            "Generar Publicacion",
+            "Editar Publicacion",
             "Comprar",
-            "Roles",
-            "Usuarios",
-            "Reportes",
-            "etc"});
+            "Historial de Cliente",
+            "Canje y Administracion de Puntos",
+            "Generar rendicion de comisiones",
+            "Listado estadistico"});
             this.chkLstBxFuncionalidades.Location = new System.Drawing.Point(7, 70);
             this.chkLstBxFuncionalidades.Name = "chkLstBxFuncionalidades";
             this.chkLstBxFuncionalidades.Size = new System.Drawing.Size(282, 94);
@@ -115,6 +123,7 @@
             this.btnGuardar.TabIndex = 7;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // txtNombre
             // 
@@ -141,6 +150,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "Modificacion";
             this.Text = "Modificar rol";
+            this.Load += new System.EventHandler(this.Modificacion_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);

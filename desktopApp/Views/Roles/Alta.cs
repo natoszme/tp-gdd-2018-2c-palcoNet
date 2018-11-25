@@ -14,6 +14,8 @@ namespace PalcoNet.Roles
 {
     public partial class Alta : Form
     {
+        Rol rol = new Rol();
+
         public Alta()
         {
             InitializeComponent();
@@ -22,7 +24,32 @@ namespace PalcoNet.Roles
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            using (RagnarEntities db = new RagnarEntities())
+            {
+                if (camposValidos())
+                {
 
+                    if (!validarDominio())
+                    {
+                        return;
+                    }
+
+                    asignarEntidades(db);
+
+                    WindowsFormUtils.guardarYCerrar(db, this);
+                }
+            }
+        }
+
+        private void asignarEntidades(RagnarEntities db)
+        {
+            rol = new Rol();
+
+            rol.nombre = txtNombre.Text;
+            rol.Funcionalidad.Add(BaseDeDatos.BaseDeDatos.obtenerFuncionalidadPorDescripcion(db, cmbBxFuncionalidad.SelectedItem.ToString()));
+            rol.habilitado = true;
+
+            db.Rol.Add(rol);
         }
 
         #region VALIDACIONES
@@ -71,12 +98,12 @@ namespace PalcoNet.Roles
             using(RagnarEntities db = new RagnarEntities())
             {
                 cmbBxFuncionalidad.DataSource = (from f in db.Funcionalidad select f.descripcion).ToList(); 
-                
-                /*db.Funcionalidad.Select(f => new
-                {
-                    f.descripcion
-                }).ToList();*/
             }
+        }
+
+        private void Alta_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
