@@ -32,7 +32,7 @@ namespace PalcoNet
             botonesTotales.Add(btnAbmEmpresa);
             funcionalidadesTotales.Add("ABM de Grado de Publicacion");
             botonesTotales.Add(btnAbmGrado);
-            funcionalidadesTotales.Add("ABM de Publicaciones");
+            funcionalidadesTotales.Add("ABM de Publicacion");
             botonesTotales.Add(btnAbmPublicaciones);
             funcionalidadesTotales.Add("Comprar");
             botonesTotales.Add(btnComprar);
@@ -127,7 +127,7 @@ namespace PalcoNet
 
         private void btnGenerarPublicacion_Click(object sender, EventArgs e)
         {
-            new Publicaciones.Alta().Show();
+            new Publicaciones.Listado().Show();
             this.Hide();
         }
 
