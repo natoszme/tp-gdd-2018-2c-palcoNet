@@ -12,7 +12,7 @@ BEGIN
 	IF(EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Fecha_config'))
 		DROP TABLE RAGNAR.Fecha_config
 	CREATE TABLE RAGNAR.Fecha_config (fecha datetime)
-	BULK INSERT RAGNAR.Fecha_config FROM 'C:\Users\nato\tp-gdd-2018-2c-palcoNet\TP2C2018 K3522 RAGNAR 20\src\Config.txt' WITH (FIRSTROW = 1,FIELDTERMINATOR = ',',ROWTERMINATOR = '') --Cambiar la ruta
+	BULK INSERT RAGNAR.Fecha_config FROM 'C:\TP2C2018 K3522 RAGNAR 20\src\ConfigFecha.txt' WITH (FIRSTROW = 1,FIELDTERMINATOR = ',',ROWTERMINATOR = '') --Cambiar la ruta
 END
 GO
 
@@ -182,7 +182,6 @@ GO
 
 --/ Trigger para encriptar la contraseña ingresada /--
 
-drop trigger RAGNAR.HasheoDeClaveDeUsuario
 CREATE TRIGGER RAGNAR.HasheoDeClaveDeUsuario ON RAGNAR.Usuario INSTEAD OF INSERT, UPDATE
 AS
 BEGIN
