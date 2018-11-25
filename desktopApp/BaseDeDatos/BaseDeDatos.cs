@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PalcoNet.Model;
+using System.Windows.Forms;
 
 namespace PalcoNet.BaseDeDatos
 {
@@ -91,5 +92,17 @@ namespace PalcoNet.BaseDeDatos
                 throw new NotSupportedException("Direct calls are not supported.");
             }
         #endregion        
+    
+        internal static void modificarClave(Usuario usuario, string pass, Form formContext)
+        {
+            modificarClave(usuario, pass, formContext, dbContext);
+        }
+
+        internal static void modificarClave(Usuario usuario, string pass, Form formContext, RagnarEntities db)
+        {
+            usuario.clave = pass;
+            db.Entry(usuario).State = System.Data.Entity.EntityState.Modified;
+            Utils.WindowsFormUtils.guardarYCerrar(formContext, new Home());
+        }
     }
 }
