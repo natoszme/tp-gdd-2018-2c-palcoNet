@@ -18,6 +18,8 @@ namespace PalcoNet.Publicaciones
         public Alta()
         {
             InitializeComponent();
+            cargarComboRubro();
+            cargarComboGrado();
         }
 
         private void btnUbicaciones_Click(object sender, EventArgs e)
@@ -36,15 +38,7 @@ namespace PalcoNet.Publicaciones
         {
             using (RagnarEntities db = new RagnarEntities())
             {
-
-                IQueryable<Rubro> rubros = db.Rubro.AsQueryable();
-                var listaTipos = rubros.Select(t => new
-                {
-
-                    descripcion = t.descripcion
-                });
-                //cboRubros.dataSource = rubros.ToList();
-
+                cmbRubro.DataSource = (from f in db.Rubro select f.descripcion).ToList();
             }
         }
 
@@ -52,16 +46,13 @@ namespace PalcoNet.Publicaciones
         {
             using (RagnarEntities db = new RagnarEntities())
             {
-
-                IQueryable<Rubro> gradosDePublicacion = db.Grado_publicacion.AsQueryable();
-                var listaTipos = gradosDePublicacion.Select(t => new
-                {
-
-                    descripcion = t.descripcion
-                });
-                //cboGrados.dataSource = gradosDePublicacion.ToList();
-
+                cmbRubro.DataSource = (from g in db.Grado_publicacion select g.descripcion).ToList();
             }
+        }
+
+        private void Alta_Load(object sender, EventArgs e)
+        {
+            
         }
 
         /*

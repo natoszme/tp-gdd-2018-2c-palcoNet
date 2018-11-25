@@ -185,6 +185,7 @@
             this.Controls.Add(this.btnPublicar);
             this.Name = "Alta";
             this.Text = "Generar publicación";
+            this.Load += new System.EventHandler(this.Alta_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
