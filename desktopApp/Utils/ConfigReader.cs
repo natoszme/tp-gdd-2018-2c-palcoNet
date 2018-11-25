@@ -15,25 +15,16 @@ namespace PalcoNet.Utils
         public static String SQLPassword { get; private set; }
         public static String SQLDatabase { get; private set; }
         public static String SQLClient { get; private set; }
+        public static DateTime Fecha { get; private set; }
 
         private static String obtenerArchivoConfig(String nombreArchivo)
         {
             return System.IO.Directory.GetParent(Application.StartupPath).Parent.Parent.FullName + "\\TP2C2018 K3522 RAGNAR 20\\src\\" + nombreArchivo + ".txt";
         }
 
-        private static String obtenerArchivoConfigDB()
-        {
-            return obtenerArchivoConfig("ConfigDB");
-        }
-
-        private static String obtenerArchivoConfigFecha()
-        {
-            return obtenerArchivoConfig("ConfigFecha");
-        }
-
         public static void leerYCargarParametrosDB()
         {
-            String ConfigFile = obtenerArchivoConfigDB();
+            String ConfigFile = obtenerArchivoConfig("Config");
 
             int contador = 0;
             String linea;
@@ -60,7 +51,14 @@ namespace PalcoNet.Utils
                         }
                         else
                         {
-                            SQLClient = linea;
+                            if (contador == 3)
+                            {
+                                SQLClient = linea;
+                            }
+                            else
+                            {
+                                Fecha = DateTime.ParseExact(linea, "yyyy-MM-dd HH:mm:ss.fff", System.Globalization.CultureInfo.InvariantCulture);
+                            }
                         }
                     }
                 }
@@ -84,16 +82,6 @@ namespace PalcoNet.Utils
             constructorConeccion.Metadata = "res://*/Model.EntityModel.csdl|res://*/Model.EntityModel.ssdl|res://*/Model.EntityModel.msl"; 
        
             return constructorConeccion.ToString();
-        }
-
-        public static DateTime obtenerFecha()
-        {
-            String ConfigFile = obtenerArchivoConfigFecha();
-
-            System.IO.StreamReader file = new System.IO.StreamReader(ConfigFile);
-
-            return DateTime.ParseExact(file.ReadLine(), "yyyy-MM-dd HH:mm:ss.fff",
-                                       System.Globalization.CultureInfo.InvariantCulture);
         }
     }
 }

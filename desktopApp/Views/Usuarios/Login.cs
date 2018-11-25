@@ -21,7 +21,7 @@ namespace PalcoNet.Usuarios
         public Login()
         {
             InitializeComponent();
-            DateTime fecha = ConfigReader.obtenerFecha();
+            DateTime fecha = ConfigReader.Fecha;
             Console.WriteLine(fecha);
         }
 
