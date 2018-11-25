@@ -24,25 +24,7 @@ namespace PalcoNet.Clientes
         {
             InitializeComponent();
 
-            cargarComboTipoDocumento();          
-
-            // TODO: sacar cuando funque, lo dejo para no completar todo a mano todo el tiempo
-            if (!editando())
-            {
-                txtNombre.Text = "Kevin";
-                txtApellido.Text = "Szuchet";
-                txtEmail.Text = "kevinszuchet@gmail.com";
-                txtTelefono.Text = "1140495754";
-                txtNroDocumento.Text = "40539748";
-                txtCuil.Text = "20405397480";
-                txtDireccion.Text = "JRV";
-                txtPortal.Text = "225";
-                txtNroPiso.Text = "1";
-                txtDepto.Text = "A";
-                txtLocalidad.Text = "CABA";
-                txtCodigoPostal.Text = "1414";
-                txtTarjeta.Text = "1234567891011121";
-            }
+            cargarComboTipoDocumento();
 
             if (editando())
             {
