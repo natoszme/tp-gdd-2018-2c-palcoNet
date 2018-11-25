@@ -35,16 +35,9 @@ namespace PalcoNet.Views.Usuarios
         {
             using (RagnarEntities db = new RagnarEntities())
             {
-                if (camposValidos())
+                if (camposYDominioValidos())
                 {
-
-                    if (!validarDominio())
-                    {
-                        return;
-                    }
-
                     asignarEntidades(db);
-
                     WindowsFormUtils.guardarYCerrar(db, this);
                 }
             }
@@ -79,8 +72,8 @@ namespace PalcoNet.Views.Usuarios
         }
 
         protected abstract void asignarEntidades(RagnarEntities db);
-        protected abstract bool camposValidos();
-        protected abstract bool validarDominio();
+        protected abstract bool camposYDominioValidos();
+        protected abstract bool validarDominio(ref List<string> errores);
         protected abstract void mostrarPanelAdmin();
         protected abstract void cargarDatos();
         protected abstract TextBox textBoxCuil();

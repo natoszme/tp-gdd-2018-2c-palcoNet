@@ -110,5 +110,17 @@ namespace PalcoNet.Utils
                 throw new ValidationException("La nueva clave ingresada, no coincide con la repetición");
             }
         }
+
+        public static void validarError(Action validacion, ref List<string> errores)
+        {
+            try
+            {
+                validacion();
+            }
+            catch (ValidationException e)
+            {
+                errores.Add(e.Message);
+            }
+        }
     }
 }

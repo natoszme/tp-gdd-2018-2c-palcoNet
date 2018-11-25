@@ -101,54 +101,58 @@ namespace PalcoNet.Clientes
         }
 
         #region VALIDACIONES
-        override protected bool validarDominio()
-        {
-            try
+        override protected bool camposYDominioValidos() {
+            bool valido = true;
+            List<string> errores = new List<string>();
+
+            ValidationsUtils.validarError(() => ValidationsUtils.campoObligatorio(txtNombre, "nombre"), ref errores);
+            ValidationsUtils.validarError(() => ValidationsUtils.campoAlfabetico(txtNombre, "nombre"), ref errores);
+            ValidationsUtils.validarError(() => ValidationsUtils.campoObligatorio(txtApellido, "apellido"), ref errores);
+            ValidationsUtils.validarError(() => ValidationsUtils.campoAlfabetico(txtApellido, "apellido"), ref errores);
+            ValidationsUtils.validarError(() => ValidationsUtils.campoObligatorio(txtEmail, "mail"), ref errores);
+            ValidationsUtils.validarError(() => ValidationsUtils.emailValido(txtEmail, "mail"), ref errores);
+            ValidationsUtils.validarError(() => ValidationsUtils.campoLongitudEntre(txtTelefono, "telefono", 8, 11), ref errores);
+            ValidationsUtils.validarError(() => ValidationsUtils.campoNumericoYPositivo(txtTelefono, "telefono"), ref errores);
+            // TODO: validar que la fecha de nacimiento no puede ser posterior a la del archivo de configuracion
+            ValidationsUtils.validarError(() => ValidationsUtils.campoObligatorio(dtpFechaNacimiento, "fecha de nacimiento"), ref errores);
+            ValidationsUtils.validarError(() => ValidationsUtils.opcionObligatoria(cmbBxTipoDocumento, "tipo de documento"), ref errores);
+            ValidationsUtils.validarError(() => ValidationsUtils.campoLongitudFija(txtNroDocumento, "nro. de documento", 8), ref errores);
+            ValidationsUtils.validarError(() => ValidationsUtils.campoNumericoYPositivo(txtNroDocumento, "nro. de documento"), ref errores);
+            ValidationsUtils.validarError(() => ValidationsUtils.campoObligatorio(txtCuil, "CUIL"), ref errores);
+            ValidationsUtils.validarError(() => ValidationsUtils.cuilOCuitValido(txtCuil, "CUIL"), ref errores);
+            ValidationsUtils.validarError(() => ValidationsUtils.campoObligatorio(txtDireccion, "dirección"), ref errores);
+            ValidationsUtils.validarError(() => ValidationsUtils.campoObligatorio(txtPortal, "portal"), ref errores);
+            ValidationsUtils.validarError(() => ValidationsUtils.campoNumericoYPositivo(txtPortal, "portal"), ref errores);
+            ValidationsUtils.validarError(() => ValidationsUtils.campoObligatorio(txtNroPiso, "nro. piso"), ref errores);
+            ValidationsUtils.validarError(() => ValidationsUtils.campoNumericoYPositivo(txtNroPiso, "nro. piso"), ref errores);
+            ValidationsUtils.validarError(() => ValidationsUtils.campoObligatorio(txtDepto, "departamento"), ref errores);
+            ValidationsUtils.validarError(() => ValidationsUtils.campoObligatorio(txtLocalidad, "localidad"), ref errores);
+            ValidationsUtils.validarError(() => ValidationsUtils.campoAlfabetico(txtLocalidad, "localidad"), ref errores);
+            ValidationsUtils.validarError(() => ValidationsUtils.campoObligatorio(txtCodigoPostal, "codigo postal"), ref errores);
+
+            if (errores.Count() > 0)
             {
-                documentoNoRepetido();
-                cuilNoRepetido();
+                WindowsFormUtils.mostrarErrores(errores);
+                valido = false;
+            } else {
+                valido = validarDominio(ref errores);
             }
-            catch (ValidationException e)
-            {
-                WindowsFormUtils.mensajeDeError(e.Message);
-                return false;
-            }
-            return true;
+
+            return valido;
         }
 
-        override protected bool camposValidos() {
-            bool camposValidos = true;
-            try {
-                /*ValidationsUtils.campoObligatorio(txtNombre, "nombre");
-                ValidationsUtils.campoAlfabetico(txtNombre, "nombre");
-                ValidationsUtils.campoObligatorio(txtApellido, "apellido");
-                ValidationsUtils.campoAlfabetico(txtApellido, "apellido");
-                ValidationsUtils.campoObligatorio(txtEmail, "mail");
-                ValidationsUtils.emailValido(txtEmail, "mail");
-                ValidationsUtils.campoLongitudEntre(txtTelefono, "telefono", 8, 11);
-                ValidationsUtils.campoNumericoYPositivo(txtTelefono, "telefono");
-                // TODO: validar que la fecha de nacimiento no puede ser posterior a la del archivo de configuracion
-                ValidationsUtils.campoObligatorio(dtpFechaNacimiento, "fecha de nacimiento");
-                ValidationsUtils.opcionObligatoria(cmbBxTipoDocumento, "tipo de documento");
-                ValidationsUtils.campoLongitudFija(txtNroDocumento, "nro. de documento", 8);
-                ValidationsUtils.campoNumericoYPositivo(txtNroDocumento, "nro. de documento");
-                ValidationsUtils.campoObligatorio(txtCuil, "CUIL");
-                ValidationsUtils.cuilOCuitValido(txtCuil, "CUIL");
-                ValidationsUtils.campoObligatorio(txtDireccion, "dirección");
-                ValidationsUtils.campoObligatorio(txtPortal, "portal");
-                ValidationsUtils.campoNumericoYPositivo(txtPortal, "portal");
-                ValidationsUtils.campoObligatorio(txtNroPiso, "nro. piso");
-                ValidationsUtils.campoNumericoYPositivo(txtNroPiso, "nro. piso");
-                ValidationsUtils.campoObligatorio(txtDepto, "departamento");
-                ValidationsUtils.campoObligatorio(txtLocalidad, "localidad");
-                ValidationsUtils.campoAlfabetico(txtLocalidad, "localidad");
-                ValidationsUtils.campoObligatorio(txtCodigoPostal, "codigo postal");
-                validarTarjeta();*/
-            } catch(ValidationException e) {
-                WindowsFormUtils.mensajeDeError(e.Message);
-                camposValidos = false;
+        override protected bool validarDominio(ref List<string> errores)
+        {
+            ValidationsUtils.validarError(documentoNoRepetido, ref errores);
+            ValidationsUtils.validarError(cuilNoRepetido, ref errores);
+
+            if (errores.Count() > 0)
+            {
+                WindowsFormUtils.mostrarErrores(errores);
+                return false;
             }
-            return camposValidos;
+
+            return true;
         }
 
         private void documentoNoRepetido()
