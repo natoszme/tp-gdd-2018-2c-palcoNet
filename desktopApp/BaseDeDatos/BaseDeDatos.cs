@@ -103,5 +103,12 @@ namespace PalcoNet.BaseDeDatos
                .Where(funcionalidad => funcionalidad.descripcion.Equals(descripcionFuncionalidad))
                .FirstOrDefault();
         }
+
+        internal static Grado_publicacion gradoPorDescripcion(String nombreGrado)
+        {
+            return dbContext.Grado_publicacion
+                .Where(grado => grado.descripcion.Equals(nombreGrado))
+                .FirstOrDefault();
+        }
     }
 }

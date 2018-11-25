@@ -30,8 +30,8 @@
         {
             this.lblNombre = new System.Windows.Forms.Label();
             this.lblComision = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtDescripcion = new System.Windows.Forms.TextBox();
+            this.txtComision = new System.Windows.Forms.TextBox();
             this.btnVolver = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -41,9 +41,9 @@
             this.lblNombre.AutoSize = true;
             this.lblNombre.Location = new System.Drawing.Point(34, 32);
             this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(44, 13);
+            this.lblNombre.Size = new System.Drawing.Size(63, 13);
             this.lblNombre.TabIndex = 0;
-            this.lblNombre.Text = "Nombre";
+            this.lblNombre.Text = "Descripción";
             // 
             // lblComision
             // 
@@ -54,19 +54,19 @@
             this.lblComision.TabIndex = 1;
             this.lblComision.Text = "Comisión";
             // 
-            // textBox1
+            // txtDescripcion
             // 
-            this.textBox1.Location = new System.Drawing.Point(142, 29);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 3;
+            this.txtDescripcion.Location = new System.Drawing.Point(142, 29);
+            this.txtDescripcion.Name = "txtDescripcion";
+            this.txtDescripcion.Size = new System.Drawing.Size(100, 20);
+            this.txtDescripcion.TabIndex = 3;
             // 
-            // textBox2
+            // txtComision
             // 
-            this.textBox2.Location = new System.Drawing.Point(142, 82);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 4;
+            this.txtComision.Location = new System.Drawing.Point(142, 82);
+            this.txtComision.Name = "txtComision";
+            this.txtComision.Size = new System.Drawing.Size(100, 20);
+            this.txtComision.TabIndex = 4;
             // 
             // btnVolver
             // 
@@ -76,6 +76,7 @@
             this.btnVolver.TabIndex = 5;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
             // btnGuardar
             // 
@@ -85,6 +86,7 @@
             this.btnGuardar.TabIndex = 6;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // Formulario
             // 
@@ -93,8 +95,8 @@
             this.ClientSize = new System.Drawing.Size(288, 187);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.btnVolver);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtComision);
+            this.Controls.Add(this.txtDescripcion);
             this.Controls.Add(this.lblComision);
             this.Controls.Add(this.lblNombre);
             this.Name = "Formulario";
@@ -108,8 +110,8 @@
 
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.Label lblComision;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtDescripcion;
+        private System.Windows.Forms.TextBox txtComision;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Button btnGuardar;
     }
