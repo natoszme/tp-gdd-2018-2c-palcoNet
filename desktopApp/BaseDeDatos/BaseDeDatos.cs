@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PalcoNet.Model;
+using PalcoNet.Utils;
 
 namespace PalcoNet.BaseDeDatos
 {
