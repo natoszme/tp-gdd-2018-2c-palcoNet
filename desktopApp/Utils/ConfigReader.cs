@@ -14,6 +14,7 @@ namespace PalcoNet.Utils
         public static String SQLUsername { get; private set; }
         public static String SQLPassword { get; private set; }
         public static String SQLDatabase { get; private set; }
+        public static String SQLClient { get; private set; }
         public static String ConfigFile { get; set; }
 
         private static void obtenerArchivoConfig()
@@ -44,7 +45,14 @@ namespace PalcoNet.Utils
                     }
                     else
                     {
-                        SQLDatabase = linea;
+                        if (contador == 2)
+                        {
+                            SQLDatabase = linea;
+                        }
+                        else
+                        {
+                            SQLClient = linea;
+                        }
                     }
                 }
                 contador++;
@@ -63,7 +71,7 @@ namespace PalcoNet.Utils
 
             EntityConnectionStringBuilder constructorConeccion = new EntityConnectionStringBuilder();
             constructorConeccion.Provider = "System.Data.SqlClient";
-            constructorConeccion.ProviderConnectionString = @"data source=localhost\SQLSERVER2012;initial catalog=" + SQLDatabase + ";persist security info=True;user id=" + SQLUsername + ";password=" + SQLPassword + ";MultipleActiveResultSets=True;App=EntityFramework";
+            constructorConeccion.ProviderConnectionString = @"data source=" + SQLClient + ";initial catalog=" + SQLDatabase + ";persist security info=True;user id=" + SQLUsername + ";password=" + SQLPassword + ";MultipleActiveResultSets=True;App=EntityFramework";
             constructorConeccion.Metadata = "res://*/Model.EntityModel.csdl|res://*/Model.EntityModel.ssdl|res://*/Model.EntityModel.msl"; 
        
             return constructorConeccion.ToString();

@@ -1,3 +1,4 @@
 gdEspectaculos2018
 gd2018
 GD2C2018
+localhost\SQLSERVER2012
