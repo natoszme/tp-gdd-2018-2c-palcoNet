@@ -40,7 +40,10 @@ namespace PalcoNet.Empresas
             {
                 empresa = new Empresa();
             }
-
+            else
+            {
+                empresa = db.Empresa.Find(id);
+            }
             empresa.razon_social = txtRazonSocial.Text;
             empresa.mail = txtEmail.Text;
             empresa.telefono = txtTelefono.Text;
@@ -62,12 +65,6 @@ namespace PalcoNet.Empresas
             {
                 empresa.Usuario = UsuariosUtils.usuarioAAsignar(db, UsuariosUtils.generarUsername(empresa), empresa, Model.TipoRol.EMPRESA);
                 db.Empresa.Add(empresa);
-            }
-            else
-            {
-                //actualizamos tambien el usuario porque podria haber cambiado el checkbox de habilitado
-                db.Entry(empresa.Usuario).State = System.Data.Entity.EntityState.Modified;
-                db.Entry(empresa).State = System.Data.Entity.EntityState.Modified;
             }
         }
 
