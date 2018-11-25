@@ -63,6 +63,10 @@ namespace PalcoNet.Clientes
             {
                 cliente = new Cliente();
             }
+            else
+            {
+                cliente = db.Cliente.Find(id);
+            }
 
             cliente.nombre = txtNombre.Text;
             cliente.apellido = txtApellido.Text;
@@ -91,12 +95,6 @@ namespace PalcoNet.Clientes
             {
                 cliente.Usuario = UsuariosUtils.usuarioAAsignar(db, UsuariosUtils.generarUsername(cliente), cliente, Model.TipoRol.CLIENTE);
                 db.Cliente.Add(cliente);
-            }
-            else
-            {
-                //actualizamos tambien el usuario porque podria haber cambiado el checkbox de habilitado
-                db.Entry(cliente.Usuario).State = System.Data.Entity.EntityState.Modified;
-                db.Entry(cliente).State = System.Data.Entity.EntityState.Modified;
             }
         }
 
