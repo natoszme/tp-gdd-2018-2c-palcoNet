@@ -21,6 +21,8 @@ namespace PalcoNet.Usuarios
         public Login()
         {
             InitializeComponent();
+            DateTime fecha = ConfigReader.obtenerFecha();
+            Console.WriteLine(fecha);
         }
 
         private void btnIngresar_Click(object sender, EventArgs e)
