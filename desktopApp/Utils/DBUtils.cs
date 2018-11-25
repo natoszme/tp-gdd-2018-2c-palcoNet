@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PalcoNet.Model;
 using System.Data.Entity.Validation;
+using System.Data.Entity.Infrastructure;
 using PalcoNet.BaseDeDatos;
 
 namespace PalcoNet.Utils
@@ -35,6 +36,26 @@ namespace PalcoNet.Utils
                     }
                 }
                 throw;
+            }
+            catch (DbUpdateException dbu)
+            {
+                var builder = new StringBuilder("A DbUpdateException was caught while saving changes. ");
+
+                try
+                {
+                    foreach (var result in dbu.Entries)
+                    {
+                        builder.AppendFormat("Type: {0} was part of the problem. ", result.Entity.GetType().Name);
+                    }
+                }
+                catch (Exception e)
+                {
+                    builder.Append("Error parsing DbUpdateException: " + e.ToString());
+                }
+
+                string message = builder.ToString();
+
+                throw new Exception(message, dbu);
             }
         }
     }    
