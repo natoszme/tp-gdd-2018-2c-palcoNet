@@ -16,13 +16,24 @@ namespace PalcoNet.Roles
     {
         int id;
         Rol rol = new Rol();
+        List<String> funcionalidades = new List<String>();
 
         public Modificacion(int id)
         {
             this.id = id;
             InitializeComponent();
 
+            cargarCheckboxesFuncionalidads();
+
             cargarDatos();
+        }
+
+        private void cargarCheckboxesFuncionalidads()
+        {
+            foreach (object checkboxF in chkLstBxFuncionalidades.Items)
+            {
+                funcionalidades.Add(checkboxF.ToString());
+            }
         }
 
         private void panel2_Paint(object sender, PaintEventArgs e)
@@ -45,7 +56,7 @@ namespace PalcoNet.Roles
                     rol = db.Rol.Find(id);
                     txtNombre.Text = rol.nombre;
                     chkBxHabilitado.Checked = rol.habilitado;
-                    //checkearFuncionalidadesAsignadas();
+                    checkearFuncionalidadesAsignadas();
                     
                 }
                 catch (Exception)
@@ -53,6 +64,21 @@ namespace PalcoNet.Roles
                     WindowsFormUtils.mensajeDeError("Error al intentar cargar el rol");
                 }
             }
+        }
+
+        private void checkearFuncionalidadesAsignadas()
+        {
+            using (RagnarEntities db = new RagnarEntities())
+            {
+                List<Funcionalidad> funcionalidadesAsignadas = db.Rol.Where(r => r.id_rol == id).Select(r => r.Funcionalidad).FirstOrDefault().ToList();
+                funcionalidadesAsignadas.ForEach(f => { tildarCheck(f); });
+            }
+        }
+
+        private void tildarCheck(Funcionalidad f)
+        {
+            chkLstBxFuncionalidades.SetItemChecked(funcionalidades.IndexOf(f.descripcion), true);
+
         }
         #endregion
 
@@ -68,36 +94,19 @@ namespace PalcoNet.Roles
                         return;
                     }
 
-                    rol = db.Rol.SingleOrDefault(r => r.id_rol == id);
+                    //volvemos a hacer el find porque para que se actualice bien el rol, necestiamos este contexto
+                    rol = db.Rol.Find(id);
                     rol.nombre = txtNombre.Text;
                     rol.habilitado = chkBxHabilitado.Checked;
+
+                    //rol.Funcionalidad = BaseDeDatos.BaseDeDatos.obtenerFuncionalidadesPorDescripcion();
 
                     WindowsFormUtils.guardarYCerrar(db, this);
                 }
             }
         }
 
-        /*private RagnarEntities asignarEntidades(RagnarEntities db)
-        {
-            rol = new Rol();
 
-            rol.nombre = txtNombre.Text;
-            //rol.Funcionalidad.Add(BaseDeDatos.BaseDeDatos.obtenerFuncionalidadPorDescripcion(db, cmbBxFuncionalidad.SelectedItem.ToString()));
-            rol.habilitado = chkBxHabilitado.Checked;
-
-            /*actualizarAsignacionFuncionalidades(db);
-            db.Entry(rol).State = System.Data.Entity.EntityState.Modified;*/
-
-            /*return db;
-        }
-
-        private void actualizarAsignacionFuncionalidades(RagnarEntities db)
-        {
-            foreach (var rolFuncionalidad in rol.Funcionalidad)
-            {
-                db.Entry(rolFuncionalidad).State = System.Data.Entity.EntityState.Modified;
-            }
-        }*/
 
         #region VALIDACIONES
         private bool validarDominio()
