@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Model;
 using PalcoNet.Utils;
+using System.Data.Entity;
 
 namespace PalcoNet.Roles
 {
@@ -99,14 +100,31 @@ namespace PalcoNet.Roles
                     rol.nombre = txtNombre.Text;
                     rol.habilitado = chkBxHabilitado.Checked;
 
-                    //rol.Funcionalidad = BaseDeDatos.BaseDeDatos.obtenerFuncionalidadesPorDescripcion();
+                    funcionalidades.ForEach(f => {
+                        if (funcionalidadesSeleccionadas().Contains(f))
+                        {
+                            rol.Funcionalidad.Add(BaseDeDatos.BaseDeDatos.obtenerFuncionalidadPorDescripcion(db, f));
+                        }
+                        else
+                        {
+                            rol.Funcionalidad.Remove(BaseDeDatos.BaseDeDatos.obtenerFuncionalidadPorDescripcion(db, f));
+                        }
+                    });
 
                     WindowsFormUtils.guardarYCerrar(db, this);
                 }
             }
         }
 
-
+        private List<String> funcionalidadesSeleccionadas()
+        {
+            List<String> funcs = new List<String>();
+            foreach (object item in chkLstBxFuncionalidades.CheckedItems)
+            {
+                funcs.Add(item.ToString());
+            }
+            return funcs;
+        }
 
         #region VALIDACIONES
         private bool validarDominio()
