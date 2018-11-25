@@ -62,8 +62,11 @@ namespace PalcoNet
             List<Funcionalidad> funcionalidadesDisponibles = Global.rolUsuario.Funcionalidad.ToList();
             funcionalidadesDisponibles.ForEach(fDisp => {
 
-                int numeroBotonAMostrar = funcionalidadesTotales.IndexOf(fDisp.descripcion);
-                botonesTotales.ElementAt(numeroBotonAMostrar).Visible = true;
+                if (funcionalidadesTotales.Contains(fDisp.descripcion))
+                {
+                    int numeroBotonAMostrar = funcionalidadesTotales.IndexOf(fDisp.descripcion);
+                    botonesTotales.ElementAt(numeroBotonAMostrar).Visible = true;
+                }
                             
             });
         }

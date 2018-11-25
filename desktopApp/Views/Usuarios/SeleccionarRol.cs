@@ -17,7 +17,12 @@ namespace PalcoNet.Usuarios
         {
             InitializeComponent();
 
-            this.cmbBxRol.DataSource = BaseDeDatos.BaseDeDatos.obtenerRolesDelUsuario(Global.usuarioLogueado);
+            cargarRolesHabilitados();
+        }
+
+        private void cargarRolesHabilitados()
+        {
+            this.cmbBxRol.DataSource = BaseDeDatos.BaseDeDatos.obtenerRolesHabilitadosDelUsuario(Global.usuarioLogueado);
         }
 
         public bool tieneAlgunRol(Usuario usuario)

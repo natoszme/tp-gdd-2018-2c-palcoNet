@@ -23,9 +23,8 @@ namespace PalcoNet.BaseDeDatos
             return true;
         }
 
-        //TODO esto esta harcodeado, no deberia
-        public static List<string> obtenerRolesDelUsuario(Usuario usuario) {
-            return usuario.Rol.Select(rol => rol.nombre).ToList();
+        public static List<string> obtenerRolesHabilitadosDelUsuario(Usuario usuario) {
+            return usuario.Rol.Where(rol => rol.habilitado).Select(rol => rol.nombre).ToList();
         }
 
         public static bool existeUsuario(String username) {
