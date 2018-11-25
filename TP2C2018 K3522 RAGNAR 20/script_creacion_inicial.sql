@@ -188,12 +188,12 @@ BEGIN
 	DECLARE @Usuario varchar(50), @Clave varchar(32), @Habilitado bit, @Nuevo tinyint
 	IF(EXISTS (SELECT * FROM DELETED)) --/Es un update
 	BEGIN
-		DECLARE CUsuarios CURSOR FOR (SELECT I.usuario, I.clave, I.habilitado, I.es_nuevo FROM INSERTED as I JOIN DELETED as D ON (I.usuario = D.usuario AND I.habilitado = D.habilitado AND I.es_nuevo = D.es_nuevo))
+		DECLARE CUsuarios CURSOR FOR (SELECT I.usuario, I.clave, I.habilitado, I.es_nuevo FROM INSERTED as I)
 		OPEN CUsuarios
 		FETCH NEXT FROM CUsuarios INTO @Usuario, @Clave, @Habilitado, @Nuevo
 		WHILE @@FETCH_STATUS = 0
 		BEGIN
-			UPDATE RAGNAR.Usuario SET clave = RAGNAR.F_HasheoDeClave(@Clave) WHERE usuario = @Usuario
+			UPDATE RAGNAR.Usuario SET clave = RAGNAR.F_HasheoDeClave(@Clave), habilitado = @Habilitado, es_nuevo = @Nuevo WHERE usuario = @Usuario
 			FETCH NEXT FROM CUsuarios INTO @Usuario, @Clave, @Habilitado, @Nuevo
 		END
 		CLOSE CUsuarios
@@ -368,7 +368,6 @@ INSERT INTO RAGNAR.Estado_publicacion(descripcion) VALUES ('Finalizada')
 INSERT INTO RAGNAR.Rol(nombre, habilitado) VALUES ('Empresa',1)
 INSERT INTO RAGNAR.Rol(nombre, habilitado) VALUES ('Administrativo',1)
 INSERT INTO RAGNAR.Rol(nombre, habilitado) VALUES ('Cliente',1)
-INSERT INTO RAGNAR.Rol(nombre, habilitado) VALUES ('AdminParaTests',1)
 
 --/ Inserts de Funcionalidades /--
 
@@ -378,8 +377,7 @@ INSERT INTO RAGNAR.Funcionalidad(descripcion) VALUES ('ABM de Cliente')
 INSERT INTO RAGNAR.Funcionalidad(descripcion) VALUES ('ABM de Empresa de Espectaculos')
 INSERT INTO RAGNAR.Funcionalidad(descripcion) VALUES ('ABM de Rubro')
 INSERT INTO RAGNAR.Funcionalidad(descripcion) VALUES ('ABM de Grado de Publicacion')
-INSERT INTO RAGNAR.Funcionalidad(descripcion) VALUES ('Generar Publicacion')
-INSERT INTO RAGNAR.Funcionalidad(descripcion) VALUES ('Editar Publicacion')
+INSERT INTO RAGNAR.Funcionalidad(descripcion) VALUES ('ABM de Publicacion')
 INSERT INTO RAGNAR.Funcionalidad(descripcion) VALUES ('Comprar')
 INSERT INTO RAGNAR.Funcionalidad(descripcion) VALUES ('Historial de Cliente')
 INSERT INTO RAGNAR.Funcionalidad(descripcion) VALUES ('Canje y Administracion de Puntos')
@@ -388,37 +386,25 @@ INSERT INTO RAGNAR.Funcionalidad(descripcion) VALUES ('Listado estadistico')
 
 --/ Inserts de Funcionalidad_rol /--
 
-INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'ABM de Rol'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Administrativo'))
-INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Registro de Usuario'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Cliente'))
-INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Registro de Usuario'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Empresa'))
-INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'ABM de Cliente'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Administrativo'))
-INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'ABM de Empresa de Espectaculos'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Administrativo'))
-INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'ABM de Rubro'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Administrativo'))
-INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'ABM de Grado de Publicacion'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Empresa'))
-INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Generar Publicacion'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Empresa'))
-INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Editar Publicacion'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Empresa'))
-INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Comprar'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Cliente'))
-INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Historial de Cliente'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Cliente'))
-INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Canje y Administracion de Puntos'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Cliente'))
-INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Generar rendicion de comisiones'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Administrativo'))
-INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Listado estadistico'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Administrativo'))
-INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'ABM de Rol'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
-INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Registro de Usuario'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
-INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'ABM de Cliente'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
-INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'ABM de Empresa de Espectaculos'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
-INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'ABM de Rubro'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
-INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'ABM de Grado de Publicacion'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
-INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Generar Publicacion'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
-INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Editar Publicacion'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
-INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Comprar'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
-INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Historial de Cliente'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
-INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Canje y Administracion de Puntos'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
-INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Generar rendicion de comisiones'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
-INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol) VALUES ((SELECT id_funcionalidad FROM RAGNAR.Funcionalidad WHERE descripcion = 'Listado estadistico'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol)	
+	SELECT id_funcionalidad, (SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Cliente')
+	FROM RAGNAR.Funcionalidad
+	WHERE descripcion = 'Comprar' OR descripcion = 'Historial de Cliente' OR descripcion = 'Canje y Administracion de Puntos' OR descripcion = 'Registro de Usuario'
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol)
+	SELECT id_funcionalidad, (SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Empresa')
+	FROM RAGNAR.Funcionalidad
+	WHERE descripcion = 'ABM de Grado de Publicacion' OR descripcion = 'ABM de Publicacion' OR descripcion = 'Registro de Usuario'
+INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol)
+	SELECT id_funcionalidad, (SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Administrativo')
+	FROM RAGNAR.Funcionalidad
+	WHERE descripcion = 'ABM de Rol' OR descripcion = 'ABM de Cliente' OR descripcion = 'ABM de Empresa de Espectaculos' OR descripcion = 'ABM de Rubro' OR descripcion = 'Generar rendicion de comisiones' OR descripcion = 'Listado estadistico'
 
 --/ Inserts de roles de cada usuario /--
 
-INSERT INTO RAGNAR.Usuario_rol (id_usuario, id_rol) VALUES ((SELECT id_usuario FROM RAGNAR.Usuario WHERE usuario = 'Admin'),(SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'AdminParaTests'))
+INSERT INTO RAGNAR.Usuario_rol (id_usuario, id_rol) 
+	SELECT (SELECT id_usuario FROM RAGNAR.Usuario WHERE usuario = 'Admin'), id_rol
+	FROM RAGNAR.Rol
+	WHERE nombre = 'Cliente' OR nombre = 'Empresa' OR nombre = 'Administrativo'
 
 INSERT INTO RAGNAR.Usuario_rol (id_usuario, id_rol)
 	SELECT id_usuario, (SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Cliente')
@@ -621,6 +607,7 @@ GO
 /*ALTER TABLE UNIQUE PUBLICACION*/
 
 /* Triggers
+
 CREATE TRIGGER ValidarPasajeDeEstadoDelEspectaculo ON espectaculo
 INSTEAD OF UPDATE
 AS BEGIN
@@ -628,8 +615,10 @@ AS BEGIN
 			estadoAnterior = finalizado) BEGIN
 		RAISE ERROR
 	END
+
 	UPDATE espectaculo SET id_estado = (SELECT id_estado FROM INSERTED)
 END
+
 CREATE TRIGGER FinalizarEspectaculo ON compras
 AFTER INSERT
 AS BEGIN
@@ -638,4 +627,8 @@ AS BEGIN
 			WHERE id_espectaculo = (SELECT id_espectaculo FROM inserted)
 	END
 END
+
 */
+
+
+
