@@ -17,8 +17,7 @@ namespace PalcoNet.Usuarios
         {
             InitializeComponent();
 
-            List<TipoRol> roles = obtenerRolesDeId(Global.usuarioLogueado);
-            this.cmbBxRol.DataSource = roles;
+            this.cmbBxRol.DataSource = BaseDeDatos.BaseDeDatos.obtenerRolesDelUsuario(Global.usuarioLogueado);
         }
 
         public bool tieneAlgunRol(Usuario usuario)
@@ -26,18 +25,7 @@ namespace PalcoNet.Usuarios
             return BaseDeDatos.BaseDeDatos.tieneAlgunRol(usuario);
         }
 
-        List<TipoRol> obtenerRolesDeId(Usuario usuario)
-        {
-            List<TipoRol> roles = new List<TipoRol>();
-            return obtenerRolesPorIdEnTexto(usuario).Select(rol => convertirStringARol(rol)).ToList();
-        }
-
-        private List<String> obtenerRolesPorIdEnTexto(Usuario usuario)
-        {
-            return BaseDeDatos.BaseDeDatos.obtenerRolesDelUsuario(usuario);     
-        }
-
-        private void redirijirA(TipoRol rol) {
+        private void redirijirA(Rol rol) {
             Global.rolUsuario = rol;
             this.Hide();
             new Home().Show();
@@ -48,31 +36,9 @@ namespace PalcoNet.Usuarios
             redirijirA(convertirStringARol(cmbBxRol.Text));
         }
 
-        TipoRol convertirStringARol(String texto)
+        private Rol convertirStringARol(String rolSeleccionado)
         {
-            TipoRol tipo;
-
-            switch (texto)
-            {
-                case "Administrativo":
-                {
-                    tipo = TipoRol.ADMINISTRATIVO;
-                } break;
-                case "Cliente":
-                {
-                    tipo = TipoRol.CLIENTE;
-                } break;
-                case "Empresa":
-                {
-                    tipo = TipoRol.EMPRESA;
-                } break;
-                default:
-                {
-                    throw new Exception("No existe ese rol");
-                };
-            }
-
-            return tipo;
+            return BaseDeDatos.BaseDeDatos.rolPorNombre(rolSeleccionado);
         }
 
         private void SeleccionarRol_Load(object sender, EventArgs e)

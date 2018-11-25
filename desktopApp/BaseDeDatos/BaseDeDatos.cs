@@ -24,12 +24,8 @@ namespace PalcoNet.BaseDeDatos
         }
 
         //TODO esto esta harcodeado, no deberia
-        public static List<String> obtenerRolesDelUsuario(Usuario usuario) {
-            List<String> roles = new List<string>();
-            roles.Add("Cliente");
-            roles.Add("Administrativo");
-            roles.Add("Empresa");
-            return roles;
+        public static List<string> obtenerRolesDelUsuario(Usuario usuario) {
+            return usuario.Rol.Select(rol => rol.nombre).ToList();
         }
 
         public static bool existeUsuario(String username) {
@@ -83,11 +79,6 @@ namespace PalcoNet.BaseDeDatos
         {
             if (db == null) return dbContext;
             return db;
-        }
-
-        internal static void guardarCliente(RagnarEntities db)
-        {
-            Utils.DBUtils.guardar(db);
         }
 
         internal static Rol rolPorNombre(String nombreRol)

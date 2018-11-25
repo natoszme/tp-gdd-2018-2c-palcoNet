@@ -101,7 +101,6 @@
             "Registro de Usuario",
             "ABM de Cliente",
             "ABM de Empresa de Espectaculos",
-            "ABM de Rubro",
             "ABM de Grado de Publicacion",
             "Generar Publicacion",
             "Editar Publicacion",

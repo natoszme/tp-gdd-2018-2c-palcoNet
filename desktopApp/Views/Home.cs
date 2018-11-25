@@ -7,14 +7,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PalcoNet.Model;
 
 namespace PalcoNet
 {
     public partial class Home : Form
     {
+        private List<String> funcionalidadesTotales = new List<String>();
+        private List<Button> botonesTotales = new List<Button>();
+
         public Home()
         {
             InitializeComponent();
+            cargarFuncionalidadesDisponibles();
+        }
+
+        private void cargarFuncionalidadesDisponibles()
+        {
+            funcionalidadesTotales.Add("ABM de Rol");
+            botonesTotales.Add(btnAbmRol);
+            funcionalidadesTotales.Add("ABM de Cliente");
+            botonesTotales.Add(btnAbmClientes);
+            funcionalidadesTotales.Add("ABM de Empresa de Espectaculos");
+            botonesTotales.Add(btnAbmEmpresa);
+            funcionalidadesTotales.Add("ABM de Grado de Publicacion");
+            botonesTotales.Add(btnAbmGrado);
+            funcionalidadesTotales.Add("ABM de Publicaciones");
+            botonesTotales.Add(btnAbmPublicaciones);
+            funcionalidadesTotales.Add("Comprar");
+            botonesTotales.Add(btnComprar);
+            funcionalidadesTotales.Add("Historial de Cliente");
+            botonesTotales.Add(btnHistorial);
+            funcionalidadesTotales.Add("Canje y Administracion de Puntos");
+            botonesTotales.Add(btnCanjePuntos);
+            funcionalidadesTotales.Add("Generar rendicion de comisiones");
+            botonesTotales.Add(btnRendicionComisiones);
+            funcionalidadesTotales.Add("Listado estadistico");
+            botonesTotales.Add(btnListadoEstadistico);
         }
 
         private void Home_Load(object sender, EventArgs e)
@@ -30,7 +59,13 @@ namespace PalcoNet
 
         public void habilitarBotonesFuncionalidades()
         {
+            List<Funcionalidad> funcionalidadesDisponibles = Global.rolUsuario.Funcionalidad.ToList();
+            funcionalidadesDisponibles.ForEach(fDisp => {
 
+                int numeroBotonAMostrar = funcionalidadesTotales.IndexOf(fDisp.descripcion);
+                botonesTotales.ElementAt(numeroBotonAMostrar).Visible = true;
+                            
+            });
         }
 
         private void btnAbmRol_Click(object sender, EventArgs e)

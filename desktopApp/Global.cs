@@ -10,7 +10,7 @@ namespace PalcoNet
     public static class Global
     {
         public static Usuario usuarioLogueado {get; set;}
-        public static TipoRol rolUsuario { get; set; }
+        public static Rol rolUsuario { get; set; }
         
         public static Usuario usuarioGenerado { get; set; }
 
