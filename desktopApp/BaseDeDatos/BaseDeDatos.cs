@@ -51,6 +51,13 @@ namespace PalcoNet.BaseDeDatos
                 .FirstOrDefault();
         }
 
+        internal static Empresa empresaPorCuit(String cuit)
+        {
+            return dbContext.Empresa
+                .Where(empresa => empresa.cuit.Equals(cuit))
+                .FirstOrDefault();
+        }
+
         internal static Rol obtenerRol(TipoRol nombreRol)
         {
             return dbContext.Rol

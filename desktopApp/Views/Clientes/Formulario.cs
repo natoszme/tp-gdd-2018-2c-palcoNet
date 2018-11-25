@@ -114,6 +114,18 @@ namespace PalcoNet.Clientes
             return true;
         }
 
+        protected void cuilNoRepetido()
+        {
+            Cliente otroCliente = BaseDeDatos.BaseDeDatos.clientePorCuil(txtCuil.Text);
+            if (otroCliente != null)
+            {
+                if ((editando() && id != otroCliente.id_usuario) || !editando())
+                {
+                    throw new ValidationException("Ya existe otro cliente con este cuil");
+                }
+            }
+        }
+
         override protected bool camposValidos() {
             bool camposValidos = true;
             try {
@@ -236,11 +248,6 @@ namespace PalcoNet.Clientes
             ).ToList();
             cmbBxTipoDocumento.ValueMember = "value";
             cmbBxTipoDocumento.DisplayMember = "text";
-        }
-
-        protected override TextBox textBoxCuil()
-        {
-            return txtCuil;
         }
 
         private void btnVolver_Click(object sender, EventArgs e)

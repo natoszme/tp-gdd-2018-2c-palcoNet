@@ -73,7 +73,7 @@ namespace PalcoNet.Empresas
         {
             try
             {
-                cuilNoRepetido();
+                cuitNoRepetido();
             }
             catch (ValidationException e)
             {
@@ -81,6 +81,18 @@ namespace PalcoNet.Empresas
                 return false;
             }
             return true;
+        }
+
+        protected void cuitNoRepetido()
+        {
+            Empresa otraEmpresa = BaseDeDatos.BaseDeDatos.empresaPorCuit(txtCuit.Text);
+            if (otraEmpresa != null)
+            {
+                if ((editando() && id != otraEmpresa.id_usuario) || !editando())
+                {
+                    throw new ValidationException("Ya existe otra empresa con este cuit");
+                }
+            }
         }
 
         override protected bool camposValidos()
@@ -149,11 +161,6 @@ namespace PalcoNet.Empresas
         override protected void mostrarPanelAdmin()
         {
             pnlDatosUsuario.Visible = true;
-        }
-
-        protected override TextBox textBoxCuil()
-        {
-            return txtCuit;
         }
 
         private void btnVolver_Click_1(object sender, EventArgs e)
