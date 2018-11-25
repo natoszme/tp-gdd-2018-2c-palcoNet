@@ -14,7 +14,7 @@ namespace PalcoNet.BaseDeDatos
         public static Usuario obtenerUsuarioPorCredenciales(String usuario, String password) {
             return dbContext.Usuario
                     .Where(user => user.usuario.Equals(usuario))
-                    .Where(user => user.clave.Equals(password))
+                    .Where(user => user.clave.Equals(F_HasheoDeClave(password)))
                     .FirstOrDefault();
         }
 
@@ -100,5 +100,14 @@ namespace PalcoNet.BaseDeDatos
                 .Where(grado => grado.descripcion.Equals(nombreGrado))
                 .FirstOrDefault();
         }
+
+        #region SQLFunctions
+        // Sirve para usar la funcion generada desde SQL
+        [System.Data.Entity.DbFunction("RagnarModel.Store", "F_HasheoDeClave")]
+        public static string F_HasheoDeClave(string password)
+        {
+            throw new NotSupportedException("Direct calls are not supported.");
+        }
+        #endregion  
     }
 }

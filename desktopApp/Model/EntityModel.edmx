@@ -536,6 +536,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+      <Function Name="F_HasheoDeClave" ReturnType="varchar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="RAGNAR">
+        <Parameter Name="Clave" Type="varchar" Mode="In" />
+      </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
