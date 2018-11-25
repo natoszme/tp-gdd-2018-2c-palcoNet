@@ -20,28 +20,24 @@ namespace PalcoNet.Usuarios
         }
 
         #region VALIDACIONES
-        private bool camposValidos() {
-            bool camposValidos = true;
-            try {
-                ValidationsUtils.campoObligatorio(txtClaveActual, "contraseña actual");
-                ValidationsUtils.campoObligatorio(txtNuevaClave, "nueva contraseña");
-                ValidationsUtils.campoObligatorio(txtRepetirClave, "repetir contraseña");
-                ValidationsUtils.clavesCoincidentes(txtNuevaClave, txtRepetirClave);
-            } catch (ValidationException e) {
-                WindowsFormUtils.mensajeDeError(e.Message);
-                camposValidos = false;
-            }
-            return camposValidos;
-        }
+        private bool camposYDominioValidos()
+        {
+            bool valido = true;
+            List<string> errores = new List<string>();
 
-        private bool validarDominio() {
-            try {
-                claveActualExistente();
-            } catch (ValidationException e) {
-                WindowsFormUtils.mensajeDeError(e.Message);
-                return false;
+            ValidationsUtils.validarError(() => ValidationsUtils.campoObligatorio(txtClaveActual, "contraseña actual"), ref errores);
+            ValidationsUtils.validarError(() => ValidationsUtils.campoObligatorio(txtNuevaClave, "nueva contraseña"), ref errores);
+            ValidationsUtils.validarError(() => ValidationsUtils.campoObligatorio(txtRepetirClave, "repetir contraseña"), ref errores);
+            ValidationsUtils.validarError(() => ValidationsUtils.clavesCoincidentes(txtNuevaClave, txtRepetirClave), ref errores);
+
+            ValidationsUtils.validarError(claveActualExistente, ref errores);
+            
+            if (errores.Count() > 0) {
+                WindowsFormUtils.mostrarErrores(errores);
+                valido = false;
             }
-            return true;
+
+            return valido;
         }
 
         private void claveActualExistente() {
@@ -59,17 +55,9 @@ namespace PalcoNet.Usuarios
 
         private void btnCambiar_Click(object sender, EventArgs e)
         {
-            if (camposValidos())
+            if (camposYDominioValidos())
             {
-                if (!validarDominio()) return;
-
-                using (RagnarEntities db = new RagnarEntities())
-                {
-                    Usuario usuario = db.Usuario.Find(Global.usuarioLogueado.id_usuario);
-                    usuario.clave = txtNuevaClave.Text;
-                    db.Entry(usuario).State = System.Data.Entity.EntityState.Modified;
-                    WindowsFormUtils.guardarYCerrar(db, this, new Home());
-                }
+                BaseDeDatos.BaseDeDatos.modificarClave(Global.usuarioLogueado, txtNuevaClave.Text, this);
             }
         }
     }
