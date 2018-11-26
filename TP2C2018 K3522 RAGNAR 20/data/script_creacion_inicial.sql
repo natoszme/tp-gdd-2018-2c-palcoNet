@@ -192,13 +192,18 @@ BEGIN
 	DECLARE @Usuario varchar(50), @Clave varchar(32), @Habilitado bit, @Nuevo tinyint
 	IF(EXISTS (SELECT * FROM DELETED)) --/Es un update
 	BEGIN
-		DECLARE CUsuarios CURSOR FOR (SELECT I.usuario, I.clave, I.habilitado, I.es_nuevo FROM INSERTED as I)
+		DECLARE @IdUsuario bigint, @ClaveAnterior varchar(32)
+		DECLARE CUsuarios CURSOR FOR (SELECT I.id_usuario, I.usuario, I.clave, I.habilitado, I.es_nuevo, D.clave FROM INSERTED as I JOIN DELETED D ON I.id_usuario = D.id_usuario)
 		OPEN CUsuarios
-		FETCH NEXT FROM CUsuarios INTO @Usuario, @Clave, @Habilitado, @Nuevo
+		FETCH NEXT FROM CUsuarios INTO @IdUsuario, @Usuario, @Clave, @Habilitado, @Nuevo, @ClaveAnterior
 		WHILE @@FETCH_STATUS = 0
 		BEGIN
-			UPDATE RAGNAR.Usuario SET clave = RAGNAR.F_HasheoDeClave(@Clave), habilitado = @Habilitado, es_nuevo = @Nuevo WHERE usuario = @Usuario
-			FETCH NEXT FROM CUsuarios INTO @Usuario, @Clave, @Habilitado, @Nuevo
+			IF (@Clave <> @ClaveAnterior) BEGIN
+				UPDATE RAGNAR.Usuario SET usuario = @Usuario, clave = RAGNAR.F_HasheoDeClave(@Clave), habilitado = @Habilitado, es_nuevo = @Nuevo WHERE id_usuario = @IdUsuario
+			END ELSE BEGIN 
+				UPDATE RAGNAR.Usuario SET usuario = @Usuario, habilitado = @Habilitado, es_nuevo = @Nuevo WHERE id_usuario = @IdUsuario
+			END
+			FETCH NEXT FROM CUsuarios INTO @IdUsuario, @Usuario, @Clave, @Habilitado, @Nuevo, @ClaveAnterior
 		END
 		CLOSE CUsuarios
 		DEALLOCATE CUsuarios
