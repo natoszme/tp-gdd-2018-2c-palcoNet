@@ -210,11 +210,13 @@ BEGIN
 		FETCH NEXT FROM CUsuarios INTO @Usuario, @Clave, @Habilitado, @Nuevo
 		WHILE @@FETCH_STATUS = 0
 		BEGIN
-			INSERT INTO RAGNAR.Usuario(usuario, clave, habilitado, es_nuevo) VALUES (@Usuario, RAGNAR.F_HasheoDeClave(@Clave), @Habilitado, @Nuevo)
+			INSERT INTO RAGNAR.Usuario (usuario, clave, habilitado, es_nuevo) VALUES (@Usuario, RAGNAR.F_HasheoDeClave(@Clave), @Habilitado, @Nuevo)
 			FETCH NEXT FROM CUsuarios INTO @Usuario, @Clave, @Habilitado, @Nuevo
 		END
 		CLOSE CUsuarios
 		DEALLOCATE CUsuarios
+
+	    SELECT SCOPE_IDENTITY() AS 'id_usuario'
 	END
 END
 GO
