@@ -35,16 +35,9 @@ namespace PalcoNet.Views.Usuarios
         {
             using (RagnarEntities db = new RagnarEntities())
             {
-                if (camposValidos())
+                if (camposYDominioValidos())
                 {
-
-                    if (!validarDominio())
-                    {
-                        return;
-                    }
-
                     asignarEntidades(db);
-
                     WindowsFormUtils.guardarYCerrar(db, this);
                 }
             }
@@ -66,10 +59,23 @@ namespace PalcoNet.Views.Usuarios
             return SessionUtils.esAdmin() && editando();
         }
 
+        protected void cuilNoRepetido()
+        {
+            Cliente otroCliente = BaseDeDatos.BaseDeDatos.clientePorCuil(textBoxCui().Text);
+            if (otroCliente != null)
+            {
+                if ((editando() && id != otroCliente.id_usuario) || !editando())
+                {
+                    throw new ValidationException("Ya existe otro cliente con este cuil");
+                }
+            }
+        }
+
         protected abstract void asignarEntidades(RagnarEntities db);
-        protected abstract bool camposValidos();
-        protected abstract bool validarDominio();
+        protected abstract bool camposYDominioValidos();
+        protected abstract bool validarDominio(ref List<string> errores);
         protected abstract void mostrarPanelAdmin();
         protected abstract void cargarDatos();
+        protected abstract TextBox textBoxCui();
     }
 }

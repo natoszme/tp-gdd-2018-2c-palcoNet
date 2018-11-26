@@ -33,8 +33,9 @@ namespace PalcoNet.Clientes
 
                 var compras = comprasDeCliente.Select(c => new
                 {
-                    //TODO agregar el total de la compra
-                    razon_social = c.Empresa.razon_social,
+                    // TODO: agregar el total de la compra
+                    // TODO: ver que este bien corregido
+                    razon_social = c.Ubicacion_publicacion.First().Publicacion.Empresa.razon_social,
                     tarjeta_utilizada = c.tarjeta_utilizada,
                     fecha = c.fecha
                 }).OrderBy(c => c.fecha);

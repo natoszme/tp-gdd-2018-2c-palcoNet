@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PalcoNet.Model;
 using PalcoNet.Utils;
+using System.Windows.Forms;
 
 namespace PalcoNet.BaseDeDatos
 {
@@ -25,7 +26,8 @@ namespace PalcoNet.BaseDeDatos
         }
 
         public static List<string> obtenerRolesHabilitadosDelUsuario(Usuario usuario) {
-            return usuario.Rol.Where(rol => rol.habilitado).Select(rol => rol.nombre).ToList();
+            // TODO: ver si esta bien resuelto
+            return usuario.Usuario_rol.Where(u_r => u_r.habilitado).Select(u_r => u_r.Rol.nombre).ToList();
         }
 
         public static bool existeUsuario(String username) {
@@ -61,15 +63,23 @@ namespace PalcoNet.BaseDeDatos
                 .FirstOrDefault();
         }
 
-        public static Usuario insertarYObtenerUsuario(String username, String pass, TipoRol rol)
+        public static Usuario insertarYObtenerUsuario(String username, String pass, TipoRol tipoRol)
         {
             Usuario usuario = new Usuario();
             usuario.usuario = username;
             usuario.clave = pass;
             usuario.habilitado = true;
-            usuario.Rol.Add(obtenerRol(rol));
+
+            Rol rol = obtenerRol(tipoRol);
+
+            Usuario_rol usuario_rol = new Usuario_rol()
+            {
+                Usuario = usuario,
+                Rol = rol
+            };
 
             dbContext.Usuario.Add(usuario);
+            dbContext.Usuario_rol.Add(usuario_rol);
             Utils.DBUtils.guardar(dbContext);
 
             return usuario;
@@ -109,6 +119,18 @@ namespace PalcoNet.BaseDeDatos
         {
             throw new NotSupportedException("Direct calls are not supported.");
         }
-        #endregion  
+        #endregion       
+    
+        internal static void modificarClave(Usuario usuario, string pass, Form formContext)
+        {
+            modificarClave(usuario, pass, formContext, dbContext);
+        }
+
+        internal static void modificarClave(Usuario usuario, string pass, Form formContext, RagnarEntities db)
+        {
+            usuario.clave = pass;
+            db.Entry(usuario).State = System.Data.Entity.EntityState.Modified;
+            Utils.WindowsFormUtils.guardarYCerrar(formContext, new Home());
+        }
     }
 }

@@ -23,30 +23,29 @@ namespace PalcoNet.Usuarios
         #region VALIDACIONES
         private bool camposValidos()
         {
-            bool camposValidos = true;
-            try
+            bool valido = true;
+            List<string> errores = new List<string>();
+
+            ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtNuevaClave, "nueva contraseña"), ref errores);
+            ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtRepetirClave, "repetir contraseña"), ref errores);
+            ValidationsUtils.hayError(() => ValidationsUtils.clavesCoincidentes(txtNuevaClave, txtRepetirClave), ref errores);
+
+            if (errores.Count() > 0)
             {
-                ValidationsUtils.campoObligatorio(txtNuevaClave, "nueva contraseña");
-                ValidationsUtils.campoObligatorio(txtRepetirClave, "repetir contraseña");
-                ValidationsUtils.clavesCoincidentes(txtNuevaClave, txtRepetirClave);
+                WindowsFormUtils.mostrarErrores(errores);
+                valido = false;
             }
-            catch (ValidationException e)
-            {
-                WindowsFormUtils.mensajeDeError(e.Message);
-                camposValidos = false;
-            }
-            return camposValidos;
+
+            return valido;
         }
         #endregion
 
         private void btnCambiar_Click(object sender, EventArgs e)
         {
             using (RagnarEntities db = new RagnarEntities()) {
-                Usuario usuarioAModificar = db.Usuario.Find(id);
                 
                 if (camposValidos()) {
-                    usuarioAModificar.clave = txtNuevaClave.Text;
-                    WindowsFormUtils.guardarYCerrar(db, this);
+                    BaseDeDatos.BaseDeDatos.modificarClave(db.Usuario.Find(id), txtNuevaClave.Text, this, db);
                 }
             }            
         }

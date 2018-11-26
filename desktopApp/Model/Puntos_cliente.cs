@@ -16,7 +16,7 @@ namespace PalcoNet.Model
     {
         public long id_puntaje { get; set; }
         public Nullable<long> id_cliente { get; set; }
-        public Nullable<int> puntos { get; set; }
+        public int puntos { get; set; }
         public System.DateTime vencimiento { get; set; }
     
         public virtual Cliente Cliente { get; set; }

@@ -38,6 +38,12 @@ namespace PalcoNet.Utils
             MessageBox.Show(error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
+        public static void mostrarErrores(List<string> errores) {
+            errores = errores.Select(error => "- " + error).ToList();
+            string erroresAMostrar = String.Join("\n", errores);
+            mensajeDeError(erroresAMostrar);
+        }
+
         public static void volverALaHome(Control context) {
             context.Hide();
             new Home().Show();

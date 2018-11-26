@@ -16,19 +16,15 @@ namespace PalcoNet.Model
     {
         public Compra()
         {
-            this.Item_factura = new HashSet<Item_factura>();
             this.Ubicacion_publicacion = new HashSet<Ubicacion_publicacion>();
         }
     
         public long id_compra { get; set; }
         public long id_cliente { get; set; }
-        public long id_empresa { get; set; }
         public System.DateTime fecha { get; set; }
         public string tarjeta_utilizada { get; set; }
     
         public virtual Cliente Cliente { get; set; }
-        public virtual Empresa Empresa { get; set; }
-        public virtual ICollection<Item_factura> Item_factura { get; set; }
         public virtual ICollection<Ubicacion_publicacion> Ubicacion_publicacion { get; set; }
     }
 }

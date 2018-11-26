@@ -15,11 +15,9 @@ namespace PalcoNet.Model
     
     public partial class RagnarEntities : DbContext
     {
-        private string p;
-
-        public RagnarEntities() : base(Utils.ConfigReader.connectionString())
+        public RagnarEntities()
+            : base("name=RagnarEntities")
         {
-
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -44,5 +42,6 @@ namespace PalcoNet.Model
         public DbSet<Tipo_ubicacion> Tipo_ubicacion { get; set; }
         public DbSet<Ubicacion_publicacion> Ubicacion_publicacion { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
+        public DbSet<Usuario_rol> Usuario_rol { get; set; }
     }
 }

@@ -16,7 +16,6 @@ namespace PalcoNet.Model
     {
         public Empresa()
         {
-            this.Compra = new HashSet<Compra>();
             this.Publicacion = new HashSet<Publicacion>();
         }
     
@@ -32,9 +31,8 @@ namespace PalcoNet.Model
         public string departamento { get; set; }
         public string localidad { get; set; }
         public string codigo_postal { get; set; }
-        public System.DateTime fecha_creacion { get; set; }
+        public Nullable<System.DateTime> fecha_creacion { get; set; }
     
-        public virtual ICollection<Compra> Compra { get; set; }
         public virtual Usuario Usuario { get; set; }
         public virtual ICollection<Publicacion> Publicacion { get; set; }
     }

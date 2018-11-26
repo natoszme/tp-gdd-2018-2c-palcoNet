@@ -15,12 +15,7 @@
           <EntitySet Name="Funcionalidad_rol" EntityType="RagnarModel.Store.Funcionalidad_rol" store:Type="Tables" Schema="RAGNAR" />
           <EntitySet Name="Grado_publicacion" EntityType="RagnarModel.Store.Grado_publicacion" store:Type="Tables" Schema="RAGNAR" />
           <EntitySet Name="Item_factura" EntityType="RagnarModel.Store.Item_factura" store:Type="Tables" Schema="RAGNAR" />
-          <EntitySet Name="Login_fallido" EntityType="RagnarModel.Store.Login_fallido" store:Type="Tables" store:Schema="RAGNAR" store:Name="Login_fallido">
-            <DefiningQuery>SELECT 
-      [Login_fallido].[id_usuario] AS [id_usuario], 
-      [Login_fallido].[nro_intento] AS [nro_intento]
-      FROM [RAGNAR].[Login_fallido] AS [Login_fallido]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="Login_fallido" EntityType="RagnarModel.Store.Login_fallido" store:Type="Tables" Schema="RAGNAR" />
           <EntitySet Name="Premio" EntityType="RagnarModel.Store.Premio" store:Type="Tables" Schema="RAGNAR" />
           <EntitySet Name="Publicacion" EntityType="RagnarModel.Store.Publicacion" store:Type="Tables" Schema="RAGNAR" />
           <EntitySet Name="Puntos_cliente" EntityType="RagnarModel.Store.Puntos_cliente" store:Type="Tables" Schema="RAGNAR" />
@@ -30,79 +25,75 @@
           <EntitySet Name="Ubicacion_publicacion" EntityType="RagnarModel.Store.Ubicacion_publicacion" store:Type="Tables" Schema="RAGNAR" />
           <EntitySet Name="Usuario" EntityType="RagnarModel.Store.Usuario" store:Type="Tables" Schema="RAGNAR" />
           <EntitySet Name="Usuario_rol" EntityType="RagnarModel.Store.Usuario_rol" store:Type="Tables" Schema="RAGNAR" />
-          <AssociationSet Name="FK__Cliente__id_usua__36B12243" Association="RagnarModel.Store.FK__Cliente__id_usua__36B12243">
+          <AssociationSet Name="FK__Cliente__id_usua__2B3F6F97" Association="RagnarModel.Store.FK__Cliente__id_usua__2B3F6F97">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Cliente" EntitySet="Cliente" />
           </AssociationSet>
-          <AssociationSet Name="FK__Compra__id_clien__5165187F" Association="RagnarModel.Store.FK__Compra__id_clien__5165187F">
+          <AssociationSet Name="FK__Compra__id_clien__49C3F6B7" Association="RagnarModel.Store.FK__Compra__id_clien__49C3F6B7">
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="Compra" EntitySet="Compra" />
           </AssociationSet>
-          <AssociationSet Name="FK__Compra__id_empre__52593CB8" Association="RagnarModel.Store.FK__Compra__id_empre__52593CB8">
-            <End Role="Empresa" EntitySet="Empresa" />
-            <End Role="Compra" EntitySet="Compra" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Empresa__id_usua__3C69FB99" Association="RagnarModel.Store.FK__Empresa__id_usua__3C69FB99">
+          <AssociationSet Name="FK__Empresa__id_usua__31EC6D26" Association="RagnarModel.Store.FK__Empresa__id_usua__31EC6D26">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Empresa" EntitySet="Empresa" />
           </AssociationSet>
-          <AssociationSet Name="FK__Funcional__id_fu__29572725" Association="RagnarModel.Store.FK__Funcional__id_fu__29572725">
+          <AssociationSet Name="FK__Funcional__id_fu__1B0907CE" Association="RagnarModel.Store.FK__Funcional__id_fu__1B0907CE">
             <End Role="Funcionalidad" EntitySet="Funcionalidad" />
             <End Role="Funcionalidad_rol" EntitySet="Funcionalidad_rol" />
           </AssociationSet>
-          <AssociationSet Name="FK__Funcional__id_ro__286302EC" Association="RagnarModel.Store.FK__Funcional__id_ro__286302EC">
+          <AssociationSet Name="FK__Funcional__id_ro__1A14E395" Association="RagnarModel.Store.FK__Funcional__id_ro__1A14E395">
             <End Role="Rol" EntitySet="Rol" />
             <End Role="Funcionalidad_rol" EntitySet="Funcionalidad_rol" />
           </AssociationSet>
-          <AssociationSet Name="FK__Item_fact__id_co__5BE2A6F2" Association="RagnarModel.Store.FK__Item_fact__id_co__5BE2A6F2">
-            <End Role="Compra" EntitySet="Compra" />
-            <End Role="Item_factura" EntitySet="Item_factura" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Item_fact__id_fa__5CD6CB2B" Association="RagnarModel.Store.FK__Item_fact__id_fa__5CD6CB2B">
+          <AssociationSet Name="FK__Item_fact__id_fa__71D1E811" Association="RagnarModel.Store.FK__Item_fact__id_fa__71D1E811">
             <End Role="Factura" EntitySet="Factura" />
             <End Role="Item_factura" EntitySet="Item_factura" />
           </AssociationSet>
-          <AssociationSet Name="FK__Login_fal__id_us__32E0915F" Association="RagnarModel.Store.FK__Login_fal__id_us__32E0915F">
+          <AssociationSet Name="FK__Item_fact__id_ub__70DDC3D8" Association="RagnarModel.Store.FK__Item_fact__id_ub__70DDC3D8">
+            <End Role="Ubicacion_publicacion" EntitySet="Ubicacion_publicacion" />
+            <End Role="Item_factura" EntitySet="Item_factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Login_fal__id_us__276EDEB3" Association="RagnarModel.Store.FK__Login_fal__id_us__276EDEB3">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Login_fallido" EntitySet="Login_fallido" />
           </AssociationSet>
-          <AssociationSet Name="FK__Publicaci__id_em__4BAC3F29" Association="RagnarModel.Store.FK__Publicaci__id_em__4BAC3F29">
+          <AssociationSet Name="FK__Publicaci__id_em__440B1D61" Association="RagnarModel.Store.FK__Publicaci__id_em__440B1D61">
             <End Role="Empresa" EntitySet="Empresa" />
             <End Role="Publicacion" EntitySet="Publicacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Publicaci__id_es__4CA06362" Association="RagnarModel.Store.FK__Publicaci__id_es__4CA06362">
+          <AssociationSet Name="FK__Publicaci__id_es__44FF419A" Association="RagnarModel.Store.FK__Publicaci__id_es__44FF419A">
             <End Role="Estado_publicacion" EntitySet="Estado_publicacion" />
             <End Role="Publicacion" EntitySet="Publicacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Publicaci__id_gr__4AB81AF0" Association="RagnarModel.Store.FK__Publicaci__id_gr__4AB81AF0">
+          <AssociationSet Name="FK__Publicaci__id_gr__4316F928" Association="RagnarModel.Store.FK__Publicaci__id_gr__4316F928">
             <End Role="Grado_publicacion" EntitySet="Grado_publicacion" />
             <End Role="Publicacion" EntitySet="Publicacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Publicaci__id_ru__49C3F6B7" Association="RagnarModel.Store.FK__Publicaci__id_ru__49C3F6B7">
+          <AssociationSet Name="FK__Publicaci__id_ru__4222D4EF" Association="RagnarModel.Store.FK__Publicaci__id_ru__4222D4EF">
             <End Role="Rubro" EntitySet="Rubro" />
             <End Role="Publicacion" EntitySet="Publicacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Puntos_cl__id_cl__3F466844" Association="RagnarModel.Store.FK__Puntos_cl__id_cl__3F466844">
+          <AssociationSet Name="FK__Puntos_cl__id_cl__34C8D9D1" Association="RagnarModel.Store.FK__Puntos_cl__id_cl__34C8D9D1">
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="Puntos_cliente" EntitySet="Puntos_cliente" />
           </AssociationSet>
-          <AssociationSet Name="FK__Ubicacion__id_co__571DF1D5" Association="RagnarModel.Store.FK__Ubicacion__id_co__571DF1D5">
+          <AssociationSet Name="FK__Ubicacion__id_co__4F7CD00D" Association="RagnarModel.Store.FK__Ubicacion__id_co__4F7CD00D">
             <End Role="Compra" EntitySet="Compra" />
             <End Role="Ubicacion_publicacion" EntitySet="Ubicacion_publicacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Ubicacion__id_pu__5535A963" Association="RagnarModel.Store.FK__Ubicacion__id_pu__5535A963">
+          <AssociationSet Name="FK__Ubicacion__id_pu__4D94879B" Association="RagnarModel.Store.FK__Ubicacion__id_pu__4D94879B">
             <End Role="Publicacion" EntitySet="Publicacion" />
             <End Role="Ubicacion_publicacion" EntitySet="Ubicacion_publicacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Ubicacion__id_ti__5629CD9C" Association="RagnarModel.Store.FK__Ubicacion__id_ti__5629CD9C">
+          <AssociationSet Name="FK__Ubicacion__id_ti__4E88ABD4" Association="RagnarModel.Store.FK__Ubicacion__id_ti__4E88ABD4">
             <End Role="Tipo_ubicacion" EntitySet="Tipo_ubicacion" />
             <End Role="Ubicacion_publicacion" EntitySet="Ubicacion_publicacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Usuario_r__id_ro__30F848ED" Association="RagnarModel.Store.FK__Usuario_r__id_ro__30F848ED">
+          <AssociationSet Name="FK__Usuario_r__id_ro__239E4DCF" Association="RagnarModel.Store.FK__Usuario_r__id_ro__239E4DCF">
             <End Role="Rol" EntitySet="Rol" />
             <End Role="Usuario_rol" EntitySet="Usuario_rol" />
           </AssociationSet>
-          <AssociationSet Name="FK__Usuario_r__id_us__300424B4" Association="RagnarModel.Store.FK__Usuario_r__id_us__300424B4">
+          <AssociationSet Name="FK__Usuario_r__id_us__22AA2996" Association="RagnarModel.Store.FK__Usuario_r__id_us__22AA2996">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Usuario_rol" EntitySet="Usuario_rol" />
           </AssociationSet>
@@ -135,7 +126,6 @@
           </Key>
           <Property Name="id_compra" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="id_cliente" Type="bigint" Nullable="false" />
-          <Property Name="id_empresa" Type="bigint" Nullable="false" />
           <Property Name="fecha" Type="datetime" Nullable="false" />
           <Property Name="tarjeta_utilizada" Type="varchar" MaxLength="10" />
         </EntityType>
@@ -155,7 +145,7 @@
           <Property Name="departamento" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="localidad" Type="nvarchar" MaxLength="255" />
           <Property Name="codigo_postal" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="fecha_creacion" Type="datetime" Nullable="false" />
+          <Property Name="fecha_creacion" Type="datetime" />
         </EntityType>
         <EntityType Name="Estado_publicacion">
           <Key>
@@ -171,7 +161,7 @@
           <Property Name="id_factura" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="numero" Type="numeric" Nullable="false" />
           <Property Name="fecha" Type="datetime" Nullable="false" />
-          <Property Name="total" Type="numeric" Nullable="false" Scale="2" />
+          <Property Name="total" Type="numeric" Scale="2" />
           <Property Name="forma_pago" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="Funcionalidad">
@@ -203,20 +193,17 @@
             <PropertyRef Name="id_item" />
           </Key>
           <Property Name="id_item" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="id_compra" Type="bigint" />
+          <Property Name="id_ubicacion" Type="bigint" />
           <Property Name="id_factura" Type="bigint" />
-          <Property Name="descripcion" Type="nvarchar" Nullable="false" MaxLength="60" />
+          <Property Name="descripcion" Type="nvarchar" MaxLength="60" />
           <Property Name="monto" Type="numeric" Nullable="false" Scale="2" />
-          <Property Name="cantidad" Type="numeric" Nullable="false" />
+          <Property Name="cantidad" Type="numeric" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'GD2C2018.RAGNAR.Login_fallido' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
         <EntityType Name="Login_fallido">
           <Key>
-            <PropertyRef Name="nro_intento" />
+            <PropertyRef Name="id_usuario" />
           </Key>
-          <Property Name="id_usuario" Type="bigint" />
+          <Property Name="id_usuario" Type="bigint" Nullable="false" />
           <Property Name="nro_intento" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="Premio">
@@ -250,7 +237,7 @@
           </Key>
           <Property Name="id_puntaje" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="id_cliente" Type="bigint" />
-          <Property Name="puntos" Type="int" />
+          <Property Name="puntos" Type="int" Nullable="false" />
           <Property Name="vencimiento" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="Rol">
@@ -290,6 +277,7 @@
           <Property Name="id_tipo" Type="int" Nullable="false" />
           <Property Name="id_compra" Type="bigint" />
           <Property Name="compra_cantidad" Type="numeric" />
+          <Property Name="habilitado" Type="bit" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -299,6 +287,7 @@
           <Property Name="usuario" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="clave" Type="varchar" Nullable="false" MaxLength="32" />
           <Property Name="habilitado" Type="bit" Nullable="false" />
+          <Property Name="es_nuevo" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="Usuario_rol">
           <Key>
@@ -307,8 +296,9 @@
           </Key>
           <Property Name="id_usuario" Type="bigint" Nullable="false" />
           <Property Name="id_rol" Type="int" Nullable="false" />
+          <Property Name="habilitado" Type="bit" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Cliente__id_usua__36B12243">
+        <Association Name="FK__Cliente__id_usua__2B3F6F97">
           <End Role="Usuario" Type="RagnarModel.Store.Usuario" Multiplicity="1" />
           <End Role="Cliente" Type="RagnarModel.Store.Cliente" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -320,7 +310,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Compra__id_clien__5165187F">
+        <Association Name="FK__Compra__id_clien__49C3F6B7">
           <End Role="Cliente" Type="RagnarModel.Store.Cliente" Multiplicity="1" />
           <End Role="Compra" Type="RagnarModel.Store.Compra" Multiplicity="*" />
           <ReferentialConstraint>
@@ -332,19 +322,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Compra__id_empre__52593CB8">
-          <End Role="Empresa" Type="RagnarModel.Store.Empresa" Multiplicity="1" />
-          <End Role="Compra" Type="RagnarModel.Store.Compra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empresa">
-              <PropertyRef Name="id_usuario" />
-            </Principal>
-            <Dependent Role="Compra">
-              <PropertyRef Name="id_empresa" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Empresa__id_usua__3C69FB99">
+        <Association Name="FK__Empresa__id_usua__31EC6D26">
           <End Role="Usuario" Type="RagnarModel.Store.Usuario" Multiplicity="1" />
           <End Role="Empresa" Type="RagnarModel.Store.Empresa" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -356,7 +334,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Funcional__id_fu__29572725">
+        <Association Name="FK__Funcional__id_fu__1B0907CE">
           <End Role="Funcionalidad" Type="RagnarModel.Store.Funcionalidad" Multiplicity="1" />
           <End Role="Funcionalidad_rol" Type="RagnarModel.Store.Funcionalidad_rol" Multiplicity="*" />
           <ReferentialConstraint>
@@ -368,7 +346,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Funcional__id_ro__286302EC">
+        <Association Name="FK__Funcional__id_ro__1A14E395">
           <End Role="Rol" Type="RagnarModel.Store.Rol" Multiplicity="1" />
           <End Role="Funcionalidad_rol" Type="RagnarModel.Store.Funcionalidad_rol" Multiplicity="*" />
           <ReferentialConstraint>
@@ -380,19 +358,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Item_fact__id_co__5BE2A6F2">
-          <End Role="Compra" Type="RagnarModel.Store.Compra" Multiplicity="0..1" />
-          <End Role="Item_factura" Type="RagnarModel.Store.Item_factura" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Compra">
-              <PropertyRef Name="id_compra" />
-            </Principal>
-            <Dependent Role="Item_factura">
-              <PropertyRef Name="id_compra" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Item_fact__id_fa__5CD6CB2B">
+        <Association Name="FK__Item_fact__id_fa__71D1E811">
           <End Role="Factura" Type="RagnarModel.Store.Factura" Multiplicity="0..1" />
           <End Role="Item_factura" Type="RagnarModel.Store.Item_factura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -404,9 +370,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Login_fal__id_us__32E0915F">
-          <End Role="Usuario" Type="RagnarModel.Store.Usuario" Multiplicity="0..1" />
-          <End Role="Login_fallido" Type="RagnarModel.Store.Login_fallido" Multiplicity="*" />
+        <Association Name="FK__Item_fact__id_ub__70DDC3D8">
+          <End Role="Ubicacion_publicacion" Type="RagnarModel.Store.Ubicacion_publicacion" Multiplicity="0..1" />
+          <End Role="Item_factura" Type="RagnarModel.Store.Item_factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ubicacion_publicacion">
+              <PropertyRef Name="id_ubicacion" />
+            </Principal>
+            <Dependent Role="Item_factura">
+              <PropertyRef Name="id_ubicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Login_fal__id_us__276EDEB3">
+          <End Role="Usuario" Type="RagnarModel.Store.Usuario" Multiplicity="1" />
+          <End Role="Login_fallido" Type="RagnarModel.Store.Login_fallido" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
               <PropertyRef Name="id_usuario" />
@@ -416,7 +394,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Publicaci__id_em__4BAC3F29">
+        <Association Name="FK__Publicaci__id_em__440B1D61">
           <End Role="Empresa" Type="RagnarModel.Store.Empresa" Multiplicity="0..1" />
           <End Role="Publicacion" Type="RagnarModel.Store.Publicacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -428,7 +406,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Publicaci__id_es__4CA06362">
+        <Association Name="FK__Publicaci__id_es__44FF419A">
           <End Role="Estado_publicacion" Type="RagnarModel.Store.Estado_publicacion" Multiplicity="1" />
           <End Role="Publicacion" Type="RagnarModel.Store.Publicacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -440,7 +418,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Publicaci__id_gr__4AB81AF0">
+        <Association Name="FK__Publicaci__id_gr__4316F928">
           <End Role="Grado_publicacion" Type="RagnarModel.Store.Grado_publicacion" Multiplicity="0..1" />
           <End Role="Publicacion" Type="RagnarModel.Store.Publicacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -452,7 +430,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Publicaci__id_ru__49C3F6B7">
+        <Association Name="FK__Publicaci__id_ru__4222D4EF">
           <End Role="Rubro" Type="RagnarModel.Store.Rubro" Multiplicity="1" />
           <End Role="Publicacion" Type="RagnarModel.Store.Publicacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -464,7 +442,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Puntos_cl__id_cl__3F466844">
+        <Association Name="FK__Puntos_cl__id_cl__34C8D9D1">
           <End Role="Cliente" Type="RagnarModel.Store.Cliente" Multiplicity="0..1" />
           <End Role="Puntos_cliente" Type="RagnarModel.Store.Puntos_cliente" Multiplicity="*" />
           <ReferentialConstraint>
@@ -476,7 +454,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Ubicacion__id_co__571DF1D5">
+        <Association Name="FK__Ubicacion__id_co__4F7CD00D">
           <End Role="Compra" Type="RagnarModel.Store.Compra" Multiplicity="0..1" />
           <End Role="Ubicacion_publicacion" Type="RagnarModel.Store.Ubicacion_publicacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -488,7 +466,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Ubicacion__id_pu__5535A963">
+        <Association Name="FK__Ubicacion__id_pu__4D94879B">
           <End Role="Publicacion" Type="RagnarModel.Store.Publicacion" Multiplicity="0..1" />
           <End Role="Ubicacion_publicacion" Type="RagnarModel.Store.Ubicacion_publicacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -500,7 +478,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Ubicacion__id_ti__5629CD9C">
+        <Association Name="FK__Ubicacion__id_ti__4E88ABD4">
           <End Role="Tipo_ubicacion" Type="RagnarModel.Store.Tipo_ubicacion" Multiplicity="1" />
           <End Role="Ubicacion_publicacion" Type="RagnarModel.Store.Ubicacion_publicacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -512,7 +490,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Usuario_r__id_ro__30F848ED">
+        <Association Name="FK__Usuario_r__id_ro__239E4DCF">
           <End Role="Rol" Type="RagnarModel.Store.Rol" Multiplicity="1" />
           <End Role="Usuario_rol" Type="RagnarModel.Store.Usuario_rol" Multiplicity="*" />
           <ReferentialConstraint>
@@ -524,7 +502,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Usuario_r__id_us__300424B4">
+        <Association Name="FK__Usuario_r__id_us__22AA2996">
           <End Role="Usuario" Type="RagnarModel.Store.Usuario" Multiplicity="1" />
           <End Role="Usuario_rol" Type="RagnarModel.Store.Usuario_rol" Multiplicity="*" />
           <ReferentialConstraint>
@@ -536,9 +514,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      <Function Name="F_HasheoDeClave" ReturnType="varchar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="RAGNAR">
-        <Parameter Name="Clave" Type="varchar" Mode="In" />
-      </Function>
+        <Function Name="F_HasheoDeClave" ReturnType="varchar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="RAGNAR">
+          <Parameter Name="Clave" Type="varchar" Mode="In" />
+        </Function>
+        <!--Errors Found During Generation:
+      warning 6013: The table/view 'GD2C2018.RAGNAR.Canje_premio' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+      
+      <EntityType Name="Canje_premio">
+        <Property Name="id_premio" Type="int" />
+        <Property Name="id_cliente" Type="bigint" />
+      </EntityType>-->
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -561,294 +546,305 @@
           <EntitySet Name="Tipo_ubicacion" EntityType="RagnarModel.Tipo_ubicacion" />
           <EntitySet Name="Ubicacion_publicacion" EntityType="RagnarModel.Ubicacion_publicacion" />
           <EntitySet Name="Usuario" EntityType="RagnarModel.Usuario" />
-          <AssociationSet Name="FK__Cliente__id_usua__36B12243" Association="RagnarModel.FK__Cliente__id_usua__36B12243">
+          <EntitySet Name="Usuario_rol" EntityType="RagnarModel.Usuario_rol" />
+          <AssociationSet Name="FK__Cliente__id_usua__2B3F6F97" Association="RagnarModel.FK__Cliente__id_usua__2B3F6F97">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Cliente" EntitySet="Cliente" />
           </AssociationSet>
-          <AssociationSet Name="FK__Compra__id_clien__5165187F" Association="RagnarModel.FK__Compra__id_clien__5165187F">
+          <AssociationSet Name="FK__Compra__id_clien__49C3F6B7" Association="RagnarModel.FK__Compra__id_clien__49C3F6B7">
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="Compra" EntitySet="Compra" />
           </AssociationSet>
-          <AssociationSet Name="FK__Puntos_cl__id_cl__3F466844" Association="RagnarModel.FK__Puntos_cl__id_cl__3F466844">
+          <AssociationSet Name="FK__Puntos_cl__id_cl__34C8D9D1" Association="RagnarModel.FK__Puntos_cl__id_cl__34C8D9D1">
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="Puntos_cliente" EntitySet="Puntos_cliente" />
           </AssociationSet>
-          <AssociationSet Name="FK__Compra__id_empre__52593CB8" Association="RagnarModel.FK__Compra__id_empre__52593CB8">
-            <End Role="Empresa" EntitySet="Empresa" />
-            <End Role="Compra" EntitySet="Compra" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Item_fact__id_co__5BE2A6F2" Association="RagnarModel.FK__Item_fact__id_co__5BE2A6F2">
-            <End Role="Compra" EntitySet="Compra" />
-            <End Role="Item_factura" EntitySet="Item_factura" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Ubicacion__id_co__571DF1D5" Association="RagnarModel.FK__Ubicacion__id_co__571DF1D5">
+          <AssociationSet Name="FK__Ubicacion__id_co__4F7CD00D" Association="RagnarModel.FK__Ubicacion__id_co__4F7CD00D">
             <End Role="Compra" EntitySet="Compra" />
             <End Role="Ubicacion_publicacion" EntitySet="Ubicacion_publicacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Empresa__id_usua__3C69FB99" Association="RagnarModel.FK__Empresa__id_usua__3C69FB99">
+          <AssociationSet Name="FK__Empresa__id_usua__31EC6D26" Association="RagnarModel.FK__Empresa__id_usua__31EC6D26">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Empresa" EntitySet="Empresa" />
           </AssociationSet>
-          <AssociationSet Name="FK__Publicaci__id_em__4BAC3F29" Association="RagnarModel.FK__Publicaci__id_em__4BAC3F29">
+          <AssociationSet Name="FK__Publicaci__id_em__440B1D61" Association="RagnarModel.FK__Publicaci__id_em__440B1D61">
             <End Role="Empresa" EntitySet="Empresa" />
             <End Role="Publicacion" EntitySet="Publicacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Publicaci__id_es__4CA06362" Association="RagnarModel.FK__Publicaci__id_es__4CA06362">
+          <AssociationSet Name="FK__Publicaci__id_es__44FF419A" Association="RagnarModel.FK__Publicaci__id_es__44FF419A">
             <End Role="Estado_publicacion" EntitySet="Estado_publicacion" />
             <End Role="Publicacion" EntitySet="Publicacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Item_fact__id_fa__5CD6CB2B" Association="RagnarModel.FK__Item_fact__id_fa__5CD6CB2B">
+          <AssociationSet Name="FK__Item_fact__id_fa__71D1E811" Association="RagnarModel.FK__Item_fact__id_fa__71D1E811">
             <End Role="Factura" EntitySet="Factura" />
             <End Role="Item_factura" EntitySet="Item_factura" />
           </AssociationSet>
-          <AssociationSet Name="FK__Publicaci__id_gr__4AB81AF0" Association="RagnarModel.FK__Publicaci__id_gr__4AB81AF0">
+          <AssociationSet Name="FK__Publicaci__id_gr__4316F928" Association="RagnarModel.FK__Publicaci__id_gr__4316F928">
             <End Role="Grado_publicacion" EntitySet="Grado_publicacion" />
             <End Role="Publicacion" EntitySet="Publicacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Login_fal__id_us__32E0915F" Association="RagnarModel.FK__Login_fal__id_us__32E0915F">
+          <AssociationSet Name="FK__Item_fact__id_ub__70DDC3D8" Association="RagnarModel.FK__Item_fact__id_ub__70DDC3D8">
+            <End Role="Ubicacion_publicacion" EntitySet="Ubicacion_publicacion" />
+            <End Role="Item_factura" EntitySet="Item_factura" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Login_fal__id_us__276EDEB3" Association="RagnarModel.FK__Login_fal__id_us__276EDEB3">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Login_fallido" EntitySet="Login_fallido" />
           </AssociationSet>
-          <AssociationSet Name="FK__Publicaci__id_ru__49C3F6B7" Association="RagnarModel.FK__Publicaci__id_ru__49C3F6B7">
+          <AssociationSet Name="FK__Publicaci__id_ru__4222D4EF" Association="RagnarModel.FK__Publicaci__id_ru__4222D4EF">
             <End Role="Rubro" EntitySet="Rubro" />
             <End Role="Publicacion" EntitySet="Publicacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Ubicacion__id_pu__5535A963" Association="RagnarModel.FK__Ubicacion__id_pu__5535A963">
+          <AssociationSet Name="FK__Ubicacion__id_pu__4D94879B" Association="RagnarModel.FK__Ubicacion__id_pu__4D94879B">
             <End Role="Publicacion" EntitySet="Publicacion" />
             <End Role="Ubicacion_publicacion" EntitySet="Ubicacion_publicacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Ubicacion__id_ti__5629CD9C" Association="RagnarModel.FK__Ubicacion__id_ti__5629CD9C">
+          <AssociationSet Name="FK__Usuario_r__id_ro__239E4DCF" Association="RagnarModel.FK__Usuario_r__id_ro__239E4DCF">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuario_rol" EntitySet="Usuario_rol" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Ubicacion__id_ti__4E88ABD4" Association="RagnarModel.FK__Ubicacion__id_ti__4E88ABD4">
             <End Role="Tipo_ubicacion" EntitySet="Tipo_ubicacion" />
             <End Role="Ubicacion_publicacion" EntitySet="Ubicacion_publicacion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario_r__id_us__22AA2996" Association="RagnarModel.FK__Usuario_r__id_us__22AA2996">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Usuario_rol" EntitySet="Usuario_rol" />
           </AssociationSet>
           <AssociationSet Name="Funcionalidad_rol" Association="RagnarModel.Funcionalidad_rol">
             <End Role="Funcionalidad" EntitySet="Funcionalidad" />
             <End Role="Rol" EntitySet="Rol" />
-          </AssociationSet>
-          <AssociationSet Name="Usuario_rol" Association="RagnarModel.Usuario_rol">
-            <End Role="Rol" EntitySet="Rol" />
-            <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Cliente">
           <Key>
             <PropertyRef Name="id_usuario" />
           </Key>
-          <Property Name="id_usuario" Type="Int64" Nullable="false" />
-          <Property Name="nombre" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
-          <Property Name="apellido" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
-          <Property Name="tipo_documento" Type="String" Nullable="false" MaxLength="3" Unicode="false" FixedLength="false" />
-          <Property Name="numero_documento" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="cuil" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
-          <Property Name="mail" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
-          <Property Name="telefono" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
-          <Property Name="calle" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
-          <Property Name="portal" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="piso" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="departamento" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
-          <Property Name="localidad" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
-          <Property Name="codigo_postal" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
-          <Property Name="fecha_nacimiento" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="fecha_creacion" Type="DateTime" Precision="3" />
-          <Property Name="tarjeta_credito" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="Usuario" Relationship="RagnarModel.FK__Cliente__id_usua__36B12243" FromRole="Cliente" ToRole="Usuario" />
-          <NavigationProperty Name="Compra" Relationship="RagnarModel.FK__Compra__id_clien__5165187F" FromRole="Cliente" ToRole="Compra" />
-          <NavigationProperty Name="Puntos_cliente" Relationship="RagnarModel.FK__Puntos_cl__id_cl__3F466844" FromRole="Cliente" ToRole="Puntos_cliente" />
+          <Property Type="Int64" Name="id_usuario" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="apellido" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="tipo_documento" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="numero_documento" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="cuil" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="mail" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="telefono" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="calle" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="portal" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="piso" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="departamento" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="localidad" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="codigo_postal" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="fecha_nacimiento" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="fecha_creacion" Precision="3" />
+          <Property Type="String" Name="tarjeta_credito" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Usuario" Relationship="RagnarModel.FK__Cliente__id_usua__2B3F6F97" FromRole="Cliente" ToRole="Usuario" />
+          <NavigationProperty Name="Compra" Relationship="RagnarModel.FK__Compra__id_clien__49C3F6B7" FromRole="Cliente" ToRole="Compra" />
+          <NavigationProperty Name="Puntos_cliente" Relationship="RagnarModel.FK__Puntos_cl__id_cl__34C8D9D1" FromRole="Cliente" ToRole="Puntos_cliente" />
         </EntityType>
         <EntityType Name="Compra">
           <Key>
             <PropertyRef Name="id_compra" />
           </Key>
-          <Property Name="id_compra" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="id_cliente" Type="Int64" Nullable="false" />
-          <Property Name="id_empresa" Type="Int64" Nullable="false" />
-          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="tarjeta_utilizada" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="Cliente" Relationship="RagnarModel.FK__Compra__id_clien__5165187F" FromRole="Compra" ToRole="Cliente" />
-          <NavigationProperty Name="Empresa" Relationship="RagnarModel.FK__Compra__id_empre__52593CB8" FromRole="Compra" ToRole="Empresa" />
-          <NavigationProperty Name="Item_factura" Relationship="RagnarModel.FK__Item_fact__id_co__5BE2A6F2" FromRole="Compra" ToRole="Item_factura" />
-          <NavigationProperty Name="Ubicacion_publicacion" Relationship="RagnarModel.FK__Ubicacion__id_co__571DF1D5" FromRole="Compra" ToRole="Ubicacion_publicacion" />
+          <Property Type="Int64" Name="id_compra" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="id_cliente" Nullable="false" />
+          <Property Type="DateTime" Name="fecha" Nullable="false" Precision="3" />
+          <Property Type="String" Name="tarjeta_utilizada" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Cliente" Relationship="RagnarModel.FK__Compra__id_clien__49C3F6B7" FromRole="Compra" ToRole="Cliente" />
+          <NavigationProperty Name="Ubicacion_publicacion" Relationship="RagnarModel.FK__Ubicacion__id_co__4F7CD00D" FromRole="Compra" ToRole="Ubicacion_publicacion" />
         </EntityType>
         <EntityType Name="Empresa">
           <Key>
             <PropertyRef Name="id_usuario" />
           </Key>
-          <Property Name="id_usuario" Type="Int64" Nullable="false" />
-          <Property Name="razon_social" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
-          <Property Name="cuit" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
-          <Property Name="mail" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="telefono" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
-          <Property Name="ciudad" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
-          <Property Name="calle" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="portal" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="piso" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="departamento" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="localidad" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
-          <Property Name="codigo_postal" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="fecha_creacion" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Compra" Relationship="RagnarModel.FK__Compra__id_empre__52593CB8" FromRole="Empresa" ToRole="Compra" />
-          <NavigationProperty Name="Usuario" Relationship="RagnarModel.FK__Empresa__id_usua__3C69FB99" FromRole="Empresa" ToRole="Usuario" />
-          <NavigationProperty Name="Publicacion" Relationship="RagnarModel.FK__Publicaci__id_em__4BAC3F29" FromRole="Empresa" ToRole="Publicacion" />
+          <Property Type="Int64" Name="id_usuario" Nullable="false" />
+          <Property Type="String" Name="razon_social" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="cuit" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="mail" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="telefono" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ciudad" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="calle" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="portal" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="piso" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="departamento" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="localidad" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="codigo_postal" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="fecha_creacion" Precision="3" />
+          <NavigationProperty Name="Usuario" Relationship="RagnarModel.FK__Empresa__id_usua__31EC6D26" FromRole="Empresa" ToRole="Usuario" />
+          <NavigationProperty Name="Publicacion" Relationship="RagnarModel.FK__Publicaci__id_em__440B1D61" FromRole="Empresa" ToRole="Publicacion" />
         </EntityType>
         <EntityType Name="Estado_publicacion">
           <Key>
             <PropertyRef Name="id_estado" />
           </Key>
-          <Property Name="id_estado" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="Publicacion" Relationship="RagnarModel.FK__Publicaci__id_es__4CA06362" FromRole="Estado_publicacion" ToRole="Publicacion" />
+          <Property Type="Int32" Name="id_estado" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="descripcion" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Publicacion" Relationship="RagnarModel.FK__Publicaci__id_es__44FF419A" FromRole="Estado_publicacion" ToRole="Publicacion" />
         </EntityType>
         <EntityType Name="Factura">
           <Key>
             <PropertyRef Name="id_factura" />
           </Key>
-          <Property Name="id_factura" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="numero" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="total" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="forma_pago" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="Item_factura" Relationship="RagnarModel.FK__Item_fact__id_fa__5CD6CB2B" FromRole="Factura" ToRole="Item_factura" />
+          <Property Type="Int64" Name="id_factura" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Decimal" Name="numero" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="DateTime" Name="fecha" Nullable="false" Precision="3" />
+          <Property Type="Decimal" Name="total" Precision="18" Scale="2" />
+          <Property Type="String" Name="forma_pago" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Item_factura" Relationship="RagnarModel.FK__Item_fact__id_fa__71D1E811" FromRole="Factura" ToRole="Item_factura" />
         </EntityType>
         <EntityType Name="Funcionalidad">
           <Key>
             <PropertyRef Name="id_funcionalidad" />
           </Key>
-          <Property Name="id_funcionalidad" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Type="Int32" Name="id_funcionalidad" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="descripcion" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Rol" Relationship="RagnarModel.Funcionalidad_rol" FromRole="Funcionalidad" ToRole="Rol" />
         </EntityType>
         <EntityType Name="Grado_publicacion">
           <Key>
             <PropertyRef Name="id_grado" />
           </Key>
-          <Property Name="id_grado" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
-          <Property Name="comision" Type="Decimal" Nullable="false" Precision="4" Scale="3" />
-          <Property Name="habilitado" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Publicacion" Relationship="RagnarModel.FK__Publicaci__id_gr__4AB81AF0" FromRole="Grado_publicacion" ToRole="Publicacion" />
+          <Property Type="Int32" Name="id_grado" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="descripcion" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="comision" Nullable="false" Precision="4" Scale="3" />
+          <Property Type="Boolean" Name="habilitado" Nullable="false" />
+          <NavigationProperty Name="Publicacion" Relationship="RagnarModel.FK__Publicaci__id_gr__4316F928" FromRole="Grado_publicacion" ToRole="Publicacion" />
         </EntityType>
         <EntityType Name="Item_factura">
           <Key>
             <PropertyRef Name="id_item" />
           </Key>
-          <Property Name="id_item" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="id_compra" Type="Int64" />
-          <Property Name="id_factura" Type="Int64" />
-          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="60" Unicode="true" FixedLength="false" />
-          <Property Name="monto" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="cantidad" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <NavigationProperty Name="Compra" Relationship="RagnarModel.FK__Item_fact__id_co__5BE2A6F2" FromRole="Item_factura" ToRole="Compra" />
-          <NavigationProperty Name="Factura" Relationship="RagnarModel.FK__Item_fact__id_fa__5CD6CB2B" FromRole="Item_factura" ToRole="Factura" />
+          <Property Type="Int64" Name="id_item" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="id_ubicacion" />
+          <Property Type="Int64" Name="id_factura" />
+          <Property Type="String" Name="descripcion" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="monto" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="cantidad" Precision="18" Scale="0" />
+          <NavigationProperty Name="Factura" Relationship="RagnarModel.FK__Item_fact__id_fa__71D1E811" FromRole="Item_factura" ToRole="Factura" />
+          <NavigationProperty Name="Ubicacion_publicacion" Relationship="RagnarModel.FK__Item_fact__id_ub__70DDC3D8" FromRole="Item_factura" ToRole="Ubicacion_publicacion" />
         </EntityType>
         <EntityType Name="Login_fallido">
           <Key>
-            <PropertyRef Name="nro_intento" />
+            <PropertyRef Name="id_usuario" />
           </Key>
-          <Property Name="id_usuario" Type="Int64" />
-          <Property Name="nro_intento" Type="Byte" Nullable="false" />
-          <NavigationProperty Name="Usuario" Relationship="RagnarModel.FK__Login_fal__id_us__32E0915F" FromRole="Login_fallido" ToRole="Usuario" />
+          <Property Type="Int64" Name="id_usuario" Nullable="false" />
+          <Property Type="Byte" Name="nro_intento" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="RagnarModel.FK__Login_fal__id_us__276EDEB3" FromRole="Login_fallido" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Premio">
           <Key>
             <PropertyRef Name="id_premio" />
           </Key>
-          <Property Name="id_premio" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="puntos_necesarios" Type="Int32" Nullable="false" />
-          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Type="Int32" Name="id_premio" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="puntos_necesarios" Nullable="false" />
+          <Property Type="String" Name="descripcion" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Publicacion">
           <Key>
             <PropertyRef Name="id_publicacion" />
           </Key>
-          <Property Name="id_publicacion" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="codigo_publicacion" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
-          <Property Name="stock" Type="Int32" />
-          <Property Name="fecha_publicacion" Type="DateTime" Precision="3" />
-          <Property Name="id_rubro" Type="Int32" Nullable="false" />
-          <Property Name="direccion" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
-          <Property Name="id_grado" Type="Int32" />
-          <Property Name="id_empresa" Type="Int64" />
-          <Property Name="fecha_vencimiento" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="fecha_espectaculo" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="id_estado" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Empresa" Relationship="RagnarModel.FK__Publicaci__id_em__4BAC3F29" FromRole="Publicacion" ToRole="Empresa" />
-          <NavigationProperty Name="Estado_publicacion" Relationship="RagnarModel.FK__Publicaci__id_es__4CA06362" FromRole="Publicacion" ToRole="Estado_publicacion" />
-          <NavigationProperty Name="Grado_publicacion" Relationship="RagnarModel.FK__Publicaci__id_gr__4AB81AF0" FromRole="Publicacion" ToRole="Grado_publicacion" />
-          <NavigationProperty Name="Rubro" Relationship="RagnarModel.FK__Publicaci__id_ru__49C3F6B7" FromRole="Publicacion" ToRole="Rubro" />
-          <NavigationProperty Name="Ubicacion_publicacion" Relationship="RagnarModel.FK__Ubicacion__id_pu__5535A963" FromRole="Publicacion" ToRole="Ubicacion_publicacion" />
+          <Property Type="Int64" Name="id_publicacion" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Decimal" Name="codigo_publicacion" Precision="18" Scale="0" />
+          <Property Type="String" Name="descripcion" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="stock" />
+          <Property Type="DateTime" Name="fecha_publicacion" Precision="3" />
+          <Property Type="Int32" Name="id_rubro" Nullable="false" />
+          <Property Type="String" Name="direccion" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="id_grado" />
+          <Property Type="Int64" Name="id_empresa" />
+          <Property Type="DateTime" Name="fecha_vencimiento" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="fecha_espectaculo" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="id_estado" Nullable="false" />
+          <NavigationProperty Name="Empresa" Relationship="RagnarModel.FK__Publicaci__id_em__440B1D61" FromRole="Publicacion" ToRole="Empresa" />
+          <NavigationProperty Name="Estado_publicacion" Relationship="RagnarModel.FK__Publicaci__id_es__44FF419A" FromRole="Publicacion" ToRole="Estado_publicacion" />
+          <NavigationProperty Name="Grado_publicacion" Relationship="RagnarModel.FK__Publicaci__id_gr__4316F928" FromRole="Publicacion" ToRole="Grado_publicacion" />
+          <NavigationProperty Name="Rubro" Relationship="RagnarModel.FK__Publicaci__id_ru__4222D4EF" FromRole="Publicacion" ToRole="Rubro" />
+          <NavigationProperty Name="Ubicacion_publicacion" Relationship="RagnarModel.FK__Ubicacion__id_pu__4D94879B" FromRole="Publicacion" ToRole="Ubicacion_publicacion" />
         </EntityType>
         <EntityType Name="Puntos_cliente">
           <Key>
             <PropertyRef Name="id_puntaje" />
           </Key>
-          <Property Name="id_puntaje" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="id_cliente" Type="Int64" />
-          <Property Name="puntos" Type="Int32" />
-          <Property Name="vencimiento" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Cliente" Relationship="RagnarModel.FK__Puntos_cl__id_cl__3F466844" FromRole="Puntos_cliente" ToRole="Cliente" />
+          <Property Type="Int64" Name="id_puntaje" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="id_cliente" />
+          <Property Type="Int32" Name="puntos" Nullable="false" />
+          <Property Type="DateTime" Name="vencimiento" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Cliente" Relationship="RagnarModel.FK__Puntos_cl__id_cl__34C8D9D1" FromRole="Puntos_cliente" ToRole="Cliente" />
         </EntityType>
         <EntityType Name="Rol">
           <Key>
             <PropertyRef Name="id_rol" />
           </Key>
-          <Property Name="id_rol" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
-          <Property Name="habilitado" Type="Boolean" Nullable="false" />
+          <Property Type="Int32" Name="id_rol" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="habilitado" Nullable="false" />
+          <NavigationProperty Name="Usuario_rol" Relationship="RagnarModel.FK__Usuario_r__id_ro__239E4DCF" FromRole="Rol" ToRole="Usuario_rol" />
           <NavigationProperty Name="Funcionalidad" Relationship="RagnarModel.Funcionalidad_rol" FromRole="Rol" ToRole="Funcionalidad" />
-          <NavigationProperty Name="Usuario" Relationship="RagnarModel.Usuario_rol" FromRole="Rol" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="Rubro">
           <Key>
             <PropertyRef Name="id_rubro" />
           </Key>
-          <Property Name="id_rubro" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
-          <Property Name="habilitado" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Publicacion" Relationship="RagnarModel.FK__Publicaci__id_ru__49C3F6B7" FromRole="Rubro" ToRole="Publicacion" />
+          <Property Type="Int32" Name="id_rubro" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="descripcion" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="habilitado" Nullable="false" />
+          <NavigationProperty Name="Publicacion" Relationship="RagnarModel.FK__Publicaci__id_ru__4222D4EF" FromRole="Rubro" ToRole="Publicacion" />
         </EntityType>
         <EntityType Name="Tipo_ubicacion">
           <Key>
             <PropertyRef Name="id_tipo_ubicacion" />
           </Key>
-          <Property Name="id_tipo_ubicacion" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="codigo" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="255" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="Ubicacion_publicacion" Relationship="RagnarModel.FK__Ubicacion__id_ti__5629CD9C" FromRole="Tipo_ubicacion" ToRole="Ubicacion_publicacion" />
+          <Property Type="Int32" Name="id_tipo_ubicacion" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Decimal" Name="codigo" Precision="18" Scale="0" />
+          <Property Type="String" Name="descripcion" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Ubicacion_publicacion" Relationship="RagnarModel.FK__Ubicacion__id_ti__4E88ABD4" FromRole="Tipo_ubicacion" ToRole="Ubicacion_publicacion" />
         </EntityType>
         <EntityType Name="Ubicacion_publicacion">
           <Key>
             <PropertyRef Name="id_ubicacion" />
           </Key>
-          <Property Name="id_ubicacion" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="id_publicacion" Type="Int64" />
-          <Property Name="fila" Type="String" MaxLength="3" Unicode="false" FixedLength="false" />
-          <Property Name="asiento" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="sin_numerar" Type="Boolean" Nullable="false" />
-          <Property Name="precio" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="id_tipo" Type="Int32" Nullable="false" />
-          <Property Name="id_compra" Type="Int64" />
-          <Property Name="compra_cantidad" Type="Decimal" Precision="18" Scale="0" />
-          <NavigationProperty Name="Compra" Relationship="RagnarModel.FK__Ubicacion__id_co__571DF1D5" FromRole="Ubicacion_publicacion" ToRole="Compra" />
-          <NavigationProperty Name="Publicacion" Relationship="RagnarModel.FK__Ubicacion__id_pu__5535A963" FromRole="Ubicacion_publicacion" ToRole="Publicacion" />
-          <NavigationProperty Name="Tipo_ubicacion" Relationship="RagnarModel.FK__Ubicacion__id_ti__5629CD9C" FromRole="Ubicacion_publicacion" ToRole="Tipo_ubicacion" />
+          <Property Type="Int64" Name="id_ubicacion" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="id_publicacion" />
+          <Property Type="String" Name="fila" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="asiento" Precision="18" Scale="0" />
+          <Property Type="Boolean" Name="sin_numerar" Nullable="false" />
+          <Property Type="Decimal" Name="precio" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="id_tipo" Nullable="false" />
+          <Property Type="Int64" Name="id_compra" />
+          <Property Type="Decimal" Name="compra_cantidad" Precision="18" Scale="0" />
+          <Property Type="Boolean" Name="habilitado" />
+          <NavigationProperty Name="Compra" Relationship="RagnarModel.FK__Ubicacion__id_co__4F7CD00D" FromRole="Ubicacion_publicacion" ToRole="Compra" />
+          <NavigationProperty Name="Item_factura" Relationship="RagnarModel.FK__Item_fact__id_ub__70DDC3D8" FromRole="Ubicacion_publicacion" ToRole="Item_factura" />
+          <NavigationProperty Name="Publicacion" Relationship="RagnarModel.FK__Ubicacion__id_pu__4D94879B" FromRole="Ubicacion_publicacion" ToRole="Publicacion" />
+          <NavigationProperty Name="Tipo_ubicacion" Relationship="RagnarModel.FK__Ubicacion__id_ti__4E88ABD4" FromRole="Ubicacion_publicacion" ToRole="Tipo_ubicacion" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
             <PropertyRef Name="id_usuario" />
           </Key>
-          <Property Name="id_usuario" Type="Int64" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="usuario" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="clave" Type="String" Nullable="false" MaxLength="32" Unicode="false" FixedLength="false" />
-          <Property Name="habilitado" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Cliente" Relationship="RagnarModel.FK__Cliente__id_usua__36B12243" FromRole="Usuario" ToRole="Cliente" />
-          <NavigationProperty Name="Empresa" Relationship="RagnarModel.FK__Empresa__id_usua__3C69FB99" FromRole="Usuario" ToRole="Empresa" />
-          <NavigationProperty Name="Login_fallido" Relationship="RagnarModel.FK__Login_fal__id_us__32E0915F" FromRole="Usuario" ToRole="Login_fallido" />
-          <NavigationProperty Name="Rol" Relationship="RagnarModel.Usuario_rol" FromRole="Usuario" ToRole="Rol" />
+          <Property Type="Int64" Name="id_usuario" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="usuario" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="clave" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="habilitado" Nullable="false" />
+          <Property Type="Byte" Name="es_nuevo" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="RagnarModel.FK__Cliente__id_usua__2B3F6F97" FromRole="Usuario" ToRole="Cliente" />
+          <NavigationProperty Name="Empresa" Relationship="RagnarModel.FK__Empresa__id_usua__31EC6D26" FromRole="Usuario" ToRole="Empresa" />
+          <NavigationProperty Name="Login_fallido" Relationship="RagnarModel.FK__Login_fal__id_us__276EDEB3" FromRole="Usuario" ToRole="Login_fallido" />
+          <NavigationProperty Name="Usuario_rol" Relationship="RagnarModel.FK__Usuario_r__id_us__22AA2996" FromRole="Usuario" ToRole="Usuario_rol" />
         </EntityType>
-        <Association Name="FK__Cliente__id_usua__36B12243">
-          <End Role="Usuario" Type="RagnarModel.Usuario" Multiplicity="1" />
-          <End Role="Cliente" Type="RagnarModel.Cliente" Multiplicity="0..1" />
+        <EntityType Name="Usuario_rol">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+            <PropertyRef Name="id_rol" />
+          </Key>
+          <Property Type="Int64" Name="id_usuario" Nullable="false" />
+          <Property Type="Int32" Name="id_rol" Nullable="false" />
+          <Property Type="Boolean" Name="habilitado" Nullable="false" />
+          <NavigationProperty Name="Rol" Relationship="RagnarModel.FK__Usuario_r__id_ro__239E4DCF" FromRole="Usuario_rol" ToRole="Rol" />
+          <NavigationProperty Name="Usuario" Relationship="RagnarModel.FK__Usuario_r__id_us__22AA2996" FromRole="Usuario_rol" ToRole="Usuario" />
+        </EntityType>
+        <Association Name="FK__Cliente__id_usua__2B3F6F97">
+          <End Type="RagnarModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="RagnarModel.Cliente" Role="Cliente" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
               <PropertyRef Name="id_usuario" />
@@ -858,9 +854,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Compra__id_clien__5165187F">
-          <End Role="Cliente" Type="RagnarModel.Cliente" Multiplicity="1" />
-          <End Role="Compra" Type="RagnarModel.Compra" Multiplicity="*" />
+        <Association Name="FK__Compra__id_clien__49C3F6B7">
+          <End Type="RagnarModel.Cliente" Role="Cliente" Multiplicity="1" />
+          <End Type="RagnarModel.Compra" Role="Compra" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cliente">
               <PropertyRef Name="id_usuario" />
@@ -870,9 +866,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Puntos_cl__id_cl__3F466844">
-          <End Role="Cliente" Type="RagnarModel.Cliente" Multiplicity="0..1" />
-          <End Role="Puntos_cliente" Type="RagnarModel.Puntos_cliente" Multiplicity="*" />
+        <Association Name="FK__Puntos_cl__id_cl__34C8D9D1">
+          <End Type="RagnarModel.Cliente" Role="Cliente" Multiplicity="0..1" />
+          <End Type="RagnarModel.Puntos_cliente" Role="Puntos_cliente" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cliente">
               <PropertyRef Name="id_usuario" />
@@ -882,33 +878,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Compra__id_empre__52593CB8">
-          <End Role="Empresa" Type="RagnarModel.Empresa" Multiplicity="1" />
-          <End Role="Compra" Type="RagnarModel.Compra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Empresa">
-              <PropertyRef Name="id_usuario" />
-            </Principal>
-            <Dependent Role="Compra">
-              <PropertyRef Name="id_empresa" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Item_fact__id_co__5BE2A6F2">
-          <End Role="Compra" Type="RagnarModel.Compra" Multiplicity="0..1" />
-          <End Role="Item_factura" Type="RagnarModel.Item_factura" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Compra">
-              <PropertyRef Name="id_compra" />
-            </Principal>
-            <Dependent Role="Item_factura">
-              <PropertyRef Name="id_compra" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Ubicacion__id_co__571DF1D5">
-          <End Role="Compra" Type="RagnarModel.Compra" Multiplicity="0..1" />
-          <End Role="Ubicacion_publicacion" Type="RagnarModel.Ubicacion_publicacion" Multiplicity="*" />
+        <Association Name="FK__Ubicacion__id_co__4F7CD00D">
+          <End Type="RagnarModel.Compra" Role="Compra" Multiplicity="0..1" />
+          <End Type="RagnarModel.Ubicacion_publicacion" Role="Ubicacion_publicacion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Compra">
               <PropertyRef Name="id_compra" />
@@ -918,9 +890,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Empresa__id_usua__3C69FB99">
-          <End Role="Usuario" Type="RagnarModel.Usuario" Multiplicity="1" />
-          <End Role="Empresa" Type="RagnarModel.Empresa" Multiplicity="0..1" />
+        <Association Name="FK__Empresa__id_usua__31EC6D26">
+          <End Type="RagnarModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="RagnarModel.Empresa" Role="Empresa" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
               <PropertyRef Name="id_usuario" />
@@ -930,9 +902,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Publicaci__id_em__4BAC3F29">
-          <End Role="Empresa" Type="RagnarModel.Empresa" Multiplicity="0..1" />
-          <End Role="Publicacion" Type="RagnarModel.Publicacion" Multiplicity="*" />
+        <Association Name="FK__Publicaci__id_em__440B1D61">
+          <End Type="RagnarModel.Empresa" Role="Empresa" Multiplicity="0..1" />
+          <End Type="RagnarModel.Publicacion" Role="Publicacion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Empresa">
               <PropertyRef Name="id_usuario" />
@@ -942,9 +914,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Publicaci__id_es__4CA06362">
-          <End Role="Estado_publicacion" Type="RagnarModel.Estado_publicacion" Multiplicity="1" />
-          <End Role="Publicacion" Type="RagnarModel.Publicacion" Multiplicity="*" />
+        <Association Name="FK__Publicaci__id_es__44FF419A">
+          <End Type="RagnarModel.Estado_publicacion" Role="Estado_publicacion" Multiplicity="1" />
+          <End Type="RagnarModel.Publicacion" Role="Publicacion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Estado_publicacion">
               <PropertyRef Name="id_estado" />
@@ -954,9 +926,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Item_fact__id_fa__5CD6CB2B">
-          <End Role="Factura" Type="RagnarModel.Factura" Multiplicity="0..1" />
-          <End Role="Item_factura" Type="RagnarModel.Item_factura" Multiplicity="*" />
+        <Association Name="FK__Item_fact__id_fa__71D1E811">
+          <End Type="RagnarModel.Factura" Role="Factura" Multiplicity="0..1" />
+          <End Type="RagnarModel.Item_factura" Role="Item_factura" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Factura">
               <PropertyRef Name="id_factura" />
@@ -966,9 +938,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Publicaci__id_gr__4AB81AF0">
-          <End Role="Grado_publicacion" Type="RagnarModel.Grado_publicacion" Multiplicity="0..1" />
-          <End Role="Publicacion" Type="RagnarModel.Publicacion" Multiplicity="*" />
+        <Association Name="FK__Publicaci__id_gr__4316F928">
+          <End Type="RagnarModel.Grado_publicacion" Role="Grado_publicacion" Multiplicity="0..1" />
+          <End Type="RagnarModel.Publicacion" Role="Publicacion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Grado_publicacion">
               <PropertyRef Name="id_grado" />
@@ -978,9 +950,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Login_fal__id_us__32E0915F">
-          <End Role="Usuario" Type="RagnarModel.Usuario" Multiplicity="0..1" />
-          <End Role="Login_fallido" Type="RagnarModel.Login_fallido" Multiplicity="*" />
+        <Association Name="FK__Item_fact__id_ub__70DDC3D8">
+          <End Type="RagnarModel.Ubicacion_publicacion" Role="Ubicacion_publicacion" Multiplicity="0..1" />
+          <End Type="RagnarModel.Item_factura" Role="Item_factura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ubicacion_publicacion">
+              <PropertyRef Name="id_ubicacion" />
+            </Principal>
+            <Dependent Role="Item_factura">
+              <PropertyRef Name="id_ubicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Login_fal__id_us__276EDEB3">
+          <End Type="RagnarModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="RagnarModel.Login_fallido" Role="Login_fallido" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
               <PropertyRef Name="id_usuario" />
@@ -990,9 +974,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Publicaci__id_ru__49C3F6B7">
-          <End Role="Rubro" Type="RagnarModel.Rubro" Multiplicity="1" />
-          <End Role="Publicacion" Type="RagnarModel.Publicacion" Multiplicity="*" />
+        <Association Name="FK__Publicaci__id_ru__4222D4EF">
+          <End Type="RagnarModel.Rubro" Role="Rubro" Multiplicity="1" />
+          <End Type="RagnarModel.Publicacion" Role="Publicacion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Rubro">
               <PropertyRef Name="id_rubro" />
@@ -1002,9 +986,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Ubicacion__id_pu__5535A963">
-          <End Role="Publicacion" Type="RagnarModel.Publicacion" Multiplicity="0..1" />
-          <End Role="Ubicacion_publicacion" Type="RagnarModel.Ubicacion_publicacion" Multiplicity="*" />
+        <Association Name="FK__Ubicacion__id_pu__4D94879B">
+          <End Type="RagnarModel.Publicacion" Role="Publicacion" Multiplicity="0..1" />
+          <End Type="RagnarModel.Ubicacion_publicacion" Role="Ubicacion_publicacion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Publicacion">
               <PropertyRef Name="id_publicacion" />
@@ -1014,9 +998,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Ubicacion__id_ti__5629CD9C">
-          <End Role="Tipo_ubicacion" Type="RagnarModel.Tipo_ubicacion" Multiplicity="1" />
-          <End Role="Ubicacion_publicacion" Type="RagnarModel.Ubicacion_publicacion" Multiplicity="*" />
+        <Association Name="FK__Usuario_r__id_ro__239E4DCF">
+          <End Type="RagnarModel.Rol" Role="Rol" Multiplicity="1" />
+          <End Type="RagnarModel.Usuario_rol" Role="Usuario_rol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="id_rol" />
+            </Principal>
+            <Dependent Role="Usuario_rol">
+              <PropertyRef Name="id_rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Ubicacion__id_ti__4E88ABD4">
+          <End Type="RagnarModel.Tipo_ubicacion" Role="Tipo_ubicacion" Multiplicity="1" />
+          <End Type="RagnarModel.Ubicacion_publicacion" Role="Ubicacion_publicacion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tipo_ubicacion">
               <PropertyRef Name="id_tipo_ubicacion" />
@@ -1026,15 +1022,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Usuario_r__id_us__22AA2996">
+          <End Type="RagnarModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="RagnarModel.Usuario_rol" Role="Usuario_rol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Usuario_rol">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="Funcionalidad_rol">
-          <End Role="Funcionalidad" Type="RagnarModel.Funcionalidad" Multiplicity="*" />
-          <End Role="Rol" Type="RagnarModel.Rol" Multiplicity="*" />
+          <End Type="RagnarModel.Funcionalidad" Role="Funcionalidad" Multiplicity="*" />
+          <End Type="RagnarModel.Rol" Role="Rol" Multiplicity="*" />
         </Association>
-        <Association Name="Usuario_rol">
-          <End Role="Rol" Type="RagnarModel.Rol" Multiplicity="*" />
-          <End Role="Usuario" Type="RagnarModel.Usuario" Multiplicity="*" />
-        </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1043,216 +1047,218 @@
           <EntitySetMapping Name="Cliente">
             <EntityTypeMapping TypeName="RagnarModel.Cliente">
               <MappingFragment StoreEntitySet="Cliente">
-                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="apellido" ColumnName="apellido" />
-                <ScalarProperty Name="tipo_documento" ColumnName="tipo_documento" />
-                <ScalarProperty Name="numero_documento" ColumnName="numero_documento" />
-                <ScalarProperty Name="cuil" ColumnName="cuil" />
-                <ScalarProperty Name="mail" ColumnName="mail" />
-                <ScalarProperty Name="telefono" ColumnName="telefono" />
-                <ScalarProperty Name="calle" ColumnName="calle" />
-                <ScalarProperty Name="portal" ColumnName="portal" />
-                <ScalarProperty Name="piso" ColumnName="piso" />
-                <ScalarProperty Name="departamento" ColumnName="departamento" />
-                <ScalarProperty Name="localidad" ColumnName="localidad" />
-                <ScalarProperty Name="codigo_postal" ColumnName="codigo_postal" />
-                <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
-                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
                 <ScalarProperty Name="tarjeta_credito" ColumnName="tarjeta_credito" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
+                <ScalarProperty Name="codigo_postal" ColumnName="codigo_postal" />
+                <ScalarProperty Name="localidad" ColumnName="localidad" />
+                <ScalarProperty Name="departamento" ColumnName="departamento" />
+                <ScalarProperty Name="piso" ColumnName="piso" />
+                <ScalarProperty Name="portal" ColumnName="portal" />
+                <ScalarProperty Name="calle" ColumnName="calle" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="cuil" ColumnName="cuil" />
+                <ScalarProperty Name="numero_documento" ColumnName="numero_documento" />
+                <ScalarProperty Name="tipo_documento" ColumnName="tipo_documento" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Compra">
             <EntityTypeMapping TypeName="RagnarModel.Compra">
               <MappingFragment StoreEntitySet="Compra">
-                <ScalarProperty Name="id_compra" ColumnName="id_compra" />
-                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
-                <ScalarProperty Name="id_empresa" ColumnName="id_empresa" />
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="tarjeta_utilizada" ColumnName="tarjeta_utilizada" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+                <ScalarProperty Name="id_compra" ColumnName="id_compra" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Empresa">
             <EntityTypeMapping TypeName="RagnarModel.Empresa">
               <MappingFragment StoreEntitySet="Empresa">
-                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
-                <ScalarProperty Name="razon_social" ColumnName="razon_social" />
-                <ScalarProperty Name="cuit" ColumnName="cuit" />
-                <ScalarProperty Name="mail" ColumnName="mail" />
-                <ScalarProperty Name="telefono" ColumnName="telefono" />
-                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
-                <ScalarProperty Name="calle" ColumnName="calle" />
-                <ScalarProperty Name="portal" ColumnName="portal" />
-                <ScalarProperty Name="piso" ColumnName="piso" />
-                <ScalarProperty Name="departamento" ColumnName="departamento" />
-                <ScalarProperty Name="localidad" ColumnName="localidad" />
-                <ScalarProperty Name="codigo_postal" ColumnName="codigo_postal" />
                 <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="codigo_postal" ColumnName="codigo_postal" />
+                <ScalarProperty Name="localidad" ColumnName="localidad" />
+                <ScalarProperty Name="departamento" ColumnName="departamento" />
+                <ScalarProperty Name="piso" ColumnName="piso" />
+                <ScalarProperty Name="portal" ColumnName="portal" />
+                <ScalarProperty Name="calle" ColumnName="calle" />
+                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="cuit" ColumnName="cuit" />
+                <ScalarProperty Name="razon_social" ColumnName="razon_social" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Estado_publicacion">
             <EntityTypeMapping TypeName="RagnarModel.Estado_publicacion">
               <MappingFragment StoreEntitySet="Estado_publicacion">
-                <ScalarProperty Name="id_estado" ColumnName="id_estado" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="id_estado" ColumnName="id_estado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Factura">
             <EntityTypeMapping TypeName="RagnarModel.Factura">
               <MappingFragment StoreEntitySet="Factura">
-                <ScalarProperty Name="id_factura" ColumnName="id_factura" />
-                <ScalarProperty Name="numero" ColumnName="numero" />
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="total" ColumnName="total" />
                 <ScalarProperty Name="forma_pago" ColumnName="forma_pago" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="id_factura" ColumnName="id_factura" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Funcionalidad">
             <EntityTypeMapping TypeName="RagnarModel.Funcionalidad">
               <MappingFragment StoreEntitySet="Funcionalidad">
-                <ScalarProperty Name="id_funcionalidad" ColumnName="id_funcionalidad" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="id_funcionalidad" ColumnName="id_funcionalidad" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Grado_publicacion">
             <EntityTypeMapping TypeName="RagnarModel.Grado_publicacion">
               <MappingFragment StoreEntitySet="Grado_publicacion">
-                <ScalarProperty Name="id_grado" ColumnName="id_grado" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="comision" ColumnName="comision" />
                 <ScalarProperty Name="habilitado" ColumnName="habilitado" />
+                <ScalarProperty Name="comision" ColumnName="comision" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="id_grado" ColumnName="id_grado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Item_factura">
             <EntityTypeMapping TypeName="RagnarModel.Item_factura">
               <MappingFragment StoreEntitySet="Item_factura">
-                <ScalarProperty Name="id_item" ColumnName="id_item" />
-                <ScalarProperty Name="id_compra" ColumnName="id_compra" />
-                <ScalarProperty Name="id_factura" ColumnName="id_factura" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="monto" ColumnName="monto" />
                 <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="monto" ColumnName="monto" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="id_factura" ColumnName="id_factura" />
+                <ScalarProperty Name="id_ubicacion" ColumnName="id_ubicacion" />
+                <ScalarProperty Name="id_item" ColumnName="id_item" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Login_fallido">
             <EntityTypeMapping TypeName="RagnarModel.Login_fallido">
               <MappingFragment StoreEntitySet="Login_fallido">
-                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
                 <ScalarProperty Name="nro_intento" ColumnName="nro_intento" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Premio">
             <EntityTypeMapping TypeName="RagnarModel.Premio">
               <MappingFragment StoreEntitySet="Premio">
-                <ScalarProperty Name="id_premio" ColumnName="id_premio" />
-                <ScalarProperty Name="puntos_necesarios" ColumnName="puntos_necesarios" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="puntos_necesarios" ColumnName="puntos_necesarios" />
+                <ScalarProperty Name="id_premio" ColumnName="id_premio" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Publicacion">
             <EntityTypeMapping TypeName="RagnarModel.Publicacion">
               <MappingFragment StoreEntitySet="Publicacion">
-                <ScalarProperty Name="id_publicacion" ColumnName="id_publicacion" />
-                <ScalarProperty Name="codigo_publicacion" ColumnName="codigo_publicacion" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="stock" ColumnName="stock" />
-                <ScalarProperty Name="fecha_publicacion" ColumnName="fecha_publicacion" />
-                <ScalarProperty Name="id_rubro" ColumnName="id_rubro" />
-                <ScalarProperty Name="direccion" ColumnName="direccion" />
-                <ScalarProperty Name="id_grado" ColumnName="id_grado" />
-                <ScalarProperty Name="id_empresa" ColumnName="id_empresa" />
-                <ScalarProperty Name="fecha_vencimiento" ColumnName="fecha_vencimiento" />
-                <ScalarProperty Name="fecha_espectaculo" ColumnName="fecha_espectaculo" />
                 <ScalarProperty Name="id_estado" ColumnName="id_estado" />
+                <ScalarProperty Name="fecha_espectaculo" ColumnName="fecha_espectaculo" />
+                <ScalarProperty Name="fecha_vencimiento" ColumnName="fecha_vencimiento" />
+                <ScalarProperty Name="id_empresa" ColumnName="id_empresa" />
+                <ScalarProperty Name="id_grado" ColumnName="id_grado" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="id_rubro" ColumnName="id_rubro" />
+                <ScalarProperty Name="fecha_publicacion" ColumnName="fecha_publicacion" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="codigo_publicacion" ColumnName="codigo_publicacion" />
+                <ScalarProperty Name="id_publicacion" ColumnName="id_publicacion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Puntos_cliente">
             <EntityTypeMapping TypeName="RagnarModel.Puntos_cliente">
               <MappingFragment StoreEntitySet="Puntos_cliente">
-                <ScalarProperty Name="id_puntaje" ColumnName="id_puntaje" />
-                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
-                <ScalarProperty Name="puntos" ColumnName="puntos" />
                 <ScalarProperty Name="vencimiento" ColumnName="vencimiento" />
+                <ScalarProperty Name="puntos" ColumnName="puntos" />
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+                <ScalarProperty Name="id_puntaje" ColumnName="id_puntaje" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Rol">
             <EntityTypeMapping TypeName="RagnarModel.Rol">
               <MappingFragment StoreEntitySet="Rol">
-                <ScalarProperty Name="id_rol" ColumnName="id_rol" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="habilitado" ColumnName="habilitado" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id_rol" ColumnName="id_rol" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Rubro">
             <EntityTypeMapping TypeName="RagnarModel.Rubro">
               <MappingFragment StoreEntitySet="Rubro">
-                <ScalarProperty Name="id_rubro" ColumnName="id_rubro" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
                 <ScalarProperty Name="habilitado" ColumnName="habilitado" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="id_rubro" ColumnName="id_rubro" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tipo_ubicacion">
             <EntityTypeMapping TypeName="RagnarModel.Tipo_ubicacion">
               <MappingFragment StoreEntitySet="Tipo_ubicacion">
-                <ScalarProperty Name="id_tipo_ubicacion" ColumnName="id_tipo_ubicacion" />
-                <ScalarProperty Name="codigo" ColumnName="codigo" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="id_tipo_ubicacion" ColumnName="id_tipo_ubicacion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Ubicacion_publicacion">
             <EntityTypeMapping TypeName="RagnarModel.Ubicacion_publicacion">
               <MappingFragment StoreEntitySet="Ubicacion_publicacion">
-                <ScalarProperty Name="id_ubicacion" ColumnName="id_ubicacion" />
-                <ScalarProperty Name="id_publicacion" ColumnName="id_publicacion" />
-                <ScalarProperty Name="fila" ColumnName="fila" />
-                <ScalarProperty Name="asiento" ColumnName="asiento" />
-                <ScalarProperty Name="sin_numerar" ColumnName="sin_numerar" />
-                <ScalarProperty Name="precio" ColumnName="precio" />
-                <ScalarProperty Name="id_tipo" ColumnName="id_tipo" />
-                <ScalarProperty Name="id_compra" ColumnName="id_compra" />
+                <ScalarProperty Name="habilitado" ColumnName="habilitado" />
                 <ScalarProperty Name="compra_cantidad" ColumnName="compra_cantidad" />
+                <ScalarProperty Name="id_compra" ColumnName="id_compra" />
+                <ScalarProperty Name="id_tipo" ColumnName="id_tipo" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="sin_numerar" ColumnName="sin_numerar" />
+                <ScalarProperty Name="asiento" ColumnName="asiento" />
+                <ScalarProperty Name="fila" ColumnName="fila" />
+                <ScalarProperty Name="id_publicacion" ColumnName="id_publicacion" />
+                <ScalarProperty Name="id_ubicacion" ColumnName="id_ubicacion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Usuario">
             <EntityTypeMapping TypeName="RagnarModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
-                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
-                <ScalarProperty Name="usuario" ColumnName="usuario" />
-                <ScalarProperty Name="clave" ColumnName="clave" />
+                <ScalarProperty Name="es_nuevo" ColumnName="es_nuevo" />
                 <ScalarProperty Name="habilitado" ColumnName="habilitado" />
+                <ScalarProperty Name="clave" ColumnName="clave" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario_rol">
+            <EntityTypeMapping TypeName="RagnarModel.Usuario_rol">
+              <MappingFragment StoreEntitySet="Usuario_rol">
+                <ScalarProperty Name="habilitado" ColumnName="habilitado" />
+                <ScalarProperty Name="id_rol" ColumnName="id_rol" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <AssociationSetMapping Name="Funcionalidad_rol" TypeName="RagnarModel.Funcionalidad_rol" StoreEntitySet="Funcionalidad_rol">
+            <EndProperty Name="Rol">
+              <ScalarProperty Name="id_rol" ColumnName="id_rol" />
+            </EndProperty>
             <EndProperty Name="Funcionalidad">
               <ScalarProperty Name="id_funcionalidad" ColumnName="id_funcionalidad" />
-            </EndProperty>
-            <EndProperty Name="Rol">
-              <ScalarProperty Name="id_rol" ColumnName="id_rol" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="Usuario_rol" TypeName="RagnarModel.Usuario_rol" StoreEntitySet="Usuario_rol">
-            <EndProperty Name="Rol">
-              <ScalarProperty Name="id_rol" ColumnName="id_rol" />
-            </EndProperty>
-            <EndProperty Name="Usuario">
-              <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

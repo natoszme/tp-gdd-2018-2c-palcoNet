@@ -16,15 +16,15 @@ namespace PalcoNet.Model
     {
         public Rol()
         {
+            this.Usuario_rol = new HashSet<Usuario_rol>();
             this.Funcionalidad = new HashSet<Funcionalidad>();
-            this.Usuario = new HashSet<Usuario>();
         }
     
         public int id_rol { get; set; }
         public string nombre { get; set; }
         public bool habilitado { get; set; }
     
+        public virtual ICollection<Usuario_rol> Usuario_rol { get; set; }
         public virtual ICollection<Funcionalidad> Funcionalidad { get; set; }
-        public virtual ICollection<Usuario> Usuario { get; set; }
     }
 }

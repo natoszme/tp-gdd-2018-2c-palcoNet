@@ -71,11 +71,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Headspring\Enumeration.cs" />
-    <Compile Include="Model\TipoDocumento.cs" />
-    <Compile Include="Utils\ComboBoxItem.cs" />
-    <Compile Include="Utils\ConfigReader.cs" />
-    <Compile Include="Utils\DBUtils.cs" />
-    <Compile Include="Utils\ValidationsUtils.cs" />
     <Compile Include="Model\Cliente.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
@@ -85,20 +80,10 @@
     <Compile Include="Model\Empresa.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\EntityModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EntityModel.Context.tt</DependentUpon>
-    </Compile>
     <Compile Include="Model\EntityModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\EntityModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EntityModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Model\Estado_publicacion.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
@@ -133,16 +118,34 @@
     <Compile Include="Model\Rubro.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\TipoDocumento.cs" />
     <Compile Include="Model\Tipo_ubicacion.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\Ubicacion.cs" />
     <Compile Include="Model\Ubicacion_publicacion.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Usuario.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Usuario_rol.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\ComboBoxItem.cs" />
+    <Compile Include="Utils\ConfigReader.cs" />
+    <Compile Include="Utils\DBUtils.cs" />
+    <Compile Include="Utils\ValidationsUtils.cs" />
+    <Compile Include="Model\EntityModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\EntityModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Ubicacion.cs" />
     <Compile Include="Utils\DataGridViewUtils.cs" />
     <Compile Include="Utils\SessionUtils.cs" />
     <Compile Include="Utils\WindowsFormUtils.cs" />
