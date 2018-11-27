@@ -514,16 +514,69 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="F_ClientesConMasCompras" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="RAGNAR">
+          <Parameter Name="Fecha" Type="datetime" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="Nombre" Type="nvarchar" Nullable="false" MaxLength="255" />
+                <Property Name="Apellido" Type="nvarchar" Nullable="false" MaxLength="255" />
+                <Property Name="TipoDeDocumento" Type="varchar" Nullable="false" MaxLength="3" />
+                <Property Name="NumeroDeDocumento" Type="numeric" Nullable="false" />
+                <Property Name="CUIL" Type="nvarchar" MaxLength="255" />
+                <Property Name="CantidadDeCompras" Type="int" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="F_ClientesConMasPuntosVencidos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="RAGNAR">
+          <Parameter Name="Fecha" Type="datetime" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="Nombre" Type="nvarchar" Nullable="false" MaxLength="255" />
+                <Property Name="Apellido" Type="nvarchar" Nullable="false" MaxLength="255" />
+                <Property Name="TipoDeDocumento" Type="varchar" Nullable="false" MaxLength="3" />
+                <Property Name="NumeroDeDocumento" Type="numeric" Nullable="false" />
+                <Property Name="CUIL" Type="nvarchar" MaxLength="255" />
+                <Property Name="PuntosVencidos" Type="int" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="F_EmpresasConMasLocalidadesNoVencidas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="RAGNAR">
+          <Parameter Name="Grado" Type="nvarchar" Mode="In" />
+          <Parameter Name="Mes" Type="nvarchar" Mode="In" />
+          <Parameter Name="Anio" Type="nvarchar" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="razon_social" Type="nvarchar" Nullable="false" MaxLength="255" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
         <Function Name="F_HasheoDeClave" ReturnType="varchar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="RAGNAR">
           <Parameter Name="Clave" Type="varchar" Mode="In" />
         </Function>
-        <!--Errors Found During Generation:
-      warning 6013: The table/view 'GD2C2018.RAGNAR.Canje_premio' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-      
-      <EntityType Name="Canje_premio">
-        <Property Name="id_premio" Type="int" />
-        <Property Name="id_cliente" Type="bigint" />
-      </EntityType>-->
+        <Function Name="F_HistorialDeCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="RAGNAR">
+          <Parameter Name="Cliente" Type="bigint" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="Espectaculo" Type="nvarchar" Nullable="false" MaxLength="255" />
+                <Property Name="FechaEspectaculo" Type="datetime" Nullable="false" />
+                <Property Name="FechaDeCompra" Type="datetime" Nullable="false" />
+                <Property Name="FormaDePago" Type="varchar" Nullable="false" MaxLength="10" />
+                <Property Name="Precio" Type="numeric" Nullable="false" />
+                <Property Name="Asiento" Type="numeric" />
+                <Property Name="Fila" Type="varchar" MaxLength="3" />
+                <Property Name="EsSinNumerar" Type="bit" Nullable="false" />
+                <Property Name="TipodeUbicacion" Type="nvarchar" Nullable="false" MaxLength="255" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -615,6 +668,20 @@
             <End Role="Funcionalidad" EntitySet="Funcionalidad" />
             <End Role="Rol" EntitySet="Rol" />
           </AssociationSet>
+          <FunctionImport Name="F_ClientesConMasCompras" IsComposable="true" ReturnType="Collection(RagnarModel.F_ClientesConMasCompras_Result)">
+            <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="F_ClientesConMasPuntosVencidos" IsComposable="true" ReturnType="Collection(RagnarModel.F_ClientesConMasPuntosVencidos_Result)">
+            <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="F_EmpresasConMasLocalidadesNoVencidas" IsComposable="true" ReturnType="Collection(String)">
+            <Parameter Name="Grado" Mode="In" Type="String" />
+            <Parameter Name="Mes" Mode="In" Type="String" />
+            <Parameter Name="Anio" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="F_HistorialDeCliente" IsComposable="true" ReturnType="Collection(RagnarModel.F_HistorialDeCliente_Result)">
+            <Parameter Name="Cliente" Mode="In" Type="Int64" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Cliente">
           <Key>
@@ -1038,6 +1105,33 @@
           <End Type="RagnarModel.Funcionalidad" Role="Funcionalidad" Multiplicity="*" />
           <End Type="RagnarModel.Rol" Role="Rol" Multiplicity="*" />
         </Association>
+        <ComplexType Name="F_ClientesConMasCompras_Result">
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Apellido" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="TipoDeDocumento" Nullable="false" MaxLength="3" />
+          <Property Type="Decimal" Name="NumeroDeDocumento" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="CUIL" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="CantidadDeCompras" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="F_ClientesConMasPuntosVencidos_Result">
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Apellido" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="TipoDeDocumento" Nullable="false" MaxLength="3" />
+          <Property Type="Decimal" Name="NumeroDeDocumento" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="CUIL" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="PuntosVencidos" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="F_HistorialDeCliente_Result">
+          <Property Type="String" Name="Espectaculo" Nullable="false" MaxLength="255" />
+          <Property Type="DateTime" Name="FechaEspectaculo" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="FechaDeCompra" Nullable="false" Precision="23" />
+          <Property Type="String" Name="FormaDePago" Nullable="false" MaxLength="10" />
+          <Property Type="Decimal" Name="Precio" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="Asiento" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="Fila" Nullable="true" MaxLength="3" />
+          <Property Type="Boolean" Name="EsSinNumerar" Nullable="false" />
+          <Property Type="String" Name="TipodeUbicacion" Nullable="false" MaxLength="255" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1261,6 +1355,46 @@
               <ScalarProperty Name="id_funcionalidad" ColumnName="id_funcionalidad" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="F_ClientesConMasCompras" FunctionName="RagnarModel.Store.F_ClientesConMasCompras">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RagnarModel.F_ClientesConMasCompras_Result">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="TipoDeDocumento" ColumnName="TipoDeDocumento" />
+                <ScalarProperty Name="NumeroDeDocumento" ColumnName="NumeroDeDocumento" />
+                <ScalarProperty Name="CUIL" ColumnName="CUIL" />
+                <ScalarProperty Name="CantidadDeCompras" ColumnName="CantidadDeCompras" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="F_ClientesConMasPuntosVencidos" FunctionName="RagnarModel.Store.F_ClientesConMasPuntosVencidos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RagnarModel.F_ClientesConMasPuntosVencidos_Result">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="TipoDeDocumento" ColumnName="TipoDeDocumento" />
+                <ScalarProperty Name="NumeroDeDocumento" ColumnName="NumeroDeDocumento" />
+                <ScalarProperty Name="CUIL" ColumnName="CUIL" />
+                <ScalarProperty Name="PuntosVencidos" ColumnName="PuntosVencidos" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="F_EmpresasConMasLocalidadesNoVencidas" FunctionName="RagnarModel.Store.F_EmpresasConMasLocalidadesNoVencidas" />
+          <FunctionImportMapping FunctionImportName="F_HistorialDeCliente" FunctionName="RagnarModel.Store.F_HistorialDeCliente">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RagnarModel.F_HistorialDeCliente_Result">
+                <ScalarProperty Name="Espectaculo" ColumnName="Espectaculo" />
+                <ScalarProperty Name="FechaEspectaculo" ColumnName="FechaEspectaculo" />
+                <ScalarProperty Name="FechaDeCompra" ColumnName="FechaDeCompra" />
+                <ScalarProperty Name="FormaDePago" ColumnName="FormaDePago" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Asiento" ColumnName="Asiento" />
+                <ScalarProperty Name="Fila" ColumnName="Fila" />
+                <ScalarProperty Name="EsSinNumerar" ColumnName="EsSinNumerar" />
+                <ScalarProperty Name="TipodeUbicacion" ColumnName="TipodeUbicacion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
