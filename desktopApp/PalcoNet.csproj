@@ -94,6 +94,15 @@
     <Compile Include="Model\Funcionalidad.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\F_ClientesConMasCompras_Result.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\F_ClientesConMasPuntosVencidos_Result.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\F_HistorialDeCliente_Result.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Grado_publicacion.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>

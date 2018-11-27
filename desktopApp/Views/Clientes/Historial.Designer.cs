@@ -46,16 +46,17 @@
             // dgvCompras
             // 
             this.dgvCompras.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCompras.Location = new System.Drawing.Point(12, 24);
+            this.dgvCompras.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvCompras.Location = new System.Drawing.Point(0, 0);
             this.dgvCompras.Name = "dgvCompras";
-            this.dgvCompras.Size = new System.Drawing.Size(464, 182);
+            this.dgvCompras.Size = new System.Drawing.Size(787, 436);
             this.dgvCompras.TabIndex = 1;
             // 
             // Historial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(496, 262);
+            this.ClientSize = new System.Drawing.Size(787, 436);
             this.Controls.Add(this.dgvCompras);
             this.Controls.Add(this.btnVolver);
             this.Name = "Historial";

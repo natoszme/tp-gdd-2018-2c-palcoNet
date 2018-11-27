@@ -29,18 +29,8 @@ namespace PalcoNet.Clientes
         {
             using (RagnarEntities db = new RagnarEntities())
             {
-                IQueryable<Compra> comprasDeCliente = db.Cliente.Find(Global.usuarioLogueado.id_usuario).Compra.AsQueryable();
-
-                var compras = comprasDeCliente.Select(c => new
-                {
-                    // TODO: agregar el total de la compra
-                    // TODO: ver que este bien corregido
-                    razon_social = c.Ubicacion_publicacion.First().Publicacion.Empresa.razon_social,
-                    tarjeta_utilizada = c.tarjeta_utilizada,
-                    fecha = c.fecha
-                }).OrderBy(c => c.fecha);
-
-                DataGridViewUtils.actualizarDataGriedView(dgvCompras, compras, "id_compra");
+                var historial = db.F_HistorialDeCliente(Global.usuarioLogueado.id_usuario).AsQueryable<F_HistorialDeCliente_Result>();
+                DataGridViewUtils.actualizarDataGriedView(dgvCompras, historial, "id_compra");
             }
         }
     }
