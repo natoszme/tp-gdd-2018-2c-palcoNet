@@ -188,6 +188,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "Listado";
             this.Text = "Listado";
+            this.Load += new System.EventHandler(this.Listado_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvReporte)).EndInit();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

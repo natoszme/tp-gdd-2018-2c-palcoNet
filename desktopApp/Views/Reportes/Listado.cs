@@ -104,5 +104,23 @@ namespace PalcoNet.Views.Reportes
         private string textErrorLableFiltro() {
             return textLabelFiltro().ToLower();
         }
+
+        private void Listado_Load(object sender, EventArgs e)
+        {
+            // cargarGrados();
+        }
+
+        private void cargarGrados() {
+            using (RagnarEntities db = new RagnarEntities()) {
+                
+                // TODO: seguir aca, por ahora esto rompe                
+                cmbGrado.DataSource = db.Grado_publicacion.Select(
+                    grado => new ComboBoxItem(grado.id_grado, grado.descripcion)
+                ).ToList();
+
+                cmbGrado.ValueMember = "value";
+                cmbGrado.DisplayMember = "text";
+            }
+        }
     }
 }
