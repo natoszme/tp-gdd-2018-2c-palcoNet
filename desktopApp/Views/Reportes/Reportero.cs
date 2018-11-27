@@ -16,7 +16,7 @@ namespace PalcoNet.Views.Reportes
          */
 
         public static IQueryable<Object> getReporte(RagnarEntities dbContext, int anio, int trimestre, int tipo) {
-            int mes = (trimestre * 3) - 2;
+            int mes = getMes(trimestre, tipo);
             DateTime fecha = new DateTime(anio, mes, DateTime.DaysInMonth(anio, mes));
             switch (tipo) {
                 case 0:
@@ -31,6 +31,18 @@ namespace PalcoNet.Views.Reportes
                 
                 default:
                     return null;
+            }
+        }
+
+        private static int getMes(int trimestreOmes, int tipo) {
+            switch (tipo) {
+                case 0:
+                    return trimestreOmes;
+
+                case 1:
+                case 2:
+                default:
+                    return (trimestreOmes * 3) - 2;
             }
         }
     }

@@ -60,6 +60,13 @@ namespace PalcoNet.Utils
                 throw new ValidationException("El campo " + nombreInput + " debe tener " + longitud + " caracteres");
         }
 
+        public static void valorEntre(Control input, string nombreInput, int minimo, int maximo)
+        {
+            double valor = double.Parse(input.Text);
+            if (valor < minimo || valor > maximo)
+                throw new ValidationException("El campo " + nombreInput + " debe ser un numero entre " + minimo + " y " + maximo);
+        }
+
         public static void campoObligatorio(DateTimePicker dtp, string nombreInput) {
             if (dtp.Value == null)
                 throw new ValidationException("El campo " + nombreInput + " es obligatorio");
