@@ -57,7 +57,7 @@ namespace PalcoNet.Usuarios
         {
             if (camposYDominioValidos())
             {
-                BaseDeDatos.BaseDeDatos.modificarClave(Global.usuarioLogueado, txtNuevaClave.Text, this);
+                BaseDeDatos.BaseDeDatos.modificarClave(Global.usuarioLogueado, txtNuevaClave.Text, this, new Home());
             }
         }
     }

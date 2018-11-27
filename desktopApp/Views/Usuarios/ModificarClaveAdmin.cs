@@ -43,9 +43,8 @@ namespace PalcoNet.Usuarios
         private void btnCambiar_Click(object sender, EventArgs e)
         {
             using (RagnarEntities db = new RagnarEntities()) {
-                
                 if (camposValidos()) {
-                    BaseDeDatos.BaseDeDatos.modificarClave(db.Usuario.Find(id), txtNuevaClave.Text, this, db);
+                    BaseDeDatos.BaseDeDatos.modificarClave(db, db.Usuario.Find(id), txtNuevaClave.Text, this);
                 }
             }            
         }

@@ -121,16 +121,15 @@ namespace PalcoNet.BaseDeDatos
         }
         #endregion       
     
-        internal static void modificarClave(Usuario usuario, string pass, Form formContext)
+        internal static void modificarClave(Usuario usuario, string pass, Form formContext, Form destino = null)
         {
-            modificarClave(usuario, pass, formContext, dbContext);
+            modificarClave(dbContext, usuario, pass, formContext, destino);
         }
 
-        internal static void modificarClave(Usuario usuario, string pass, Form formContext, RagnarEntities db)
+        internal static void modificarClave(RagnarEntities db, Usuario usuario, string pass, Form formContext, Form destino = null)
         {
             usuario.clave = pass;
-            db.Entry(usuario).State = System.Data.Entity.EntityState.Modified;
-            Utils.WindowsFormUtils.guardarYCerrar(formContext, new Home());
+            Utils.WindowsFormUtils.guardarYCerrar(db, formContext, destino);
         }
     }
 }
