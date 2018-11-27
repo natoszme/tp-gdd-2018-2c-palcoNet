@@ -151,10 +151,6 @@
             // 
             this.cmbGrado.Enabled = false;
             this.cmbGrado.FormattingEnabled = true;
-            this.cmbGrado.Items.AddRange(new object[] {
-            "Empresas con mas no vendidas",
-            "Clientes con mas puntos vencidos",
-            "Clientes con mas compras"});
             this.cmbGrado.Location = new System.Drawing.Point(293, 40);
             this.cmbGrado.Name = "cmbGrado";
             this.cmbGrado.Size = new System.Drawing.Size(121, 21);
