@@ -12,6 +12,8 @@ namespace PalcoNet.Model
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Linq;
+    using System.Data.Entity.Core.Objects;
     
     public partial class RagnarEntities : DbContext
     {
@@ -43,5 +45,53 @@ namespace PalcoNet.Model
         public DbSet<Ubicacion_publicacion> Ubicacion_publicacion { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Usuario_rol> Usuario_rol { get; set; }
+
+        [DbFunction("RagnarEntities", "F_ClientesConMasCompras")]
+        public virtual IQueryable<F_ClientesConMasCompras_Result> F_ClientesConMasCompras(Nullable<System.DateTime> fecha)
+        {
+            var fechaParameter = fecha.HasValue ?
+                new ObjectParameter("Fecha", fecha) :
+                new ObjectParameter("Fecha", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<F_ClientesConMasCompras_Result>("[RagnarEntities].[F_ClientesConMasCompras](@Fecha)", fechaParameter);
+        }
+
+        [DbFunction("RagnarEntities", "F_ClientesConMasPuntosVencidos")]
+        public virtual IQueryable<F_ClientesConMasPuntosVencidos_Result> F_ClientesConMasPuntosVencidos(Nullable<System.DateTime> fecha)
+        {
+            var fechaParameter = fecha.HasValue ?
+                new ObjectParameter("Fecha", fecha) :
+                new ObjectParameter("Fecha", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<F_ClientesConMasPuntosVencidos_Result>("[RagnarEntities].[F_ClientesConMasPuntosVencidos](@Fecha)", fechaParameter);
+        }
+
+        [DbFunction("RagnarEntities", "F_EmpresasConMasLocalidadesNoVencidas")]
+        public virtual IQueryable<string> F_EmpresasConMasLocalidadesNoVencidas(string grado, string mes, string anio)
+        {
+            var gradoParameter = grado != null ?
+                new ObjectParameter("Grado", grado) :
+                new ObjectParameter("Grado", typeof(string));
+    
+            var mesParameter = mes != null ?
+                new ObjectParameter("Mes", mes) :
+                new ObjectParameter("Mes", typeof(string));
+    
+            var anioParameter = anio != null ?
+                new ObjectParameter("Anio", anio) :
+                new ObjectParameter("Anio", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<string>("[RagnarEntities].[F_EmpresasConMasLocalidadesNoVencidas](@Grado, @Mes, @Anio)", gradoParameter, mesParameter, anioParameter);
+        }
+
+        [DbFunction("RagnarEntities", "F_HistorialDeCliente")]
+        public virtual IQueryable<F_HistorialDeCliente_Result> F_HistorialDeCliente(Nullable<long> cliente)
+        {
+            var clienteParameter = cliente.HasValue ?
+                new ObjectParameter("Cliente", cliente) :
+                new ObjectParameter("Cliente", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<F_HistorialDeCliente_Result>("[RagnarEntities].[F_HistorialDeCliente](@Cliente)", clienteParameter);
+        }
     }
 }
