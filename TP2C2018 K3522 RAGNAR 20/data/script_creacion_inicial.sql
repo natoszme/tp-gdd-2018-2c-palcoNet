@@ -467,10 +467,10 @@ GO
 
 --/ Funcion para listado de empresas con mayor cantidad de localidades no vendidas /--
 
-CREATE FUNCTION RAGNAR.F_EmpresasConMasLocalidadesNoVencidas (@Grado nvarchar(255), @Mes nvarchar(10), @Año nvarchar(10))
+CREATE FUNCTION RAGNAR.F_EmpresasConMasLocalidadesNoVencidas (@Grado nvarchar(255), @Mes nvarchar(10), @Anio nvarchar(10))
 RETURNS TABLE
 AS
-RETURN (SELECT TOP 5 E.razon_social FROM RAGNAR.Empresa as E JOIN RAGNAR.Publicacion as P ON (E.id_usuario = P.id_empresa) JOIN RAGNAR.Grado_publicacion as G ON (P.id_grado = G.id_grado) WHERE YEAR(fecha_publicacion) = @Año AND MONTH(fecha_publicacion) = @Mes AND G.descripcion = @Grado GROUP BY E.razon_social ORDER BY SUM(P.stock) DESC)
+RETURN (SELECT TOP 5 E.razon_social FROM RAGNAR.Empresa as E JOIN RAGNAR.Publicacion as P ON (E.id_usuario = P.id_empresa) JOIN RAGNAR.Grado_publicacion as G ON (P.id_grado = G.id_grado) WHERE YEAR(fecha_publicacion) = @Anio AND MONTH(fecha_publicacion) = @Mes AND G.descripcion = @Grado GROUP BY E.razon_social ORDER BY SUM(P.stock) DESC)
 GO
 
 --/ Funcion para listado de clientes con mas puntos vencidos /--
