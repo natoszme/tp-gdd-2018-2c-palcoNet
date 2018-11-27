@@ -30,7 +30,7 @@ namespace PalcoNet.Clientes
             using (RagnarEntities db = new RagnarEntities())
             {
                 var historial = db.F_HistorialDeCliente(Global.usuarioLogueado.id_usuario).AsQueryable<F_HistorialDeCliente_Result>();
-                DataGridViewUtils.actualizarDataGriedView(dgvCompras, historial, "id_compra");
+                DataGridViewUtils.actualizarDataGriedView(dgvCompras, historial);
             }
         }
     }

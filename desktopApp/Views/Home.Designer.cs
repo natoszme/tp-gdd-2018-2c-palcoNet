@@ -61,7 +61,7 @@
             this.btnAbmEmpresa.Location = new System.Drawing.Point(28, 143);
             this.btnAbmEmpresa.Name = "btnAbmEmpresa";
             this.btnAbmEmpresa.Size = new System.Drawing.Size(126, 23);
-            this.btnAbmEmpresa.TabIndex = 3;
+            this.btnAbmEmpresa.TabIndex = 2;
             this.btnAbmEmpresa.Text = "ABM Empresa";
             this.btnAbmEmpresa.UseVisualStyleBackColor = true;
             this.btnAbmEmpresa.Visible = false;
@@ -72,7 +72,7 @@
             this.btnAbmClientes.Location = new System.Drawing.Point(221, 114);
             this.btnAbmClientes.Name = "btnAbmClientes";
             this.btnAbmClientes.Size = new System.Drawing.Size(126, 23);
-            this.btnAbmClientes.TabIndex = 2;
+            this.btnAbmClientes.TabIndex = 1;
             this.btnAbmClientes.Text = "ABM Clientes";
             this.btnAbmClientes.UseVisualStyleBackColor = true;
             this.btnAbmClientes.Visible = false;
@@ -83,7 +83,7 @@
             this.btnComprar.Location = new System.Drawing.Point(221, 172);
             this.btnComprar.Name = "btnComprar";
             this.btnComprar.Size = new System.Drawing.Size(126, 23);
-            this.btnComprar.TabIndex = 7;
+            this.btnComprar.TabIndex = 5;
             this.btnComprar.Text = "Comprar Entrada";
             this.btnComprar.UseVisualStyleBackColor = true;
             this.btnComprar.Visible = false;
@@ -94,7 +94,7 @@
             this.btnAbmPublicaciones.Location = new System.Drawing.Point(28, 172);
             this.btnAbmPublicaciones.Name = "btnAbmPublicaciones";
             this.btnAbmPublicaciones.Size = new System.Drawing.Size(126, 23);
-            this.btnAbmPublicaciones.TabIndex = 5;
+            this.btnAbmPublicaciones.TabIndex = 4;
             this.btnAbmPublicaciones.Text = "Abm Publicaciones";
             this.btnAbmPublicaciones.UseVisualStyleBackColor = true;
             this.btnAbmPublicaciones.Visible = false;
@@ -105,7 +105,7 @@
             this.btnAbmGrado.Location = new System.Drawing.Point(221, 143);
             this.btnAbmGrado.Name = "btnAbmGrado";
             this.btnAbmGrado.Size = new System.Drawing.Size(126, 23);
-            this.btnAbmGrado.TabIndex = 4;
+            this.btnAbmGrado.TabIndex = 3;
             this.btnAbmGrado.Text = "ABM Grado";
             this.btnAbmGrado.UseVisualStyleBackColor = true;
             this.btnAbmGrado.Visible = false;
@@ -126,7 +126,7 @@
             this.btnRendicionComisiones.Location = new System.Drawing.Point(28, 228);
             this.btnRendicionComisiones.Name = "btnRendicionComisiones";
             this.btnRendicionComisiones.Size = new System.Drawing.Size(126, 23);
-            this.btnRendicionComisiones.TabIndex = 10;
+            this.btnRendicionComisiones.TabIndex = 9;
             this.btnRendicionComisiones.Text = "Rendir Comisiones";
             this.btnRendicionComisiones.UseVisualStyleBackColor = true;
             this.btnRendicionComisiones.Visible = false;
@@ -137,7 +137,7 @@
             this.btnCanjePuntos.Location = new System.Drawing.Point(221, 199);
             this.btnCanjePuntos.Name = "btnCanjePuntos";
             this.btnCanjePuntos.Size = new System.Drawing.Size(126, 23);
-            this.btnCanjePuntos.TabIndex = 9;
+            this.btnCanjePuntos.TabIndex = 7;
             this.btnCanjePuntos.Text = "Canjear Puntos";
             this.btnCanjePuntos.UseVisualStyleBackColor = true;
             this.btnCanjePuntos.Visible = false;
@@ -148,7 +148,7 @@
             this.btnHistorial.Location = new System.Drawing.Point(28, 199);
             this.btnHistorial.Name = "btnHistorial";
             this.btnHistorial.Size = new System.Drawing.Size(126, 23);
-            this.btnHistorial.TabIndex = 8;
+            this.btnHistorial.TabIndex = 6;
             this.btnHistorial.Text = "Historial Cliente";
             this.btnHistorial.UseVisualStyleBackColor = true;
             this.btnHistorial.Visible = false;
@@ -187,10 +187,11 @@
             this.btnListadoEstadistico.Location = new System.Drawing.Point(221, 228);
             this.btnListadoEstadistico.Name = "btnListadoEstadistico";
             this.btnListadoEstadistico.Size = new System.Drawing.Size(126, 23);
-            this.btnListadoEstadistico.TabIndex = 15;
+            this.btnListadoEstadistico.TabIndex = 10;
             this.btnListadoEstadistico.Text = "Listado estadistico";
             this.btnListadoEstadistico.UseVisualStyleBackColor = true;
             this.btnListadoEstadistico.Visible = false;
+            this.btnListadoEstadistico.Click += new System.EventHandler(this.btnListadoEstadistico_Click);
             // 
             // Home
             // 

@@ -173,5 +173,9 @@ namespace PalcoNet
             new Usuarios.ModificarClaveUsuario().Show();
         }
 
+        private void btnListadoEstadistico_Click(object sender, EventArgs e)
+        {
+            new Views.Reportes.Listado().Show();
+        }
     }
 }
