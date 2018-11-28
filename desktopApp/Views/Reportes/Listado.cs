@@ -29,6 +29,7 @@ namespace PalcoNet.Views.Reportes
             txtAnio.Text = "";
             txtTrimestre.Text = "";
             cmbGrado.ResetText();
+            cmbGrado.SelectedIndex = -1;
             cmbReporte.ResetText();
 
             txtAnio.Focus();

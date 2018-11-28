@@ -55,6 +55,11 @@ namespace PalcoNet.Publicaciones
             
         }
 
+        private void btnPublicar_Click(object sender, EventArgs e)
+        {
+
+        }
+
         /*
         #region VALIDACIONES
         override protected bool validarDominio()

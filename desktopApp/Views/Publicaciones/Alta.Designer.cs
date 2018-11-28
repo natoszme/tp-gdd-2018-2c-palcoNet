@@ -52,6 +52,7 @@
             this.btnPublicar.TabIndex = 0;
             this.btnPublicar.Text = "Publicar";
             this.btnPublicar.UseVisualStyleBackColor = true;
+            this.btnPublicar.Click += new System.EventHandler(this.btnPublicar_Click);
             // 
             // btnGuardarBorrador
             // 
