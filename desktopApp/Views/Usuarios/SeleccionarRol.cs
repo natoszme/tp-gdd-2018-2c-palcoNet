@@ -23,7 +23,7 @@ namespace PalcoNet.Usuarios
 
         private void cargarRolesHabilitados()
         {
-            List<string> rolesHabilitadosDeUsuario = BaseDeDatos.BaseDeDatos.obtenerRolesHabilitadosDelUsuario(Global.usuarioLogueado);
+            List<string> rolesHabilitadosDeUsuario = BaseDeDatos.BaseDeDatos.obtenerRolesHabilitadosDelUsuario(Global.obtenerUsuarioLogueado());
 
             if(!tieneAlgunRol(rolesHabilitadosDeUsuario))
             {
@@ -43,7 +43,7 @@ namespace PalcoNet.Usuarios
         }
 
         private void redirijirA(Rol rol) {
-            Global.rolUsuario = rol;
+            Global.setearRol(rol);
             this.Hide();
             new Home().Show();
         }

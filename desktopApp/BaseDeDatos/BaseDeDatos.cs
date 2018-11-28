@@ -75,9 +75,11 @@ namespace PalcoNet.BaseDeDatos
                 Rol = rol
             };
 
-            dbContext().Usuario.Add(usuario);
-            dbContext().Usuario_rol.Add(usuario_rol);
-            Utils.DBUtils.guardar(dbContext());
+            RagnarEntities db = dbContext();
+
+            db.Usuario.Add(usuario);
+            db.Usuario_rol.Add(usuario_rol);
+            Utils.DBUtils.guardar(db);
 
             return usuario;
         }
@@ -125,13 +127,23 @@ namespace PalcoNet.BaseDeDatos
 
         internal static void modificarClave(RagnarEntities db, Usuario usuario, string pass, Form formContext, Form destino = null)
         {
-            usuario.clave = pass;
+            db.Usuario.Find(usuario.id_usuario).clave = pass;
             Utils.WindowsFormUtils.guardarYCerrar(db, formContext, destino);
         }
 
         internal static List<Funcionalidad> obtenerFuncionalidades()
         {
             return dbContext().Funcionalidad.ToList();
+        }
+
+        public static Rol obtenerRol(Rol rol)
+        {
+            return dbContext().Rol.Find(rol.id_rol);
+        }
+
+        public static Usuario obtenerUsuario(Usuario usuarioLogueado)
+        {
+            return dbContext().Usuario.Find(usuarioLogueado.id_usuario);
         }
     }
 }

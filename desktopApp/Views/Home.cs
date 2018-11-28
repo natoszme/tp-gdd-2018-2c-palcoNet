@@ -56,7 +56,7 @@ namespace PalcoNet
 
         private string obtenerUsernameUsuarioActual()
         {
-            return Global.usuarioLogueado.usuario;
+            return Global.obtenerUsuarioLogueado().usuario;
         }
 
         public void habilitarBotonesFuncionalidades()
@@ -76,13 +76,10 @@ namespace PalcoNet
         //un cliente inhabilitado no puede comprar en la plataforma
         private List<Funcionalidad> obtenerFuncionalidadesDisponibles()
         {
-            List<Funcionalidad> disponibles = Global.rolUsuario.Funcionalidad.ToList();
-            using (RagnarEntities db = new RagnarEntities())
+            List<Funcionalidad> disponibles = Global.obtenerRolUsuario().Funcionalidad.ToList();
+            if (esCliente() && estaInhabilitado())
             {
-                if (esCliente() && estaInhabilitado())
-                {
-                    disponibles.RemoveAll(func => func.descripcion == "Comprar");
-                }
+                disponibles.RemoveAll(func => func.descripcion == "Comprar");
             }
 
             return disponibles;
@@ -90,12 +87,12 @@ namespace PalcoNet
 
         private bool estaInhabilitado()
         {
-            return !Global.usuarioLogueado.habilitado;
+            return !Global.obtenerUsuarioLogueado().habilitado;
         }
 
         private bool esCliente()
         {
-            return Global.rolUsuario.nombre.Equals("Cliente");
+            return Global.obtenerRolUsuario().nombre.Equals("Cliente");
         }
 
         private void btnAbmRol_Click(object sender, EventArgs e)
