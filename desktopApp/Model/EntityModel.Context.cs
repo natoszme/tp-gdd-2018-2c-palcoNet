@@ -17,9 +17,9 @@ namespace PalcoNet.Model
     
     public partial class RagnarEntities : DbContext
     {
-        public RagnarEntities()
-            : base("name=RagnarEntities")
+        public RagnarEntities() : base(Utils.ConfigReader.getInstance().connectionString)
         {
+
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

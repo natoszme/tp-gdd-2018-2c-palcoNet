@@ -11,18 +11,34 @@ namespace PalcoNet.Utils
 {
     public class ConfigReader
     {
-        public static String SQLUsername { get; private set; }
-        public static String SQLPassword { get; private set; }
-        public static String SQLDatabase { get; private set; }
-        public static String SQLClient { get; private set; }
-        public static DateTime Fecha { get; private set; }
+        private String SQLUsername { get; set; }
+        private String SQLPassword { get; set; }
+        private String SQLDatabase { get; set; }
+        private String SQLClient { get; set; }
+        public DateTime Fecha { get; private set; }
+        private static ConfigReader instancia;
+        public String connectionString { get; private set; }
 
-        private static String obtenerArchivoConfig(String nombreArchivo)
+        public static ConfigReader getInstance()
+        {
+            if (instancia == null)
+            {
+                instancia = new ConfigReader();
+            }
+            return instancia;
+        }
+
+        private ConfigReader()
+        {
+            leerYCargarParametrosArchivoConfiguracion();
+        }
+
+        private String obtenerArchivoConfig(String nombreArchivo)
         {
             return System.IO.Directory.GetParent(Application.StartupPath).Parent.Parent.FullName + "\\TP2C2018 K3522 RAGNAR 20\\src\\" + nombreArchivo + ".txt";
         }
 
-        public static void leerYCargarParametrosDB()
+        public void leerYCargarParametrosArchivoConfiguracion()
         {
             String ConfigFile = obtenerArchivoConfig("Config");
 
@@ -65,17 +81,13 @@ namespace PalcoNet.Utils
                 contador++;
             }
 
-            file.Close();
+            connectionString = generarConnectionString();
 
-            Console.WriteLine(SQLUsername);
-            Console.WriteLine(SQLPassword);
-            Console.WriteLine(SQLDatabase);
+            file.Close();
         }
 
-        public static String connectionString()
+        private String generarConnectionString()
         {
-            leerYCargarParametrosDB();
-
             EntityConnectionStringBuilder constructorConeccion = new EntityConnectionStringBuilder();
             constructorConeccion.Provider = "System.Data.SqlClient";
             constructorConeccion.ProviderConnectionString = @"data source=" + SQLClient + ";initial catalog=" + SQLDatabase + ";persist security info=True;user id=" + SQLUsername + ";password=" + SQLPassword + ";MultipleActiveResultSets=True;App=EntityFramework";

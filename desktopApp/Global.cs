@@ -31,5 +31,10 @@ namespace PalcoNet
         public static bool hayUsuarioGenerado() {
             return usuarioGenerado != null;
         }
+
+        public static DateTime fechaDeHoy()
+        {
+            return Utils.ConfigReader.getInstance().Fecha;
+        }
     }
 }
