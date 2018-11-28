@@ -174,7 +174,7 @@ namespace PalcoNet
 
         private void btnListadoEstadistico_Click(object sender, EventArgs e)
         {
-            new Views.Reportes.Listado().Show();
+            WindowsFormUtils.abrirFormulario(new Views.Reportes.Listado(), () => { });
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
