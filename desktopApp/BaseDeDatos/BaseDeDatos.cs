@@ -11,10 +11,13 @@ namespace PalcoNet.BaseDeDatos
 {
     class BaseDeDatos
     {
-        private static RagnarEntities dbContext = new RagnarEntities();
+        private static RagnarEntities dbContext()
+        {
+            return new RagnarEntities();
+        }
 
         public static Usuario obtenerUsuarioPorCredenciales(String usuario, String password) {
-            return dbContext.Usuario
+            return dbContext().Usuario
                     .Where(user => user.usuario.Equals(usuario))
                     .Where(user => user.clave.Equals(F_HasheoDeClave(password)))
                     .FirstOrDefault();
@@ -25,34 +28,34 @@ namespace PalcoNet.BaseDeDatos
         }
 
         public static bool existeUsuario(String username) {
-            return dbContext.Usuario.Any(user => user.usuario.Equals(username));
+            return dbContext().Usuario.Any(user => user.usuario.Equals(username));
         }
 
         public static Cliente clientePorDocumento(String tipoDoc, String numeroDoc)
         {
             decimal nroDoc = decimal.Parse(numeroDoc);
-            return dbContext.Cliente
+            return dbContext().Cliente
                 .Where(cliente => cliente.tipo_documento.Equals(tipoDoc) && cliente.numero_documento.Equals(nroDoc))
                 .FirstOrDefault();
         }
 
         internal static Cliente clientePorCuil(String cuil)
         {
-            return dbContext.Cliente
+            return dbContext().Cliente
                 .Where(cliente => cliente.cuil.Equals(cuil))
                 .FirstOrDefault();
         }
 
         internal static Empresa empresaPorCuit(String cuit)
         {
-            return dbContext.Empresa
+            return dbContext().Empresa
                 .Where(empresa => empresa.cuit.Equals(cuit))
                 .FirstOrDefault();
         }
 
         internal static Rol obtenerRol(TipoRol nombreRol)
         {
-            return dbContext.Rol
+            return dbContext().Rol
                 .Where(rol => rol.nombre.Equals(nombreRol.DisplayName))
                 .FirstOrDefault();
         }
@@ -72,22 +75,22 @@ namespace PalcoNet.BaseDeDatos
                 Rol = rol
             };
 
-            dbContext.Usuario.Add(usuario);
-            dbContext.Usuario_rol.Add(usuario_rol);
-            Utils.DBUtils.guardar(dbContext);
+            dbContext().Usuario.Add(usuario);
+            dbContext().Usuario_rol.Add(usuario_rol);
+            Utils.DBUtils.guardar(dbContext());
 
             return usuario;
         }
 
         internal static RagnarEntities finalDb(RagnarEntities db)
         {
-            if (db == null) return dbContext;
+            if (db == null) return dbContext();
             return db;
         }
 
         internal static Rol rolPorNombre(String nombreRol)
         {
-            return dbContext.Rol
+            return dbContext().Rol
                 .Where(rol => rol.nombre.Equals(nombreRol))
                 .FirstOrDefault();
         }
@@ -101,7 +104,7 @@ namespace PalcoNet.BaseDeDatos
 
         internal static Grado_publicacion gradoPorDescripcion(String nombreGrado)
         {
-            return dbContext.Grado_publicacion
+            return dbContext().Grado_publicacion
                 .Where(grado => grado.descripcion.Equals(nombreGrado))
                 .FirstOrDefault();
         }
@@ -117,7 +120,7 @@ namespace PalcoNet.BaseDeDatos
     
         internal static void modificarClave(Usuario usuario, string pass, Form formContext, Form destino = null)
         {
-            modificarClave(dbContext, usuario, pass, formContext, destino);
+            modificarClave(dbContext(), usuario, pass, formContext, destino);
         }
 
         internal static void modificarClave(RagnarEntities db, Usuario usuario, string pass, Form formContext, Form destino = null)
@@ -128,7 +131,7 @@ namespace PalcoNet.BaseDeDatos
 
         internal static List<Funcionalidad> obtenerFuncionalidades()
         {
-            return dbContext.Funcionalidad.ToList();
+            return dbContext().Funcionalidad.ToList();
         }
     }
 }
