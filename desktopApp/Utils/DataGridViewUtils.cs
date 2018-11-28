@@ -34,7 +34,9 @@ namespace PalcoNet.Utils
 
         public static void actualizarDataGriedView(DataGridView dgv, IQueryable<Object> query, string idOculto = null)
         {
-            dgv.DataSource = query.ToList();
+            if (query != null)
+                dgv.DataSource = query.ToList();
+
             if (dgv.Rows.Count > 0 && !string.IsNullOrWhiteSpace(idOculto) && dgv.Columns[idOculto] != null) {
                 dgv.Columns[idOculto].Visible = false;
             }

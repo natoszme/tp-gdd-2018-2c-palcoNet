@@ -24,25 +24,8 @@ namespace PalcoNet.Clientes
         {
             InitializeComponent();
 
-            cargarComboTipoDocumento();          
-
-            // TODO: sacar cuando funque, lo dejo para no completar todo a mano todo el tiempo
-            if (!editando())
-            {
-                txtNombre.Text = "Kevin";
-                txtApellido.Text = "Szuchet";
-                txtEmail.Text = "kevinszuchet@gmail.com";
-                txtTelefono.Text = "1140495754";
-                txtNroDocumento.Text = "40539748";
-                txtCuil.Text = "20405397480";
-                txtDireccion.Text = "JRV";
-                txtPortal.Text = "225";
-                txtNroPiso.Text = "1";
-                txtDepto.Text = "A";
-                txtLocalidad.Text = "CABA";
-                txtCodigoPostal.Text = "1414";
-                txtTarjeta.Text = "1234567891011121";
-            }
+            dtpFechaNacimiento.Value = new DateTime(1990, 01, 01);
+            cargarComboTipoDocumento();
 
             if (editando())
             {
@@ -63,6 +46,10 @@ namespace PalcoNet.Clientes
             {
                 cliente = new Cliente();
             }
+            else
+            {
+                cliente = db.Cliente.Find(id);
+            }
 
             cliente.nombre = txtNombre.Text;
             cliente.apellido = txtApellido.Text;
@@ -70,8 +57,7 @@ namespace PalcoNet.Clientes
             cliente.telefono = txtTelefono.Text;
             cliente.fecha_nacimiento = dtpFechaNacimiento.Value;
             // Justo en este caso se guarda el string como tipo de documento
-            // TODO: revisar si esta bien o es mejor manejarlo numericamente
-            cliente.tipo_documento = Utils.WindowsFormUtils.seleccionadoDe(cmbBxTipoDocumento);
+            cliente.tipo_documento = WindowsFormUtils.textoSeleccionadoDe(cmbBxTipoDocumento);
             cliente.numero_documento = Decimal.Parse(txtNroDocumento.Text);
             cliente.cuil = txtCuil.Text;
             cliente.calle = txtDireccion.Text;
@@ -82,7 +68,7 @@ namespace PalcoNet.Clientes
             cliente.codigo_postal = txtCodigoPostal.Text;
             cliente.tarjeta_credito = recortarTarjetaDeCredito(txtTarjeta.Text);
 
-            if (SessionUtils.esAdmin() && editando())
+            if (esAdminEditando())
             {
                 cliente.Usuario.habilitado = chkBxHabilitado.Checked;
             }
@@ -92,68 +78,78 @@ namespace PalcoNet.Clientes
                 cliente.Usuario = UsuariosUtils.usuarioAAsignar(db, UsuariosUtils.generarUsername(cliente), cliente, Model.TipoRol.CLIENTE);
                 db.Cliente.Add(cliente);
             }
-            else
-            {
-                //actualizamos tambien el usuario porque podria haber cambiado el checkbox de habilitado
-                db.Entry(cliente.Usuario).State = System.Data.Entity.EntityState.Modified;
-                db.Entry(cliente).State = System.Data.Entity.EntityState.Modified;
-            }
         }
 
         #region VALIDACIONES
-        override protected bool validarDominio()
-        {
-            try
+        override protected bool camposYDominioValidos() {
+            bool valido = true;
+            List<string> errores = new List<string>();
+
+            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtNombre, "nombre"), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.campoAlfabetico(txtNombre, "nombre"), ref errores);
+
+            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtApellido, "apellido"), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.campoAlfabetico(txtApellido, "apellido"), ref errores);
+
+            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtEmail, "mail"), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.emailValido(txtEmail, "mail"), ref errores);
+
+            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoLongitudEntre(txtTelefono, "telefono", 8, 11), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.campoNumericoYPositivo(txtTelefono, "telefono"), ref errores);
+
+            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(dtpFechaNacimiento, "fecha de nacimiento"), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.fechaMenorAHoy(dtpFechaNacimiento, "fecha de nacimiento"), ref errores);
+
+            ValidationsUtils.hayError(() => ValidationsUtils.opcionObligatoria(cmbBxTipoDocumento, "tipo de documento"), ref errores);
+            
+            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoLongitudFija(txtNroDocumento, "nro. de documento", 8), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.campoNumericoYPositivo(txtNroDocumento, "nro. de documento"), ref errores);
+
+            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtCuil, "CUIL"), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.cuilOCuitValido(txtCuil, "CUIL"), ref errores);
+
+            ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtDireccion, "dirección"), ref errores);
+            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtPortal, "portal"), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.campoNumericoYPositivo(txtPortal, "portal"), ref errores);
+
+            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtNroPiso, "nro. piso"), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.campoNumericoYPositivo(txtNroPiso, "nro. piso"), ref errores);
+
+            ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtDepto, "departamento"), ref errores);
+            
+            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtLocalidad, "localidad"), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.campoAlfabetico(txtLocalidad, "localidad"), ref errores);
+
+            ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtCodigoPostal, "codigo postal"), ref errores);
+
+            if (errores.Count() > 0)
             {
-                documentoNoRepetido();
-                cuilNoRepetido();
+                WindowsFormUtils.mostrarErrores(errores);
+                valido = false;
+            } else {
+                valido = validarDominio(ref errores);
             }
-            catch (ValidationException e)
-            {
-                WindowsFormUtils.mensajeDeError(e.Message);
-                return false;
-            }
-            return true;
+
+            return valido;
         }
 
-        override protected bool camposValidos() {
-            bool camposValidos = true;
-            try {
-                /*ValidationsUtils.campoObligatorio(txtNombre, "nombre");
-                ValidationsUtils.campoAlfabetico(txtNombre, "nombre");
-                ValidationsUtils.campoObligatorio(txtApellido, "apellido");
-                ValidationsUtils.campoAlfabetico(txtApellido, "apellido");
-                ValidationsUtils.campoObligatorio(txtEmail, "mail");
-                ValidationsUtils.emailValido(txtEmail, "mail");
-                ValidationsUtils.campoLongitudEntre(txtTelefono, "telefono", 8, 11);
-                ValidationsUtils.campoNumericoYPositivo(txtTelefono, "telefono");
-                // TODO: validar que la fecha de nacimiento no puede ser posterior a la del archivo de configuracion
-                ValidationsUtils.campoObligatorio(dtpFechaNacimiento, "fecha de nacimiento");
-                ValidationsUtils.opcionObligatoria(cmbBxTipoDocumento, "tipo de documento");
-                ValidationsUtils.campoLongitudFija(txtNroDocumento, "nro. de documento", 8);
-                ValidationsUtils.campoNumericoYPositivo(txtNroDocumento, "nro. de documento");
-                ValidationsUtils.campoObligatorio(txtCuil, "CUIL");
-                ValidationsUtils.cuilOCuitValido(txtCuil, "CUIL");
-                ValidationsUtils.campoObligatorio(txtDireccion, "dirección");
-                ValidationsUtils.campoObligatorio(txtPortal, "portal");
-                ValidationsUtils.campoNumericoYPositivo(txtPortal, "portal");
-                ValidationsUtils.campoObligatorio(txtNroPiso, "nro. piso");
-                ValidationsUtils.campoNumericoYPositivo(txtNroPiso, "nro. piso");
-                ValidationsUtils.campoObligatorio(txtDepto, "departamento");
-                ValidationsUtils.campoObligatorio(txtLocalidad, "localidad");
-                ValidationsUtils.campoAlfabetico(txtLocalidad, "localidad");
-                ValidationsUtils.campoObligatorio(txtCodigoPostal, "codigo postal");
-                validarTarjeta();*/
-            } catch(ValidationException e) {
-                WindowsFormUtils.mensajeDeError(e.Message);
-                camposValidos = false;
+        override protected bool validarDominio(ref List<string> errores)
+        {
+            ValidationsUtils.hayError(documentoNoRepetido, ref errores);
+            ValidationsUtils.hayError(cuilNoRepetido, ref errores);
+
+            if (errores.Count() > 0)
+            {
+                WindowsFormUtils.mostrarErrores(errores);
+                return false;
             }
-            return camposValidos;
+
+            return true;
         }
 
         private void documentoNoRepetido()
         {
-            String tipoDoc = Utils.WindowsFormUtils.seleccionadoDe(cmbBxTipoDocumento);
+            String tipoDoc = WindowsFormUtils.textoSeleccionadoDe(cmbBxTipoDocumento);
             Cliente otroCliente = BaseDeDatos.BaseDeDatos.clientePorDocumento(tipoDoc, txtNroDocumento.Text);
             if (otroCliente != null)
             {
@@ -240,7 +236,7 @@ namespace PalcoNet.Clientes
             cmbBxTipoDocumento.DisplayMember = "text";
         }
 
-        protected override TextBox textBoxCuil()
+        protected override TextBox textBoxCui()
         {
             return txtCuil;
         }

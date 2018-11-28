@@ -22,7 +22,7 @@ namespace PalcoNet.Model
         public long id_factura { get; set; }
         public decimal numero { get; set; }
         public System.DateTime fecha { get; set; }
-        public decimal total { get; set; }
+        public Nullable<decimal> total { get; set; }
         public string forma_pago { get; set; }
     
         public virtual ICollection<Item_factura> Item_factura { get; set; }

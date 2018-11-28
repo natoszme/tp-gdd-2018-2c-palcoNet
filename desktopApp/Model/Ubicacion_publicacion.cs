@@ -14,6 +14,11 @@ namespace PalcoNet.Model
     
     public partial class Ubicacion_publicacion
     {
+        public Ubicacion_publicacion()
+        {
+            this.Item_factura = new HashSet<Item_factura>();
+        }
+    
         public long id_ubicacion { get; set; }
         public Nullable<long> id_publicacion { get; set; }
         public string fila { get; set; }
@@ -23,8 +28,10 @@ namespace PalcoNet.Model
         public int id_tipo { get; set; }
         public Nullable<long> id_compra { get; set; }
         public Nullable<decimal> compra_cantidad { get; set; }
+        public Nullable<bool> habilitado { get; set; }
     
         public virtual Compra Compra { get; set; }
+        public virtual ICollection<Item_factura> Item_factura { get; set; }
         public virtual Publicacion Publicacion { get; set; }
         public virtual Tipo_ubicacion Tipo_ubicacion { get; set; }
     }

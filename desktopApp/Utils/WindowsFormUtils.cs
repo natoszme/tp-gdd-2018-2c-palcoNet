@@ -38,6 +38,12 @@ namespace PalcoNet.Utils
             MessageBox.Show(error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
+        public static void mostrarErrores(List<string> errores) {
+            errores = errores.Select(error => "- " + error).ToList();
+            string erroresAMostrar = String.Join("\n", errores);
+            mensajeDeError(erroresAMostrar);
+        }
+
         public static void volverALaHome(Control context) {
             context.Hide();
             new Home().Show();
@@ -49,10 +55,15 @@ namespace PalcoNet.Utils
             new Usuarios.Login().Show();
         }
 
-        public static String seleccionadoDe(ComboBox combo)
+        public static int numeroSeleccionadoDe(ComboBox combo)
         {
-            ComboBoxItem selectedItem = (ComboBoxItem)combo.SelectedItem;
-            return selectedItem.text;
+            ComboBoxItem selectedItem = (ComboBoxItem) combo.SelectedItem;
+            return selectedItem.value;
+        }
+
+        public static String textoSeleccionadoDe(ComboBox combo)
+        {
+            return combo.GetItemText(combo.SelectedItem);
         }
     }
 }

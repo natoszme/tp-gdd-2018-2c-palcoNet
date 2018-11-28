@@ -7,14 +7,45 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PalcoNet.Model;
+using PalcoNet.Utils;
 
 namespace PalcoNet
 {
     public partial class Home : Form
     {
+        private List<String> funcionalidadesTotales = new List<String>();
+        private List<Button> botonesTotales = new List<Button>();
+
         public Home()
         {
             InitializeComponent();
+            cargarFuncionalidadesDisponibles();
+        }
+
+        private void cargarFuncionalidadesDisponibles()
+        {
+            //es necesario tenerlo harcodeado aca porque hay funcionalidades de la db que no son exactamente un boton de la home, como por ejemplo el Registro de Usuario
+            funcionalidadesTotales.Add("ABM de Rol");
+            botonesTotales.Add(btnAbmRol);
+            funcionalidadesTotales.Add("ABM de Cliente");
+            botonesTotales.Add(btnAbmClientes);
+            funcionalidadesTotales.Add("ABM de Empresa de Espectaculos");
+            botonesTotales.Add(btnAbmEmpresa);
+            funcionalidadesTotales.Add("ABM de Grado de Publicacion");
+            botonesTotales.Add(btnAbmGrado);
+            funcionalidadesTotales.Add("ABM de Publicacion");
+            botonesTotales.Add(btnAbmPublicaciones);
+            funcionalidadesTotales.Add("Comprar");
+            botonesTotales.Add(btnComprar);
+            funcionalidadesTotales.Add("Historial de Cliente");
+            botonesTotales.Add(btnHistorial);
+            funcionalidadesTotales.Add("Canje y Administracion de Puntos");
+            botonesTotales.Add(btnCanjePuntos);
+            funcionalidadesTotales.Add("Generar rendicion de comisiones");
+            botonesTotales.Add(btnRendicionComisiones);
+            funcionalidadesTotales.Add("Listado estadistico");
+            botonesTotales.Add(btnListadoEstadistico);
         }
 
         private void Home_Load(object sender, EventArgs e)
@@ -30,7 +61,41 @@ namespace PalcoNet
 
         public void habilitarBotonesFuncionalidades()
         {
+            List<Funcionalidad> funcionalidadesDisponibles = obtenerFuncionalidadesDisponibles();
+            funcionalidadesDisponibles.ForEach(fDisp => {
 
+                if (funcionalidadesTotales.Contains(fDisp.descripcion))
+                {
+                    int numeroBotonAMostrar = funcionalidadesTotales.IndexOf(fDisp.descripcion);
+                    botonesTotales.ElementAt(numeroBotonAMostrar).Visible = true;
+                }
+                            
+            });
+        }
+
+        //un cliente inhabilitado no puede comprar en la plataforma
+        private List<Funcionalidad> obtenerFuncionalidadesDisponibles()
+        {
+            List<Funcionalidad> disponibles = Global.rolUsuario.Funcionalidad.ToList();
+            using (RagnarEntities db = new RagnarEntities())
+            {
+                if (esCliente() && estaInhabilitado())
+                {
+                    disponibles.RemoveAll(func => func.descripcion == "Comprar");
+                }
+            }
+
+            return disponibles;
+        }
+
+        private bool estaInhabilitado()
+        {
+            return !Global.usuarioLogueado.habilitado;
+        }
+
+        private bool esCliente()
+        {
+            return Global.rolUsuario.nombre.Equals("Cliente");
         }
 
         private void btnAbmRol_Click(object sender, EventArgs e)
@@ -64,7 +129,7 @@ namespace PalcoNet
 
         private void btnGenerarPublicacion_Click(object sender, EventArgs e)
         {
-            new Publicaciones.Alta().Show();
+            new Publicaciones.Listado().Show();
             this.Hide();
         }
 
@@ -110,5 +175,15 @@ namespace PalcoNet
             new Usuarios.ModificarClaveUsuario().Show();
         }
 
+        private void btnListadoEstadistico_Click(object sender, EventArgs e)
+        {
+            new Views.Reportes.Listado().Show();
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            Global.desloguearUsuario();
+            WindowsFormUtils.volverALogin(this);
+        }
     }
 }

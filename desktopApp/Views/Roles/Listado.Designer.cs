@@ -41,16 +41,16 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.btnEditar);
-            this.panel1.Controls.Add(this.btnNuevo);
             this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.btnNuevo);
             this.panel1.Location = new System.Drawing.Point(13, 13);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(644, 32);
+            this.panel1.Size = new System.Drawing.Size(368, 32);
             this.panel1.TabIndex = 0;
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(549, 3);
+            this.btnEditar.Location = new System.Drawing.Point(269, 7);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(92, 23);
             this.btnEditar.TabIndex = 2;
@@ -60,7 +60,7 @@
             // 
             // btnNuevo
             // 
-            this.btnNuevo.Location = new System.Drawing.Point(451, 3);
+            this.btnNuevo.Location = new System.Drawing.Point(171, 7);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(92, 23);
             this.btnNuevo.TabIndex = 1;
@@ -88,12 +88,12 @@
             this.dgvRoles.Location = new System.Drawing.Point(13, 52);
             this.dgvRoles.Name = "dgvRoles";
             this.dgvRoles.ReadOnly = true;
-            this.dgvRoles.Size = new System.Drawing.Size(644, 293);
+            this.dgvRoles.Size = new System.Drawing.Size(368, 154);
             this.dgvRoles.TabIndex = 1;
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(579, 356);
+            this.btnVolver.Location = new System.Drawing.Point(306, 224);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(75, 23);
             this.btnVolver.TabIndex = 2;
@@ -105,7 +105,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(669, 391);
+            this.ClientSize = new System.Drawing.Size(398, 262);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.dgvRoles);
             this.Controls.Add(this.panel1);

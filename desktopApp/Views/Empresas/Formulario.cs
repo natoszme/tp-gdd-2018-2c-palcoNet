@@ -40,7 +40,10 @@ namespace PalcoNet.Empresas
             {
                 empresa = new Empresa();
             }
-
+            else
+            {
+                empresa = db.Empresa.Find(id);
+            }
             empresa.razon_social = txtRazonSocial.Text;
             empresa.mail = txtEmail.Text;
             empresa.telefono = txtTelefono.Text;
@@ -53,7 +56,7 @@ namespace PalcoNet.Empresas
             empresa.localidad = txtLocalidad.Text;
             empresa.codigo_postal = txtCodigoPostal.Text;
 
-            if (SessionUtils.esAdmin() && editando())
+            if (esAdminEditando())
             {
                 empresa.Usuario.habilitado = chkBxHabilitado.Checked;
             }
@@ -63,60 +66,67 @@ namespace PalcoNet.Empresas
                 empresa.Usuario = UsuariosUtils.usuarioAAsignar(db, UsuariosUtils.generarUsername(empresa), empresa, Model.TipoRol.EMPRESA);
                 db.Empresa.Add(empresa);
             }
-            else
-            {
-                //actualizamos tambien el usuario porque podria haber cambiado el checkbox de habilitado
-                db.Entry(empresa.Usuario).State = System.Data.Entity.EntityState.Modified;
-                db.Entry(empresa).State = System.Data.Entity.EntityState.Modified;
-            }
         }
 
         #region VALIDACIONES
-        override protected bool validarDominio()
+        override protected bool camposYDominioValidos()
         {
-            try
+            bool valido = true;
+            List<string> errores = new List<string>();
+
+            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtRazonSocial, "razon social"), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.campoAlfabetico(txtRazonSocial, "razon social"), ref errores);
+
+            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtEmail, "mail"), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.emailValido(txtEmail, "mail"), ref errores);
+
+            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoLongitudEntre(txtTelefono, "telefono", 8, 11), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.campoNumericoYPositivo(txtTelefono, "telefono"), ref errores);
+
+            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtCuit, "CUIT"), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.cuilOCuitValido(txtCuit, "CUIT"), ref errores);
+
+            ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtDireccion, "dirección"), ref errores);
+            
+            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtPortal, "portal"), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.campoNumericoYPositivo(txtPortal, "portal"), ref errores);
+
+            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtNroPiso, "nro. piso"), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.campoNumericoYPositivo(txtNroPiso, "nro. piso"), ref errores);
+
+            ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtDepto, "departamento"), ref errores);
+            
+            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtCuidad, "ciudad"), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.campoAlfabetico(txtCuidad, "ciudad"), ref errores);
+
+            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtLocalidad, "localidad"), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.campoAlfabetico(txtLocalidad, "localidad"), ref errores);
+
+            ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtCodigoPostal, "codigo postal"), ref errores);
+            
+            if (errores.Count() > 0)
             {
-                cuilNoRepetido();
+                WindowsFormUtils.mostrarErrores(errores);
+                valido = false;
             }
-            catch (ValidationException e)
+            else
             {
-                WindowsFormUtils.mensajeDeError(e.Message);
+                valido = validarDominio(ref errores);
+            }
+
+            return valido;
+        }
+
+        override protected bool validarDominio(ref List<string> errores)
+        {
+            ValidationsUtils.hayError(cuilNoRepetido, ref errores);
+            
+            if (errores.Count() > 0)
+            {
+                WindowsFormUtils.mostrarErrores(errores);
                 return false;
             }
             return true;
-        }
-
-        override protected bool camposValidos()
-        {
-            bool camposValidos = true;
-            try
-            {
-                ValidationsUtils.campoObligatorio(txtRazonSocial, "razon social");
-                ValidationsUtils.campoAlfabetico(txtRazonSocial, "razon social");
-                ValidationsUtils.campoObligatorio(txtEmail, "mail");
-                ValidationsUtils.emailValido(txtEmail, "mail");
-                ValidationsUtils.campoLongitudEntre(txtTelefono, "telefono", 8, 11);
-                ValidationsUtils.campoNumericoYPositivo(txtTelefono, "telefono");
-                ValidationsUtils.campoObligatorio(txtCuit, "CUIT");
-                ValidationsUtils.cuilOCuitValido(txtCuit, "CUIT");
-                ValidationsUtils.campoObligatorio(txtDireccion, "dirección");
-                ValidationsUtils.campoObligatorio(txtPortal, "portal");
-                ValidationsUtils.campoNumericoYPositivo(txtPortal, "portal");
-                ValidationsUtils.campoObligatorio(txtNroPiso, "nro. piso");
-                ValidationsUtils.campoNumericoYPositivo(txtNroPiso, "nro. piso");
-                ValidationsUtils.campoObligatorio(txtDepto, "departamento");
-                ValidationsUtils.campoObligatorio(txtCuidad, "ciudad");
-                ValidationsUtils.campoAlfabetico(txtCuidad, "ciudad");
-                ValidationsUtils.campoObligatorio(txtLocalidad, "localidad");
-                ValidationsUtils.campoAlfabetico(txtLocalidad, "localidad");
-                ValidationsUtils.campoObligatorio(txtCodigoPostal, "codigo postal");
-            }
-            catch (ValidationException e)
-            {
-                WindowsFormUtils.mensajeDeError(e.Message);
-                camposValidos = false;
-            }
-            return camposValidos;
         }
         #endregion
 
@@ -154,8 +164,7 @@ namespace PalcoNet.Empresas
             pnlDatosUsuario.Visible = true;
         }
 
-        protected override TextBox textBoxCuil()
-        {
+        override protected TextBox textBoxCui() {
             return txtCuit;
         }
 

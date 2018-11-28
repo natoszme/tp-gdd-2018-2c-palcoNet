@@ -15,13 +15,13 @@ namespace PalcoNet.Model
     public partial class Item_factura
     {
         public long id_item { get; set; }
-        public Nullable<long> id_compra { get; set; }
+        public Nullable<long> id_ubicacion { get; set; }
         public Nullable<long> id_factura { get; set; }
         public string descripcion { get; set; }
         public decimal monto { get; set; }
-        public decimal cantidad { get; set; }
+        public Nullable<decimal> cantidad { get; set; }
     
-        public virtual Compra Compra { get; set; }
         public virtual Factura Factura { get; set; }
+        public virtual Ubicacion_publicacion Ubicacion_publicacion { get; set; }
     }
 }

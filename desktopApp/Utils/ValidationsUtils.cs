@@ -60,6 +60,13 @@ namespace PalcoNet.Utils
                 throw new ValidationException("El campo " + nombreInput + " debe tener " + longitud + " caracteres");
         }
 
+        public static void valorEntre(Control input, string nombreInput, int minimo, int maximo)
+        {
+            double valor = double.Parse(input.Text);
+            if (valor < minimo || valor > maximo)
+                throw new ValidationException("El campo " + nombreInput + " debe ser un numero entre " + minimo + " y " + maximo);
+        }
+
         public static void campoObligatorio(DateTimePicker dtp, string nombreInput) {
             if (dtp.Value == null)
                 throw new ValidationException("El campo " + nombreInput + " es obligatorio");
@@ -77,7 +84,7 @@ namespace PalcoNet.Utils
         }
 
         public static void opcionObligatoria(ComboBox cmb, string nombreInput) {
-            if (cmb.SelectedIndex == -1 && cmb.SelectedItem != null)
+            if (cmb.SelectedIndex == -1)
                 throw new ValidationException("Debe seleccionar un " + nombreInput);
         }
 
@@ -109,6 +116,28 @@ namespace PalcoNet.Utils
             if (txtNuevaClave.Text != txtRepetirClave.Text) {
                 throw new ValidationException("La nueva clave ingresada, no coincide con la repetición");
             }
+        }
+
+        public static void fechaMenorAHoy(DateTimePicker datePicker, string nombreCampoFecha)
+        {
+            if (datePicker.Value.Date >= Global.fechaDeHoy()){
+                throw new ValidationException("La fecha ingresada en " + nombreCampoFecha + " debe ser previa al dia de la fecha (" + Global.fechaDeHoy().ToShortDateString() + ")");
+            }
+        }
+
+        public static bool hayError(Action validacion, ref List<string> errores)
+        {
+            try
+            {
+                validacion();
+            }
+            catch (ValidationException e)
+            {
+                errores.Add(e.Message);
+                return true;
+            }
+
+            return false;
         }
     }
 }

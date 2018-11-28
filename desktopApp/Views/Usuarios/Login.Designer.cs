@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.btnRegistrarme = new System.Windows.Forms.Button();
             this.btnIngresar = new System.Windows.Forms.Button();
             this.txtClave = new System.Windows.Forms.TextBox();
@@ -44,7 +43,6 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.btnRegistrarme);
             this.panel1.Controls.Add(this.btnIngresar);
             this.panel1.Controls.Add(this.txtClave);
@@ -53,17 +51,8 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(260, 231);
+            this.panel1.Size = new System.Drawing.Size(260, 183);
             this.panel1.TabIndex = 0;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(75, 185);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(113, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Cambiar contraseña";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // btnRegistrarme
             // 
@@ -126,7 +115,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 255);
+            this.ClientSize = new System.Drawing.Size(284, 208);
             this.Controls.Add(this.panel1);
             this.Name = "Login";
             this.Text = "Iniciar sesión";
@@ -147,7 +136,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ErrorProvider errorLogin;
         private System.Windows.Forms.Button btnRegistrarme;
-        private System.Windows.Forms.Button button1;
     }
 }
 

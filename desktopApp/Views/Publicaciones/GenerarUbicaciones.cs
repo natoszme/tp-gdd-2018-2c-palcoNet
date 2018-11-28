@@ -9,17 +9,50 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Model;
 using PalcoNet.Utils;
+using PalcoNet.Publicaciones;
 
 namespace PalcoNet.Views.Publicaciones
 {
+
     public partial class GenerarUbicaciones : Form
     {
 
-        List<Ubicacion> ubicaciones = new List<Ubicacion>();
+        public List<Ubicacion> ubicaciones;
 
         public GenerarUbicaciones()
         {
+           /* Ubicacion nuevaUbicacion = new Ubicacion(1, 1, 10, new Tipo_ubicacion(), true);
+            ubicaciones.Add(nuevaUbicacion);
+            dgvUbicaciones.DataSource = ubicaciones;*/
+            cargarComboTipo();
+            ubicaciones = new List<Ubicacion>();
             InitializeComponent();
+        }
+
+        private void cargarComboTipo(){
+            using (RagnarEntities db = new RagnarEntities())
+            {
+
+                IQueryable<Tipo_ubicacion> tiposUbicacion = db.Tipo_ubicacion.AsQueryable();
+                var listaTipos = tiposUbicacion.Select(t => new
+                {
+                   
+                    descripcion = t.descripcion
+                });
+                //cboTipo.DataSource = listaTipos.ToList();
+              
+            }
+        }
+
+        private List<String> obtenerTextoDeTipoUbicacion( List<Tipo_ubicacion> tipos)
+        {
+            List<String> aux = new List<String>();
+            
+            foreach (Tipo_ubicacion element in tipos)
+            {
+                aux.Add(element.descripcion);
+            }
+            return aux;
         }
 
         private void btnAgregar_Click(object sender, EventArgs e) {
@@ -27,8 +60,7 @@ namespace PalcoNet.Views.Publicaciones
             string asientoIngresado = txtAsiento.Text;
             if (ubicacionValida()) {
                 MessageBox.Show("Ubicacion creada con exito");
-                dgvUbicaciones.Update();
-                dgvUbicaciones.Refresh();
+                dgvUbicaciones.DataSource = ubicaciones;
             }
         }
 
@@ -86,6 +118,11 @@ namespace PalcoNet.Views.Publicaciones
 
         private void GenerarUbicaciones_Load(object sender, EventArgs e) {
             dgvUbicaciones.DataSource = ubicaciones;
+        }
+
+        private void btnFinalizar_Click(object sender, EventArgs e)
+        {
+            this.Hide();
         }
     }
 }

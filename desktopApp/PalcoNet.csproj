@@ -71,10 +71,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Headspring\Enumeration.cs" />
-    <Compile Include="Model\TipoDocumento.cs" />
-    <Compile Include="Utils\ComboBoxItem.cs" />
-    <Compile Include="Utils\DBUtils.cs" />
-    <Compile Include="Utils\ValidationsUtils.cs" />
     <Compile Include="Model\Cliente.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
@@ -84,20 +80,10 @@
     <Compile Include="Model\Empresa.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\EntityModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EntityModel.Context.tt</DependentUpon>
-    </Compile>
     <Compile Include="Model\EntityModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EntityModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\EntityModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EntityModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Model\Estado_publicacion.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
@@ -106,6 +92,15 @@
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Funcionalidad.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\F_ClientesConMasCompras_Result.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\F_ClientesConMasPuntosVencidos_Result.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\F_HistorialDeCliente_Result.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Grado_publicacion.cs">
@@ -132,18 +127,35 @@
     <Compile Include="Model\Rubro.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\TipoDocumento.cs" />
     <Compile Include="Model\Tipo_ubicacion.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\Ubicacion.cs" />
     <Compile Include="Model\Ubicacion_publicacion.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Usuario.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Usuario_rol.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\ComboBoxItem.cs" />
+    <Compile Include="Utils\ConfigReader.cs" />
+    <Compile Include="Utils\DBUtils.cs" />
+    <Compile Include="Utils\ValidationsUtils.cs" />
+    <Compile Include="Model\EntityModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\EntityModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Ubicacion.cs" />
     <Compile Include="Utils\DataGridViewUtils.cs" />
-    <Compile Include="Utils\SessionUtils.cs" />
     <Compile Include="Utils\WindowsFormUtils.cs" />
     <Compile Include="Views\Clientes\Historial.cs">
       <SubType>Form</SubType>
@@ -164,6 +176,13 @@
     <Compile Include="Views\Publicaciones\GenerarUbicaciones.Designer.cs">
       <DependentUpon>GenerarUbicaciones.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Reportes\Listado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Reportes\Listado.Designer.cs">
+      <DependentUpon>Listado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Reportes\Reportero.cs" />
     <Compile Include="Views\Usuarios\DescriptionProvider.cs" />
     <Compile Include="Views\Usuarios\ModificarClaveAdmin.cs">
       <SubType>Form</SubType>
@@ -296,6 +315,9 @@
     <EmbeddedResource Include="Views\Publicaciones\GenerarUbicaciones.resx">
       <DependentUpon>GenerarUbicaciones.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Reportes\Listado.resx">
+      <DependentUpon>Listado.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Usuarios\ModificarClaveAdmin.resx">
       <DependentUpon>ModificarClaveAdmin.cs</DependentUpon>
     </EmbeddedResource>
@@ -373,9 +395,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Reportes\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

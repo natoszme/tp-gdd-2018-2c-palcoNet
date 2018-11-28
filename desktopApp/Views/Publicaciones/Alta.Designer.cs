@@ -52,6 +52,7 @@
             this.btnPublicar.TabIndex = 0;
             this.btnPublicar.Text = "Publicar";
             this.btnPublicar.UseVisualStyleBackColor = true;
+            this.btnPublicar.Click += new System.EventHandler(this.btnPublicar_Click);
             // 
             // btnGuardarBorrador
             // 
@@ -61,6 +62,7 @@
             this.btnGuardarBorrador.TabIndex = 1;
             this.btnGuardarBorrador.Text = "Guardar como borrador";
             this.btnGuardarBorrador.UseVisualStyleBackColor = true;
+            this.btnGuardarBorrador.Click += new System.EventHandler(this.btnGuardarBorrador_Click);
             // 
             // label1
             // 
@@ -184,6 +186,7 @@
             this.Controls.Add(this.btnPublicar);
             this.Name = "Alta";
             this.Text = "Generar publicación";
+            this.Load += new System.EventHandler(this.Alta_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

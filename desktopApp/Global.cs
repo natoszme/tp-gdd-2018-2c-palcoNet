@@ -10,7 +10,7 @@ namespace PalcoNet
     public static class Global
     {
         public static Usuario usuarioLogueado {get; set;}
-        public static TipoRol rolUsuario { get; set; }
+        public static Rol rolUsuario { get; set; }
         
         public static Usuario usuarioGenerado { get; set; }
 
@@ -30,6 +30,16 @@ namespace PalcoNet
 
         public static bool hayUsuarioGenerado() {
             return usuarioGenerado != null;
+        }
+
+        public static DateTime fechaDeHoy()
+        {
+            return Utils.ConfigReader.getInstance().Fecha;
+        }
+
+        internal static void desloguearUsuario()
+        {
+            usuarioGenerado = null;
         }
     }
 }

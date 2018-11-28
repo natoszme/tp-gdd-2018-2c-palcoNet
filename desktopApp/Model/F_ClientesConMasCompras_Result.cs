@@ -10,15 +10,14 @@
 namespace PalcoNet.Model
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Puntos_cliente
+    public partial class F_ClientesConMasCompras_Result
     {
-        public long id_puntaje { get; set; }
-        public Nullable<long> id_cliente { get; set; }
-        public int puntos { get; set; }
-        public System.DateTime vencimiento { get; set; }
-    
-        public virtual Cliente Cliente { get; set; }
+        public string Nombre { get; set; }
+        public string Apellido { get; set; }
+        public string TipoDeDocumento { get; set; }
+        public decimal NumeroDeDocumento { get; set; }
+        public string CUIL { get; set; }
+        public Nullable<int> CantidadDeCompras { get; set; }
     }
 }

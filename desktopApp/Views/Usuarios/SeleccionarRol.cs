@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Model;
+using PalcoNet.Utils;
 
 namespace PalcoNet.Usuarios
 {
@@ -17,27 +18,31 @@ namespace PalcoNet.Usuarios
         {
             InitializeComponent();
 
-            List<TipoRol> roles = obtenerRolesDeId(Global.usuarioLogueado);
-            this.cmbBxRol.DataSource = roles;
+            cargarRolesHabilitados();
         }
 
-        public bool tieneAlgunRol(Usuario usuario)
+        private void cargarRolesHabilitados()
         {
-            return BaseDeDatos.BaseDeDatos.tieneAlgunRol(usuario);
+            List<string> rolesHabilitadosDeUsuario = BaseDeDatos.BaseDeDatos.obtenerRolesHabilitadosDelUsuario(Global.usuarioLogueado);
+
+            if(!tieneAlgunRol(rolesHabilitadosDeUsuario))
+            {
+                WindowsFormUtils.mensajeDeError("No tiene ningún rol habilitado. Por favor contáctese con un administrador");
+                WindowsFormUtils.volverALogin(this);
+                this.Close();
+                return;
+            }
+
+            this.cmbBxRol.DataSource = rolesHabilitadosDeUsuario;
+            this.Show();
         }
 
-        List<TipoRol> obtenerRolesDeId(Usuario usuario)
+        private bool tieneAlgunRol(List<string> roles)
         {
-            List<TipoRol> roles = new List<TipoRol>();
-            return obtenerRolesPorIdEnTexto(usuario).Select(rol => convertirStringARol(rol)).ToList();
+            return roles.Any();
         }
 
-        private List<String> obtenerRolesPorIdEnTexto(Usuario usuario)
-        {
-            return BaseDeDatos.BaseDeDatos.obtenerRolesDelUsuario(usuario);     
-        }
-
-        private void redirijirA(TipoRol rol) {
+        private void redirijirA(Rol rol) {
             Global.rolUsuario = rol;
             this.Hide();
             new Home().Show();
@@ -48,31 +53,9 @@ namespace PalcoNet.Usuarios
             redirijirA(convertirStringARol(cmbBxRol.Text));
         }
 
-        TipoRol convertirStringARol(String texto)
+        private Rol convertirStringARol(String rolSeleccionado)
         {
-            TipoRol tipo;
-
-            switch (texto)
-            {
-                case "Administrativo":
-                {
-                    tipo = TipoRol.ADMINISTRATIVO;
-                } break;
-                case "Cliente":
-                {
-                    tipo = TipoRol.CLIENTE;
-                } break;
-                case "Empresa":
-                {
-                    tipo = TipoRol.EMPRESA;
-                } break;
-                default:
-                {
-                    throw new Exception("No existe ese rol");
-                };
-            }
-
-            return tipo;
+            return BaseDeDatos.BaseDeDatos.rolPorNombre(rolSeleccionado);
         }
 
         private void SeleccionarRol_Load(object sender, EventArgs e)
