@@ -34,14 +34,14 @@ namespace PalcoNet.Usuarios
             UsuariosUtils.guardarUsuarioYSetearLogueado(username, pass, TipoRol.CLIENTE);
 
             // TODO: porque el callback esta vacio?
-            WindowsFormUtils.abrirFormulario(new Clientes.Formulario(), () => { });
+            WindowsFormUtils.abrirFormulario(new Clientes.Formulario(), () => WindowsFormUtils.volverALaHome(this));
         }
 
         private void btnRegistrarEmpresa_Click(object sender, EventArgs e)
         {
             if (!validarCampos()) return;
             UsuariosUtils.guardarUsuarioYSetearLogueado(username, pass, TipoRol.EMPRESA);
-            WindowsFormUtils.abrirFormulario(new Empresas.Formulario(), () => { });
+            WindowsFormUtils.abrirFormulario(new Empresas.Formulario(), () => WindowsFormUtils.volverALaHome(this));
         }
 
         private bool validarCampos()

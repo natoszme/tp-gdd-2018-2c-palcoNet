@@ -40,6 +40,7 @@ namespace PalcoNet.Views.Usuarios
         {
             guardarUsuario(username, pass, rol);
             Global.loguearUsuario(Global.usuarioGenerado);
+            Global.setearRol(BaseDeDatos.BaseDeDatos.obtenerRol(new RagnarEntities(), rol));
         }
     }
 }
