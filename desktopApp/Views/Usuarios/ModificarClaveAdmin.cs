@@ -51,7 +51,7 @@ namespace PalcoNet.Usuarios
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            WindowsFormUtils.volverALaHome(this);
+            this.Hide();
         }
     }
 }
