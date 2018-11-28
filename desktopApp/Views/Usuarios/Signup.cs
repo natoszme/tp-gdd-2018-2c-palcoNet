@@ -74,7 +74,7 @@ namespace PalcoNet.Usuarios
 
         private bool validarDominio(List<string> errores)
         {
-            ValidationsUtils.hayError(() => validarContraseniasCoincidentes(), ref errores);
+            ValidationsUtils.hayError(() => ValidationsUtils.clavesCoincidentes(txtClave, txtRepetirClave), ref errores);
             ValidationsUtils.hayError(() => validarUsuarioInexistente(), ref errores);
 
             if (errores.Count() > 0)
@@ -85,14 +85,6 @@ namespace PalcoNet.Usuarios
             }
 
             return true;
-        }
-
-        private void validarContraseniasCoincidentes()
-        {
-            if (txtClave.Text != txtRepetirClave.Text)
-            {
-                throw new ValidationException("Las contraseñas no coinciden");
-            }
         }
 
         private void validarUsuarioInexistente()
