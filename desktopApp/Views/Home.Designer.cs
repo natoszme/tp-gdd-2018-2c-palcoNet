@@ -42,12 +42,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnListadoEstadistico = new System.Windows.Forms.Button();
+            this.btnSalir = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAbmRol
             // 
-            this.btnAbmRol.Location = new System.Drawing.Point(28, 114);
+            this.btnAbmRol.Location = new System.Drawing.Point(65, 128);
             this.btnAbmRol.Name = "btnAbmRol";
             this.btnAbmRol.Size = new System.Drawing.Size(126, 23);
             this.btnAbmRol.TabIndex = 0;
@@ -58,7 +59,7 @@
             // 
             // btnAbmEmpresa
             // 
-            this.btnAbmEmpresa.Location = new System.Drawing.Point(28, 143);
+            this.btnAbmEmpresa.Location = new System.Drawing.Point(65, 157);
             this.btnAbmEmpresa.Name = "btnAbmEmpresa";
             this.btnAbmEmpresa.Size = new System.Drawing.Size(126, 23);
             this.btnAbmEmpresa.TabIndex = 2;
@@ -69,7 +70,7 @@
             // 
             // btnAbmClientes
             // 
-            this.btnAbmClientes.Location = new System.Drawing.Point(221, 114);
+            this.btnAbmClientes.Location = new System.Drawing.Point(283, 128);
             this.btnAbmClientes.Name = "btnAbmClientes";
             this.btnAbmClientes.Size = new System.Drawing.Size(126, 23);
             this.btnAbmClientes.TabIndex = 1;
@@ -80,7 +81,7 @@
             // 
             // btnComprar
             // 
-            this.btnComprar.Location = new System.Drawing.Point(221, 172);
+            this.btnComprar.Location = new System.Drawing.Point(283, 186);
             this.btnComprar.Name = "btnComprar";
             this.btnComprar.Size = new System.Drawing.Size(126, 23);
             this.btnComprar.TabIndex = 5;
@@ -91,7 +92,7 @@
             // 
             // btnAbmPublicaciones
             // 
-            this.btnAbmPublicaciones.Location = new System.Drawing.Point(28, 172);
+            this.btnAbmPublicaciones.Location = new System.Drawing.Point(65, 186);
             this.btnAbmPublicaciones.Name = "btnAbmPublicaciones";
             this.btnAbmPublicaciones.Size = new System.Drawing.Size(126, 23);
             this.btnAbmPublicaciones.TabIndex = 4;
@@ -102,7 +103,7 @@
             // 
             // btnAbmGrado
             // 
-            this.btnAbmGrado.Location = new System.Drawing.Point(221, 143);
+            this.btnAbmGrado.Location = new System.Drawing.Point(283, 157);
             this.btnAbmGrado.Name = "btnAbmGrado";
             this.btnAbmGrado.Size = new System.Drawing.Size(126, 23);
             this.btnAbmGrado.TabIndex = 3;
@@ -113,9 +114,9 @@
             // 
             // btnModificarContraseña
             // 
-            this.btnModificarContraseña.Location = new System.Drawing.Point(214, 8);
+            this.btnModificarContraseña.Location = new System.Drawing.Point(227, 8);
             this.btnModificarContraseña.Name = "btnModificarContraseña";
-            this.btnModificarContraseña.Size = new System.Drawing.Size(126, 23);
+            this.btnModificarContraseña.Size = new System.Drawing.Size(115, 23);
             this.btnModificarContraseña.TabIndex = 11;
             this.btnModificarContraseña.Text = "Modificar Contraseña";
             this.btnModificarContraseña.UseVisualStyleBackColor = true;
@@ -123,7 +124,7 @@
             // 
             // btnRendicionComisiones
             // 
-            this.btnRendicionComisiones.Location = new System.Drawing.Point(28, 228);
+            this.btnRendicionComisiones.Location = new System.Drawing.Point(65, 244);
             this.btnRendicionComisiones.Name = "btnRendicionComisiones";
             this.btnRendicionComisiones.Size = new System.Drawing.Size(126, 23);
             this.btnRendicionComisiones.TabIndex = 9;
@@ -134,7 +135,7 @@
             // 
             // btnCanjePuntos
             // 
-            this.btnCanjePuntos.Location = new System.Drawing.Point(221, 199);
+            this.btnCanjePuntos.Location = new System.Drawing.Point(283, 215);
             this.btnCanjePuntos.Name = "btnCanjePuntos";
             this.btnCanjePuntos.Size = new System.Drawing.Size(126, 23);
             this.btnCanjePuntos.TabIndex = 7;
@@ -145,7 +146,7 @@
             // 
             // btnHistorial
             // 
-            this.btnHistorial.Location = new System.Drawing.Point(28, 199);
+            this.btnHistorial.Location = new System.Drawing.Point(65, 215);
             this.btnHistorial.Name = "btnHistorial";
             this.btnHistorial.Size = new System.Drawing.Size(126, 23);
             this.btnHistorial.TabIndex = 6;
@@ -167,7 +168,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(81, 75);
+            this.label1.Location = new System.Drawing.Point(134, 75);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(208, 20);
             this.label1.TabIndex = 13;
@@ -175,16 +176,17 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnSalir);
             this.panel1.Controls.Add(this.btnModificarContraseña);
             this.panel1.Controls.Add(this.lblUsername);
             this.panel1.Location = new System.Drawing.Point(15, 16);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(350, 38);
+            this.panel1.Size = new System.Drawing.Size(436, 38);
             this.panel1.TabIndex = 14;
             // 
             // btnListadoEstadistico
             // 
-            this.btnListadoEstadistico.Location = new System.Drawing.Point(221, 228);
+            this.btnListadoEstadistico.Location = new System.Drawing.Point(283, 244);
             this.btnListadoEstadistico.Name = "btnListadoEstadistico";
             this.btnListadoEstadistico.Size = new System.Drawing.Size(126, 23);
             this.btnListadoEstadistico.TabIndex = 10;
@@ -193,11 +195,21 @@
             this.btnListadoEstadistico.Visible = false;
             this.btnListadoEstadistico.Click += new System.EventHandler(this.btnListadoEstadistico_Click);
             // 
+            // btnSalir
+            // 
+            this.btnSalir.Location = new System.Drawing.Point(348, 8);
+            this.btnSalir.Name = "btnSalir";
+            this.btnSalir.Size = new System.Drawing.Size(75, 23);
+            this.btnSalir.TabIndex = 13;
+            this.btnSalir.Text = "Salir";
+            this.btnSalir.UseVisualStyleBackColor = true;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(377, 306);
+            this.ClientSize = new System.Drawing.Size(465, 325);
             this.Controls.Add(this.btnListadoEstadistico);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
@@ -236,5 +248,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnListadoEstadistico;
+        private System.Windows.Forms.Button btnSalir;
     }
 }

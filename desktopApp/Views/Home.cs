@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Model;
+using PalcoNet.Utils;
 
 namespace PalcoNet
 {
@@ -176,6 +177,12 @@ namespace PalcoNet
         private void btnListadoEstadistico_Click(object sender, EventArgs e)
         {
             new Views.Reportes.Listado().Show();
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            Global.desloguearUsuario();
+            WindowsFormUtils.volverALogin(this);
         }
     }
 }

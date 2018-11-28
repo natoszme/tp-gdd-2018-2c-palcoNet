@@ -36,5 +36,10 @@ namespace PalcoNet
         {
             return Utils.ConfigReader.getInstance().Fecha;
         }
+
+        internal static void desloguearUsuario()
+        {
+            usuarioGenerado = null;
+        }
     }
 }
