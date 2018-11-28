@@ -10,7 +10,6 @@ using System.Windows.Forms;
 using PalcoNet.Utils;
 using PalcoNet.Views.Usuarios;
 using PalcoNet.Model;
-using PalcoNet.Utils;
 
 namespace PalcoNet.Usuarios
 {

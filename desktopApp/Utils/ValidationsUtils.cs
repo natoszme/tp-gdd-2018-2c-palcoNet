@@ -118,6 +118,13 @@ namespace PalcoNet.Utils
             }
         }
 
+        public static void fechaMenorAHoy(DateTimePicker datePicker, string nombreCampoFecha)
+        {
+            if (datePicker.Value.Date >= Global.fechaDeHoy()){
+                throw new ValidationException("La fecha ingresada en " + nombreCampoFecha + " debe ser previa al dia de la fecha (" + Global.fechaDeHoy().ToShortDateString() + ")");
+            }
+        }
+
         public static bool hayError(Action validacion, ref List<string> errores)
         {
             try

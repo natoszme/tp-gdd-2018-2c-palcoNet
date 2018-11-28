@@ -97,8 +97,9 @@ namespace PalcoNet.Clientes
             if (!ValidationsUtils.hayError(() => ValidationsUtils.campoLongitudEntre(txtTelefono, "telefono", 8, 11), ref errores))
                 ValidationsUtils.hayError(() => ValidationsUtils.campoNumericoYPositivo(txtTelefono, "telefono"), ref errores);
 
-            // TODO: validar que la fecha de nacimiento no puede ser posterior a la del archivo de configuracion
-            ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(dtpFechaNacimiento, "fecha de nacimiento"), ref errores);
+            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(dtpFechaNacimiento, "fecha de nacimiento"), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.fechaMenorAHoy(dtpFechaNacimiento, "fecha de nacimiento"), ref errores);
+
             ValidationsUtils.hayError(() => ValidationsUtils.opcionObligatoria(cmbBxTipoDocumento, "tipo de documento"), ref errores);
             
             if (!ValidationsUtils.hayError(() => ValidationsUtils.campoLongitudFija(txtNroDocumento, "nro. de documento", 8), ref errores))
