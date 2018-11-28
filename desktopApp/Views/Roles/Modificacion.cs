@@ -32,7 +32,7 @@ namespace PalcoNet.Roles
         {
             BaseDeDatos.BaseDeDatos.obtenerFuncionalidades().ForEach(
                 funcionalidad => agregarItemACheckboxesFuncionalidades(funcionalidad.descripcion)
-                );
+            );
         }
 
         private void agregarItemACheckboxesFuncionalidades(String texto)
