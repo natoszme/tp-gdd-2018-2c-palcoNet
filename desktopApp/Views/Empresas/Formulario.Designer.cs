@@ -104,7 +104,7 @@
             this.txtCuit.Location = new System.Drawing.Point(512, 26);
             this.txtCuit.Name = "txtCuit";
             this.txtCuit.Size = new System.Drawing.Size(123, 20);
-            this.txtCuit.TabIndex = 32;
+            this.txtCuit.TabIndex = 3;
             // 
             // label8
             // 
@@ -129,7 +129,7 @@
             this.txtTelefono.Location = new System.Drawing.Point(386, 26);
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(120, 20);
-            this.txtTelefono.TabIndex = 15;
+            this.txtTelefono.TabIndex = 2;
             // 
             // label5
             // 
@@ -145,14 +145,14 @@
             this.txtEmail.Location = new System.Drawing.Point(173, 26);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(207, 20);
-            this.txtEmail.TabIndex = 11;
+            this.txtEmail.TabIndex = 1;
             // 
             // txtRazonSocial
             // 
             this.txtRazonSocial.Location = new System.Drawing.Point(7, 26);
             this.txtRazonSocial.Name = "txtRazonSocial";
             this.txtRazonSocial.Size = new System.Drawing.Size(160, 20);
-            this.txtRazonSocial.TabIndex = 4;
+            this.txtRazonSocial.TabIndex = 0;
             // 
             // label2
             // 
@@ -177,7 +177,7 @@
             this.txtCuidad.Location = new System.Drawing.Point(413, 25);
             this.txtCuidad.Name = "txtCuidad";
             this.txtCuidad.Size = new System.Drawing.Size(106, 20);
-            this.txtCuidad.TabIndex = 33;
+            this.txtCuidad.TabIndex = 8;
             // 
             // label13
             // 
@@ -193,7 +193,7 @@
             this.txtCodigoPostal.Location = new System.Drawing.Point(679, 25);
             this.txtCodigoPostal.Name = "txtCodigoPostal";
             this.txtCodigoPostal.Size = new System.Drawing.Size(69, 20);
-            this.txtCodigoPostal.TabIndex = 27;
+            this.txtCodigoPostal.TabIndex = 10;
             // 
             // label12
             // 
@@ -209,7 +209,7 @@
             this.txtDepto.Location = new System.Drawing.Point(342, 25);
             this.txtDepto.Name = "txtDepto";
             this.txtDepto.Size = new System.Drawing.Size(62, 20);
-            this.txtDepto.TabIndex = 25;
+            this.txtDepto.TabIndex = 7;
             // 
             // label11
             // 
@@ -225,7 +225,7 @@
             this.txtNroPiso.Location = new System.Drawing.Point(273, 25);
             this.txtNroPiso.Name = "txtNroPiso";
             this.txtNroPiso.Size = new System.Drawing.Size(62, 20);
-            this.txtNroPiso.TabIndex = 23;
+            this.txtNroPiso.TabIndex = 6;
             // 
             // label10
             // 
@@ -241,7 +241,7 @@
             this.txtLocalidad.Location = new System.Drawing.Point(523, 25);
             this.txtLocalidad.Name = "txtLocalidad";
             this.txtLocalidad.Size = new System.Drawing.Size(150, 20);
-            this.txtLocalidad.TabIndex = 21;
+            this.txtLocalidad.TabIndex = 9;
             this.txtLocalidad.TextChanged += new System.EventHandler(this.txtLocalidad_TextChanged);
             // 
             // label9
@@ -258,14 +258,14 @@
             this.txtDireccion.Location = new System.Drawing.Point(7, 25);
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(150, 20);
-            this.txtDireccion.TabIndex = 19;
+            this.txtDireccion.TabIndex = 4;
             // 
             // btnGuardar
             // 
             this.btnGuardar.Location = new System.Drawing.Point(706, 278);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(75, 23);
-            this.btnGuardar.TabIndex = 7;
+            this.btnGuardar.TabIndex = 11;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = true;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
@@ -296,7 +296,7 @@
             this.txtPortal.Location = new System.Drawing.Point(164, 26);
             this.txtPortal.Name = "txtPortal";
             this.txtPortal.Size = new System.Drawing.Size(100, 20);
-            this.txtPortal.TabIndex = 30;
+            this.txtPortal.TabIndex = 5;
             // 
             // label4
             // 
@@ -324,7 +324,7 @@
             this.btnCambiarPass.Location = new System.Drawing.Point(116, 7);
             this.btnCambiarPass.Name = "btnCambiarPass";
             this.btnCambiarPass.Size = new System.Drawing.Size(113, 23);
-            this.btnCambiarPass.TabIndex = 11;
+            this.btnCambiarPass.TabIndex = 14;
             this.btnCambiarPass.Text = "Cambiar contraseña";
             this.btnCambiarPass.UseVisualStyleBackColor = true;
             this.btnCambiarPass.Click += new System.EventHandler(this.btnCambiarPass_Click);
@@ -335,7 +335,7 @@
             this.chkBxHabilitado.Location = new System.Drawing.Point(71, 12);
             this.chkBxHabilitado.Name = "chkBxHabilitado";
             this.chkBxHabilitado.Size = new System.Drawing.Size(15, 14);
-            this.chkBxHabilitado.TabIndex = 1;
+            this.chkBxHabilitado.TabIndex = 13;
             this.chkBxHabilitado.UseVisualStyleBackColor = true;
             // 
             // label6
@@ -352,7 +352,7 @@
             this.btnVolver.Location = new System.Drawing.Point(625, 278);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(75, 23);
-            this.btnVolver.TabIndex = 11;
+            this.btnVolver.TabIndex = 12;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click_1);
