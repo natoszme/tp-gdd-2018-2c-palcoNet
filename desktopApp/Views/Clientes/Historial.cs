@@ -17,12 +17,13 @@ namespace PalcoNet.Clientes
         public Historial()
         {
             InitializeComponent();
+
+            dgvCompras.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            new Home().Show();
+            WindowsFormUtils.volverALaHome(this);
         }
 
         private void Historial_Load(object sender, EventArgs e)
@@ -32,6 +33,11 @@ namespace PalcoNet.Clientes
                 var historial = db.F_HistorialDeCliente(Global.usuarioLogueado.id_usuario).AsQueryable<F_HistorialDeCliente_Result>();
                 DataGridViewUtils.actualizarDataGriedView(dgvCompras, historial);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
