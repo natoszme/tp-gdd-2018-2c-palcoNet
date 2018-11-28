@@ -32,6 +32,8 @@ namespace PalcoNet.Usuarios
         {
             if (!validarCampos()) return;
             UsuariosUtils.guardarUsuarioYSetearLogueado(username, pass, TipoRol.CLIENTE);
+
+            // TODO: porque el callback esta vacio?
             WindowsFormUtils.abrirFormulario(new Clientes.Formulario(), () => { });
         }
 
