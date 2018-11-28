@@ -25,6 +25,7 @@ namespace PalcoNet
 
         private void cargarFuncionalidadesDisponibles()
         {
+            //es necesario tenerlo harcodeado aca porque hay funcionalidades de la db que no son exactamente un boton de la home, como por ejemplo el Registro de Usuario
             funcionalidadesTotales.Add("ABM de Rol");
             botonesTotales.Add(btnAbmRol);
             funcionalidadesTotales.Add("ABM de Cliente");

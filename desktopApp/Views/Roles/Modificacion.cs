@@ -17,24 +17,27 @@ namespace PalcoNet.Roles
     {
         int id;
         Rol rol = new Rol();
-        List<String> funcionalidades = new List<String>();
 
         public Modificacion(int id)
         {
             this.id = id;
             InitializeComponent();
 
-            cargarCheckboxesFuncionalidads();
+            cargarCheckboxesFuncionalidades();
 
             cargarDatos();
         }
 
-        private void cargarCheckboxesFuncionalidads()
+        private void cargarCheckboxesFuncionalidades()
         {
-            foreach (object checkboxF in chkLstBxFuncionalidades.Items)
-            {
-                funcionalidades.Add(checkboxF.ToString());
-            }
+            BaseDeDatos.BaseDeDatos.obtenerFuncionalidades().ForEach(
+                funcionalidad => agregarItemACheckboxesFuncionalidades(funcionalidad.descripcion)
+                );
+        }
+
+        private void agregarItemACheckboxesFuncionalidades(String texto)
+        {
+            chkLstBxFuncionalidades.Items.Add(texto);
         }
 
         private void panel2_Paint(object sender, PaintEventArgs e)
@@ -57,8 +60,7 @@ namespace PalcoNet.Roles
                     rol = db.Rol.Find(id);
                     txtNombre.Text = rol.nombre;
                     chkBxHabilitado.Checked = rol.habilitado;
-                    checkearFuncionalidadesAsignadas();
-                    
+                    checkearFuncionalidadesAsignadas();                    
                 }
                 catch (Exception)
                 {
@@ -71,14 +73,16 @@ namespace PalcoNet.Roles
         {
             using (RagnarEntities db = new RagnarEntities())
             {
-                List<Funcionalidad> funcionalidadesAsignadas = db.Rol.Where(r => r.id_rol == id).Select(r => r.Funcionalidad).FirstOrDefault().ToList();
+                List<Funcionalidad> funcionalidadesAsignadas = db.Rol.Where(r => r.id_rol == id)
+                    .Select(r => r.Funcionalidad).FirstOrDefault().ToList();
+
                 funcionalidadesAsignadas.ForEach(f => { tildarCheck(f); });
             }
         }
 
         private void tildarCheck(Funcionalidad f)
         {
-            chkLstBxFuncionalidades.SetItemChecked(funcionalidades.IndexOf(f.descripcion), true);
+            chkLstBxFuncionalidades.SetItemChecked(chkLstBxFuncionalidades.Items.IndexOf(f.descripcion), true);
 
         }
         #endregion
@@ -100,30 +104,26 @@ namespace PalcoNet.Roles
                     rol.nombre = txtNombre.Text;
                     rol.habilitado = chkBxHabilitado.Checked;
 
-                    funcionalidades.ForEach(f => {
-                        if (funcionalidadesSeleccionadas().Contains(f))
+                    foreach (object funcionalidad in chkLstBxFuncionalidades.Items)
+                    {
+                        if (estaSeleccionada(funcionalidad.ToString()))
                         {
-                            rol.Funcionalidad.Add(BaseDeDatos.BaseDeDatos.obtenerFuncionalidadPorDescripcion(db, f));
+                            rol.Funcionalidad.Add(BaseDeDatos.BaseDeDatos.obtenerFuncionalidadPorDescripcion(db, funcionalidad.ToString()));
                         }
                         else
                         {
-                            rol.Funcionalidad.Remove(BaseDeDatos.BaseDeDatos.obtenerFuncionalidadPorDescripcion(db, f));
+                            rol.Funcionalidad.Remove(BaseDeDatos.BaseDeDatos.obtenerFuncionalidadPorDescripcion(db, funcionalidad.ToString()));
                         }
-                    });
+                    }
 
                     WindowsFormUtils.guardarYCerrar(db, this);
                 }
             }
         }
 
-        private List<String> funcionalidadesSeleccionadas()
+        private bool estaSeleccionada(string funcionalidad)
         {
-            List<String> funcs = new List<String>();
-            foreach (object item in chkLstBxFuncionalidades.CheckedItems)
-            {
-                funcs.Add(item.ToString());
-            }
-            return funcs;
+            return chkLstBxFuncionalidades.CheckedItems.Contains(funcionalidad);
         }
 
         #region VALIDACIONES

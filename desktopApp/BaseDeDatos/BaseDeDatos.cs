@@ -125,5 +125,10 @@ namespace PalcoNet.BaseDeDatos
             usuario.clave = pass;
             Utils.WindowsFormUtils.guardarYCerrar(db, formContext, destino);
         }
+
+        internal static List<Funcionalidad> obtenerFuncionalidades()
+        {
+            return dbContext.Funcionalidad.ToList();
+        }
     }
 }
