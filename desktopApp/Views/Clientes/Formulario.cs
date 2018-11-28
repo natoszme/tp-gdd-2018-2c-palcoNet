@@ -56,8 +56,7 @@ namespace PalcoNet.Clientes
             cliente.telefono = txtTelefono.Text;
             cliente.fecha_nacimiento = dtpFechaNacimiento.Value;
             // Justo en este caso se guarda el string como tipo de documento
-            // TODO: revisar si esta bien o es mejor manejarlo numericamente
-            cliente.tipo_documento = cmbBxTipoDocumento.SelectedText;
+            cliente.tipo_documento = cmbBxTipoDocumento.GetItemText(cmbBxTipoDocumento.SelectedItem);
             cliente.numero_documento = Decimal.Parse(txtNroDocumento.Text);
             cliente.cuil = txtCuil.Text;
             cliente.calle = txtDireccion.Text;

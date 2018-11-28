@@ -18,7 +18,7 @@ namespace PalcoNet.Views.Usuarios
         }
 
         public static void generarUsuarioRandom(String username, Usuario usuario, TipoRol rol) {
-            guardarUsuario(username, generarPassword(usuario), rol);
+            guardarUsuario(username, username, rol);
         }
 
         #region Generar credenciales
@@ -29,16 +29,11 @@ namespace PalcoNet.Views.Usuarios
         public static String generarUsername(Empresa empresa) {
             return empresa.cuit.ToString();
         }
-
-        private static String generarPassword(Usuario usuario) {
-            return usuario.id_usuario.ToString() + DateTime.Now.ToString();
-        }
         #endregion
 
         public static void guardarUsuario(String username, String pass, TipoRol rol)
         {
-            Global.usuarioGenerado = BaseDeDatos.BaseDeDatos.insertarYObtenerUsuario(username, pass, rol);
-            
+            Global.usuarioGenerado = BaseDeDatos.BaseDeDatos.insertarYObtenerUsuario(username, pass, rol);            
         }
 
         public static void guardarUsuarioYSetearLogueado(String username, String pass, TipoRol rol)
