@@ -18,6 +18,8 @@ namespace PalcoNet.Grados
         {
             InitializeComponent();
 
+            dgvGrados.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
             actualizarDataGriedView();
         }
 
@@ -53,6 +55,11 @@ namespace PalcoNet.Grados
         {
             int? id = DataGridViewUtils.obtenerIdSeleccionado(dgvGrados);
             WindowsFormUtils.abrirFormulario(new Formulario(id), actualizarDataGriedView);
+        }
+
+        private void Listado_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

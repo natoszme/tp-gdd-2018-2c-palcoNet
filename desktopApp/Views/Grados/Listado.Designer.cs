@@ -106,6 +106,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "Listado";
             this.Text = "Listado de grados de publicación";
+            this.Load += new System.EventHandler(this.Listado_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvGrados)).EndInit();

@@ -17,6 +17,8 @@ namespace PalcoNet.Roles
         public Listado()
         {
             InitializeComponent();
+
+            dgvRoles.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
         private void Listado_Load(object sender, EventArgs e)
