@@ -41,8 +41,9 @@ namespace PalcoNet.Usuarios
         }
 
         private void claveActualExistente() {
-            Usuario usuarioDB = BaseDeDatos.BaseDeDatos.obtenerUsuarioPorCredenciales(Global.usuarioLogueado.usuario, txtClaveActual.Text);
-            if (usuarioDB == null || usuarioDB.id_usuario != Global.usuarioLogueado.id_usuario) {
+            Usuario usuarioDB = BaseDeDatos.BaseDeDatos.obtenerUsuarioPorCredenciales(Global.obtenerUsuarioLogueado().usuario, txtClaveActual.Text);
+            if (usuarioDB == null || usuarioDB.id_usuario != Global.obtenerUsuarioLogueado().id_usuario)
+            {
                 throw new ValidationException("La clave actual ingresada es incorrecta");
             }
         }
@@ -57,7 +58,7 @@ namespace PalcoNet.Usuarios
         {
             if (camposYDominioValidos())
             {
-                BaseDeDatos.BaseDeDatos.modificarClave(Global.usuarioLogueado, txtNuevaClave.Text, this, new Home());
+                BaseDeDatos.BaseDeDatos.modificarClave(Global.obtenerUsuarioLogueado(), txtNuevaClave.Text, this, new Home());
             }
         }
     }
