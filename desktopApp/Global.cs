@@ -39,7 +39,7 @@ namespace PalcoNet
 
         internal static void desloguearUsuario()
         {
-            usuarioGenerado = null;
+            usuarioLogueado = null;
         }
     }
 }
