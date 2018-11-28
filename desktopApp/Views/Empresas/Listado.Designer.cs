@@ -70,7 +70,7 @@
             this.btnLimpiar.Location = new System.Drawing.Point(653, 43);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
-            this.btnLimpiar.TabIndex = 7;
+            this.btnLimpiar.TabIndex = 6;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
@@ -80,7 +80,7 @@
             this.btnFiltrar.Location = new System.Drawing.Point(572, 44);
             this.btnFiltrar.Name = "btnFiltrar";
             this.btnFiltrar.Size = new System.Drawing.Size(75, 23);
-            this.btnFiltrar.TabIndex = 6;
+            this.btnFiltrar.TabIndex = 5;
             this.btnFiltrar.Text = "Filtrar";
             this.btnFiltrar.UseVisualStyleBackColor = true;
             this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
@@ -90,7 +90,7 @@
             this.txtEmail.Location = new System.Drawing.Point(202, 47);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(190, 20);
-            this.txtEmail.TabIndex = 4;
+            this.txtEmail.TabIndex = 3;
             // 
             // label5
             // 
@@ -115,14 +115,14 @@
             this.txtRazonSocial.Location = new System.Drawing.Point(6, 46);
             this.txtRazonSocial.Name = "txtRazonSocial";
             this.txtRazonSocial.Size = new System.Drawing.Size(190, 20);
-            this.txtRazonSocial.TabIndex = 3;
+            this.txtRazonSocial.TabIndex = 2;
             // 
             // txtCuit
             // 
             this.txtCuit.Location = new System.Drawing.Point(398, 47);
             this.txtCuit.Name = "txtCuit";
             this.txtCuit.Size = new System.Drawing.Size(168, 20);
-            this.txtCuit.TabIndex = 5;
+            this.txtCuit.TabIndex = 4;
             // 
             // label2
             // 
@@ -161,7 +161,7 @@
             this.btnEditar.Location = new System.Drawing.Point(628, 6);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(100, 23);
-            this.btnEditar.TabIndex = 2;
+            this.btnEditar.TabIndex = 1;
             this.btnEditar.Text = "Editar empresa";
             this.btnEditar.UseVisualStyleBackColor = true;
             this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
@@ -171,7 +171,7 @@
             this.btnNuevo.Location = new System.Drawing.Point(518, 6);
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(104, 23);
-            this.btnNuevo.TabIndex = 1;
+            this.btnNuevo.TabIndex = 0;
             this.btnNuevo.Text = "Nueva empresa";
             this.btnNuevo.UseVisualStyleBackColor = true;
             this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
@@ -191,7 +191,7 @@
             this.btnVolver.Location = new System.Drawing.Point(665, 358);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(75, 23);
-            this.btnVolver.TabIndex = 8;
+            this.btnVolver.TabIndex = 7;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);

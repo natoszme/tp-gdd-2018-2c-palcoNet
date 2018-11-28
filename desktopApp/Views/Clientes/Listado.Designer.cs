@@ -231,7 +231,7 @@
             this.btnVolver.Location = new System.Drawing.Point(770, 364);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(75, 23);
-            this.btnVolver.TabIndex = 5;
+            this.btnVolver.TabIndex = 9;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
