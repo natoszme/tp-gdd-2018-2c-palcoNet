@@ -57,7 +57,7 @@ namespace PalcoNet.Clientes
             cliente.fecha_nacimiento = dtpFechaNacimiento.Value;
             // Justo en este caso se guarda el string como tipo de documento
             // TODO: revisar si esta bien o es mejor manejarlo numericamente
-            cliente.tipo_documento = Utils.WindowsFormUtils.seleccionadoDe(cmbBxTipoDocumento);
+            cliente.tipo_documento = cmbBxTipoDocumento.SelectedText;
             cliente.numero_documento = Decimal.Parse(txtNroDocumento.Text);
             cliente.cuil = txtCuil.Text;
             cliente.calle = txtDireccion.Text;
@@ -148,7 +148,7 @@ namespace PalcoNet.Clientes
 
         private void documentoNoRepetido()
         {
-            String tipoDoc = Utils.WindowsFormUtils.seleccionadoDe(cmbBxTipoDocumento);
+            String tipoDoc = cmbBxTipoDocumento.SelectedText;
             Cliente otroCliente = BaseDeDatos.BaseDeDatos.clientePorDocumento(tipoDoc, txtNroDocumento.Text);
             if (otroCliente != null)
             {

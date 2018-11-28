@@ -15,13 +15,12 @@ namespace PalcoNet.Views.Reportes
          * 2: Clientes con mas compras
          */
 
-        public static IQueryable<Object> getReporte(RagnarEntities dbContext, int anio, int trimestre, int tipo) {
-            int mes = getMes(trimestre, tipo);
+        public static IQueryable<Object> getReporte(RagnarEntities dbContext, int anio, int trimestreOMes, int tipo, int id_grado) {
+            int mes = getMes(trimestreOMes, tipo);
             DateTime fecha = new DateTime(anio, mes, DateTime.DaysInMonth(anio, mes));
             switch (tipo) {
                 case 0:
-                    // dbContext.F_EmpresasConMasLocalidadesNoVencidas(grado??, trimestre, anio);
-                    return null;
+                    return dbContext.F_EmpresasConMasLocalidadesNoVencidas(id_grado, mes.ToString(), anio.ToString());
 
                 case 1:
                     return dbContext.F_ClientesConMasPuntosVencidos(fecha).AsQueryable<F_ClientesConMasPuntosVencidos_Result>();

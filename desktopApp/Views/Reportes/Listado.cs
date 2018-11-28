@@ -42,12 +42,18 @@ namespace PalcoNet.Views.Reportes
         {
             using (RagnarEntities db = new RagnarEntities()) {
                 if (camposValidos()) {
-                    var reporte = Reportero.getReporte(db, int.Parse(txtAnio.Text), int.Parse(txtTrimestre.Text), cmbReporte.SelectedIndex);
+                    int id_grado = 0;
+                    
+                    if (cmbGrado.Enabled)
+                        id_grado = WindowsFormUtils.seleccionadoDe(cmbGrado);
+
+                    var reporte = Reportero.getReporte(db, int.Parse(txtAnio.Text), int.Parse(txtTrimestre.Text), cmbReporte.SelectedIndex, id_grado);
                     DataGridViewUtils.actualizarDataGriedView(dgvReporte, reporte);
                 }
             }
 
         }
+
         #region VALIDACIONES
         private bool camposValidos()
         {
@@ -60,7 +66,11 @@ namespace PalcoNet.Views.Reportes
             if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtTrimestre, textErrorLableFiltro()), ref errores))
                 ValidationsUtils.hayError(() => ValidationsUtils.campoNumericoYPositivo(txtTrimestre, textErrorLableFiltro()), ref errores);
 
-            ValidationsUtils.hayError(() => ValidationsUtils.opcionObligatoria(cmbReporte, "tipo de reporte"), ref errores);
+            if (!ValidationsUtils.hayError(() => ValidationsUtils.opcionObligatoria(cmbReporte, "tipo de reporte"), ref errores)) {
+                if (cmbReporte.SelectedIndex == 0) {
+                    ValidationsUtils.hayError(() => ValidationsUtils.opcionObligatoria(cmbGrado, "grado"), ref errores);
+                }
+            }
 
             if (errores.Count() > 0)
             {
@@ -112,8 +122,9 @@ namespace PalcoNet.Views.Reportes
 
         private void cargarGrados() {
             using (RagnarEntities db = new RagnarEntities()) {
-
-                cmbGrado.DataSource = (from g in db.Grado_publicacion select g.descripcion).ToList();
+                cmbGrado.DataSource = db.Grado_publicacion.ToList().Select(
+                    grado => new ComboBoxItem(grado.id_grado, grado.descripcion)
+                ).ToList();
 
                 cmbGrado.ValueMember = "value";
                 cmbGrado.DisplayMember = "text";
