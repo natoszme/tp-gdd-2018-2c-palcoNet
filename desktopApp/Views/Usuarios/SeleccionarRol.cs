@@ -34,6 +34,7 @@ namespace PalcoNet.Usuarios
             }
 
             this.cmbBxRol.DataSource = rolesHabilitadosDeUsuario;
+            this.Show();
         }
 
         private bool tieneAlgunRol(List<string> roles)
