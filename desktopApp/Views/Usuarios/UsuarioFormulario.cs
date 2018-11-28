@@ -64,18 +64,6 @@ namespace PalcoNet.Views.Usuarios
             return editando();
         }
 
-        protected void cuilNoRepetido()
-        {
-            Cliente otroCliente = BaseDeDatos.BaseDeDatos.clientePorCuil(textBoxCui().Text);
-            if (otroCliente != null)
-            {
-                if ((editando() && id != otroCliente.id_usuario) || !editando())
-                {
-                    throw new ValidationException("Ya existe otro cliente con este cuil");
-                }
-            }
-        }
-
         protected abstract void asignarEntidades(RagnarEntities db);
         protected abstract bool camposYDominioValidos();
         protected abstract bool validarDominio(ref List<string> errores);

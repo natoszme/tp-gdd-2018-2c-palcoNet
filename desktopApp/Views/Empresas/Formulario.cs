@@ -119,7 +119,7 @@ namespace PalcoNet.Empresas
 
         override protected bool validarDominio(ref List<string> errores)
         {
-            ValidationsUtils.hayError(cuilNoRepetido, ref errores);
+            ValidationsUtils.hayError(cuitNoRepetido, ref errores);
             
             if (errores.Count() > 0)
             {
@@ -127,6 +127,18 @@ namespace PalcoNet.Empresas
                 return false;
             }
             return true;
+        }
+
+        protected void cuitNoRepetido()
+        {
+            Empresa otraEmpresa = BaseDeDatos.BaseDeDatos.empresaPorCuit(txtCuit.Text);
+            if (otraEmpresa != null)
+            {
+                if ((editando() && id != otraEmpresa.id_usuario) || !editando())
+                {
+                    throw new ValidationException("Ya existe otra empresa con este cuit");
+                }
+            }
         }
         #endregion
 

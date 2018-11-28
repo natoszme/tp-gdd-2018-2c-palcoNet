@@ -147,6 +147,18 @@ namespace PalcoNet.Clientes
             return true;
         }
 
+        private void cuilNoRepetido()
+        {
+            Cliente otroCliente = BaseDeDatos.BaseDeDatos.clientePorCuil(textBoxCui().Text);
+            if (otroCliente != null)
+            {
+                if ((editando() && id != otroCliente.id_usuario) || !editando())
+                {
+                    throw new ValidationException("Ya existe otro cliente con este cuil");
+                }
+            }
+        }
+
         private void documentoNoRepetido()
         {
             String tipoDoc = WindowsFormUtils.textoSeleccionadoDe(cmbBxTipoDocumento);
