@@ -138,12 +138,22 @@ namespace PalcoNet.BaseDeDatos
 
         public static Rol obtenerRol(Rol rol)
         {
-            return dbContext().Rol.Find(rol.id_rol);
+            return obtenerRol(dbContext(), rol);
+        }
+
+        public static Rol obtenerRol(RagnarEntities db, Rol rol)
+        {
+            return db.Rol.Find(rol.id_rol);
         }
 
         public static Usuario obtenerUsuario(Usuario usuarioLogueado)
         {
-            return dbContext().Usuario.Find(usuarioLogueado.id_usuario);
+            return obtenerUsuario(dbContext(), usuarioLogueado);
+        }
+
+        internal static Usuario obtenerUsuario(RagnarEntities db, Usuario usuarioLogueado)
+        {
+            return db.Usuario.Find(usuarioLogueado.id_usuario);
         }
     }
 }

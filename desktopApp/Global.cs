@@ -40,11 +40,11 @@ namespace PalcoNet
         internal static void desloguearUsuario()
         {
             usuarioLogueado = null;
-        }
+        }        
 
-        public static Rol obtenerRolUsuario(RagnarEntities db)
+        internal static void setearRol(Rol rol)
         {
-            return db.Rol.Find(rolUsuario.id_rol);
+            rolUsuario = rol;
         }
 
         public static Rol obtenerRolUsuario()
@@ -52,9 +52,9 @@ namespace PalcoNet
             return BaseDeDatos.BaseDeDatos.obtenerRol(rolUsuario);
         }
 
-        internal static void setearRol(Rol rol)
+        public static Rol obtenerRolUsuario(RagnarEntities db)
         {
-            rolUsuario = rol;
+            return BaseDeDatos.BaseDeDatos.obtenerRol(db, rolUsuario);
         }
 
         public static Usuario obtenerUsuarioLogueado()
@@ -62,10 +62,9 @@ namespace PalcoNet
             return BaseDeDatos.BaseDeDatos.obtenerUsuario(usuarioLogueado);
         }
 
-        //TODO reutilizar la logica para no repetir esto tambien en BaseDeDatos
         public static Usuario obtenerUsuarioLogueado(RagnarEntities db)
         {
-            return db.Usuario.Find(usuarioLogueado);
+            return BaseDeDatos.BaseDeDatos.obtenerUsuario(db, usuarioLogueado);
         }
     }
 }
