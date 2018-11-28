@@ -39,10 +39,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dgvEmpresas = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnEditar = new System.Windows.Forms.Button();
             this.btnNuevo = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btnVolver = new System.Windows.Forms.Button();
-            this.btnEditar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmpresas)).BeginInit();
             this.panel1.SuspendLayout();
@@ -70,7 +70,7 @@
             this.btnLimpiar.Location = new System.Drawing.Point(653, 43);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
-            this.btnLimpiar.TabIndex = 12;
+            this.btnLimpiar.TabIndex = 7;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
@@ -80,7 +80,7 @@
             this.btnFiltrar.Location = new System.Drawing.Point(572, 44);
             this.btnFiltrar.Name = "btnFiltrar";
             this.btnFiltrar.Size = new System.Drawing.Size(75, 23);
-            this.btnFiltrar.TabIndex = 2;
+            this.btnFiltrar.TabIndex = 6;
             this.btnFiltrar.Text = "Filtrar";
             this.btnFiltrar.UseVisualStyleBackColor = true;
             this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
@@ -90,7 +90,7 @@
             this.txtEmail.Location = new System.Drawing.Point(202, 47);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(190, 20);
-            this.txtEmail.TabIndex = 11;
+            this.txtEmail.TabIndex = 4;
             // 
             // label5
             // 
@@ -115,14 +115,14 @@
             this.txtRazonSocial.Location = new System.Drawing.Point(6, 46);
             this.txtRazonSocial.Name = "txtRazonSocial";
             this.txtRazonSocial.Size = new System.Drawing.Size(190, 20);
-            this.txtRazonSocial.TabIndex = 7;
+            this.txtRazonSocial.TabIndex = 3;
             // 
             // txtCuit
             // 
             this.txtCuit.Location = new System.Drawing.Point(398, 47);
             this.txtCuit.Name = "txtCuit";
             this.txtCuit.Size = new System.Drawing.Size(168, 20);
-            this.txtCuit.TabIndex = 6;
+            this.txtCuit.TabIndex = 5;
             // 
             // label2
             // 
@@ -156,6 +156,16 @@
             this.panel1.Size = new System.Drawing.Size(733, 32);
             this.panel1.TabIndex = 5;
             // 
+            // btnEditar
+            // 
+            this.btnEditar.Location = new System.Drawing.Point(628, 6);
+            this.btnEditar.Name = "btnEditar";
+            this.btnEditar.Size = new System.Drawing.Size(100, 23);
+            this.btnEditar.TabIndex = 2;
+            this.btnEditar.Text = "Editar empresa";
+            this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
+            // 
             // btnNuevo
             // 
             this.btnNuevo.Location = new System.Drawing.Point(518, 6);
@@ -185,16 +195,6 @@
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
-            // 
-            // btnEditar
-            // 
-            this.btnEditar.Location = new System.Drawing.Point(628, 6);
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(100, 23);
-            this.btnEditar.TabIndex = 2;
-            this.btnEditar.Text = "Editar empresa";
-            this.btnEditar.UseVisualStyleBackColor = true;
-            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // Listado
             // 
