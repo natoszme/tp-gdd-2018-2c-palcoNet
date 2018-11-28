@@ -24,6 +24,7 @@ namespace PalcoNet.Clientes
         {
             InitializeComponent();
 
+            dtpFechaNacimiento.Value = new DateTime(1990, 01, 01);
             cargarComboTipoDocumento();
 
             if (editando())
