@@ -55,10 +55,15 @@ namespace PalcoNet.Utils
             new Usuarios.Login().Show();
         }
 
-        public static int seleccionadoDe(ComboBox combo)
+        public static int numeroSeleccionadoDe(ComboBox combo)
         {
             ComboBoxItem selectedItem = (ComboBoxItem) combo.SelectedItem;
             return selectedItem.value;
+        }
+
+        public static String textoSeleccionadoDe(ComboBox combo)
+        {
+            return combo.GetItemText(combo.SelectedItem);
         }
     }
 }

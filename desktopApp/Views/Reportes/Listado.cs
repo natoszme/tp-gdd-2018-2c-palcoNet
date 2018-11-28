@@ -46,7 +46,7 @@ namespace PalcoNet.Views.Reportes
                     int id_grado = 0;
                     
                     if (cmbGrado.Enabled)
-                        id_grado = WindowsFormUtils.seleccionadoDe(cmbGrado);
+                        id_grado = WindowsFormUtils.numeroSeleccionadoDe(cmbGrado);
 
                     var reporte = Reportero.getReporte(db, int.Parse(txtAnio.Text), int.Parse(txtTrimestre.Text), cmbReporte.SelectedIndex, id_grado);
                     DataGridViewUtils.actualizarDataGriedView(dgvReporte, reporte);
