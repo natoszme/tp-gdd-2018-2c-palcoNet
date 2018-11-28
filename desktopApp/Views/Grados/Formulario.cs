@@ -83,17 +83,21 @@ namespace PalcoNet.Grados
         }
 
         private bool camposValidos() {
-            bool camposValidos = true;
-            try {
-                ValidationsUtils.campoObligatorio(txtDescripcion, "descripción");
-                ValidationsUtils.campoAlfabetico(txtDescripcion, "descripción");
-                ValidationsUtils.campoObligatorio(txtComision, "comision");
-                ValidationsUtils.campoNumericoYPositivo(txtComision, "comision");
-            } catch(ValidationException e) {
-                WindowsFormUtils.mensajeDeError(e.Message);
-                camposValidos = false;
+            List<string> errores = new List<string>();      
+
+            if(!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtDescripcion, "descripción"), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.campoAlfabetico(txtDescripcion, "descripción"), ref errores);
+
+            if(!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtComision, "comision"), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.campoNumericoYPositivo(txtComision, "comision"), ref errores);
+
+            if (errores.Count() > 0)
+            {
+                WindowsFormUtils.mostrarErrores(errores);
+                return false;
             }
-            return camposValidos;
+
+            return true;
         }
 
         private void descripcionNoRepetida()
@@ -136,6 +140,11 @@ namespace PalcoNet.Grados
         private void btnVolver_Click(object sender, EventArgs e)
         {
             this.Hide();
+        }
+
+        private void Formulario_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

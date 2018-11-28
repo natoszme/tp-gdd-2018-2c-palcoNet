@@ -101,6 +101,7 @@
             this.Controls.Add(this.lblNombre);
             this.Name = "Formulario";
             this.Text = "Grado de publicación";
+            this.Load += new System.EventHandler(this.Formulario_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
