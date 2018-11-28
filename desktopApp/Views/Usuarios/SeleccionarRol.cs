@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PalcoNet.Model;
+using PalcoNet.Utils;
 
 namespace PalcoNet.Usuarios
 {
@@ -22,12 +23,22 @@ namespace PalcoNet.Usuarios
 
         private void cargarRolesHabilitados()
         {
-            this.cmbBxRol.DataSource = BaseDeDatos.BaseDeDatos.obtenerRolesHabilitadosDelUsuario(Global.usuarioLogueado);
+            List<string> rolesHabilitadosDeUsuario = BaseDeDatos.BaseDeDatos.obtenerRolesHabilitadosDelUsuario(Global.usuarioLogueado);
+
+            if(!tieneAlgunRol(rolesHabilitadosDeUsuario))
+            {
+                WindowsFormUtils.mensajeDeError("No tiene ningún rol habilitado. Por favor contáctese con un administrador");
+                WindowsFormUtils.volverALogin(this);
+                this.Close();
+                return;
+            }
+
+            this.cmbBxRol.DataSource = rolesHabilitadosDeUsuario;
         }
 
-        public bool tieneAlgunRol(Usuario usuario)
+        private bool tieneAlgunRol(List<string> roles)
         {
-            return BaseDeDatos.BaseDeDatos.tieneAlgunRol(usuario);
+            return roles.Any();
         }
 
         private void redirijirA(Rol rol) {
