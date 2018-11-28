@@ -46,7 +46,7 @@ namespace PalcoNet.Publicaciones
         {
             using (RagnarEntities db = new RagnarEntities())
             {
-                cmbRubro.DataSource = (from g in db.Grado_publicacion select g.descripcion).ToList();
+                cmbGradoPublicacion.DataSource = (from g in db.Grado_publicacion select g.descripcion).ToList();
             }
         }
 
