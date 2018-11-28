@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using PalcoNet.Utils;
 using PalcoNet.Views.Usuarios;
 using PalcoNet.Model;
+using PalcoNet.Utils;
 
 namespace PalcoNet.Usuarios
 {
@@ -44,31 +45,24 @@ namespace PalcoNet.Usuarios
 
         private bool validarCampos()
         {
-            try
+            List<string> errores = new List<string>();
+
+            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtUsuario, "usuario"), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.campoAlfabetico(txtUsuario, "usuario"), ref errores);
+
+            ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtClave, "contraseña"), ref errores);
+
+            ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtRepetirClave, "comprobación de contraseña"), ref errores);
+
+            if (errores.Count() > 0)
             {
-                Utils.ValidationsUtils.campoObligatorio(txtUsuario, "usuario");
-                Utils.ValidationsUtils.campoAlfabetico(txtUsuario, "usuario");
-                Utils.ValidationsUtils.campoObligatorio(txtClave, "contraseña");
-                Utils.ValidationsUtils.campoObligatorio(txtRepetirClave, "comprobación de contraseña");
-            }
-            catch (ValidationException e)
-            {
+                WindowsFormUtils.mostrarErrores(errores);
                 limpiarPasses();
-                WindowsFormUtils.mensajeDeError(e.Message);
                 return false;
             }
 
-            if (txtClave.Text != txtRepetirClave.Text)
+            if (!validarDominio(errores))
             {
-                limpiarPasses();
-                WindowsFormUtils.mensajeDeError("Las contraseñas no coinciden");
-                return false;
-            }
-
-            if (BaseDeDatos.BaseDeDatos.existeUsuario(txtUsuario.Text))
-            {
-                limpiarPasses();
-                WindowsFormUtils.mensajeDeError("El usuario ya existe");
                 return false;
             }
 
@@ -76,6 +70,37 @@ namespace PalcoNet.Usuarios
             pass = txtClave.Text;
 
             return true;
+        }
+
+        private bool validarDominio(List<string> errores)
+        {
+            ValidationsUtils.hayError(() => validarContraseniasCoincidentes(), ref errores);
+            ValidationsUtils.hayError(() => validarUsuarioInexistente(), ref errores);
+
+            if (errores.Count() > 0)
+            {
+                WindowsFormUtils.mostrarErrores(errores);
+                limpiarPasses();
+                return false;
+            }
+
+            return true;
+        }
+
+        private void validarContraseniasCoincidentes()
+        {
+            if (txtClave.Text != txtRepetirClave.Text)
+            {
+                throw new ValidationException("Las contraseñas no coinciden");
+            }
+        }
+
+        private void validarUsuarioInexistente()
+        {
+            if (BaseDeDatos.BaseDeDatos.existeUsuario(txtUsuario.Text))
+            {
+                throw new ValidationException("El usuario ya existe");
+            }
         }
 
         private void limpiarPasses()
