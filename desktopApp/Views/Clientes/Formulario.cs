@@ -68,7 +68,7 @@ namespace PalcoNet.Clientes
             cliente.codigo_postal = txtCodigoPostal.Text;
             cliente.tarjeta_credito = recortarTarjetaDeCredito(txtTarjeta.Text);
 
-            if (SessionUtils.esAdmin() && editando())
+            if (esAdminEditando())
             {
                 cliente.Usuario.habilitado = chkBxHabilitado.Checked;
             }

@@ -56,7 +56,7 @@ namespace PalcoNet.Empresas
             empresa.localidad = txtLocalidad.Text;
             empresa.codigo_postal = txtCodigoPostal.Text;
 
-            if (SessionUtils.esAdmin() && editando())
+            if (esAdminEditando())
             {
                 empresa.Usuario.habilitado = chkBxHabilitado.Checked;
             }

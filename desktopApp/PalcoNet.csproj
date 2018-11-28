@@ -156,7 +156,6 @@
     </Compile>
     <Compile Include="Model\Ubicacion.cs" />
     <Compile Include="Utils\DataGridViewUtils.cs" />
-    <Compile Include="Utils\SessionUtils.cs" />
     <Compile Include="Utils\WindowsFormUtils.cs" />
     <Compile Include="Views\Clientes\Historial.cs">
       <SubType>Form</SubType>

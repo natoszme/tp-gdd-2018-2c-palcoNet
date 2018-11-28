@@ -56,7 +56,12 @@ namespace PalcoNet.Views.Usuarios
 
         protected bool hayQueMostrarPanelAdmin()
         {
-            return SessionUtils.esAdmin() && editando();
+            return esAdminEditando();
+        }
+
+        protected bool esAdminEditando()
+        {
+            return editando();
         }
 
         protected void cuilNoRepetido()
