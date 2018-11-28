@@ -20,11 +20,6 @@ namespace PalcoNet.BaseDeDatos
                     .FirstOrDefault();
         }
 
-        public static bool tieneAlgunRol(Usuario usuario) {
-            // TODO: fijarse si tiene algun rol
-            return true;
-        }
-
         public static List<string> obtenerRolesHabilitadosDelUsuario(Usuario usuario) {
             return usuario.Usuario_rol.Where(u_r => u_r.Rol.habilitado).Select(u_r => u_r.Rol.nombre).ToList();
         }
