@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnEditar = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvGrados = new System.Windows.Forms.DataGridView();
             this.btnVolver = new System.Windows.Forms.Button();
-            this.btnEditar = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvGrados)).BeginInit();
             this.SuspendLayout();
@@ -45,12 +45,22 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(542, 44);
+            this.panel1.Size = new System.Drawing.Size(445, 44);
             this.panel1.TabIndex = 0;
+            // 
+            // btnEditar
+            // 
+            this.btnEditar.Location = new System.Drawing.Point(340, 11);
+            this.btnEditar.Name = "btnEditar";
+            this.btnEditar.Size = new System.Drawing.Size(93, 23);
+            this.btnEditar.TabIndex = 3;
+            this.btnEditar.Text = "Editar grado";
+            this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(331, 11);
+            this.button1.Location = new System.Drawing.Point(232, 11);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(102, 23);
             this.button1.TabIndex = 1;
@@ -71,14 +81,14 @@
             // dgvGrados
             // 
             this.dgvGrados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvGrados.Location = new System.Drawing.Point(12, 75);
+            this.dgvGrados.Location = new System.Drawing.Point(12, 62);
             this.dgvGrados.Name = "dgvGrados";
-            this.dgvGrados.Size = new System.Drawing.Size(542, 151);
+            this.dgvGrados.Size = new System.Drawing.Size(445, 131);
             this.dgvGrados.TabIndex = 1;
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(469, 247);
+            this.btnVolver.Location = new System.Drawing.Point(382, 209);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(75, 23);
             this.btnVolver.TabIndex = 2;
@@ -86,21 +96,11 @@
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
-            // btnEditar
-            // 
-            this.btnEditar.Location = new System.Drawing.Point(439, 11);
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(93, 23);
-            this.btnEditar.TabIndex = 3;
-            this.btnEditar.Text = "Editar grado";
-            this.btnEditar.UseVisualStyleBackColor = true;
-            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
-            // 
             // Listado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(566, 284);
+            this.ClientSize = new System.Drawing.Size(470, 244);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.dgvGrados);
             this.Controls.Add(this.panel1);
