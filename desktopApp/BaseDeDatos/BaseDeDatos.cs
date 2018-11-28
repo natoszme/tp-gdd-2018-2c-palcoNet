@@ -53,9 +53,9 @@ namespace PalcoNet.BaseDeDatos
                 .FirstOrDefault();
         }
 
-        internal static Rol obtenerRol(TipoRol nombreRol)
+        internal static Rol obtenerRol(RagnarEntities db, TipoRol nombreRol)
         {
-            return dbContext().Rol
+            return db.Rol
                 .Where(rol => rol.nombre.Equals(nombreRol.DisplayName))
                 .FirstOrDefault();
         }
@@ -67,15 +67,15 @@ namespace PalcoNet.BaseDeDatos
             usuario.clave = pass;
             usuario.habilitado = true;
 
-            Rol rol = obtenerRol(tipoRol);
+            RagnarEntities db = dbContext();
+
+            Rol rol = obtenerRol(db, tipoRol);
 
             Usuario_rol usuario_rol = new Usuario_rol()
             {
                 Usuario = usuario,
                 Rol = rol
-            };
-
-            RagnarEntities db = dbContext();
+            };            
 
             db.Usuario.Add(usuario);
             db.Usuario_rol.Add(usuario_rol);
