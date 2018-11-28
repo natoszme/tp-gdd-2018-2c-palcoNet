@@ -545,7 +545,7 @@
           </ReturnType>
         </Function>
         <Function Name="F_EmpresasConMasLocalidadesNoVencidas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="RAGNAR">
-          <Parameter Name="Grado" Type="nvarchar" Mode="In" />
+          <Parameter Name="Id_grado" Type="int" Mode="In" />
           <Parameter Name="Mes" Type="nvarchar" Mode="In" />
           <Parameter Name="Anio" Type="nvarchar" Mode="In" />
           <ReturnType>
@@ -669,18 +669,18 @@
             <End Role="Rol" EntitySet="Rol" />
           </AssociationSet>
           <FunctionImport Name="F_ClientesConMasCompras" IsComposable="true" ReturnType="Collection(RagnarModel.F_ClientesConMasCompras_Result)">
-            <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+          <Parameter Name="Fecha" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="F_ClientesConMasPuntosVencidos" IsComposable="true" ReturnType="Collection(RagnarModel.F_ClientesConMasPuntosVencidos_Result)">
-            <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+          <Parameter Name="Fecha" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="F_EmpresasConMasLocalidadesNoVencidas" IsComposable="true" ReturnType="Collection(String)">
-            <Parameter Name="Grado" Mode="In" Type="String" />
+            <Parameter Name="Id_grado" Mode="In" Type="Int32" />
             <Parameter Name="Mes" Mode="In" Type="String" />
             <Parameter Name="Anio" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="F_HistorialDeCliente" IsComposable="true" ReturnType="Collection(RagnarModel.F_HistorialDeCliente_Result)">
-            <Parameter Name="Cliente" Mode="In" Type="Int64" />
+          <Parameter Name="Cliente" Mode="In" Type="Int64" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Cliente">

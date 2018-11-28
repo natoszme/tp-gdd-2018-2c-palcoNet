@@ -12,8 +12,8 @@ namespace PalcoNet.Model
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Linq;
     using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class RagnarEntities : DbContext
     {
@@ -67,11 +67,11 @@ namespace PalcoNet.Model
         }
 
         [DbFunction("RagnarEntities", "F_EmpresasConMasLocalidadesNoVencidas")]
-        public virtual IQueryable<string> F_EmpresasConMasLocalidadesNoVencidas(string grado, string mes, string anio)
+        public virtual IQueryable<string> F_EmpresasConMasLocalidadesNoVencidas(Nullable<int> id_grado, string mes, string anio)
         {
-            var gradoParameter = grado != null ?
-                new ObjectParameter("Grado", grado) :
-                new ObjectParameter("Grado", typeof(string));
+            var gradoParameter = id_grado.HasValue ?
+                new ObjectParameter("Id_grado", id_grado) :
+                new ObjectParameter("Id_grado", typeof(int));
     
             var mesParameter = mes != null ?
                 new ObjectParameter("Mes", mes) :
@@ -80,8 +80,8 @@ namespace PalcoNet.Model
             var anioParameter = anio != null ?
                 new ObjectParameter("Anio", anio) :
                 new ObjectParameter("Anio", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<string>("[RagnarEntities].[F_EmpresasConMasLocalidadesNoVencidas](@Grado, @Mes, @Anio)", gradoParameter, mesParameter, anioParameter);
+
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<string>("[RagnarEntities].[F_EmpresasConMasLocalidadesNoVencidas](@Id_grado, @Mes, @Anio)", gradoParameter, mesParameter, anioParameter);
         }
 
         [DbFunction("RagnarEntities", "F_HistorialDeCliente")]
