@@ -37,14 +37,14 @@ namespace PalcoNet.Roles
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            WindowsFormUtils.abrirFormulario(new Alta(), actualizarDataGriedView);
+            WindowsFormUtils.abrirFormulario(new Formulario(), actualizarDataGriedView);
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
             int? id = DataGridViewUtils.obtenerIdSeleccionado(dgvRoles);
             int idABuscar = id ?? default(int);
-            WindowsFormUtils.abrirFormulario(new Modificacion(idABuscar), actualizarDataGriedView);
+            WindowsFormUtils.abrirFormulario(new Formulario(idABuscar), actualizarDataGriedView);
         }
 
         private void btnVolver_Click(object sender, EventArgs e)

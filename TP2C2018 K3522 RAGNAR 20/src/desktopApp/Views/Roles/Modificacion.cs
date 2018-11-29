@@ -13,19 +13,28 @@ using System.Data.Entity;
 
 namespace PalcoNet.Roles
 {
-    public partial class Modificacion : Form
+    public partial class Formulario : Form
     {
-        int id;
+        int? id;
         Rol rol = new Rol();
 
-        public Modificacion(int id)
+        public Formulario(int? id = null)
         {
             this.id = id;
             InitializeComponent();
 
             cargarCheckboxesFuncionalidades();
 
-            cargarDatos();
+            if (editando())
+            {
+                cargarDatos();
+                chkBxHabilitado.Visible = true;
+            }
+        }
+
+        private bool editando()
+        {
+            return id != null;
         }
 
         private void cargarCheckboxesFuncionalidades()
@@ -99,21 +108,41 @@ namespace PalcoNet.Roles
                         return;
                     }
 
-                    //volvemos a hacer el find porque para que se actualice bien el rol, necestiamos este contexto
-                    rol = db.Rol.Find(id);
-                    rol.nombre = txtNombre.Text;
-                    rol.habilitado = chkBxHabilitado.Checked;
-
-                    foreach (object funcionalidad in chkLstBxFuncionalidades.Items)
+                    if (editando())
                     {
-                        if (estaSeleccionada(funcionalidad.ToString()))
+
+                        //volvemos a hacer el find porque para que se actualice bien el rol, necestiamos este contexto
+                        rol = db.Rol.Find(id);
+                        rol.nombre = txtNombre.Text;
+                        rol.habilitado = chkBxHabilitado.Checked;
+
+                        foreach (object funcionalidad in chkLstBxFuncionalidades.Items)
                         {
-                            rol.Funcionalidad.Add(BaseDeDatos.BaseDeDatos.obtenerFuncionalidadPorDescripcion(db, funcionalidad.ToString()));
+                            if (estaSeleccionada(funcionalidad.ToString()))
+                            {
+                                rol.Funcionalidad.Add(BaseDeDatos.BaseDeDatos.obtenerFuncionalidadPorDescripcion(db, funcionalidad.ToString()));
+                            }
+                            else
+                            {
+                                rol.Funcionalidad.Remove(BaseDeDatos.BaseDeDatos.obtenerFuncionalidadPorDescripcion(db, funcionalidad.ToString()));
+                            }
                         }
-                        else
+                    }
+                    else
+                    {
+                        rol = new Rol();
+                        rol.nombre = txtNombre.Text;
+                        rol.habilitado = true;
+
+                        foreach (object funcionalidad in chkLstBxFuncionalidades.Items)
                         {
-                            rol.Funcionalidad.Remove(BaseDeDatos.BaseDeDatos.obtenerFuncionalidadPorDescripcion(db, funcionalidad.ToString()));
+                            if (estaSeleccionada(funcionalidad.ToString()))
+                            {
+                                rol.Funcionalidad.Add(BaseDeDatos.BaseDeDatos.obtenerFuncionalidadPorDescripcion(db, funcionalidad.ToString()));
+                            }
                         }
+
+                        db.Rol.Add(rol);
                     }
 
                     WindowsFormUtils.guardarYCerrar(db, this);

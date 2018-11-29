@@ -240,12 +240,6 @@
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\TipoRol.cs" />
-    <Compile Include="Views\Roles\Alta.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Roles\Alta.Designer.cs">
-      <DependentUpon>Alta.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\Roles\Listado.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -344,9 +338,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Usuarios\Signup.resx">
       <DependentUpon>Signup.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Roles\Alta.resx">
-      <DependentUpon>Alta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Usuarios\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

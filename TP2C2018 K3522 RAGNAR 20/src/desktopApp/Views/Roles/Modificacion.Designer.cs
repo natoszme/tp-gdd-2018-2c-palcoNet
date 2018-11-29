@@ -1,6 +1,6 @@
 ﻿namespace PalcoNet.Roles
 {
-    partial class Modificacion
+    partial class Formulario
     {
         /// <summary>
         /// Required designer variable.
@@ -83,6 +83,7 @@
             this.chkBxHabilitado.TabIndex = 12;
             this.chkBxHabilitado.Text = "Habilitado";
             this.chkBxHabilitado.UseVisualStyleBackColor = true;
+            this.chkBxHabilitado.Visible = false;
             // 
             // label3
             // 
@@ -127,14 +128,14 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Nombre";
             // 
-            // Modificacion
+            // Formulario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(329, 335);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Name = "Modificacion";
+            this.Name = "Formulario";
             this.Text = "Modificar rol";
             this.Load += new System.EventHandler(this.Modificacion_Load);
             this.panel1.ResumeLayout(false);
