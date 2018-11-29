@@ -59,7 +59,7 @@ namespace PalcoNet.Grados
             }
 
             grado.descripcion = txtDescripcion.Text;
-            grado.comision = Decimal.Parse(txtComision.Text);
+            grado.comision = ValidationsUtils.decimalDeInput(txtComision);
 
             if (!editando())
             {
@@ -89,7 +89,7 @@ namespace PalcoNet.Grados
                 ValidationsUtils.hayError(() => ValidationsUtils.campoAlfabetico(txtDescripcion, "descripción"), ref errores);
 
             if(!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtComision, "comision"), ref errores))
-                ValidationsUtils.hayError(() => ValidationsUtils.campoNumericoYPositivo(txtComision, "comision"), ref errores);
+                ValidationsUtils.hayError(() => ValidationsUtils.campoFloatYPositivo(txtComision, "comision"), ref errores);
 
             if (errores.Count() > 0)
             {

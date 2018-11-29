@@ -62,10 +62,10 @@ namespace PalcoNet.Views.Reportes
             List<string> errores = new List<string>();
 
             if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtAnio, "año"), ref errores))
-                ValidationsUtils.hayError(() => ValidationsUtils.campoNumericoYPositivo(txtAnio, "año"), ref errores);
+                ValidationsUtils.hayError(() => ValidationsUtils.campoEnteroYPositivo(txtAnio, "año"), ref errores);
 
             if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtTrimestre, textErrorLableFiltro()), ref errores))
-                ValidationsUtils.hayError(() => ValidationsUtils.campoNumericoYPositivo(txtTrimestre, textErrorLableFiltro()), ref errores);
+                ValidationsUtils.hayError(() => ValidationsUtils.campoEnteroYPositivo(txtTrimestre, textErrorLableFiltro()), ref errores);
 
             if (!ValidationsUtils.hayError(() => ValidationsUtils.opcionObligatoria(cmbReporte, "tipo de reporte"), ref errores)) {
                 if (cmbReporte.SelectedIndex == 0) {

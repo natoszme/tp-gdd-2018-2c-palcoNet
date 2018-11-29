@@ -95,7 +95,7 @@ namespace PalcoNet.Clientes
                 ValidationsUtils.hayError(() => ValidationsUtils.emailValido(txtEmail, "mail"), ref errores);
 
             if (!ValidationsUtils.hayError(() => ValidationsUtils.campoLongitudEntre(txtTelefono, "telefono", 8, 11), ref errores))
-                ValidationsUtils.hayError(() => ValidationsUtils.campoNumericoYPositivo(txtTelefono, "telefono"), ref errores);
+                ValidationsUtils.hayError(() => ValidationsUtils.campoEnteroYPositivo(txtTelefono, "telefono"), ref errores);
 
             if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(dtpFechaNacimiento, "fecha de nacimiento"), ref errores))
                 ValidationsUtils.hayError(() => ValidationsUtils.fechaMenorAHoy(dtpFechaNacimiento, "fecha de nacimiento"), ref errores);
@@ -103,17 +103,17 @@ namespace PalcoNet.Clientes
             ValidationsUtils.hayError(() => ValidationsUtils.opcionObligatoria(cmbBxTipoDocumento, "tipo de documento"), ref errores);
             
             if (!ValidationsUtils.hayError(() => ValidationsUtils.campoLongitudFija(txtNroDocumento, "nro. de documento", 8), ref errores))
-                ValidationsUtils.hayError(() => ValidationsUtils.campoNumericoYPositivo(txtNroDocumento, "nro. de documento"), ref errores);
+                ValidationsUtils.hayError(() => ValidationsUtils.campoEnteroYPositivo(txtNroDocumento, "nro. de documento"), ref errores);
 
             if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtCuil, "CUIL"), ref errores))
                 ValidationsUtils.hayError(() => ValidationsUtils.cuilOCuitValido(txtCuil, "CUIL"), ref errores);
 
             ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtDireccion, "dirección"), ref errores);
             if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtPortal, "portal"), ref errores))
-                ValidationsUtils.hayError(() => ValidationsUtils.campoNumericoYPositivo(txtPortal, "portal"), ref errores);
+                ValidationsUtils.hayError(() => ValidationsUtils.campoEnteroYPositivo(txtPortal, "portal"), ref errores);
 
             if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtNroPiso, "nro. piso"), ref errores))
-                ValidationsUtils.hayError(() => ValidationsUtils.campoNumericoYPositivo(txtNroPiso, "nro. piso"), ref errores);
+                ValidationsUtils.hayError(() => ValidationsUtils.campoEnteroYPositivo(txtNroPiso, "nro. piso"), ref errores);
 
             ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtDepto, "departamento"), ref errores);
             
@@ -231,7 +231,7 @@ namespace PalcoNet.Clientes
             else
             {
                 ValidationsUtils.campoLongitudEntre(txtTarjeta, "tarjeta de credito", 15, 16);
-                ValidationsUtils.campoNumericoYPositivo(txtTarjeta, "tarjeta de credito");
+                ValidationsUtils.campoEnteroYPositivo(txtTarjeta, "tarjeta de credito");
             }
         }
         #endregion

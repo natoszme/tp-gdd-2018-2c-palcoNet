@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Mail;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace PalcoNet.Utils
 {
@@ -20,15 +21,35 @@ namespace PalcoNet.Utils
     {
         public static void camposNumericos(List<Control> inputs, string nombreInput) {
             try {
-                inputs.ForEach(input => campoNumerico(input, nombreInput));
+                inputs.ForEach(input => campoNumericoEntero(input, nombreInput));
             } catch (Exception) {
                 throw new ValidationException("Todos los campos " + nombreInput + " deben ser numericos");
             }
         }
 
-        public static void campoNumerico(Control input, string nombreInput) {
+        public static void campoNumericoEntero(Control input, string nombreInput) {
             if (!input.Text.All(chr => char.IsDigit(chr)))
                 throw new ValidationException("El campo " + nombreInput + " debe ser numerico");
+        }
+
+        public static decimal decimalDeInput(Control input)
+        {
+            String aParsear = input.Text.Replace('.', ',');
+            return (decimal) Convert.ToDouble(aParsear);
+        }
+
+        public static decimal campoNumerico(Control input, string nombreInput)
+        {
+            decimal respuesta;
+            try
+            {
+                respuesta = decimalDeInput(input);
+            }
+            catch (Exception e)
+            {
+                throw new ValidationException("El campo " + nombreInput + " debe ser numerico");
+            }
+            return respuesta;
         }
 
         public static void emailValido(TextBox txtBox, string nombreInput) {
@@ -39,13 +60,27 @@ namespace PalcoNet.Utils
             }
         }
 
-        public static void campoNumericoYPositivo(Control input, string nombreInput) {
-            campoNumerico(input, nombreInput);
-
+        public static void campoPositivo(Control input, string nombreInput)
+        {
             double value = Double.Parse(input.Text);
-            if (value < 0) {
+            if (value < 0)
+            {
                 throw new ValidationException("El campo " + nombreInput + " debe ser positivo");
             }
+        }
+
+        public static void campoEnteroYPositivo(Control input, string nombreInput) {
+            campoNumericoEntero(input, nombreInput);
+
+            campoPositivo(input, nombreInput);
+            
+        }
+
+        public static void campoFloatYPositivo(Control input, string nombreInput)
+        {
+            decimal inputFloat = campoNumerico(input, nombreInput);
+
+            campoPositivo(input, nombreInput);
         }
 
         public static void campoLongitudEntre(Control input, string nombreInput, int longitudMinima, int longitudMaxima)
@@ -102,7 +137,7 @@ namespace PalcoNet.Utils
         public static void cuilOCuitValido(TextBox txtCuilOCuit, string nombreInput) {
             string cuil = txtCuilOCuit.Text;
 
-            campoNumericoYPositivo(txtCuilOCuit, nombreInput);
+            campoEnteroYPositivo(txtCuilOCuit, nombreInput);
             campoLongitudFija(txtCuilOCuit, nombreInput, 11);
             
             int calculado = CalcularDigitoCuil(cuil);

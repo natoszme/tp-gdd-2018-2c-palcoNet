@@ -81,7 +81,7 @@ namespace PalcoNet.Empresas
                 ValidationsUtils.hayError(() => ValidationsUtils.emailValido(txtEmail, "mail"), ref errores);
 
             if (!ValidationsUtils.hayError(() => ValidationsUtils.campoLongitudEntre(txtTelefono, "telefono", 8, 11), ref errores))
-                ValidationsUtils.hayError(() => ValidationsUtils.campoNumericoYPositivo(txtTelefono, "telefono"), ref errores);
+                ValidationsUtils.hayError(() => ValidationsUtils.campoEnteroYPositivo(txtTelefono, "telefono"), ref errores);
 
             if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtCuit, "CUIT"), ref errores))
                 ValidationsUtils.hayError(() => ValidationsUtils.cuilOCuitValido(txtCuit, "CUIT"), ref errores);
@@ -89,10 +89,10 @@ namespace PalcoNet.Empresas
             ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtDireccion, "dirección"), ref errores);
             
             if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtPortal, "portal"), ref errores))
-                ValidationsUtils.hayError(() => ValidationsUtils.campoNumericoYPositivo(txtPortal, "portal"), ref errores);
+                ValidationsUtils.hayError(() => ValidationsUtils.campoEnteroYPositivo(txtPortal, "portal"), ref errores);
 
             if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtNroPiso, "nro. piso"), ref errores))
-                ValidationsUtils.hayError(() => ValidationsUtils.campoNumericoYPositivo(txtNroPiso, "nro. piso"), ref errores);
+                ValidationsUtils.hayError(() => ValidationsUtils.campoEnteroYPositivo(txtNroPiso, "nro. piso"), ref errores);
 
             ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtDepto, "departamento"), ref errores);
             
