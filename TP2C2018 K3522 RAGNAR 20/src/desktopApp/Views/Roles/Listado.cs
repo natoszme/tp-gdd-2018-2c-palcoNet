@@ -30,8 +30,14 @@ namespace PalcoNet.Roles
         private void actualizarDataGriedView()
         {
             RagnarEntities db = new RagnarEntities();
-            var roles = from r in db.Rol select new { r.id_rol, r.nombre };
-            DataGridViewUtils.actualizarDataGriedView(dgvRoles, roles, "id_rol");
+
+            IQueryable<Rol> roles = db.Rol.AsQueryable();
+            var rolesOrdenados = roles.Select(rol => new{
+                id_rol = rol.id_rol,
+                nombre = rol.nombre
+            }).OrderBy(rol => rol.nombre);
+
+            DataGridViewUtils.actualizarDataGriedView(dgvRoles, rolesOrdenados, "id_rol");
         }
         #endregion
 
