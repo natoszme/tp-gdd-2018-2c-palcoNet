@@ -35,7 +35,7 @@ namespace PalcoNet.Utils
 
         private String obtenerArchivoConfig(String nombreArchivo)
         {
-            return System.IO.Directory.GetParent(Application.StartupPath).Parent.Parent.FullName + "\\TP2C2018 K3522 RAGNAR 20\\src\\" + nombreArchivo + ".txt";
+            return System.IO.Directory.GetParent(Application.StartupPath).Parent.Parent.FullName + "\\" + nombreArchivo + ".txt";
         }
 
         public void leerYCargarParametrosArchivoConfiguracion()
