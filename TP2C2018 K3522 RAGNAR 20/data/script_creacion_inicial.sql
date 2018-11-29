@@ -409,11 +409,11 @@ INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol)
 INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol)
 	SELECT id_funcionalidad, (SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Empresa')
 	FROM RAGNAR.Funcionalidad
-	WHERE descripcion = 'ABM de Grado de Publicacion' OR descripcion = 'ABM de Publicacion' OR descripcion = 'Registro de Usuario'
+	WHERE descripcion = 'ABM de Publicacion' OR descripcion = 'Registro de Usuario'
 INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol)
 	SELECT id_funcionalidad, (SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Administrativo')
 	FROM RAGNAR.Funcionalidad
-	WHERE descripcion = 'ABM de Rol' OR descripcion = 'ABM de Cliente' OR descripcion = 'ABM de Empresa de Espectaculos' OR descripcion = 'ABM de Rubro' OR descripcion = 'Generar rendicion de comisiones' OR descripcion = 'Listado estadistico'
+	WHERE descripcion = 'ABM de Rol' OR descripcion = 'ABM de Cliente' OR descripcion = 'ABM de Empresa de Espectaculos' OR descripcion = 'ABM de Rubro' OR descripcion = 'Generar rendicion de comisiones' OR descripcion = 'Listado estadistico' OR descripcion = 'ABM de Grado de Publicacion'
 INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol)
 	SELECT id_funcionalidad, (SELECT id_rol FROM RAGNAR.Rol WHERE nombre = 'Administrador General')
 	FROM RAGNAR.Funcionalidad
@@ -446,6 +446,10 @@ INSERT INTO RAGNAR.Premio (descripcion, puntos_necesarios) VALUES ('Caja de herr
 INSERT INTO RAGNAR.Premio (descripcion, puntos_necesarios) VALUES ('Viaje a Mar del Plata',10000)
 INSERT INTO RAGNAR.Premio (descripcion, puntos_necesarios) VALUES ('Viaje a Bariloche',20000)
 INSERT INTO RAGNAR.Premio (descripcion, puntos_necesarios) VALUES ('Viaje a Miami',50000)
+
+--/ Inserts de Rubros extra /--
+
+INSERT INTO RAGNAR.Rubro(descripcion) VALUES ('Teatro')
 
 --/ Fin de Inserts /--
 
@@ -591,13 +595,15 @@ GO
 CREATE TRIGGER RAGNAR.SumarPuntos ON RAGNAR.Compra AFTER INSERT
 AS
 BEGIN
-	DECLARE @Cliente bigint, @Fecha datetime
+	DECLARE @Cliente bigint, @Fecha datetime, @Tarjeta varchar(10)
 	DECLARE CCliente CURSOR FOR (SELECT id_cliente, fecha FROM INSERTED)
 	OPEN CCliente
-	FETCH NEXT FROM CCliente INTO @Cliente
+	FETCH NEXT FROM CCliente INTO @Cliente, @Fecha
 	WHILE @@FETCH_STATUS = 0
 	BEGIN
+		SET @Tarjeta = (SELECT tarjeta_credito FROM RAGNAR.Cliente WHERE id_usuario = @Cliente)
 		INSERT INTO RAGNAR.Puntos_cliente (id_cliente,puntos,vencimiento) VALUES (@Cliente, 50, DATEADD(year,1,@Fecha))
+		UPDATE RAGNAR.Compra SET tarjeta_utilizada = @Tarjeta WHERE id_cliente = @Cliente AND fecha = @Fecha
 		FETCH NEXT FROM CCliente INTO @Cliente, @Fecha
 	END
 	CLOSE CCliente
