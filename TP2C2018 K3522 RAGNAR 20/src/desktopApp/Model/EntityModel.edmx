@@ -552,6 +552,7 @@
             <CollectionType>
               <RowType>
                 <Property Name="razon_social" Type="nvarchar" Nullable="false" MaxLength="255" />
+                <Property Name="cantidadVendida" Type="int" />
               </RowType>
             </CollectionType>
           </ReturnType>
@@ -576,6 +577,13 @@
               </RowType>
             </CollectionType>
           </ReturnType>
+        </Function>
+        <Function Name="SP_LoginDeUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="RAGNAR">
+          <Parameter Name="Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="Clave" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_RendicionDeComisiones" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="RAGNAR">
+          <Parameter Name="CantidadAFacturar" Type="int" Mode="In" />
         </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -674,13 +682,20 @@
           <FunctionImport Name="F_ClientesConMasPuntosVencidos" IsComposable="true" ReturnType="Collection(RagnarModel.F_ClientesConMasPuntosVencidos_Result)">
           <Parameter Name="Fecha" Mode="In" Type="DateTime" />
           </FunctionImport>
-          <FunctionImport Name="F_EmpresasConMasLocalidadesNoVencidas" IsComposable="true" ReturnType="Collection(String)">
+          <FunctionImport Name="F_HistorialDeCliente" IsComposable="true" ReturnType="Collection(RagnarModel.F_HistorialDeCliente_Result)">
+          <Parameter Name="Cliente" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="F_EmpresasConMasLocalidadesNoVencidas" IsComposable="true" ReturnType="Collection(RagnarModel.F_EmpresasConMasLocalidadesNoVencidas_Result)">
             <Parameter Name="Id_grado" Mode="In" Type="Int32" />
             <Parameter Name="Mes" Mode="In" Type="String" />
             <Parameter Name="Anio" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="F_HistorialDeCliente" IsComposable="true" ReturnType="Collection(RagnarModel.F_HistorialDeCliente_Result)">
-          <Parameter Name="Cliente" Mode="In" Type="Int64" />
+          <FunctionImport Name="SP_LoginDeUsuario">
+            <Parameter Name="Usuario" Mode="In" Type="String" />
+            <Parameter Name="Clave" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_RendicionDeComisiones">
+            <Parameter Name="CantidadAFacturar" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Cliente">
@@ -1132,6 +1147,10 @@
           <Property Type="Boolean" Name="EsSinNumerar" Nullable="false" />
           <Property Type="String" Name="TipodeUbicacion" Nullable="false" MaxLength="255" />
         </ComplexType>
+        <ComplexType Name="F_EmpresasConMasLocalidadesNoVencidas_Result">
+          <Property Type="String" Name="razon_social" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="cantidadVendida" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1379,7 +1398,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="F_EmpresasConMasLocalidadesNoVencidas" FunctionName="RagnarModel.Store.F_EmpresasConMasLocalidadesNoVencidas" />
           <FunctionImportMapping FunctionImportName="F_HistorialDeCliente" FunctionName="RagnarModel.Store.F_HistorialDeCliente">
             <ResultMapping>
               <ComplexTypeMapping TypeName="RagnarModel.F_HistorialDeCliente_Result">
@@ -1395,6 +1413,16 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="F_EmpresasConMasLocalidadesNoVencidas" FunctionName="RagnarModel.Store.F_EmpresasConMasLocalidadesNoVencidas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RagnarModel.F_EmpresasConMasLocalidadesNoVencidas_Result">
+                <ScalarProperty Name="razon_social" ColumnName="razon_social" />
+                <ScalarProperty Name="cantidadVendida" ColumnName="cantidadVendida" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_LoginDeUsuario" FunctionName="RagnarModel.Store.SP_LoginDeUsuario" />
+          <FunctionImportMapping FunctionImportName="SP_RendicionDeComisiones" FunctionName="RagnarModel.Store.SP_RendicionDeComisiones" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -45,7 +45,7 @@ namespace PalcoNet.Utils
             {
                 respuesta = decimalDeInput(input);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new ValidationException("El campo " + nombreInput + " debe ser numerico");
             }
