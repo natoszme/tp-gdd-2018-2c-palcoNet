@@ -31,6 +31,19 @@ namespace PalcoNet.Views.Usuarios
 
         }
 
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            using (RagnarEntities db = new RagnarEntities())
+            {
+                if (Global.hayUsuarioGenerado() && !editando())
+                {
+                    UsuariosUtils.deshacerCreacionDeUsuarioRegistrado(db);
+                    WindowsFormUtils.guardarYCerrar(db, this);
+                }
+                
+            }
+        }
+
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             using (RagnarEntities db = new RagnarEntities())

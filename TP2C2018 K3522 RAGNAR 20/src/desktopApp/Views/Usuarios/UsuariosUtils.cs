@@ -42,5 +42,13 @@ namespace PalcoNet.Views.Usuarios
             Global.loguearUsuario(Global.usuarioGenerado);
             Global.setearRol(BaseDeDatos.BaseDeDatos.obtenerRol(new RagnarEntities(), rol));
         }
+
+        //lo usamos para eliminar al usuario recientemente ingresado, en el caso de que vuelva para atras mientras cargaba los datos de cliente/empresa
+        public static void deshacerCreacionDeUsuarioRegistrado(RagnarEntities db)
+        {
+            BaseDeDatos.BaseDeDatos.eliminarUsuario(db, Global.usuarioGenerado);
+            Global.desloguearUsuario();
+            Global.limpiarUsuarioGenerado();
+        }
     }
 }

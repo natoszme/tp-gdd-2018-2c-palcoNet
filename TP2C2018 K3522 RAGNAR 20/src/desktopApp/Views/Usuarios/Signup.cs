@@ -32,16 +32,26 @@ namespace PalcoNet.Usuarios
         {
             if (!validarCampos()) return;
             UsuariosUtils.guardarUsuarioYSetearLogueado(username, pass, TipoRol.CLIENTE);
-
-            // TODO: porque el callback esta vacio?
-            WindowsFormUtils.abrirFormulario(new Clientes.Formulario(), () => WindowsFormUtils.volverALaHome(this));
+            WindowsFormUtils.abrirFormulario(new Clientes.Formulario(), volverAHomeOLogin);
         }
 
         private void btnRegistrarEmpresa_Click(object sender, EventArgs e)
         {
             if (!validarCampos()) return;
             UsuariosUtils.guardarUsuarioYSetearLogueado(username, pass, TipoRol.EMPRESA);
-            WindowsFormUtils.abrirFormulario(new Empresas.Formulario(), () => WindowsFormUtils.volverALaHome(this));
+            WindowsFormUtils.abrirFormulario(new Empresas.Formulario(), volverAHomeOLogin);
+        }
+
+        private void volverAHomeOLogin()
+        {
+            if (Global.hayUsuarioLogueado())
+            {
+                WindowsFormUtils.volverALaHome(this);
+            }
+            else
+            {
+                WindowsFormUtils.volverALogin(this);
+            }
         }
 
         private bool validarCampos()

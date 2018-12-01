@@ -40,7 +40,13 @@ namespace PalcoNet
         internal static void desloguearUsuario()
         {
             usuarioLogueado = null;
-        }        
+            limpiarRol();
+        }
+
+        public static bool hayUsuarioLogueado()
+        {
+            return usuarioLogueado != null;
+        }
 
         internal static void setearRol(Rol rol)
         {
@@ -65,6 +71,11 @@ namespace PalcoNet
         public static Usuario obtenerUsuarioLogueado(RagnarEntities db)
         {
             return BaseDeDatos.BaseDeDatos.obtenerUsuario(db, usuarioLogueado);
+        }
+
+        internal static void limpiarRol()
+        {
+            rolUsuario = null;
         }
     }
 }

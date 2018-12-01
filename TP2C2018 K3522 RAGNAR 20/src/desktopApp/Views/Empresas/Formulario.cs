@@ -29,11 +29,6 @@ namespace PalcoNet.Empresas
             if (hayQueMostrarPanelAdmin()) mostrarPanelAdmin();
         }
 
-        private void btnVolver_Click(object sender, EventArgs e)
-        {
-
-        }
-
         protected override void asignarEntidades(RagnarEntities db)
         {
             if (id == null)
@@ -178,11 +173,6 @@ namespace PalcoNet.Empresas
 
         override protected TextBox textBoxCui() {
             return txtCuit;
-        }
-
-        private void btnVolver_Click_1(object sender, EventArgs e)
-        {
-            this.Hide();
         }
     }
 }
