@@ -15,23 +15,28 @@ namespace PalcoNet.Publicaciones
     public partial class Alta : Form
     {
         Views.Publicaciones.GenerarUbicaciones formUbicaciones;
+        List<DateTime> fechas = new List<DateTime>();
         public Alta()
         {
             InitializeComponent();
             cargarComboRubro();
             cargarComboGrado();
+            if (formUbicaciones == null)
+                formUbicaciones = new Views.Publicaciones.GenerarUbicaciones(lblCantUbicaciones);
         }
 
         private void btnUbicaciones_Click(object sender, EventArgs e)
         {
-            if(formUbicaciones == null)
-                 formUbicaciones = new Views.Publicaciones.GenerarUbicaciones(lblCantUbicaciones);
+           
             formUbicaciones.Show();
         }
 
         private void btnGuardarBorrador_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Cantidad de ubicaciones: " + formUbicaciones.ubicaciones.Count);
+            if(camposYDominioValidos())
+            {
+                MessageBox.Show("Todo valido");
+            }
         }
 
         private void cargarComboRubro()
@@ -60,64 +65,147 @@ namespace PalcoNet.Publicaciones
 
         }
 
-        /*
-        #region VALIDACIONES
-        override protected bool validarDominio()
+        private void btnAgregarFecha_Click(object sender, EventArgs e)
         {
-            try
+            if (camposYDominioFechaValidos())
             {
-                
+                DateTime nuevaFecha = DateTime.Parse(dtpFecha.Text);
+                nuevaFecha = nuevaFecha.AddHours(int.Parse(txtHora.Text.Substring(0,2)));
+                nuevaFecha = nuevaFecha.AddMinutes(int.Parse(txtHora.Text.Substring(3,2)));
+                MessageBox.Show("La fecha ingresada = " + nuevaFecha.ToString() + " fue cargada satisfactoriamente");
+                fechas.Add(nuevaFecha);
             }
-            catch (ValidationException e)
+        }
+
+
+        #region VALIDACIONESFECHA
+        protected bool camposYDominioFechaValidos()
+        {
+            bool valido = true;
+            List<string> errores = new List<string>();
+
+            if (! ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(dtpFecha, "fecha publicacion"), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.fechaMayorOIgualAHoy(dtpFecha,txtHora, "fecha publicacion"), ref errores);
+
+           
+            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtHora, "hora"), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.formatoHorarioValido(txtHora, "hora"), ref errores);
+
+            
+
+            if (errores.Count() > 0)
             {
-                WindowsFormUtils.mensajeDeError(e.Message);
+                WindowsFormUtils.mostrarErrores(errores);
+                valido = false;
+            }
+            else
+            {
+                valido = validarDominioFecha(ref errores);
+            }
+
+            return valido;
+        }
+
+        protected bool validarDominioFecha(ref List<string> errores)
+        {
+            ValidationsUtils.hayError(fechaMayorAUltima, ref errores);
+         
+
+            if (errores.Count() > 0)
+            {
+                WindowsFormUtils.mostrarErrores(errores);
                 return false;
             }
+
             return true;
         }
 
-        override protected bool camposValidos()
+        private void fechaMayorAUltima()
         {
-            bool camposValidos = true;
-            try
+            if(fechas.Count!=0)
             {
-                ValidationsUtils.campoObligatorio(txtNombre, "nombre");
-                ValidationsUtils.campoAlfabetico(txtNombre, "nombre");
-                ValidationsUtils.campoObligatorio(txtApellido, "apellido");
-                ValidationsUtils.campoAlfabetico(txtApellido, "apellido");
-                ValidationsUtils.campoObligatorio(txtEmail, "mail");
-                ValidationsUtils.emailValido(txtEmail, "mail");
-                ValidationsUtils.campoLongitudEntre(txtTelefono, "telefono", 8, 11);
-                ValidationsUtils.campoNumericoYPositivo(txtTelefono, "telefono");
-                // TODO: validar que la fecha de nacimiento no puede ser posterior a la del archivo de configuracion
-                ValidationsUtils.campoObligatorio(dtpFechaNacimiento, "fecha de nacimiento");
-                ValidationsUtils.opcionObligatoria(cmbBxTipoDocumento, "tipo de documento");
-                ValidationsUtils.campoLongitudFija(txtNroDocumento, "nro. de documento", 8);
-                ValidationsUtils.campoNumericoYPositivo(txtNroDocumento, "nro. de documento");
-                ValidationsUtils.campoObligatorio(txtCuil, "CUIL");
-                ValidationsUtils.cuilOCuitValido(txtCuil, "CUIL");
-                ValidationsUtils.campoObligatorio(txtDireccion, "dirección");
-                ValidationsUtils.campoObligatorio(txtPortal, "portal");
-                ValidationsUtils.campoNumericoYPositivo(txtPortal, "portal");
-                ValidationsUtils.campoObligatorio(txtNroPiso, "nro. piso");
-                ValidationsUtils.campoNumericoYPositivo(txtNroPiso, "nro. piso");
-                ValidationsUtils.campoObligatorio(txtDepto, "departamento");
-                ValidationsUtils.campoObligatorio(txtLocalidad, "localidad");
-                ValidationsUtils.campoAlfabetico(txtLocalidad, "localidad");
-                ValidationsUtils.campoObligatorio(txtCodigoPostal, "codigo postal");
-                validarTarjeta();
+                if(DateTime.Parse(dtpFecha.Text).AddHours(int.Parse(txtHora.Text.Substring(0, 2))).AddMinutes(int.Parse(txtHora.Text.Substring(3, 2)))<=fechas.ElementAt(fechas.Count-1))
+                    throw new ValidationException("La fecha cargada debe ser superior a la ultima fecha de un espectaculo");
             }
-            catch (ValidationException e)
-            {
-                WindowsFormUtils.mensajeDeError(e.Message);
-                camposValidos = false;
-            }
-            return camposValidos;
         }
 
-       
         #endregion
-        */
+
+        #region VALIDACIONES
+        protected bool camposYDominioValidos()
+        {
+            bool valido = true;
+            List<string> errores = new List<string>();
+
+            ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtDireccion, "direccion"), ref errores);
+            
+
+            ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtDescripcion, "descripcion"), ref errores);
+
+            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtStock, "stock"), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.campoEnteroYPositivo(txtStock, "stock"), ref errores);
+
+            ValidationsUtils.hayError(() => ValidationsUtils.opcionObligatoria(cmbRubro, "rubro"), ref errores);
+
+            ValidationsUtils.hayError(() => ValidationsUtils.opcionObligatoria(cmbGradoPublicacion, "grado de publicacion"), ref errores);
        
+            if (errores.Count() > 0)
+            {
+                WindowsFormUtils.mostrarErrores(errores);
+                valido = false;
+            }
+            else
+            {
+                valido = validarDominio(ref errores);
+            }
+
+            return valido;
+        }
+
+        protected bool validarDominio(ref List<string> errores)
+        {
+            if(!ValidationsUtils.hayError(hayUbicacionesCargadas, ref errores))
+              ValidationsUtils.hayError(stockMenorAUbicaciones, ref errores);
+            ValidationsUtils.hayError(algunaFechaIngresada, ref errores);
+
+            if (errores.Count() > 0)
+            {
+                WindowsFormUtils.mostrarErrores(errores);
+                return false;
+            }
+
+            return true;
+        }
+
+        private void hayUbicacionesCargadas()
+        {
+            
+            if (formUbicaciones.ubicaciones==null || formUbicaciones.ubicaciones.Count <= 0)
+            {
+                throw new ValidationException("Debe haber al menos una ubicacion cargada");
+            }
+
+        }
+
+        private void stockMenorAUbicaciones()
+        {
+        
+            if (int.Parse(txtStock.Text)>formUbicaciones.ubicaciones.Count)
+            {
+                throw new ValidationException("El stock no puede ser mayor a las ubicaciones disponibles");
+            }
+            
+        }
+
+        private void algunaFechaIngresada()
+        {
+            if (fechas.Count<1)
+            {
+                throw new ValidationException("Debe ingresar al menos 1 fecha");
+            }
+            
+        }
+        #endregion
+
     }
 }
