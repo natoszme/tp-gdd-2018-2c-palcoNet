@@ -4,38 +4,6 @@ GO
 CREATE SCHEMA RAGNAR
 GO
 
---/ StoredProcedure para cargar la fecha del archivo config y funcion para obtener esa fecha /--
-
-CREATE PROCEDURE RAGNAR.SP_CargarEnLaBaseFechaDelConfig
-AS
-BEGIN
-	IF(EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Fecha_config'))
-		DROP TABLE RAGNAR.Fecha_config
-	CREATE TABLE RAGNAR.Fecha_config (fecha datetime)
-	BULK INSERT RAGNAR.Fecha_config FROM 'C:\TP2C2018 K3522 RAGNAR 20\src\Config.txt' WITH
-	(FIRSTROW = 5,
-    FIELDTERMINATOR = ',',
-    ROWTERMINATOR = '\n',
-    TABLOCK)
-END
-GO
-
-EXEC [RAGNAR].[SP_CargarEnLaBaseFechaDelConfig]
-GO
---/ RECORDAR QUE LUEGO DE UN CAMBIO EN EL CONFIG SE DEBE SI O SI LLAMAR AL STORED PROCEDURE PARA ACTUALIZAR LA FECHA EN LA BASE
-
---/ Funcion para usar la fecha del config /--
-
-CREATE FUNCTION RAGNAR.F_ObtenerFechaDelConfig()
-RETURNS datetime
-AS
-BEGIN
-	DECLARE @Fecha datetime
-	SET @Fecha = (SELECT * FROM RAGNAR.Fecha_config)
-	RETURN @Fecha
-END
-GO
-
 --/ Creacion de tablas /--
 
 CREATE TABLE RAGNAR.Funcionalidad				(	id_funcionalidad int identity PRIMARY KEY,
@@ -79,7 +47,7 @@ CREATE TABLE RAGNAR.Cliente						(	id_usuario bigint FOREIGN KEY references RAGN
 													localidad nvarchar(255),
 													codigo_postal nvarchar(255) NOT NULL,
 													fecha_nacimiento datetime NOT NULL,
-													fecha_creacion datetime DEFAULT RAGNAR.F_ObtenerFechaDelConfig(), 
+													fecha_creacion datetime DEFAULT GetDate(), 
 													tarjeta_credito varchar(10),
 													CONSTRAINT [Documento] UNIQUE NONCLUSTERED
 														 ([tipo_documento], [numero_documento]))
@@ -119,7 +87,7 @@ CREATE TABLE RAGNAR.Publicacion					(	id_publicacion bigint identity PRIMARY KEY
 													codigo_publicacion numeric(18,0),
 													descripcion nvarchar(255) NOT NULL,
 													stock int DEFAULT 0,
-													fecha_publicacion datetime DEFAULT RAGNAR.F_ObtenerFechaDelConfig(),
+													fecha_publicacion datetime DEFAULT GetDate(),
 													id_rubro int FOREIGN KEY references RAGNAR.Rubro(id_rubro) NOT NULL, 
 													direccion varchar(255),
 													id_grado int FOREIGN KEY references RAGNAR.Grado_publicacion(id_grado),
@@ -136,7 +104,7 @@ CREATE TABLE RAGNAR.Tipo_ubicacion				(	id_tipo_ubicacion int identity PRIMARY K
 
 CREATE TABLE RAGNAR.Compra						(	id_compra bigint identity PRIMARY KEY,
 													id_cliente bigint FOREIGN KEY references RAGNAR.Cliente(id_usuario) NOT NULL,
-													fecha datetime NOT NULL DEFAULT RAGNAR.F_ObtenerFechaDelConfig(),
+													fecha datetime NOT NULL DEFAULT GetDate(),
 													tarjeta_utilizada varchar(10))
 
 CREATE TABLE RAGNAR.Ubicacion_publicacion		(	id_ubicacion bigint identity PRIMARY KEY,
@@ -152,7 +120,7 @@ CREATE TABLE RAGNAR.Ubicacion_publicacion		(	id_ubicacion bigint identity PRIMAR
 
 CREATE TABLE RAGNAR.Factura						(	id_factura bigint identity PRIMARY KEY,
 													numero numeric(18,0) NOT NULL,
-													fecha datetime NOT NULL DEFAULT RAGNAR.F_ObtenerFechaDelConfig(),
+													fecha datetime NOT NULL DEFAULT GetDate(),
 													total numeric(18,2),
 													forma_pago nvarchar(255))
 
@@ -421,7 +389,7 @@ INSERT INTO RAGNAR.Funcionalidad_rol (id_funcionalidad, id_rol)
 --/ Inserts de los roles de cada usuario /--
 
 INSERT INTO RAGNAR.Usuario_rol (id_usuario, id_rol) 
-	SELECT (SELECT id_usuario FROM RAGNAR.Usuario WHERE usuario = 'Admin'), id_rol
+	SELECT (SELECT id_usuario FROM RAGNAR.Usuario WHERE usuario = 'admin'), id_rol
 	FROM RAGNAR.Rol
 	WHERE nombre = 'Administrador General'
 
@@ -482,7 +450,7 @@ GO
 CREATE FUNCTION RAGNAR.F_ClientesConMasPuntosVencidos (@Fecha datetime)
 RETURNS TABLE
 AS
-RETURN (SELECT TOP 5 C.nombre as Nombre, C.apellido as Apellido, C.tipo_documento as TipoDeDocumento, C.numero_documento as NumeroDeDocumento, C.cuil as CUIL, SUM(P.puntos) as PuntosVencidos FROM RAGNAR.Puntos_cliente as P JOIN RAGNAR.Cliente as C ON (P.id_cliente = C.id_usuario) WHERE YEAR(P.vencimiento) = YEAR(@Fecha) AND (MONTH(@Fecha) - MONTH(P.vencimiento)) < 3 GROUP BY C.id_usuario, C.nombre, C.apellido, C.tipo_documento, C.numero_documento, C.cuil ORDER BY 6 DESC)
+RETURN (SELECT TOP 5 C.nombre as Nombre, C.apellido as Apellido, C.tipo_documento as TipoDeDocumento, C.numero_documento as NumeroDeDocumento, C.cuil as CUIL, SUM(P.puntos) as PuntosVencidos FROM RAGNAR.Puntos_cliente as P JOIN RAGNAR.Cliente as C ON (P.id_cliente = C.id_usuario) WHERE YEAR(P.vencimiento) = YEAR(@Fecha) AND (MONTH(@Fecha) - MONTH(P.vencimiento)) BETWEEN 0 AND 2 GROUP BY C.id_usuario, C.nombre, C.apellido, C.tipo_documento, C.numero_documento, C.cuil ORDER BY 6 DESC)
 GO
 
 --/ Funcion para listado de clientes con mayor cantidad de compras /--
@@ -490,7 +458,7 @@ GO
 CREATE FUNCTION RAGNAR.F_ClientesConMasCompras (@Fecha datetime)
 RETURNS TABLE
 AS
-RETURN (SELECT TOP 5 CLI.nombre as Nombre, CLI.apellido as Apellido, CLI.tipo_documento as TipoDeDocumento, CLI.numero_documento as NumeroDeDocumento, CLI.cuil as CUIL, COUNT(*) as CantidadDeCompras FROM RAGNAR.Compra as C JOIN RAGNAR.Cliente as CLI ON (CLI.id_usuario = C.id_cliente) JOIN RAGNAR.Ubicacion_publicacion as U ON (C.id_compra = U.id_compra) JOIN RAGNAR.Publicacion as P ON (U.id_publicacion = P.id_publicacion) WHERE YEAR(C.fecha) = YEAR(@Fecha) AND (MONTH(@Fecha) - MONTH(C.fecha)) < 3 GROUP BY P.id_empresa, CLI.nombre, CLI.apellido, CLI.tipo_documento, CLI.numero_documento, CLI.cuil ORDER BY 6 DESC)
+RETURN (SELECT TOP 5 CLI.nombre as Nombre, CLI.apellido as Apellido, CLI.tipo_documento as TipoDeDocumento, CLI.numero_documento as NumeroDeDocumento, CLI.cuil as CUIL, COUNT(*) as CantidadDeCompras FROM RAGNAR.Compra as C JOIN RAGNAR.Cliente as CLI ON (CLI.id_usuario = C.id_cliente) JOIN RAGNAR.Ubicacion_publicacion as U ON (C.id_compra = U.id_compra) JOIN RAGNAR.Publicacion as P ON (U.id_publicacion = P.id_publicacion) WHERE YEAR(C.fecha) = YEAR(@Fecha) AND (MONTH(@Fecha) - MONTH(C.fecha)) BETWEEN 0 AND 2 GROUP BY P.id_empresa, CLI.nombre, CLI.apellido, CLI.tipo_documento, CLI.numero_documento, CLI.cuil ORDER BY 6 DESC)
 GO
 
 --/ STORED PROCEDURES /--
@@ -527,7 +495,7 @@ GO
 
 --/ StoredProcedure para rendicion de comisiones /--
 
-CREATE PROCEDURE RAGNAR.SP_RendicionDeComisiones (@CantidadAFacturar int)
+CREATE PROCEDURE RAGNAR.SP_RendicionDeComisiones (@CantidadAFacturar int, @FechaDelSistema datetime)
 AS
 BEGIN
 	DECLARE @NumeroDeFactura numeric(18,0), @Empresa bigint, @EmpresaAnterior bigint, @IdUbicacion bigint, @PrecioUbicacion numeric(18,0), @PrecioComision numeric(18,2), @Comision numeric(4,3), @Total numeric(18,2)
@@ -539,7 +507,7 @@ BEGIN
 		SET @Total = 0
 		SET @EmpresaAnterior = @Empresa
 		SET @NumeroDeFactura = (SELECT TOP 1 numero FROM RAGNAR.Factura ORDER BY numero DESC) + 1
-		INSERT INTO RAGNAR.Factura (numero, fecha) VALUES (@NumeroDeFactura, RAGNAR.F_ObtenerFechaDelConfig())
+		INSERT INTO RAGNAR.Factura (numero, fecha) VALUES (@NumeroDeFactura, @FechaDelSistema)
 		WHILE(@Empresa = @EmpresaAnterior) --/Misma factura
 		BEGIN
 			SET @PrecioComision = @PrecioUbicacion * @Comision
