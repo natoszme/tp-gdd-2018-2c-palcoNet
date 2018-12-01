@@ -18,8 +18,8 @@ namespace PalcoNet.Views.Publicaciones
     {
 
         public List<Ubicacion> ubicaciones;
-
-        public GenerarUbicaciones()
+        Label lblCantUbicaciones;
+        public GenerarUbicaciones(Label lblUbicaciones)
         {
            /* Ubicacion nuevaUbicacion = new Ubicacion(1, 1, 10, new Tipo_ubicacion(), true);
             ubicaciones.Add(nuevaUbicacion);
@@ -27,6 +27,7 @@ namespace PalcoNet.Views.Publicaciones
             InitializeComponent();
             cargarComboTipo();
             ubicaciones = new List<Ubicacion>();
+            lblCantUbicaciones = lblUbicaciones;
             
         }
 
@@ -79,6 +80,7 @@ namespace PalcoNet.Views.Publicaciones
                 WindowsFormUtils.mensajeDeError("Esa ubicacion ya esta ingresada");
             } else {
                 ubicaciones.Add(nuevaUbicacion);
+                lblCantUbicaciones.Text = "Ubicaciones cargadas = " + ubicaciones.Count;
                 return true;
             }
 
@@ -117,6 +119,7 @@ namespace PalcoNet.Views.Publicaciones
 
         private void btnFinalizar_Click(object sender, EventArgs e)
         {
+
             this.Hide();
         }
     }

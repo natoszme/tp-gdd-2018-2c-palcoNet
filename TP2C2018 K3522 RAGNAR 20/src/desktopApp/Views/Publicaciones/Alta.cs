@@ -25,7 +25,7 @@ namespace PalcoNet.Publicaciones
         private void btnUbicaciones_Click(object sender, EventArgs e)
         {
             if(formUbicaciones == null)
-                 formUbicaciones = new Views.Publicaciones.GenerarUbicaciones();
+                 formUbicaciones = new Views.Publicaciones.GenerarUbicaciones(lblCantUbicaciones);
             formUbicaciones.Show();
         }
 

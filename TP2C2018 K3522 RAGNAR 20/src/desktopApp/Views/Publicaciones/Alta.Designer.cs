@@ -42,6 +42,7 @@
             this.cmbGradoPublicacion = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.btnUbicaciones = new System.Windows.Forms.Button();
+            this.lblCantUbicaciones = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnPublicar
@@ -165,11 +166,21 @@
             this.btnUbicaciones.UseVisualStyleBackColor = true;
             this.btnUbicaciones.Click += new System.EventHandler(this.btnUbicaciones_Click);
             // 
+            // lblCantUbicaciones
+            // 
+            this.lblCantUbicaciones.AutoSize = true;
+            this.lblCantUbicaciones.Location = new System.Drawing.Point(182, 184);
+            this.lblCantUbicaciones.Name = "lblCantUbicaciones";
+            this.lblCantUbicaciones.Size = new System.Drawing.Size(131, 13);
+            this.lblCantUbicaciones.TabIndex = 17;
+            this.lblCantUbicaciones.Text = "Ubicaciones cargadas = 0";
+            // 
             // Alta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(487, 416);
+            this.Controls.Add(this.lblCantUbicaciones);
             this.Controls.Add(this.btnUbicaciones);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cmbGradoPublicacion);
@@ -208,5 +219,6 @@
         private System.Windows.Forms.ComboBox cmbGradoPublicacion;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnUbicaciones;
+        private System.Windows.Forms.Label lblCantUbicaciones;
     }
 }
