@@ -18,7 +18,8 @@ namespace PalcoNet.Views.Usuarios
         }
 
         public static void generarUsuarioRandom(String username, Usuario usuario, TipoRol rol) {
-            guardarUsuario(username, username, rol);
+            //este usuario es nuevo, haciendo referencia a que van a tener que cambiar la pass
+            guardarUsuario(username, username, rol, 1);
         }
 
         #region Generar credenciales
@@ -31,14 +32,15 @@ namespace PalcoNet.Views.Usuarios
         }
         #endregion
 
-        public static void guardarUsuario(String username, String pass, TipoRol rol)
+        public static void guardarUsuario(String username, String pass, TipoRol rol, int esNuevo)
         {
-            Global.usuarioGenerado = BaseDeDatos.BaseDeDatos.insertarYObtenerUsuario(username, pass, rol);            
+            Global.usuarioGenerado = BaseDeDatos.BaseDeDatos.insertarYObtenerUsuario(username, pass, rol, esNuevo);            
         }
 
         public static void guardarUsuarioYSetearLogueado(String username, String pass, TipoRol rol)
         {
-            guardarUsuario(username, pass, rol);
+            //este usuario no es nuevo: es el propio usuario y no el admin el que lo genera
+            guardarUsuario(username, pass, rol, 0);
             Global.loguearUsuario(Global.usuarioGenerado);
             Global.setearRol(BaseDeDatos.BaseDeDatos.obtenerRol(new RagnarEntities(), rol));
         }

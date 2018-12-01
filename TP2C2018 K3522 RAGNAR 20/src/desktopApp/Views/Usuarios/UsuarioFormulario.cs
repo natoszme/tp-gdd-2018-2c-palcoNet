@@ -40,6 +40,10 @@ namespace PalcoNet.Views.Usuarios
                     UsuariosUtils.deshacerCreacionDeUsuarioRegistrado(db);
                     WindowsFormUtils.guardarYCerrar(db, this);
                 }
+                else
+                {
+                    this.Hide();
+                }
                 
             }
         }
@@ -74,6 +78,7 @@ namespace PalcoNet.Views.Usuarios
 
         protected bool esAdminEditando()
         {
+            //ya que el unico que puede editar, es el admin
             return editando();
         }
 

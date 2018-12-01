@@ -29,7 +29,22 @@ namespace PalcoNet.Usuarios
             String password = txtClave.Text;
 
             if (username == "" || password == "") {
-                MessageBox.Show("Debe ingresar usuario y contraseña", "Datos invalidos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                WindowsFormUtils.mensajeDeError("Debe ingresar usuario y contraseña");
+                return;
+            }
+
+            //si es nuevo, mandar a que toque el otro btn
+            if (usuarioPorNombre().es_nuevo != 0)
+            {
+                txtClave.Text = "";
+                WindowsFormUtils.mensajeDeError("Debe completar el proceso de creación de usuario. Utilice el botón para el primer ingreso");
+                return;
+            }
+
+            if (!usuarioPorNombre().habilitado)
+            {
+                txtClave.Text = "";
+                WindowsFormUtils.mensajeDeError("Usuario inhabilitado. Por favor, contáctese con un administrador");
                 return;
             }
 
@@ -49,25 +64,6 @@ namespace PalcoNet.Usuarios
             {
                 loguearYPasarASeleccionarRol(usuario);
             }
-
-            /*using (RagnarEntities db = new RagnarEntities())
-            {
-                int respuestaProcedure = db.SP_LoginDeUsuario(txtUsuario.Text, txtClave.Text);
-
-                switch (respuestaProcedure)
-                {
-                    case 0:
-                    case 2:
-                        txtClave.Text = "";
-                        WindowsFormUtils.mensajeDeError("Verifique los datos ingresados y vuelva a intentarlo");
-                        return;
-                    
-                    case 1:
-                        
-                        loguearYPasarASeleccionarRol(usuario);
-                        return;
-                }
-            }*/
         }
 
         private void loguearYPasarASeleccionarRol(Usuario usuario)
@@ -86,6 +82,64 @@ namespace PalcoNet.Usuarios
         {
             this.Hide();
             WindowsFormUtils.abrirFormulario(new Usuarios.Signup(), () => { });
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            String username = txtUsuario.Text;
+
+            if (username == "")
+            {
+                WindowsFormUtils.mensajeDeError("Debe ingresar el usuario asignado por el administrador");
+                return;
+            }
+
+            using (RagnarEntities db = new RagnarEntities())
+            {
+                Usuario usuario = BaseDeDatos.BaseDeDatos.obtenerUsuarioPorNombre(db, txtUsuario.Text);
+
+                if (usuario == null)
+                {
+                    WindowsFormUtils.mensajeDeError("El usuario ingresado no existe");
+                    return;
+                }
+                
+                int esNuevo = usuario.es_nuevo;
+                if (esNuevo == 0)
+                {
+                    WindowsFormUtils.mensajeDeError("El usuario ya ha ingresado previamente en la plataforma. Utilice el botón 'Ingresar'");
+                    return;
+                }
+                else
+                {
+                    if (esNuevo == 2)
+                    {
+                        WindowsFormUtils.mensajeDeError("La contraseña no fue cambiada en el primer intento. Por favor, contáctese con un administrador");
+                        return;
+                    }
+
+                    //si es nuevo (es decir, es_nuevo = 1)
+                    usuario.es_nuevo = 2;
+                    PersonalizacionPass.seEstaPersonalizandoPass = true;
+                    WindowsFormUtils.abrirFormulario(new ModificarClaveAdmin((int)usuario.id_usuario), () => finalizarSeteoDeContrasenia(db, usuario));
+                    PersonalizacionPass.seEstaPersonalizandoPass = false;
+                }
+            }
+        }
+
+        private void finalizarSeteoDeContrasenia(RagnarEntities db, Usuario usuario)
+        {
+            if(PersonalizacionPass.personalizacionPassFinalizo)
+            {
+                usuario.es_nuevo = 0;
+            }
+
+            Utils.DBUtils.guardar(db);
+        }
+
+        private Usuario usuarioPorNombre()
+        {
+            return BaseDeDatos.BaseDeDatos.obtenerUsuarioPorNombre(new RagnarEntities(), txtUsuario.Text);
         }
     }
 }

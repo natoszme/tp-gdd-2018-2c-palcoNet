@@ -143,6 +143,7 @@
     <Compile Include="Model\Usuario_rol.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="PersonalizacionPass.cs" />
     <Compile Include="Utils\ComboBoxItem.cs" />
     <Compile Include="Utils\ConfigReader.cs" />
     <Compile Include="Utils\DBUtils.cs" />

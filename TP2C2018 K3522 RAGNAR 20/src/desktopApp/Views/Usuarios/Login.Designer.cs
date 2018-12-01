@@ -37,12 +37,14 @@
             this.txtUsuario = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.errorLogin = new System.Windows.Forms.ErrorProvider(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorLogin)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.btnRegistrarme);
             this.panel1.Controls.Add(this.btnIngresar);
             this.panel1.Controls.Add(this.txtClave);
@@ -51,7 +53,7 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(260, 183);
+            this.panel1.Size = new System.Drawing.Size(260, 224);
             this.panel1.TabIndex = 0;
             // 
             // btnRegistrarme
@@ -111,11 +113,21 @@
             // 
             this.errorLogin.ContainerControl = this;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(56, 183);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(153, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "¿Primer acceso? Click aqui";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 208);
+            this.ClientSize = new System.Drawing.Size(284, 248);
             this.Controls.Add(this.panel1);
             this.Name = "Login";
             this.Text = "Iniciar sesión";
@@ -136,6 +148,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ErrorProvider errorLogin;
         private System.Windows.Forms.Button btnRegistrarme;
+        private System.Windows.Forms.Button button1;
     }
 }
 

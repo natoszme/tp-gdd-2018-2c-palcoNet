@@ -60,12 +60,13 @@ namespace PalcoNet.BaseDeDatos
                 .FirstOrDefault();
         }
 
-        public static Usuario insertarYObtenerUsuario(String username, String pass, TipoRol tipoRol)
+        public static Usuario insertarYObtenerUsuario(String username, String pass, TipoRol tipoRol, int esNuevo)
         {
             Usuario usuario = new Usuario();
             usuario.usuario = username;
             usuario.clave = pass;
             usuario.habilitado = true;
+            usuario.es_nuevo = (byte) esNuevo;
 
             RagnarEntities db = dbContext();
 
@@ -161,6 +162,12 @@ namespace PalcoNet.BaseDeDatos
             var rolesUsuario = db.Usuario_rol.Where(u_r => u_r.id_usuario == usuario.id_usuario).ToList();
             rolesUsuario.ForEach(rol => db.Usuario_rol.Remove(rol));
             db.Usuario.Remove(db.Usuario.Find(usuario.id_usuario));
+        }
+
+        public static Usuario obtenerUsuarioPorNombre(RagnarEntities db, String nombreUsuario)
+        {
+            return db.Usuario.Where(usuario => usuario.usuario.Equals(nombreUsuario))
+                .FirstOrDefault();
         }
     }
 }
