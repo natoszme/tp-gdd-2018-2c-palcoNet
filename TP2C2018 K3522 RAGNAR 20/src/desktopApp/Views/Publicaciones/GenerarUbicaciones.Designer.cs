@@ -73,7 +73,6 @@
             this.txtPrecio.Name = "txtPrecio";
             this.txtPrecio.Size = new System.Drawing.Size(100, 20);
             this.txtPrecio.TabIndex = 3;
-            this.txtPrecio.Text = "Precio";
             // 
             // cbxNumerada
             // 

@@ -24,23 +24,18 @@ namespace PalcoNet.Views.Publicaciones
            /* Ubicacion nuevaUbicacion = new Ubicacion(1, 1, 10, new Tipo_ubicacion(), true);
             ubicaciones.Add(nuevaUbicacion);
             dgvUbicaciones.DataSource = ubicaciones;*/
+            InitializeComponent();
             cargarComboTipo();
             ubicaciones = new List<Ubicacion>();
-            InitializeComponent();
+            
         }
 
-        private void cargarComboTipo(){
+    
+        private void cargarComboTipo()
+        {
             using (RagnarEntities db = new RagnarEntities())
             {
-
-                IQueryable<Tipo_ubicacion> tiposUbicacion = db.Tipo_ubicacion.AsQueryable();
-                var listaTipos = tiposUbicacion.Select(t => new
-                {
-                   
-                    descripcion = t.descripcion
-                });
-                //cboTipo.DataSource = listaTipos.ToList();
-              
+                cboTipo.DataSource = (from g in db.Tipo_ubicacion select g.descripcion).ToList();
             }
         }
 
