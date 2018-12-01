@@ -19,7 +19,6 @@ namespace PalcoNet.Model
     {
         public RagnarEntities() : base(Utils.ConfigReader.getInstance().connectionString)
         {
-
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -66,10 +65,20 @@ namespace PalcoNet.Model
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<F_ClientesConMasPuntosVencidos_Result>("[RagnarEntities].[F_ClientesConMasPuntosVencidos](@Fecha)", fechaParameter);
         }
 
-        [DbFunction("RagnarEntities", "F_EmpresasConMasLocalidadesNoVencidas")]
-        public virtual IQueryable<string> F_EmpresasConMasLocalidadesNoVencidas(Nullable<int> id_grado, string mes, string anio)
+        [DbFunction("RagnarEntities", "F_HistorialDeCliente")]
+        public virtual IQueryable<F_HistorialDeCliente_Result> F_HistorialDeCliente(Nullable<long> cliente)
         {
-            var gradoParameter = id_grado.HasValue ?
+            var clienteParameter = cliente.HasValue ?
+                new ObjectParameter("Cliente", cliente) :
+                new ObjectParameter("Cliente", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<F_HistorialDeCliente_Result>("[RagnarEntities].[F_HistorialDeCliente](@Cliente)", clienteParameter);
+        }
+
+        [DbFunction("RagnarEntities", "F_EmpresasConMasLocalidadesNoVencidas")]
+        public virtual IQueryable<F_EmpresasConMasLocalidadesNoVencidas_Result> F_EmpresasConMasLocalidadesNoVencidas(Nullable<int> id_grado, string mes, string anio)
+        {
+            var id_gradoParameter = id_grado.HasValue ?
                 new ObjectParameter("Id_grado", id_grado) :
                 new ObjectParameter("Id_grado", typeof(int));
     
@@ -80,18 +89,30 @@ namespace PalcoNet.Model
             var anioParameter = anio != null ?
                 new ObjectParameter("Anio", anio) :
                 new ObjectParameter("Anio", typeof(string));
-
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<string>("[RagnarEntities].[F_EmpresasConMasLocalidadesNoVencidas](@Id_grado, @Mes, @Anio)", gradoParameter, mesParameter, anioParameter);
-        }
-
-        [DbFunction("RagnarEntities", "F_HistorialDeCliente")]
-        public virtual IQueryable<F_HistorialDeCliente_Result> F_HistorialDeCliente(Nullable<long> cliente)
-        {
-            var clienteParameter = cliente.HasValue ?
-                new ObjectParameter("Cliente", cliente) :
-                new ObjectParameter("Cliente", typeof(long));
     
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<F_HistorialDeCliente_Result>("[RagnarEntities].[F_HistorialDeCliente](@Cliente)", clienteParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<F_EmpresasConMasLocalidadesNoVencidas_Result>("[RagnarEntities].[F_EmpresasConMasLocalidadesNoVencidas](@Id_grado, @Mes, @Anio)", id_gradoParameter, mesParameter, anioParameter);
+        }
+    
+        public virtual int SP_LoginDeUsuario(string usuario, string clave)
+        {
+            var usuarioParameter = usuario != null ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(string));
+    
+            var claveParameter = clave != null ?
+                new ObjectParameter("Clave", clave) :
+                new ObjectParameter("Clave", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_LoginDeUsuario", usuarioParameter, claveParameter);
+        }
+    
+        public virtual int SP_RendicionDeComisiones(Nullable<int> cantidadAFacturar)
+        {
+            var cantidadAFacturarParameter = cantidadAFacturar.HasValue ?
+                new ObjectParameter("CantidadAFacturar", cantidadAFacturar) :
+                new ObjectParameter("CantidadAFacturar", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_RendicionDeComisiones", cantidadAFacturarParameter);
         }
     }
 }

@@ -18,29 +18,25 @@ namespace PalcoNet.Views.Publicaciones
     {
 
         public List<Ubicacion> ubicaciones;
-
-        public GenerarUbicaciones()
+        Label lblCantUbicaciones;
+        public GenerarUbicaciones(Label lblUbicaciones)
         {
            /* Ubicacion nuevaUbicacion = new Ubicacion(1, 1, 10, new Tipo_ubicacion(), true);
             ubicaciones.Add(nuevaUbicacion);
             dgvUbicaciones.DataSource = ubicaciones;*/
+            InitializeComponent();
             cargarComboTipo();
             ubicaciones = new List<Ubicacion>();
-            InitializeComponent();
+            lblCantUbicaciones = lblUbicaciones;
+            
         }
 
-        private void cargarComboTipo(){
+    
+        private void cargarComboTipo()
+        {
             using (RagnarEntities db = new RagnarEntities())
             {
-
-                IQueryable<Tipo_ubicacion> tiposUbicacion = db.Tipo_ubicacion.AsQueryable();
-                var listaTipos = tiposUbicacion.Select(t => new
-                {
-                   
-                    descripcion = t.descripcion
-                });
-                //cboTipo.DataSource = listaTipos.ToList();
-              
+                cboTipo.DataSource = (from g in db.Tipo_ubicacion select g.descripcion).ToList();
             }
         }
 
@@ -84,6 +80,7 @@ namespace PalcoNet.Views.Publicaciones
                 WindowsFormUtils.mensajeDeError("Esa ubicacion ya esta ingresada");
             } else {
                 ubicaciones.Add(nuevaUbicacion);
+                lblCantUbicaciones.Text = "Ubicaciones cargadas = " + ubicaciones.Count;
                 return true;
             }
 
@@ -122,6 +119,7 @@ namespace PalcoNet.Views.Publicaciones
 
         private void btnFinalizar_Click(object sender, EventArgs e)
         {
+
             this.Hide();
         }
     }

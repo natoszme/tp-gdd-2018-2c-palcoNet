@@ -42,6 +42,12 @@
             this.cmbGradoPublicacion = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.btnUbicaciones = new System.Windows.Forms.Button();
+            this.lblCantUbicaciones = new System.Windows.Forms.Label();
+            this.dtpFecha = new System.Windows.Forms.DateTimePicker();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtHora = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.btnAgregarFecha = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnPublicar
@@ -165,11 +171,68 @@
             this.btnUbicaciones.UseVisualStyleBackColor = true;
             this.btnUbicaciones.Click += new System.EventHandler(this.btnUbicaciones_Click);
             // 
+            // lblCantUbicaciones
+            // 
+            this.lblCantUbicaciones.AutoSize = true;
+            this.lblCantUbicaciones.Location = new System.Drawing.Point(182, 184);
+            this.lblCantUbicaciones.Name = "lblCantUbicaciones";
+            this.lblCantUbicaciones.Size = new System.Drawing.Size(131, 13);
+            this.lblCantUbicaciones.TabIndex = 17;
+            this.lblCantUbicaciones.Text = "Ubicaciones cargadas = 0";
+            // 
+            // dtpFecha
+            // 
+            this.dtpFecha.Location = new System.Drawing.Point(41, 261);
+            this.dtpFecha.Name = "dtpFecha";
+            this.dtpFecha.Size = new System.Drawing.Size(214, 20);
+            this.dtpFecha.TabIndex = 18;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(41, 245);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(42, 13);
+            this.label7.TabIndex = 19;
+            this.label7.Text = "Fechas";
+            // 
+            // txtHora
+            // 
+            this.txtHora.Location = new System.Drawing.Point(41, 287);
+            this.txtHora.Name = "txtHora";
+            this.txtHora.Size = new System.Drawing.Size(100, 20);
+            this.txtHora.TabIndex = 20;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(147, 290);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(38, 13);
+            this.label8.TabIndex = 21;
+            this.label8.Text = "hh:mm";
+            // 
+            // btnAgregarFecha
+            // 
+            this.btnAgregarFecha.Location = new System.Drawing.Point(41, 314);
+            this.btnAgregarFecha.Name = "btnAgregarFecha";
+            this.btnAgregarFecha.Size = new System.Drawing.Size(100, 23);
+            this.btnAgregarFecha.TabIndex = 22;
+            this.btnAgregarFecha.Text = "Agregar Fecha";
+            this.btnAgregarFecha.UseVisualStyleBackColor = true;
+            this.btnAgregarFecha.Click += new System.EventHandler(this.btnAgregarFecha_Click);
+            // 
             // Alta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(487, 416);
+            this.Controls.Add(this.btnAgregarFecha);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.txtHora);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.dtpFecha);
+            this.Controls.Add(this.lblCantUbicaciones);
             this.Controls.Add(this.btnUbicaciones);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cmbGradoPublicacion);
@@ -208,5 +271,11 @@
         private System.Windows.Forms.ComboBox cmbGradoPublicacion;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnUbicaciones;
+        private System.Windows.Forms.Label lblCantUbicaciones;
+        private System.Windows.Forms.DateTimePicker dtpFecha;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtHora;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button btnAgregarFecha;
     }
 }

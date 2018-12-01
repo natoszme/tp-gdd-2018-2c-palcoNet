@@ -45,7 +45,7 @@ namespace PalcoNet.Utils
             {
                 respuesta = decimalDeInput(input);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new ValidationException("El campo " + nombreInput + " debe ser numerico");
             }
@@ -159,6 +159,45 @@ namespace PalcoNet.Utils
                 throw new ValidationException("La fecha ingresada en " + nombreCampoFecha + " debe ser previa al dia de la fecha (" + Global.fechaDeHoy().ToShortDateString() + ")");
             }
         }
+
+        public static void fechaMayorOIgualAHoy(DateTimePicker datePicker,TextBox txt, string nombreCampoFecha)
+        {
+            DateTime fechaIngresada = datePicker.Value.Date.AddHours(int.Parse(txt.Text.Substring(0, 2))).AddMinutes(int.Parse(txt.Text.Substring(3, 2)));
+            if (fechaIngresada < Global.fechaDeHoy())
+            {
+                throw new ValidationException("La fecha ingresada en " + nombreCampoFecha + " no debe ser menor al dia de la fecha (" + Global.fechaDeHoy().ToShortDateString() + ")");
+            }
+            
+        }
+
+        public static void formatoHorarioValido(TextBox txtHorario, string nombreInput)
+        {
+            string horayMinuto = txtHorario.Text;
+
+            
+            campoLongitudFija(txtHorario, nombreInput, 5);
+            if (horayMinuto.ElementAt(2) != ':')
+            {
+                throw new ValidationException("La " + nombreInput + " ingresada es invalida");
+            }
+            else
+            {
+                int hora;
+                int minuto;
+                try
+                {
+                    hora = int.Parse(horayMinuto.Substring(0, 2));
+                    minuto= int.Parse(horayMinuto.Substring(3, 2));
+                }
+                catch (Exception e)
+                {
+                     throw new ValidationException("La " + nombreInput + " ingresada es invalida");
+                }
+                if(hora<0 || hora>23 || minuto<0 || minuto>59)
+                    throw new ValidationException("La " + nombreInput + " ingresada es invalida");
+            }
+        }
+
 
         public static bool hayError(Action validacion, ref List<string> errores)
         {
