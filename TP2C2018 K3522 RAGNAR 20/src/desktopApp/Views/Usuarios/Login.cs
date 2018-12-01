@@ -35,17 +35,47 @@ namespace PalcoNet.Usuarios
 
             Usuario usuario = obtenerUsuarioDe(username, password);
 
-            if (usuario != null) {
-                Global.loguearUsuario(usuario);
-                
-                SeleccionarRol formRoles = new SeleccionarRol();
-                this.Hide();
+            if (usuario == null)
+            {
+                using (RagnarEntities db = new RagnarEntities())
+                {
+                    db.SP_LoginDeUsuario(txtUsuario.Text, txtClave.Text);
+                    txtClave.Text = "";
+                    WindowsFormUtils.mensajeDeError("Verifique los datos ingresados y vuelva a intentarlo");
+                }
+                return;
             }
             else
             {
-                txtClave.Text = "";
-                MessageBox.Show("Verifique los datos ingresados y vuelva a intentarlo", "Usuario no identificado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                loguearYPasarASeleccionarRol(usuario);
             }
+
+            /*using (RagnarEntities db = new RagnarEntities())
+            {
+                int respuestaProcedure = db.SP_LoginDeUsuario(txtUsuario.Text, txtClave.Text);
+
+                switch (respuestaProcedure)
+                {
+                    case 0:
+                    case 2:
+                        txtClave.Text = "";
+                        WindowsFormUtils.mensajeDeError("Verifique los datos ingresados y vuelva a intentarlo");
+                        return;
+                    
+                    case 1:
+                        
+                        loguearYPasarASeleccionarRol(usuario);
+                        return;
+                }
+            }*/
+        }
+
+        private void loguearYPasarASeleccionarRol(Usuario usuario)
+        {
+            Global.loguearUsuario(usuario);
+
+            SeleccionarRol formRoles = new SeleccionarRol();
+            this.Hide();
         }
 
         private Usuario obtenerUsuarioDe(String usuario, String password) {
