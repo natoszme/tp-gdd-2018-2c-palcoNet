@@ -38,9 +38,9 @@ namespace PalcoNet.Views.Publicaciones
     
         private void cargarComboTipo()
         {
-            using (RagnarEntities db = new RagnarEntities())
+            using (RagnarEntities db2 = new RagnarEntities())
             {
-                cboTipo.DataSource = (from g in db.Tipo_ubicacion select g.descripcion).ToList();
+                cboTipo.DataSource = (from g in db2.Tipo_ubicacion select g.descripcion).ToList();
             }
         }
 

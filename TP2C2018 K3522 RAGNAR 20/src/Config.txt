@@ -1,5 +1,5 @@
 gdEspectaculos2018
 gd2018
-GD2C2018
+GddPrueba
 localhost\SQLSERVER2012
 2018-01-11 00:00:00.000

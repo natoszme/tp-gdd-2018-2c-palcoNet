@@ -159,6 +159,19 @@ namespace PalcoNet.BaseDeDatos
                 .FirstOrDefault();
         }
 
+        internal static int cantidadUbicacionesDePublicacion(RagnarEntities db, Publicacion publicacion)
+        {
+            return db.Ubicacion_publicacion
+                .Where(ubic => ubic.id_publicacion.Equals(publicacion.id_publicacion))
+                .Count();
+        }
+        internal static List<Ubicacion_publicacion> ubicacionesDePublicacion(RagnarEntities db, Publicacion publicacion)
+        {
+            return dbContext().Ubicacion_publicacion
+                .Where(ubic => ubic.id_publicacion.Equals(publicacion.id_publicacion))
+                .ToList();
+        }
+
 
         #region SQLFunctions
         // Sirve para usar la funcion generada desde SQL

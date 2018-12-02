@@ -15,6 +15,7 @@ namespace PalcoNet.Publicaciones
 {
     public partial class Listado : Form
     {
+        
         BaseDeDatos.BaseDeDatos db = new BaseDeDatos.BaseDeDatos();
         public Listado()
         {
@@ -29,7 +30,7 @@ namespace PalcoNet.Publicaciones
 
 
         #region HELPER
-        private void actualizarDataGriedView()
+        public void actualizarDataGriedView()
         {
             using (RagnarEntities db = new RagnarEntities())
             {
@@ -65,7 +66,7 @@ namespace PalcoNet.Publicaciones
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            new Alta().Show();
+            new Alta(this).Show();
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
@@ -80,7 +81,7 @@ namespace PalcoNet.Publicaciones
                 }
             }
                 
-            WindowsFormUtils.abrirFormulario(new Alta(id), actualizarDataGriedView);
+            WindowsFormUtils.abrirFormulario(new Alta(this,id), actualizarDataGriedView);
         }
     }
 }

@@ -20,21 +20,35 @@ namespace PalcoNet.Publicaciones
         List<DateTime> fechas = new List<DateTime>();
         RagnarEntities db;
 
-        public Alta(int? id = null) : base(id)
+        Publicaciones.Listado formListado;
+
+        public Alta(Publicaciones.Listado formListadoNew, int? id = null) : base(id)
         {
             InitializeComponent();
-            db = new RagnarEntities();
+            
+            formListado = formListadoNew;
             cargarComboRubro();
             cargarComboGrado();
-            if (formUbicaciones == null)
-                formUbicaciones = new Views.Publicaciones.GenerarUbicaciones(lblCantUbicaciones, publicacion, db);
-
+           
             if (editando())
             {
+                db = new RagnarEntities();
+                if (formUbicaciones == null)
+                    formUbicaciones = new Views.Publicaciones.GenerarUbicaciones(lblCantUbicaciones, publicacion, db);
                 cargarDatos();
-                lblCantUbicaciones.Text = "Ubicaciones cargadas = " + publicacion.Ubicacion_publicacion.Count;
+             
+                lblCantUbicaciones.Text = "Ubicaciones cargadas = " + formUbicaciones.ubicaciones.Count;
                 btnAgregarFecha.Text = "Modificar fecha";
             }
+            else
+            {
+                db = new RagnarEntities();
+                if (formUbicaciones == null)
+                    formUbicaciones = new Views.Publicaciones.GenerarUbicaciones(lblCantUbicaciones, publicacion, db);
+            }
+           
+
+           
            
         }
 
@@ -54,8 +68,9 @@ namespace PalcoNet.Publicaciones
 
 
                     asignarEntidades(db);
-
+                    formListado.actualizarDataGriedView();
                     WindowsFormUtils.guardarYCerrar(db, this);
+                    
                 }
                 else
                 {
@@ -287,7 +302,10 @@ namespace PalcoNet.Publicaciones
 
         private void hayUbicacionesCargadas()
         {
-            
+            if (editando())
+            {
+                return;
+            }
             if (formUbicaciones.ubicaciones==null || formUbicaciones.ubicaciones.Count <= 0)
             {
                 throw new ValidationException("Debe haber al menos una ubicacion cargada");
@@ -319,8 +337,7 @@ namespace PalcoNet.Publicaciones
         #region CARGADATOS
         override protected void cargarDatos()
         {
-            using (RagnarEntities db = new RagnarEntities())
-            {
+           
                 try
                 {
                     publicacion = db.Publicacion.Find(id);
@@ -332,7 +349,7 @@ namespace PalcoNet.Publicaciones
                     fechas.Add((System.DateTime)publicacion.fecha_publicacion);
                     cmbGradoPublicacion.Text = publicacion.Grado_publicacion.descripcion;
                     cmbRubro.Text = publicacion.Rubro.descripcion;
-                    formUbicaciones.ubicaciones = publicacion.Ubicacion_publicacion.ToList();
+                    formUbicaciones.ubicaciones = BaseDeDatos.BaseDeDatos.ubicacionesDePublicacion(db,publicacion);
 
                   
                 }
@@ -340,7 +357,7 @@ namespace PalcoNet.Publicaciones
                 {
                     WindowsFormUtils.mensajeDeError("Error al intentar cargar a la publicacion");
                 }
-            }
+            
         }
         #endregion
 
