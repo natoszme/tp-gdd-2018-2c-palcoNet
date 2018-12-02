@@ -206,6 +206,17 @@ namespace PalcoNet.BaseDeDatos
             db.Usuario.Remove(db.Usuario.Find(usuario.id_usuario));
         }
 
+        public static bool existePublicacionEnMismaFecha(Publicacion publicacion)
+        {
+            return existePublicacionEnMismaFecha(dbContext(), publicacion);
+        }
+
+        public static bool existePublicacionEnMismaFecha(RagnarEntities db, Publicacion publicacion)
+        {
+            List<Publicacion> publicacionIgual = db.Publicacion.Where(u_r => u_r.direccion == publicacion.direccion && u_r.fecha_espectaculo == publicacion.fecha_espectaculo).ToList();
+            return publicacionIgual.Count > 0;
+        }
+
         public static Usuario obtenerUsuarioPorNombre(RagnarEntities db, String nombreUsuario)
         {
             return db.Usuario.Where(usuario => usuario.usuario.Equals(nombreUsuario))

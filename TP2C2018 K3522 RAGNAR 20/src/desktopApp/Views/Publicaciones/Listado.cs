@@ -39,6 +39,7 @@ namespace PalcoNet.Publicaciones
 
                 var publicaciones = publicacionesQuery.Select(c => new
                 {
+                    id_publicacion = c.id_publicacion,
                     descripcion = c.descripcion,
                     direccion = c.direccion,
                     empresa = c.Empresa.cuit,
@@ -50,7 +51,7 @@ namespace PalcoNet.Publicaciones
                     
                 }).OrderByDescending(c => c.fecha_espectaculo);
 
-                DataGridViewUtils.actualizarDataGriedView(dgvPublicaciones, publicaciones);
+                DataGridViewUtils.actualizarDataGriedView(dgvPublicaciones, publicaciones, "id_publicacion");
             }
         }
         #endregion
