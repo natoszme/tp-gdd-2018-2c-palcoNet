@@ -88,7 +88,8 @@ namespace PalcoNet.BaseDeDatos
             Usuario_rol usuario_rol = new Usuario_rol()
             {
                 Usuario = usuario,
-                Rol = rol
+                Rol = rol,
+                habilitado = true
             };            
 
             db.Usuario.Add(usuario);
