@@ -224,5 +224,10 @@ namespace PalcoNet.BaseDeDatos
             //TODO compra el premio. santi esta haciendo trigger para que al hacer insert sobre Canje_premio, se resten los puntos
             //cliente.Premio.Add(premio);
         }
+
+        internal static Empresa obtenerEmpresaPorId(RagnarEntities db, int idEmpresa)
+        {
+            return db.Empresa.Find(idEmpresa);
+        }
     }
 }
