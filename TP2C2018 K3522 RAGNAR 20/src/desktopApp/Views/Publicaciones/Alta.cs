@@ -18,14 +18,16 @@ namespace PalcoNet.Publicaciones
         Publicacion publicacion = new Publicacion();
         Views.Publicaciones.GenerarUbicaciones formUbicaciones;
         List<DateTime> fechas = new List<DateTime>();
+        RagnarEntities db;
 
         public Alta(int? id = null) : base(id)
         {
             InitializeComponent();
+            db = new RagnarEntities();
             cargarComboRubro();
             cargarComboGrado();
             if (formUbicaciones == null)
-                formUbicaciones = new Views.Publicaciones.GenerarUbicaciones(lblCantUbicaciones,publicacion);
+                formUbicaciones = new Views.Publicaciones.GenerarUbicaciones(lblCantUbicaciones, publicacion, db);
 
             if (editando())
             {
@@ -33,7 +35,7 @@ namespace PalcoNet.Publicaciones
                 lblCantUbicaciones.Text = "Ubicaciones cargadas = " + publicacion.Ubicacion_publicacion.Count;
                 btnAgregarFecha.Text = "Modificar fecha";
             }
-
+           
         }
 
         private void btnUbicaciones_Click(object sender, EventArgs e)
@@ -44,7 +46,7 @@ namespace PalcoNet.Publicaciones
 
         private void btnGuardarBorrador_Click(object sender, EventArgs e)
         {
-            using (RagnarEntities db = new RagnarEntities())
+            using (db)
             {
                 if (camposYDominioValidos())
                 {
@@ -120,7 +122,7 @@ namespace PalcoNet.Publicaciones
         {
             if (id == null)
             {
-               // publicacion = new Publicacion();
+                publicacion = new Publicacion();
             }
             else
             {
@@ -129,13 +131,30 @@ namespace PalcoNet.Publicaciones
             foreach(DateTime fecha in fechas){
                 publicacion.descripcion = txtDescripcion.Text;
                 publicacion.direccion = txtDireccion.Text;
-                publicacion.Estado_publicacion = BaseDeDatos.BaseDeDatos.estadoDePublicacionPorNombre("Borrador");
+                publicacion.Estado_publicacion = BaseDeDatos.BaseDeDatos.estadoDePublicacionPorNombre(db,"Borrador");
                 publicacion.fecha_espectaculo = fecha;
-                publicacion.Grado_publicacion = BaseDeDatos.BaseDeDatos.gradoPorDescripcion(WindowsFormUtils.textoSeleccionadoDe(cmbGradoPublicacion));
-                publicacion.Rubro = BaseDeDatos.BaseDeDatos.rubroPorDescripcion(WindowsFormUtils.textoSeleccionadoDe(cmbRubro));
+                publicacion.Grado_publicacion = BaseDeDatos.BaseDeDatos.gradoPorDescripcion(db,WindowsFormUtils.textoSeleccionadoDe(cmbGradoPublicacion));
+                publicacion.Rubro = BaseDeDatos.BaseDeDatos.rubroPorDescripcion(db,WindowsFormUtils.textoSeleccionadoDe(cmbRubro));
                 publicacion.stock = int.Parse(txtStock.Text);
-                publicacion.Empresa = Global.obtenerUsuarioLogueado().Empresa;
+                publicacion.Empresa = Global.obtenerUsuarioLogueado(db).Empresa;
                 publicacion.fecha_publicacion = Global.fechaDeHoy();
+                publicacion.fecha_vencimiento = fecha;
+                Ubicacion_publicacion nuevaUbicacion;
+                foreach (Ubicacion_publicacion ubicacion in formUbicaciones.ubicaciones)
+                {
+
+                    nuevaUbicacion = new Ubicacion_publicacion();
+                    nuevaUbicacion.precio = ubicacion.precio;
+                    nuevaUbicacion.Tipo_ubicacion = ubicacion.Tipo_ubicacion;
+                    nuevaUbicacion.sin_numerar = ubicacion.sin_numerar;
+                    nuevaUbicacion.Publicacion = ubicacion.Publicacion;
+                    nuevaUbicacion.fila = ubicacion.fila;
+                    nuevaUbicacion.asiento = ubicacion.asiento;
+                    nuevaUbicacion.Publicacion = publicacion;
+                   // publicacion.Ubicacion_publicacion.Add(nuevaUbicacion);
+                    db.Ubicacion_publicacion.Add(nuevaUbicacion);
+                }
+ 
 
                 if (!editando())
                 {

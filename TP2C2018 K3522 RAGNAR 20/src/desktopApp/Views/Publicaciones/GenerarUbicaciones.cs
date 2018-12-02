@@ -20,8 +20,8 @@ namespace PalcoNet.Views.Publicaciones
         public List<Ubicacion_publicacion> ubicaciones;
         Label lblCantUbicaciones;
         Publicacion publicacionActual;
-
-        public GenerarUbicaciones(Label lblUbicaciones, Publicacion publicacion)
+        RagnarEntities db;
+        public GenerarUbicaciones(Label lblUbicaciones, Publicacion publicacion, RagnarEntities contexto)
         {
            /* Ubicacion nuevaUbicacion = new Ubicacion(1, 1, 10, new Tipo_ubicacion(), true);
             ubicaciones.Add(nuevaUbicacion);
@@ -31,6 +31,7 @@ namespace PalcoNet.Views.Publicaciones
             ubicaciones = new List<Ubicacion_publicacion>();
             lblCantUbicaciones = lblUbicaciones;
             publicacionActual = publicacion;
+            db = contexto;
             
         }
 
@@ -71,6 +72,9 @@ namespace PalcoNet.Views.Publicaciones
             inputs.Add(txtPrecio);
 
             try {
+                ValidationsUtils.campoObligatorio(txtAsiento, "asiento");
+                ValidationsUtils.campoObligatorio(txtFila, "fila");
+                ValidationsUtils.campoObligatorio(txtPrecio, "precio");
                 ValidationsUtils.camposNumericos(inputs, "fila, asiento y precio");
                 ValidationsUtils.opcionObligatoria(cboTipo, "tipo de ubicacion");
             } catch (ValidationException e) {
@@ -82,11 +86,12 @@ namespace PalcoNet.Views.Publicaciones
             //Ubicacion_publicacion nuevaUbicacion = new Ubicacion_publicacion(int.Parse(txtFila.Text), int.Parse(txtAsiento.Text), int.Parse(txtPrecio.Text), new Tipo_ubicacion(), cbxNumerada.Checked);
             Ubicacion_publicacion nuevaUbicacion = new Ubicacion_publicacion();
             nuevaUbicacion.precio = int.Parse(txtPrecio.Text);
-            nuevaUbicacion.Tipo_ubicacion = BaseDeDatos.BaseDeDatos.tipoUbicacionPorDescripcion(WindowsFormUtils.textoSeleccionadoDe(cboTipo));
+            nuevaUbicacion.Tipo_ubicacion = BaseDeDatos.BaseDeDatos.tipoUbicacionPorDescripcion(db,WindowsFormUtils.textoSeleccionadoDe(cboTipo));
             nuevaUbicacion.sin_numerar = cbxNumerada.Checked;
             nuevaUbicacion.Publicacion = publicacionActual;
             nuevaUbicacion.fila = txtFila.Text;
             nuevaUbicacion.asiento = int.Parse(txtAsiento.Text);
+           
 
                
 

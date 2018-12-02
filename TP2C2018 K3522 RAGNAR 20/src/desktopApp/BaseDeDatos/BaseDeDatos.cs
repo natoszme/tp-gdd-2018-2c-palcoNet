@@ -112,9 +112,9 @@ namespace PalcoNet.BaseDeDatos
                 .FirstOrDefault();
         }
 
-        internal static Tipo_ubicacion tipoUbicacionPorDescripcion(String descripcion)
+        internal static Tipo_ubicacion tipoUbicacionPorDescripcion(RagnarEntities db, String descripcion)
         {
-            return dbContext().Tipo_ubicacion
+            return db.Tipo_ubicacion
                 .Where(tipo => tipo.descripcion.Equals(descripcion))
                 .FirstOrDefault();
         }
@@ -133,23 +133,28 @@ namespace PalcoNet.BaseDeDatos
                .FirstOrDefault();
         }
 
-        internal static Grado_publicacion gradoPorDescripcion(String nombreGrado)
+        internal static Grado_publicacion gradoPorDescripcion( String nombreGrado)
         {
-            return dbContext().Grado_publicacion
+            return gradoPorDescripcion(dbContext(), nombreGrado);
+        }
+
+        internal static Grado_publicacion gradoPorDescripcion(RagnarEntities db, String nombreGrado)
+        {
+            return db.Grado_publicacion
                 .Where(grado => grado.descripcion.Equals(nombreGrado))
                 .FirstOrDefault();
         }
 
-        internal static Rubro rubroPorDescripcion(String descripcionRubro)
+        internal static Rubro rubroPorDescripcion(RagnarEntities db, String descripcionRubro)
         {
-            return dbContext().Rubro
+            return db.Rubro
                 .Where(rubro => rubro.descripcion.Equals(descripcionRubro))
                 .FirstOrDefault();
         }
 
-        internal static Estado_publicacion estadoDePublicacionPorNombre(String nombreEstado)
+        internal static Estado_publicacion estadoDePublicacionPorNombre(RagnarEntities db, string nombreEstado)
         {
-            return dbContext().Estado_publicacion
+            return db.Estado_publicacion
                 .Where(estado => estado.descripcion.Equals(nombreEstado))
                 .FirstOrDefault();
         }
