@@ -51,7 +51,7 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(260, 183);
+            this.panel1.Size = new System.Drawing.Size(260, 181);
             this.panel1.TabIndex = 0;
             // 
             // btnRegistrarme
@@ -115,7 +115,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 208);
+            this.ClientSize = new System.Drawing.Size(284, 204);
             this.Controls.Add(this.panel1);
             this.Name = "Login";
             this.Text = "Iniciar sesión";

@@ -31,6 +31,23 @@ namespace PalcoNet.Views.Usuarios
 
         }
 
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            using (RagnarEntities db = new RagnarEntities())
+            {
+                if (Global.hayUsuarioGenerado() && !editando())
+                {
+                    UsuariosUtils.deshacerCreacionDeUsuarioRegistrado(db);
+                    WindowsFormUtils.guardarYCerrar(db, this);
+                }
+                else
+                {
+                    this.Hide();
+                }
+                
+            }
+        }
+
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             using (RagnarEntities db = new RagnarEntities())
@@ -61,6 +78,7 @@ namespace PalcoNet.Views.Usuarios
 
         protected bool esAdminEditando()
         {
+            //ya que el unico que puede editar, es el admin
             return editando();
         }
 

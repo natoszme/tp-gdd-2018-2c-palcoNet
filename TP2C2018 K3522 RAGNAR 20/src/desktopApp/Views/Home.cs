@@ -77,10 +77,6 @@ namespace PalcoNet
         private List<Funcionalidad> obtenerFuncionalidadesDisponibles()
         {
             List<Funcionalidad> disponibles = Global.obtenerRolUsuario().Funcionalidad.ToList();
-            if (esCliente() && estaInhabilitado())
-            {
-                disponibles.RemoveAll(func => func.descripcion == "Comprar");
-            }
 
             return disponibles;
         }
@@ -88,11 +84,6 @@ namespace PalcoNet
         private bool estaInhabilitado()
         {
             return !Global.obtenerUsuarioLogueado().habilitado;
-        }
-
-        private bool esCliente()
-        {
-            return Global.obtenerRolUsuario().nombre.Equals("Cliente");
         }
 
         private void btnAbmRol_Click(object sender, EventArgs e)

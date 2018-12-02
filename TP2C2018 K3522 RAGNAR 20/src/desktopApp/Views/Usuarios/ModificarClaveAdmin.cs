@@ -42,15 +42,26 @@ namespace PalcoNet.Usuarios
 
         private void btnCambiar_Click(object sender, EventArgs e)
         {
+            if (PersonalizacionPass.seEstaPersonalizandoPass)
+            {
+                PersonalizacionPass.personalizacionPassFinalizo = true;
+            }
+
             using (RagnarEntities db = new RagnarEntities()) {
                 if (camposValidos()) {
                     BaseDeDatos.BaseDeDatos.modificarClave(db, db.Usuario.Find(id), txtNuevaClave.Text, this);
                 }
-            }            
+            }
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
+            if (PersonalizacionPass.seEstaPersonalizandoPass)
+            {
+                PersonalizacionPass.personalizacionPassFinalizo = false;
+                WindowsFormUtils.mensajeDeError("Advertencia: debe solicitar al administrador que le proporcione una nueva contraseña");
+            }
+
             this.Hide();
         }
     }

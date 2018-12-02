@@ -41,7 +41,7 @@ namespace PalcoNet.Usuarios
         }
 
         private void claveActualExistente() {
-            Usuario usuarioDB = BaseDeDatos.BaseDeDatos.obtenerUsuarioPorCredenciales(Global.obtenerUsuarioLogueado().usuario, txtClaveActual.Text);
+            Usuario usuarioDB = BaseDeDatos.BaseDeDatos.obtenerUsuarioPorCredenciales(new RagnarEntities(), Global.obtenerUsuarioLogueado().usuario, txtClaveActual.Text);
             if (usuarioDB == null || usuarioDB.id_usuario != Global.obtenerUsuarioLogueado().id_usuario)
             {
                 throw new ValidationException("La clave actual ingresada es incorrecta");

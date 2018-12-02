@@ -41,7 +41,7 @@ namespace PalcoNet.Views.Reportes
                 case 1:
                 case 2:
                 default:
-                    return (trimestreOmes * 3) - 2;
+                    return trimestreOmes * 3;
             }
         }
     }

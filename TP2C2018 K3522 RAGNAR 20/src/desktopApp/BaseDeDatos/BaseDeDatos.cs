@@ -16,15 +16,15 @@ namespace PalcoNet.BaseDeDatos
             return new RagnarEntities();
         }
 
-        public static Usuario obtenerUsuarioPorCredenciales(String usuario, String password) {
-            return dbContext().Usuario
+        public static Usuario obtenerUsuarioPorCredenciales(RagnarEntities db, String usuario, String password) {
+            return db.Usuario
                     .Where(user => user.usuario.Equals(usuario))
                     .Where(user => user.clave.Equals(F_HasheoDeClave(password)))
                     .FirstOrDefault();
         }
 
         public static List<string> obtenerRolesHabilitadosDelUsuario(Usuario usuario) {
-            return usuario.Usuario_rol.Where(u_r => u_r.Rol.habilitado).Select(u_r => u_r.Rol.nombre).ToList();
+            return usuario.Usuario_rol.Where(u_r => u_r.habilitado).Select(u_r => u_r.Rol.nombre).ToList();
         }
 
         public static bool existeUsuario(String username) {
@@ -73,12 +73,13 @@ namespace PalcoNet.BaseDeDatos
                 .FirstOrDefault();
         }
 
-        public static Usuario insertarYObtenerUsuario(String username, String pass, TipoRol tipoRol)
+        public static Usuario insertarYObtenerUsuario(String username, String pass, TipoRol tipoRol, int esNuevo)
         {
             Usuario usuario = new Usuario();
             usuario.usuario = username;
             usuario.clave = pass;
             usuario.habilitado = true;
+            usuario.es_nuevo = (byte) esNuevo;
 
             RagnarEntities db = dbContext();
 
@@ -196,6 +197,32 @@ namespace PalcoNet.BaseDeDatos
         internal static Usuario obtenerUsuario(RagnarEntities db, Usuario usuarioLogueado)
         {
             return db.Usuario.Find(usuarioLogueado.id_usuario);
+        }
+
+        public static void eliminarUsuario(RagnarEntities db, Usuario usuario)
+        {
+            var rolesUsuario = db.Usuario_rol.Where(u_r => u_r.id_usuario == usuario.id_usuario).ToList();
+            rolesUsuario.ForEach(rol => db.Usuario_rol.Remove(rol));
+            db.Usuario.Remove(db.Usuario.Find(usuario.id_usuario));
+        }
+
+        public static Usuario obtenerUsuarioPorNombre(RagnarEntities db, String nombreUsuario)
+        {
+            return db.Usuario.Where(usuario => usuario.usuario.Equals(nombreUsuario))
+                .FirstOrDefault();
+        }
+
+        public static int obtenerPuntosNoVencidosDe(Cliente cliente)
+        {
+            return cliente.Puntos_cliente
+                .Where(puntaje => puntaje.vencimiento >= Global.fechaDeHoy())
+                .Select(puntaje => puntaje.puntos).ToList().Sum();
+        }
+
+        public static void clienteCompraPremio(RagnarEntities db, Cliente cliente, Premio premio)
+        {
+            //TODO compra el premio. santi esta haciendo trigger para que al hacer insert sobre Canje_premio, se resten los puntos
+            //cliente.Premio.Add(premio);
         }
     }
 }
