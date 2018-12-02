@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PalcoNet.Model;
+using PalcoNet.Utils;
+
 
 namespace PalcoNet.Publicaciones
 {
@@ -20,8 +23,38 @@ namespace PalcoNet.Publicaciones
 
         private void Listado_Load(object sender, EventArgs e)
         {
-           
+            actualizarDataGriedView();
+            dgvPublicaciones.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
+
+
+        #region HELPER
+        private void actualizarDataGriedView()
+        {
+            using (RagnarEntities db = new RagnarEntities())
+            {
+
+                IQueryable<Publicacion> publicacionesQuery = db.Publicacion.AsQueryable();
+
+
+                var publicaciones = publicacionesQuery.Select(c => new
+                {
+                    descripcion = c.descripcion,
+                    direccion = c.direccion,
+                    empresa = c.Empresa.cuit,
+                    estado_publicacion = c.Estado_publicacion.descripcion,
+                    fecha_espectaculo = c.fecha_espectaculo,
+                    grado = c.Grado_publicacion.descripcion,
+                    rubro = c.Rubro.descripcion,
+                    stock = c.stock
+                    
+                }).OrderByDescending(c => c.fecha_espectaculo);
+
+                DataGridViewUtils.actualizarDataGriedView(dgvPublicaciones, publicaciones);
+            }
+        }
+        #endregion
+
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
@@ -32,6 +65,12 @@ namespace PalcoNet.Publicaciones
         private void btnNuevo_Click(object sender, EventArgs e)
         {
             new Alta().Show();
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            int? id = DataGridViewUtils.obtenerIdSeleccionado(dgvPublicaciones);
+            WindowsFormUtils.abrirFormulario(new Alta(id), actualizarDataGriedView);
         }
     }
 }
