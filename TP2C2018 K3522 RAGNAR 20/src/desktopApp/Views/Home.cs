@@ -86,11 +86,6 @@ namespace PalcoNet
             return !Global.obtenerUsuarioLogueado().habilitado;
         }
 
-        private bool esCliente()
-        {
-            return Global.obtenerRolUsuario().nombre.Equals("Cliente");
-        }
-
         private void btnAbmRol_Click(object sender, EventArgs e)
         {
             new Roles.Listado().Show();
