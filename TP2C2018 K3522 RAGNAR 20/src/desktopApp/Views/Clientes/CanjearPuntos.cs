@@ -22,5 +22,10 @@ namespace PalcoNet.Clientes
             this.Hide();
             new Home().Show();
         }
+
+        private void CanjearPuntos_Load(object sender, EventArgs e)
+        {
+            lblPuntosDisponibles.Text = BaseDeDatos.BaseDeDatos.obtenerPuntosNoVencidosDe(Global.obtenerUsuarioLogueado()).ToString();
+        }
     }
 }

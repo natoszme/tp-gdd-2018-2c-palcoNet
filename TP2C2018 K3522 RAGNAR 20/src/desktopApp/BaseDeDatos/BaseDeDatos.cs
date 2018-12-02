@@ -169,5 +169,12 @@ namespace PalcoNet.BaseDeDatos
             return db.Usuario.Where(usuario => usuario.usuario.Equals(nombreUsuario))
                 .FirstOrDefault();
         }
+
+        public static int obtenerPuntosNoVencidosDe(Usuario usuario)
+        {
+            return usuario.Cliente.Puntos_cliente
+                .Where(puntaje => puntaje.vencimiento >= Global.fechaDeHoy())
+                .Select(puntaje => puntaje.puntos).ToList().Sum();
+        }
     }
 }

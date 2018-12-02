@@ -28,23 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblPuntosDisponiblesTexto = new System.Windows.Forms.Label();
             this.dgvPremios = new System.Windows.Forms.DataGridView();
             this.premio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.puntosNecesarios = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.acciones = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnVolver = new System.Windows.Forms.Button();
+            this.lblPuntosDisponibles = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPremios)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // lblPuntosDisponiblesTexto
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(28, 34);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(101, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Puntos disponibles: ";
+            this.lblPuntosDisponiblesTexto.AutoSize = true;
+            this.lblPuntosDisponiblesTexto.Location = new System.Drawing.Point(28, 34);
+            this.lblPuntosDisponiblesTexto.Name = "lblPuntosDisponiblesTexto";
+            this.lblPuntosDisponiblesTexto.Size = new System.Drawing.Size(101, 13);
+            this.lblPuntosDisponiblesTexto.TabIndex = 0;
+            this.lblPuntosDisponiblesTexto.Text = "Puntos disponibles: ";
             // 
             // dgvPremios
             // 
@@ -90,16 +91,27 @@
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
+            // lblPuntosDisponibles
+            // 
+            this.lblPuntosDisponibles.AutoSize = true;
+            this.lblPuntosDisponibles.Location = new System.Drawing.Point(126, 34);
+            this.lblPuntosDisponibles.Name = "lblPuntosDisponibles";
+            this.lblPuntosDisponibles.Size = new System.Drawing.Size(13, 13);
+            this.lblPuntosDisponibles.TabIndex = 5;
+            this.lblPuntosDisponibles.Text = "0";
+            // 
             // CanjearPuntos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(408, 315);
+            this.Controls.Add(this.lblPuntosDisponibles);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.dgvPremios);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblPuntosDisponiblesTexto);
             this.Name = "CanjearPuntos";
             this.Text = "Canjer de puntos";
+            this.Load += new System.EventHandler(this.CanjearPuntos_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvPremios)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -108,11 +120,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblPuntosDisponiblesTexto;
         private System.Windows.Forms.DataGridView dgvPremios;
         private System.Windows.Forms.DataGridViewTextBoxColumn premio;
         private System.Windows.Forms.DataGridViewTextBoxColumn puntosNecesarios;
         private System.Windows.Forms.DataGridViewTextBoxColumn acciones;
         private System.Windows.Forms.Button btnVolver;
+        private System.Windows.Forms.Label lblPuntosDisponibles;
     }
 }
