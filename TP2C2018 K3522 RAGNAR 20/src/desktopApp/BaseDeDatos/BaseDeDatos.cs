@@ -24,7 +24,7 @@ namespace PalcoNet.BaseDeDatos
         }
 
         public static List<string> obtenerRolesHabilitadosDelUsuario(Usuario usuario) {
-            return usuario.Usuario_rol.Where(u_r => u_r.Rol.habilitado).Select(u_r => u_r.Rol.nombre).ToList();
+            return usuario.Usuario_rol.Where(u_r => u_r.habilitado).Select(u_r => u_r.Rol.nombre).ToList();
         }
 
         public static bool existeUsuario(String username) {
