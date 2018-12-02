@@ -46,10 +46,23 @@ namespace PalcoNet.BaseDeDatos
                 .FirstOrDefault();
         }
 
+        internal static List<Ubicacion_publicacion> ubicacionesPorIdPublicacion(Publicacion publicacion)
+        {
+            return dbContext().Ubicacion_publicacion
+                .Where(ubicacion => ubicacion.id_publicacion.Equals(publicacion.id_publicacion)).ToList();
+        }
+
         internal static Empresa empresaPorCuit(String cuit)
         {
             return dbContext().Empresa
                 .Where(empresa => empresa.cuit.Equals(cuit))
+                .FirstOrDefault();
+        }
+
+        internal static Empresa empresaPorId(int id)
+        {
+            return dbContext().Empresa
+                .Where(empresa => empresa.id_usuario.Equals(id))
                 .FirstOrDefault();
         }
 
@@ -97,6 +110,20 @@ namespace PalcoNet.BaseDeDatos
                 .FirstOrDefault();
         }
 
+        internal static Tipo_ubicacion tipoUbicacionPorDescripcion(String descripcion)
+        {
+            return dbContext().Tipo_ubicacion
+                .Where(tipo => tipo.descripcion.Equals(descripcion))
+                .FirstOrDefault();
+        }
+
+        internal static Publicacion publicacionPorId(int id)
+        {
+            return dbContext().Publicacion
+                .Where(publicacion => publicacion.id_publicacion.Equals(id))
+                .FirstOrDefault();
+        }
+
         internal static Funcionalidad obtenerFuncionalidadPorDescripcion(RagnarEntities db, String descripcionFuncionalidad)
         {
             return db.Funcionalidad
@@ -110,6 +137,21 @@ namespace PalcoNet.BaseDeDatos
                 .Where(grado => grado.descripcion.Equals(nombreGrado))
                 .FirstOrDefault();
         }
+
+        internal static Rubro rubroPorDescripcion(String descripcionRubro)
+        {
+            return dbContext().Rubro
+                .Where(rubro => rubro.descripcion.Equals(descripcionRubro))
+                .FirstOrDefault();
+        }
+
+        internal static Estado_publicacion estadoDePublicacionPorNombre(String nombreEstado)
+        {
+            return dbContext().Estado_publicacion
+                .Where(estado => estado.descripcion.Equals(nombreEstado))
+                .FirstOrDefault();
+        }
+
 
         #region SQLFunctions
         // Sirve para usar la funcion generada desde SQL

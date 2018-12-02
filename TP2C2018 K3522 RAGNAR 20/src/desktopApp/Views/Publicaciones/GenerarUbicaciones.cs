@@ -17,17 +17,20 @@ namespace PalcoNet.Views.Publicaciones
     public partial class GenerarUbicaciones : Form
     {
 
-        public List<Ubicacion> ubicaciones;
+        public List<Ubicacion_publicacion> ubicaciones;
         Label lblCantUbicaciones;
-        public GenerarUbicaciones(Label lblUbicaciones)
+        Publicacion publicacionActual;
+
+        public GenerarUbicaciones(Label lblUbicaciones, Publicacion publicacion)
         {
            /* Ubicacion nuevaUbicacion = new Ubicacion(1, 1, 10, new Tipo_ubicacion(), true);
             ubicaciones.Add(nuevaUbicacion);
             dgvUbicaciones.DataSource = ubicaciones;*/
             InitializeComponent();
             cargarComboTipo();
-            ubicaciones = new List<Ubicacion>();
+            ubicaciones = new List<Ubicacion_publicacion>();
             lblCantUbicaciones = lblUbicaciones;
+            publicacionActual = publicacion;
             
         }
 
@@ -74,8 +77,19 @@ namespace PalcoNet.Views.Publicaciones
                 WindowsFormUtils.mensajeDeError(e.Message);
                 return false;
             }
-            
-            Ubicacion nuevaUbicacion = new Ubicacion(int.Parse(txtFila.Text), int.Parse(txtAsiento.Text), int.Parse(txtPrecio.Text), new Tipo_ubicacion(), cbxNumerada.Checked);
+
+
+            //Ubicacion_publicacion nuevaUbicacion = new Ubicacion_publicacion(int.Parse(txtFila.Text), int.Parse(txtAsiento.Text), int.Parse(txtPrecio.Text), new Tipo_ubicacion(), cbxNumerada.Checked);
+            Ubicacion_publicacion nuevaUbicacion = new Ubicacion_publicacion();
+            nuevaUbicacion.precio = int.Parse(txtPrecio.Text);
+            nuevaUbicacion.Tipo_ubicacion = BaseDeDatos.BaseDeDatos.tipoUbicacionPorDescripcion(WindowsFormUtils.textoSeleccionadoDe(cboTipo));
+            nuevaUbicacion.sin_numerar = cbxNumerada.Checked;
+            nuevaUbicacion.Publicacion = publicacionActual;
+            nuevaUbicacion.fila = txtFila.Text;
+            nuevaUbicacion.asiento = int.Parse(txtAsiento.Text);
+
+               
+
             if (ubicaciones.Any(ubicacion => esMismaUbicacion(ubicacion, nuevaUbicacion))) {
                 WindowsFormUtils.mensajeDeError("Esa ubicacion ya esta ingresada");
             } else {
@@ -84,32 +98,14 @@ namespace PalcoNet.Views.Publicaciones
                 return true;
             }
 
-            /*
-             * TODO: usar las funciones del utils
-             * if (new ValidationsUtils.campoVacio(txtFila))
-            {
-                MessageBox.Show("Campo vacio");
-            }
-            else
-            {
-                MessageBox.Show("No vacio");
-            }
-
-            if (new ValidationsUtils.esNumerico(txtFila))
-            {
-                MessageBox.Show("Es numerico");
-            }
-            else
-            {
-                MessageBox.Show("No es numerico");
-            }*/
-
+       
 
             return false ;
         }
 
 
-        private bool esMismaUbicacion(Ubicacion existente, Ubicacion nuevaUbicacion) {
+        private bool esMismaUbicacion(Ubicacion_publicacion existente, Ubicacion_publicacion nuevaUbicacion)
+        {
             return (existente.fila == nuevaUbicacion.fila && existente.asiento == nuevaUbicacion.asiento);
         }
 

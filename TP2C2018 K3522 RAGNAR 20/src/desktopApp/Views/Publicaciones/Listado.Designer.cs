@@ -33,6 +33,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.btnVolver = new System.Windows.Forms.Button();
+            this.btnEditar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPublicaciones)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -44,7 +45,7 @@
             this.dgvPublicaciones.AllowUserToOrderColumns = true;
             this.dgvPublicaciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.dgvPublicaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPublicaciones.Location = new System.Drawing.Point(17, 72);
+            this.dgvPublicaciones.Location = new System.Drawing.Point(17, 48);
             this.dgvPublicaciones.Name = "dgvPublicaciones";
             this.dgvPublicaciones.ReadOnly = true;
             this.dgvPublicaciones.Size = new System.Drawing.Size(405, 192);
@@ -89,11 +90,22 @@
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
+            // btnEditar
+            // 
+            this.btnEditar.Location = new System.Drawing.Point(298, 247);
+            this.btnEditar.Name = "btnEditar";
+            this.btnEditar.Size = new System.Drawing.Size(119, 23);
+            this.btnEditar.TabIndex = 7;
+            this.btnEditar.Text = "Editar Publicacion";
+            this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
+            // 
             // Listado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(449, 315);
+            this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.dgvPublicaciones);
             this.Controls.Add(this.panel1);
@@ -114,6 +126,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnVolver;
+        private System.Windows.Forms.Button btnEditar;
 
     }
 }
