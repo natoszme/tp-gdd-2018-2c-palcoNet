@@ -56,7 +56,7 @@ namespace PalcoNet.Usuarios
                     if (esNuevo == 0)
                     {
                         loguearYPasarASeleccionarRol(usuario);
-                        return;
+                        usuario.Login_fallido.nro_intento = 0;
                     }
                     else
                     {
@@ -72,6 +72,7 @@ namespace PalcoNet.Usuarios
                         WindowsFormUtils.abrirFormulario(new ModificarClaveAdmin((int)usuario.id_usuario), () => finalizarSeteoDeContrasenia(db, usuario));
                         PersonalizacionPass.seEstaPersonalizandoPass = false;
                     }
+                    Utils.DBUtils.guardar(db);
                 }
             }
         }
@@ -101,8 +102,6 @@ namespace PalcoNet.Usuarios
             {
                 usuario.es_nuevo = 0;
             }
-
-            Utils.DBUtils.guardar(db);
         }
 
         private Usuario usuarioPorNombre()
