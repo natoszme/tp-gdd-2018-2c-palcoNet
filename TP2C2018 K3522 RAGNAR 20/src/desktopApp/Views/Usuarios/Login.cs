@@ -56,7 +56,10 @@ namespace PalcoNet.Usuarios
                     if (esNuevo == 0)
                     {
                         loguearYPasarASeleccionarRol(usuario);
-                        usuario.Login_fallido.nro_intento = 0;
+                        if (usuario.Login_fallido != null)
+                        {
+                            usuario.Login_fallido.nro_intento = 0;
+                        }                        
                     }
                     else
                     {
