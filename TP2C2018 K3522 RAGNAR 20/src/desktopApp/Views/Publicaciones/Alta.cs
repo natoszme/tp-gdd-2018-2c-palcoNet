@@ -30,6 +30,8 @@ namespace PalcoNet.Publicaciones
             if (editando())
             {
                 cargarDatos();
+                lblCantUbicaciones.Text = "Ubicaciones cargadas = " + publicacion.Ubicacion_publicacion.Count;
+                btnAgregarFecha.Text = "Modificar fecha";
             }
 
         }
@@ -89,6 +91,20 @@ namespace PalcoNet.Publicaciones
 
         private void btnAgregarFecha_Click(object sender, EventArgs e)
         {
+            if (editando())
+            {
+                if (camposYDominioFechaValidos())
+                {
+                    DateTime nuevaFecha = DateTime.Parse(dtpFecha.Text);
+                    nuevaFecha = nuevaFecha.AddHours(int.Parse(txtHora.Text.Substring(0, 2)));
+                    nuevaFecha = nuevaFecha.AddMinutes(int.Parse(txtHora.Text.Substring(3, 2)));
+                    MessageBox.Show("La fecha ingresada = " + nuevaFecha.ToString() + " fue cargada satisfactoriamente");
+                    fechas.RemoveAt(0);
+                    fechas.Add(nuevaFecha);
+                    return;
+                }
+              
+            }
             if (camposYDominioFechaValidos())
             {
                 DateTime nuevaFecha = DateTime.Parse(dtpFecha.Text);
@@ -167,7 +183,15 @@ namespace PalcoNet.Publicaciones
 
         protected bool validarDominioFecha(ref List<string> errores)
         {
-            ValidationsUtils.hayError(fechaMayorAUltima, ref errores);
+            if (editando())
+            {
+                ValidationsUtils.hayError(noExistefechaDeMismaPublicacion, ref errores);
+            }
+            else
+            {
+                ValidationsUtils.hayError(fechaMayorAUltima, ref errores);
+            }
+            
          
 
             if (errores.Count() > 0)
@@ -177,6 +201,12 @@ namespace PalcoNet.Publicaciones
             }
 
             return true;
+        }
+
+        private void noExistefechaDeMismaPublicacion(){
+            if(BaseDeDatos.BaseDeDatos.existePublicacionEnMismaFecha(publicacion))
+                throw new ValidationException("No se puede elegir una fecha de un espectaculo que sea realizado a la misma hora en el mismo lugar");
+          
         }
 
         private void fechaMayorAUltima()
@@ -280,9 +310,10 @@ namespace PalcoNet.Publicaciones
                     txtDireccion.Text = publicacion.direccion;
                     txtDescripcion.Text = publicacion.descripcion;
                     dtpFecha.Value = (System.DateTime) publicacion.fecha_publicacion;
+                    fechas.Add((System.DateTime)publicacion.fecha_publicacion);
                     cmbGradoPublicacion.Text = publicacion.Grado_publicacion.descripcion;
                     cmbRubro.Text = publicacion.Rubro.descripcion;
-                    formUbicaciones.ubicaciones = BaseDeDatos.BaseDeDatos.ubicacionesPorIdPublicacion(publicacion);
+                    formUbicaciones.ubicaciones = publicacion.Ubicacion_publicacion.ToList();
 
                   
                 }
