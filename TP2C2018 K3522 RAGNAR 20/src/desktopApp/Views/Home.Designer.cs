@@ -41,8 +41,8 @@
             this.lblUsername = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnListadoEstadistico = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
+            this.btnListadoEstadistico = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -118,7 +118,7 @@
             this.btnModificarContraseña.Name = "btnModificarContraseña";
             this.btnModificarContraseña.Size = new System.Drawing.Size(115, 23);
             this.btnModificarContraseña.TabIndex = 11;
-            this.btnModificarContraseña.Text = "Modificar Contraseña";
+            this.btnModificarContraseña.Text = "Modificar contraseña";
             this.btnModificarContraseña.UseVisualStyleBackColor = true;
             this.btnModificarContraseña.Click += new System.EventHandler(this.btnModificarContraseña_Click);
             // 
@@ -184,6 +184,16 @@
             this.panel1.Size = new System.Drawing.Size(436, 38);
             this.panel1.TabIndex = 14;
             // 
+            // btnSalir
+            // 
+            this.btnSalir.Location = new System.Drawing.Point(348, 8);
+            this.btnSalir.Name = "btnSalir";
+            this.btnSalir.Size = new System.Drawing.Size(75, 23);
+            this.btnSalir.TabIndex = 13;
+            this.btnSalir.Text = "Salir";
+            this.btnSalir.UseVisualStyleBackColor = true;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
+            // 
             // btnListadoEstadistico
             // 
             this.btnListadoEstadistico.Location = new System.Drawing.Point(283, 244);
@@ -194,16 +204,6 @@
             this.btnListadoEstadistico.UseVisualStyleBackColor = true;
             this.btnListadoEstadistico.Visible = false;
             this.btnListadoEstadistico.Click += new System.EventHandler(this.btnListadoEstadistico_Click);
-            // 
-            // btnSalir
-            // 
-            this.btnSalir.Location = new System.Drawing.Point(348, 8);
-            this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(75, 23);
-            this.btnSalir.TabIndex = 13;
-            this.btnSalir.Text = "Salir";
-            this.btnSalir.UseVisualStyleBackColor = true;
-            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // Home
             // 

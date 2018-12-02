@@ -176,5 +176,11 @@ namespace PalcoNet.BaseDeDatos
                 .Where(puntaje => puntaje.vencimiento >= Global.fechaDeHoy())
                 .Select(puntaje => puntaje.puntos).ToList().Sum();
         }
+
+        public static void clienteCompraPremio(RagnarEntities db, Cliente cliente, int idPremio)
+        {
+            //TODO compra el premio. santi esta haciendo trigger para que al hacer insert sobre Canje_premio, se resten los puntos
+            //cliente.Ca
+        }
     }
 }
