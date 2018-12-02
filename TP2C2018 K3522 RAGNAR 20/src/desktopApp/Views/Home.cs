@@ -152,9 +152,8 @@ namespace PalcoNet
 
         private void btnRendicionComisiones_Click(object sender, EventArgs e)
         {
-            // new RendirComisiones.Show(); Crear el formulario para rendir comisiones
-            //this.Hide();
-            MessageBox.Show("Todavia no esta implementado");
+            new Views.RendicionComisiones.Listado().Show();
+            this.Hide();
         }
 
         private void btnModificarContraseña_Click(object sender, EventArgs e)

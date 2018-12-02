@@ -180,6 +180,13 @@
     <Compile Include="Views\Publicaciones\GenerarUbicaciones.Designer.cs">
       <DependentUpon>GenerarUbicaciones.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Publicaciones\Ubicaciones.cs" />
+    <Compile Include="Views\RendicionComisiones\Listado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\RendicionComisiones\Listado.Designer.cs">
+      <DependentUpon>Listado.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Reportes\Listado.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -312,6 +319,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Publicaciones\GenerarUbicaciones.resx">
       <DependentUpon>GenerarUbicaciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\RendicionComisiones\Listado.resx">
+      <DependentUpon>Listado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Reportes\Listado.resx">
       <DependentUpon>Listado.cs</DependentUpon>
