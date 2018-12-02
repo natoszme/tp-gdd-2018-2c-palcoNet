@@ -14,6 +14,8 @@ namespace PalcoNet.Clientes
 {
     public partial class CanjearPuntos : Form
     {
+        Cliente cliente = Global.obtenerUsuarioLogueado().Cliente;
+
         public CanjearPuntos()
         {
             InitializeComponent();
@@ -54,12 +56,26 @@ namespace PalcoNet.Clientes
         private void btnCanjearPremio_Click(object sender, EventArgs e)
         {
             int? id = DataGridViewUtils.obtenerIdSeleccionado(dgvPremios);
-
             using (RagnarEntities db = new RagnarEntities())
             {
-                BaseDeDatos.BaseDeDatos.clienteCompraPremio(db, Global.obtenerUsuarioLogueado().Cliente, (int)id);
+                Premio premio = db.Premio.Find(id);
+                if(!leAlcanzanLosPuntos(premio))
+                {
+                    WindowsFormUtils.mensajeDeError("Puntos insuficientes");
+                    return;
+                }
+            
+                BaseDeDatos.BaseDeDatos.clienteCompraPremio(db, cliente, premio);
+                WindowsFormUtils.mensajeDeExito("Felicidades, ha adquirido " + premio.descripcion);
+
+                DBUtils.guardar(db);
             }
             actualizarPuntosDisponibles();
+        }
+
+        private bool leAlcanzanLosPuntos(Premio premio)
+        {
+            return premio.puntos_necesarios <= puntosCliente();
         }
 
         private bool esCliente()
@@ -67,9 +83,17 @@ namespace PalcoNet.Clientes
             return Global.obtenerRolUsuario().nombre.Equals("Cliente");
         }
 
+        private int puntosCliente()
+        {
+            return BaseDeDatos.BaseDeDatos.obtenerPuntosNoVencidosDe(cliente);
+        }
+
         private void actualizarPuntosDisponibles()
         {
-            lblPuntosDisponibles.Text = BaseDeDatos.BaseDeDatos.obtenerPuntosNoVencidosDe(Global.obtenerUsuarioLogueado()).ToString();
+            if (cliente != null)
+            {
+                lblPuntosDisponibles.Text = puntosCliente().ToString();
+            }
         }
     }
 }

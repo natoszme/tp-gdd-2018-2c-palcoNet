@@ -170,17 +170,17 @@ namespace PalcoNet.BaseDeDatos
                 .FirstOrDefault();
         }
 
-        public static int obtenerPuntosNoVencidosDe(Usuario usuario)
+        public static int obtenerPuntosNoVencidosDe(Cliente cliente)
         {
-            return usuario.Cliente.Puntos_cliente
+            return cliente.Puntos_cliente
                 .Where(puntaje => puntaje.vencimiento >= Global.fechaDeHoy())
                 .Select(puntaje => puntaje.puntos).ToList().Sum();
         }
 
-        public static void clienteCompraPremio(RagnarEntities db, Cliente cliente, int idPremio)
+        public static void clienteCompraPremio(RagnarEntities db, Cliente cliente, Premio premio)
         {
             //TODO compra el premio. santi esta haciendo trigger para que al hacer insert sobre Canje_premio, se resten los puntos
-            //cliente.Ca
+            //cliente.Premio.Add(premio);
         }
     }
 }
