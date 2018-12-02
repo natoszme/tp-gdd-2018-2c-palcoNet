@@ -78,7 +78,6 @@
             // 
             // btnCanjearPremio
             // 
-            this.btnCanjearPremio.Enabled = false;
             this.btnCanjearPremio.Location = new System.Drawing.Point(290, 29);
             this.btnCanjearPremio.Name = "btnCanjearPremio";
             this.btnCanjearPremio.Size = new System.Drawing.Size(95, 23);

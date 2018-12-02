@@ -31,11 +31,6 @@ namespace PalcoNet.Clientes
         {
             actualizarPuntosDisponibles();
             actualizarDataGriedView();
-
-            if (esCliente())
-            {
-                btnCanjearPremio.Enabled = true;
-            }
         }
 
         private void actualizarDataGriedView()
@@ -76,11 +71,6 @@ namespace PalcoNet.Clientes
         private bool leAlcanzanLosPuntos(Premio premio)
         {
             return premio.puntos_necesarios <= puntosCliente();
-        }
-
-        private bool esCliente()
-        {
-            return Global.obtenerRolUsuario().nombre.Equals("Cliente");
         }
 
         private int puntosCliente()
