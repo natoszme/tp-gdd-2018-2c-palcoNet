@@ -77,10 +77,6 @@ namespace PalcoNet
         private List<Funcionalidad> obtenerFuncionalidadesDisponibles()
         {
             List<Funcionalidad> disponibles = Global.obtenerRolUsuario().Funcionalidad.ToList();
-            if (esCliente() && estaInhabilitado())
-            {
-                disponibles.RemoveAll(func => func.descripcion == "Comprar");
-            }
 
             return disponibles;
         }
