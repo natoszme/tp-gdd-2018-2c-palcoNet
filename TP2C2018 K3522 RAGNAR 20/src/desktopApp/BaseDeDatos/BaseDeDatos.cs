@@ -200,6 +200,17 @@ namespace PalcoNet.BaseDeDatos
             return db.Usuario.Find(usuarioLogueado.id_usuario);
         }
 
+        public static Estado_publicacion obtenerEstadoDePublicacionPorId(int id)
+        {
+            return obtenerEstadoDePublicacionPorId(dbContext(), id);
+        }
+
+        internal static Estado_publicacion obtenerEstadoDePublicacionPorId(RagnarEntities db, int id)
+        {
+            return db.Publicacion.Where(publicacion => publicacion.id_publicacion.Equals(id))
+                .FirstOrDefault().Estado_publicacion;
+        }
+
         public static void eliminarUsuario(RagnarEntities db, Usuario usuario)
         {
             var rolesUsuario = db.Usuario_rol.Where(u_r => u_r.id_usuario == usuario.id_usuario).ToList();

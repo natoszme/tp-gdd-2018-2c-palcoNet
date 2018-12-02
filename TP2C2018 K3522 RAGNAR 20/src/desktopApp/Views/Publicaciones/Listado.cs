@@ -71,6 +71,15 @@ namespace PalcoNet.Publicaciones
         private void btnEditar_Click(object sender, EventArgs e)
         {
             int? id = DataGridViewUtils.obtenerIdSeleccionado(dgvPublicaciones);
+            if(id!=null)
+            {
+                if (BaseDeDatos.BaseDeDatos.obtenerEstadoDePublicacionPorId((int)id).descripcion != "Borrador")
+                {
+                    MessageBox.Show("No se puede editar publicaciones que no esten como borrador");
+                    return;
+                }
+            }
+                
             WindowsFormUtils.abrirFormulario(new Alta(id), actualizarDataGriedView);
         }
     }
