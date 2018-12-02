@@ -16,8 +16,8 @@ namespace PalcoNet.BaseDeDatos
             return new RagnarEntities();
         }
 
-        public static Usuario obtenerUsuarioPorCredenciales(String usuario, String password) {
-            return dbContext().Usuario
+        public static Usuario obtenerUsuarioPorCredenciales(RagnarEntities db, String usuario, String password) {
+            return db.Usuario
                     .Where(user => user.usuario.Equals(usuario))
                     .Where(user => user.clave.Equals(F_HasheoDeClave(password)))
                     .FirstOrDefault();

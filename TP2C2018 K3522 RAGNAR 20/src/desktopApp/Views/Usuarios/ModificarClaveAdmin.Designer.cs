@@ -41,7 +41,7 @@
             this.btnCambiar.Location = new System.Drawing.Point(131, 141);
             this.btnCambiar.Name = "btnCambiar";
             this.btnCambiar.Size = new System.Drawing.Size(129, 23);
-            this.btnCambiar.TabIndex = 0;
+            this.btnCambiar.TabIndex = 2;
             this.btnCambiar.Text = "Cambiar contraseña";
             this.btnCambiar.UseVisualStyleBackColor = true;
             this.btnCambiar.Click += new System.EventHandler(this.btnCambiar_Click);
@@ -69,7 +69,7 @@
             this.txtNuevaClave.Location = new System.Drawing.Point(160, 36);
             this.txtNuevaClave.Name = "txtNuevaClave";
             this.txtNuevaClave.Size = new System.Drawing.Size(100, 20);
-            this.txtNuevaClave.TabIndex = 3;
+            this.txtNuevaClave.TabIndex = 0;
             this.txtNuevaClave.UseSystemPasswordChar = true;
             // 
             // txtRepetirClave
@@ -77,7 +77,7 @@
             this.txtRepetirClave.Location = new System.Drawing.Point(160, 85);
             this.txtRepetirClave.Name = "txtRepetirClave";
             this.txtRepetirClave.Size = new System.Drawing.Size(100, 20);
-            this.txtRepetirClave.TabIndex = 4;
+            this.txtRepetirClave.TabIndex = 1;
             this.txtRepetirClave.UseSystemPasswordChar = true;
             // 
             // btnVolver
@@ -85,7 +85,7 @@
             this.btnVolver.Location = new System.Drawing.Point(34, 141);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(75, 23);
-            this.btnVolver.TabIndex = 8;
+            this.btnVolver.TabIndex = 3;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);

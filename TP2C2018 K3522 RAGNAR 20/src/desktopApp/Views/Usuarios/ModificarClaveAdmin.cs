@@ -42,15 +42,15 @@ namespace PalcoNet.Usuarios
 
         private void btnCambiar_Click(object sender, EventArgs e)
         {
+            if (PersonalizacionPass.seEstaPersonalizandoPass)
+            {
+                PersonalizacionPass.personalizacionPassFinalizo = true;
+            }
+
             using (RagnarEntities db = new RagnarEntities()) {
                 if (camposValidos()) {
                     BaseDeDatos.BaseDeDatos.modificarClave(db, db.Usuario.Find(id), txtNuevaClave.Text, this);
                 }
-            }
-
-            if (PersonalizacionPass.seEstaPersonalizandoPass)
-            {
-                PersonalizacionPass.personalizacionPassFinalizo = true;
             }
         }
 
