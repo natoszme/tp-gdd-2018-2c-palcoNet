@@ -79,7 +79,8 @@ namespace PalcoNet.Usuarios
 
         private bool estaHabilitado()
         {
-            return usuarioPorNombre().habilitado;
+            Usuario usuario = usuarioPorNombre();
+            return (usuario != null && usuario.habilitado) || usuario == null;
         }
 
         private void loguearYPasarASeleccionarRol(Usuario usuario)
