@@ -136,7 +136,8 @@ CREATE TABLE RAGNAR.Premio						(	id_premio int identity PRIMARY KEY,
 													descripcion varchar(255) NOT NULL)
 
 CREATE TABLE RAGNAR.Canje_premio				(	id_premio int FOREIGN KEY references RAGNAR.Premio(id_premio),
-													id_cliente bigint FOREIGN KEY references RAGNAR.Cliente(id_usuario))
+													id_cliente bigint FOREIGN KEY references RAGNAR.Cliente(id_usuario),
+													fecha_canje datetime)
 
 --/ Fin de creacion de tablas /--
 
@@ -419,6 +420,11 @@ INSERT INTO RAGNAR.Premio (descripcion, puntos_necesarios) VALUES ('Viaje a Miam
 
 INSERT INTO RAGNAR.Rubro(descripcion) VALUES ('Teatro')
 
+--/ Inserts de datos para el administrador de prueba /--
+
+INSERT INTO RAGNAR.Cliente (id_usuario, nombre, apellido, tipo_documento, numero_documento, mail, calle, portal, piso, departamento, codigo_postal, fecha_nacimiento) VALUES (1,'Señor','Administrador','DNI',40000000,'Administrador@Gmail.com','Avenida Medrano',1000,5,'F',6000,'1999-12-31')
+INSERT INTO RAGNAR.Empresa (id_usuario, razon_social, cuit, mail, calle, portal, piso, departamento, codigo_postal) VALUES (1,'Empresa administrativa',40000000,'Administrador@Gmail.com','Avenida Medrano',1000,5,'F',6000)
+
 --/ Fin de Inserts /--
 
 GO
@@ -442,7 +448,7 @@ GO
 CREATE FUNCTION RAGNAR.F_EmpresasConMasLocalidadesNoVencidas (@Id_grado int, @Mes nvarchar(10), @Anio nvarchar(10))
 RETURNS TABLE
 AS
-RETURN (SELECT TOP 5 E.razon_social, SUM(P.stock) as cantidadVendida FROM RAGNAR.Empresa as E JOIN RAGNAR.Publicacion as P ON (E.id_usuario = P.id_empresa) JOIN RAGNAR.Grado_publicacion as G ON (P.id_grado = G.id_grado) WHERE YEAR(fecha_publicacion) = @Anio AND MONTH(fecha_publicacion) = @Mes AND G.id_grado = @Id_grado GROUP BY E.razon_social ORDER BY SUM(P.stock) DESC)
+RETURN (SELECT TOP 5 E.razon_social FROM RAGNAR.Empresa as E JOIN RAGNAR.Publicacion as P ON (E.id_usuario = P.id_empresa) JOIN RAGNAR.Grado_publicacion as G ON (P.id_grado = G.id_grado) WHERE YEAR(fecha_publicacion) = @Anio AND MONTH(fecha_publicacion) = @Mes AND G.id_grado = @Id_grado GROUP BY E.razon_social ORDER BY SUM(P.stock) DESC)
 GO
 
 --/ Funcion para listado de clientes con mas puntos vencidos /--
@@ -459,6 +465,26 @@ CREATE FUNCTION RAGNAR.F_ClientesConMasCompras (@Fecha datetime)
 RETURNS TABLE
 AS
 RETURN (SELECT TOP 5 CLI.nombre as Nombre, CLI.apellido as Apellido, CLI.tipo_documento as TipoDeDocumento, CLI.numero_documento as NumeroDeDocumento, CLI.cuil as CUIL, COUNT(*) as CantidadDeCompras FROM RAGNAR.Compra as C JOIN RAGNAR.Cliente as CLI ON (CLI.id_usuario = C.id_cliente) JOIN RAGNAR.Ubicacion_publicacion as U ON (C.id_compra = U.id_compra) JOIN RAGNAR.Publicacion as P ON (U.id_publicacion = P.id_publicacion) WHERE YEAR(C.fecha) = YEAR(@Fecha) AND (MONTH(@Fecha) - MONTH(C.fecha)) BETWEEN 0 AND 2 GROUP BY P.id_empresa, CLI.nombre, CLI.apellido, CLI.tipo_documento, CLI.numero_documento, CLI.cuil ORDER BY 6 DESC)
+GO
+
+--/ Funcion para saber cuantos puntos no vencidos tiene un cliente /--
+
+CREATE FUNCTION RAGNAR.F_CantidadDePuntosNoVencidos (@Cliente bigint, @Fecha datetime)
+RETURNS int
+AS
+BEGIN
+RETURN (SELECT SUM(puntos) as Puntos FROM RAGNAR.Puntos_cliente WHERE id_cliente = @Cliente AND CONVERT(date,@Fecha) <= vencimiento GROUP BY id_cliente)
+END
+GO
+
+--/ Funcion para obtener el minimo entre 2 valores /--
+
+CREATE FUNCTION RAGNAR.F_MinimoDeDosValores (@Valor1 int, @Valor2 int)
+RETURNS int
+AS
+BEGIN
+RETURN (SELECT CASE WHEN @Valor1 < @Valor2 THEN @Valor1 ELSE @Valor2 END)
+END
 GO
 
 --/ STORED PROCEDURES /--
@@ -578,3 +604,48 @@ BEGIN
 	DEALLOCATE CCliente
 END
 GO
+
+--/ Trigger para quitar los puntos que fueron canjeados por un premio /--
+
+CREATE TRIGGER RAGNAR.RestarPuntos ON RAGNAR.Canje_premio AFTER INSERT --/Se puede hacer con instead of si queremos chequear que tenga esos puntos
+AS
+BEGIN
+	DECLARE @Cliente bigint, @Fecha datetime, @Premio int, @PuntosARestar int, @Puntaje bigint, @PuntosDisponibles int
+	DECLARE CCanje CURSOR FOR (SELECT id_cliente, id_premio, fecha_canje FROM INSERTED)
+	OPEN CCanje
+	FETCH NEXT FROM CCanje INTO @Cliente, @Premio, @Fecha
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		SET @PuntosARestar = (SELECT puntos_necesarios FROM RAGNAR.Premio WHERE id_premio = @Premio)
+		WHILE (@PuntosARestar > 0)
+		BEGIN
+			SELECT TOP 1 @Puntaje = id_puntaje, @PuntosDisponibles = puntos FROM RAGNAR.Puntos_cliente WHERE id_cliente = @Cliente AND CONVERT(date,@Fecha) <= vencimiento AND puntos > 0 ORDER BY vencimiento ASC
+			UPDATE RAGNAR.Puntos_cliente SET puntos = puntos - RAGNAR.F_MinimoDeDosValores(@PuntosARestar, @PuntosDisponibles) WHERE id_puntaje = @Puntaje
+			SET @PuntosARestar = @PuntosARestar - RAGNAR.F_MinimoDeDosValores(@PuntosARestar, @PuntosDisponibles)
+		END
+		FETCH NEXT FROM CCanje INTO @Cliente, @Premio, @Fecha
+	END
+	CLOSE CCanje
+	DEALLOCATE CCanje
+END
+GO
+
+--/ Trigger para chequear que una publicacion no vuelva a un estado anterior al ser editada /--
+/*
+CREATE TRIGGER RAGNAR.ChequeoDelEstadoDeUnaPublicacion ON RAGNAR.Publicacion AFTER UPDATE
+AS
+BEGIN
+	DECLARE CPublicacion CURSOR FOR (SELECT I.id_estado, D.id_estado FROM INSERTED as I JOIN DELETED as D ON (I.descripcion = D.descripcion AND I.fecha_espectaculo = D.fecha_espectaculo))
+	DECLARE @IdEstadoActual int, @IdEstadoAnterior int
+END
+GO
+
+
+CREATE TRIGGER RAGNAR.ChequeoDelEstadoDeUnaPublicacion ON RAGNAR.Publicacion INSTEAD OF UPDATE
+AS
+BEGIN
+	DECLARE CPublicacion CURSOR FOR (SELECT I.id_estado, I.codigo_publicacion, I.descripcion, I.stock, I.fecha_publicacion, I.id_rubro, I.direccion, I.id_grado, I.id_empresa, I.fecha_vencimiento, I.fecha_espectaculo, D.id_estado FROM INSERTED as I JOIN DELETED as D ON (I.descripcion = D.descripcion AND I.fecha_espectaculo = D.fecha_espectaculo))
+	DECLARE @EstadoActual int, @EstadoAnterior int, @Codigo numeric(18,0), @Descripcion nvarchar(255), @Stock int, 
+END
+GO
+*/
