@@ -143,7 +143,7 @@ CREATE TABLE RAGNAR.Canje_premio				(	id_premio int FOREIGN KEY references RAGNA
 
 GO
 
---/ Funcion para encriptar la contraseña /--
+--/ Funcion para encriptar la contraseÃ±a /--
 
 CREATE FUNCTION RAGNAR.F_HasheoDeClave (@Clave varchar(32))
 RETURNS varchar(32)
@@ -153,7 +153,7 @@ BEGIN
 END
 GO
 
---/ Trigger que se encarga de encriptar la contraseña ingresada tanto para un usuario nuevo como para un cambio de contraseña /--
+--/ Trigger que se encarga de encriptar la contraseÃ±a ingresada tanto para un usuario nuevo como para un cambio de contraseÃ±a /--
 
 CREATE TRIGGER RAGNAR.HasheoDeClaveDeUsuario ON RAGNAR.Usuario INSTEAD OF INSERT, UPDATE
 AS
@@ -259,12 +259,12 @@ GO
 
 INSERT INTO RAGNAR.Usuario(usuario,clave,habilitado) VALUES ('admin','w23e',1) --/ usuario administrador para tests
 
-INSERT INTO RAGNAR.Usuario(usuario,clave,habilitado) --/Crea un usuario para cada cliente con su dni como nombre de usuario y contraseña
+INSERT INTO RAGNAR.Usuario(usuario,clave,habilitado) --/Crea un usuario para cada cliente con su dni como nombre de usuario y contraseÃ±a
 	SELECT DISTINCT Cli_Dni, Cli_dni, 1
 	FROM gd_esquema.Maestra
 	WHERE Cli_Dni IS NOT NULL
 	
-INSERT INTO RAGNAR.Usuario(usuario,clave,habilitado) --/Crea un usuario para cada empresa con su CUIT como nombre de usuario y contraseña
+INSERT INTO RAGNAR.Usuario(usuario,clave,habilitado) --/Crea un usuario para cada empresa con su CUIT como nombre de usuario y contraseÃ±a
 	SELECT DISTINCT Espec_Empresa_Cuit, Espec_Empresa_Cuit, 1
 	FROM gd_esquema.Maestra
 	WHERE Espec_Empresa_Cuit IS NOT NULL
@@ -422,7 +422,7 @@ INSERT INTO RAGNAR.Rubro(descripcion) VALUES ('Teatro')
 
 --/ Inserts de datos para el administrador de prueba /--
 
-INSERT INTO RAGNAR.Cliente (id_usuario, nombre, apellido, tipo_documento, numero_documento, mail, calle, portal, piso, departamento, codigo_postal, fecha_nacimiento) VALUES (1,'Señor','Administrador','DNI',40000000,'Administrador@Gmail.com','Avenida Medrano',1000,5,'F',6000,'1999-12-31')
+INSERT INTO RAGNAR.Cliente (id_usuario, nombre, apellido, tipo_documento, numero_documento, mail, calle, portal, piso, departamento, codigo_postal, fecha_nacimiento) VALUES (1,'SeÃ±or','Administrador','DNI',40000000,'Administrador@Gmail.com','Avenida Medrano',1000,5,'F',6000,CONVERT(date,'1999-12-31'))
 INSERT INTO RAGNAR.Empresa (id_usuario, razon_social, cuit, mail, calle, portal, piso, departamento, codigo_postal) VALUES (1,'Empresa administrativa',40000000,'Administrador@Gmail.com','Avenida Medrano',1000,5,'F',6000)
 
 --/ Fin de Inserts /--
@@ -504,9 +504,9 @@ BEGIN
 	END
 	ELSE
 	BEGIN
-		IF (NOT EXISTS (SELECT * FROM RAGNAR.Usuario WHERE id_usuario = @ID AND clave = @ClaveEncriptada)) --La contraseña ingresada no es correcta
+		IF (NOT EXISTS (SELECT * FROM RAGNAR.Usuario WHERE id_usuario = @ID AND clave = @ClaveEncriptada)) --La contraseÃ±a ingresada no es correcta
 		BEGIN
-			PRINT('La contraseña ingresada no es correcta')
+			PRINT('La contraseÃ±a ingresada no es correcta')
 			IF(NOT EXISTS (SELECT * FROM RAGNAR.Login_fallido WHERE id_usuario = @ID))
 				INSERT INTO RAGNAR.Login_fallido(id_usuario, nro_intento) VALUES (@ID, 1)
 			ELSE
@@ -550,7 +550,7 @@ GO
 
 --/ TRIGGERS /--
 
---/ Trigger de la tabla Login_fallido se encarga de inhabilitar a un usuario al no introducir su contraseña correcta 3 veces /--
+--/ Trigger de la tabla Login_fallido se encarga de inhabilitar a un usuario al no introducir su contraseÃ±a correcta 3 veces /--
 
 CREATE TRIGGER RAGNAR.LoginFallido ON RAGNAR.Login_fallido AFTER UPDATE
 AS
