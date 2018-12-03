@@ -17,7 +17,8 @@ namespace PalcoNet.Model
     
     public partial class RagnarEntities : DbContext
     {
-        public RagnarEntities() : base(Utils.ConfigReader.getInstance().connectionString)
+        public RagnarEntities()
+            : base(Utils.ConfigReader.getInstance().connectionString)
         {
         }
     
@@ -44,7 +45,7 @@ namespace PalcoNet.Model
         public DbSet<Ubicacion_publicacion> Ubicacion_publicacion { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Usuario_rol> Usuario_rol { get; set; }
-
+    
         [DbFunction("RagnarEntities", "F_ClientesConMasCompras")]
         public virtual IQueryable<F_ClientesConMasCompras_Result> F_ClientesConMasCompras(Nullable<System.DateTime> fecha)
         {
@@ -104,15 +105,6 @@ namespace PalcoNet.Model
                 new ObjectParameter("Clave", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_LoginDeUsuario", usuarioParameter, claveParameter);
-        }
-    
-        public virtual int SP_RendicionDeComisiones(Nullable<int> cantidadAFacturar)
-        {
-            var cantidadAFacturarParameter = cantidadAFacturar.HasValue ?
-                new ObjectParameter("CantidadAFacturar", cantidadAFacturar) :
-                new ObjectParameter("CantidadAFacturar", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_RendicionDeComisiones", cantidadAFacturarParameter);
         }
     }
 }
