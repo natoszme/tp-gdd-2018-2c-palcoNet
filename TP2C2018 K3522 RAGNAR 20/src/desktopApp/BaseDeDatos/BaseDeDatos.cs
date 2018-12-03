@@ -192,6 +192,12 @@ namespace PalcoNet.BaseDeDatos
         {
             throw new NotSupportedException("Direct calls are not supported.");
         }
+
+        [System.Data.Entity.DbFunction("RagnarModel.Store", "F_CantidadDePuntosNoVencidos")]
+        public static string F_HasheoDeClave(int id_cliente, DateTime fecha)
+        {
+            throw new NotSupportedException("Direct calls are not supported.");
+        }
         #endregion       
     
         internal static void modificarClave(Usuario usuario, string pass, Form formContext, Form destino = null)

@@ -85,6 +85,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\EntityModel1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Model\Estado_publicacion.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
@@ -388,7 +393,7 @@
     </EmbeddedResource>
     <EntityDeploy Include="Model\EntityModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>EntityModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>EntityModel1.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <None Include="Model\EntityModel.edmx.diagram">
       <DependentUpon>EntityModel.edmx</DependentUpon>

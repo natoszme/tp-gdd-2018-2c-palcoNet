@@ -17,8 +17,7 @@ namespace PalcoNet.Model
     
     public partial class RagnarEntities : DbContext
     {
-        public RagnarEntities()
-            : base(Utils.ConfigReader.getInstance().connectionString)
+        public RagnarEntities() : base(Utils.ConfigReader.getInstance().connectionString)
         {
         }
     
@@ -105,6 +104,19 @@ namespace PalcoNet.Model
                 new ObjectParameter("Clave", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_LoginDeUsuario", usuarioParameter, claveParameter);
+        }
+    
+        public virtual int SP_RendicionDeComisiones(Nullable<int> cantidadAFacturar, Nullable<System.DateTime> fechaDelSistema)
+        {
+            var cantidadAFacturarParameter = cantidadAFacturar.HasValue ?
+                new ObjectParameter("CantidadAFacturar", cantidadAFacturar) :
+                new ObjectParameter("CantidadAFacturar", typeof(int));
+    
+            var fechaDelSistemaParameter = fechaDelSistema.HasValue ?
+                new ObjectParameter("FechaDelSistema", fechaDelSistema) :
+                new ObjectParameter("FechaDelSistema", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_RendicionDeComisiones", cantidadAFacturarParameter, fechaDelSistemaParameter);
         }
     }
 }
