@@ -194,7 +194,7 @@ namespace PalcoNet.BaseDeDatos
         }
 
         [System.Data.Entity.DbFunction("RagnarModel.Store", "F_CantidadDePuntosNoVencidos")]
-        public static string F_HasheoDeClave(int id_cliente, DateTime fecha)
+        public static string F_CantidadDePuntosNoVencidos(int id_cliente, DateTime fecha)
         {
             throw new NotSupportedException("Direct calls are not supported.");
         }
