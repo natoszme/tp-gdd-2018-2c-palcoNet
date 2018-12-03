@@ -448,7 +448,7 @@ GO
 CREATE FUNCTION RAGNAR.F_EmpresasConMasLocalidadesNoVencidas (@Id_grado int, @Mes nvarchar(10), @Anio nvarchar(10))
 RETURNS TABLE
 AS
-RETURN (SELECT TOP 5 E.razon_social FROM RAGNAR.Empresa as E JOIN RAGNAR.Publicacion as P ON (E.id_usuario = P.id_empresa) JOIN RAGNAR.Grado_publicacion as G ON (P.id_grado = G.id_grado) WHERE YEAR(fecha_publicacion) = @Anio AND MONTH(fecha_publicacion) = @Mes AND G.id_grado = @Id_grado GROUP BY E.razon_social ORDER BY SUM(P.stock) DESC)
+RETURN (SELECT TOP 5 E.razon_social, SUM(P.stock) as cantidadVendida FROM RAGNAR.Empresa as E JOIN RAGNAR.Publicacion as P ON (E.id_usuario = P.id_empresa) JOIN RAGNAR.Grado_publicacion as G ON (P.id_grado = G.id_grado) WHERE YEAR(fecha_publicacion) = @Anio AND MONTH(fecha_publicacion) = @Mes AND G.id_grado = @Id_grado GROUP BY E.razon_social ORDER BY SUM(P.stock) DESC)
 GO
 
 --/ Funcion para listado de clientes con mas puntos vencidos /--

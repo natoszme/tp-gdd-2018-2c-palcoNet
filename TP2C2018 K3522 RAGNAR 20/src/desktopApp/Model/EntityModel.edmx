@@ -25,75 +25,75 @@
           <EntitySet Name="Ubicacion_publicacion" EntityType="RagnarModel.Store.Ubicacion_publicacion" store:Type="Tables" Schema="RAGNAR" />
           <EntitySet Name="Usuario" EntityType="RagnarModel.Store.Usuario" store:Type="Tables" Schema="RAGNAR" />
           <EntitySet Name="Usuario_rol" EntityType="RagnarModel.Store.Usuario_rol" store:Type="Tables" Schema="RAGNAR" />
-          <AssociationSet Name="FK__Cliente__id_usua__2B3F6F97" Association="RagnarModel.Store.FK__Cliente__id_usua__2B3F6F97">
+          <AssociationSet Name="FK__Cliente__id_usua__05A3D694" Association="RagnarModel.Store.FK__Cliente__id_usua__05A3D694">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Cliente" EntitySet="Cliente" />
           </AssociationSet>
-          <AssociationSet Name="FK__Compra__id_clien__49C3F6B7" Association="RagnarModel.Store.FK__Compra__id_clien__49C3F6B7">
+          <AssociationSet Name="FK__Compra__id_clien__24285DB4" Association="RagnarModel.Store.FK__Compra__id_clien__24285DB4">
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="Compra" EntitySet="Compra" />
           </AssociationSet>
-          <AssociationSet Name="FK__Empresa__id_usua__31EC6D26" Association="RagnarModel.Store.FK__Empresa__id_usua__31EC6D26">
+          <AssociationSet Name="FK__Empresa__id_usua__0C50D423" Association="RagnarModel.Store.FK__Empresa__id_usua__0C50D423">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Empresa" EntitySet="Empresa" />
           </AssociationSet>
-          <AssociationSet Name="FK__Funcional__id_fu__1B0907CE" Association="RagnarModel.Store.FK__Funcional__id_fu__1B0907CE">
+          <AssociationSet Name="FK__Funcional__id_fu__756D6ECB" Association="RagnarModel.Store.FK__Funcional__id_fu__756D6ECB">
             <End Role="Funcionalidad" EntitySet="Funcionalidad" />
             <End Role="Funcionalidad_rol" EntitySet="Funcionalidad_rol" />
           </AssociationSet>
-          <AssociationSet Name="FK__Funcional__id_ro__1A14E395" Association="RagnarModel.Store.FK__Funcional__id_ro__1A14E395">
+          <AssociationSet Name="FK__Funcional__id_ro__74794A92" Association="RagnarModel.Store.FK__Funcional__id_ro__74794A92">
             <End Role="Rol" EntitySet="Rol" />
             <End Role="Funcionalidad_rol" EntitySet="Funcionalidad_rol" />
           </AssociationSet>
-          <AssociationSet Name="FK__Item_fact__id_fa__71D1E811" Association="RagnarModel.Store.FK__Item_fact__id_fa__71D1E811">
+          <AssociationSet Name="FK__Item_fact__id_fa__318258D2" Association="RagnarModel.Store.FK__Item_fact__id_fa__318258D2">
             <End Role="Factura" EntitySet="Factura" />
             <End Role="Item_factura" EntitySet="Item_factura" />
           </AssociationSet>
-          <AssociationSet Name="FK__Item_fact__id_ub__70DDC3D8" Association="RagnarModel.Store.FK__Item_fact__id_ub__70DDC3D8">
+          <AssociationSet Name="FK__Item_fact__id_ub__308E3499" Association="RagnarModel.Store.FK__Item_fact__id_ub__308E3499">
             <End Role="Ubicacion_publicacion" EntitySet="Ubicacion_publicacion" />
             <End Role="Item_factura" EntitySet="Item_factura" />
           </AssociationSet>
-          <AssociationSet Name="FK__Login_fal__id_us__276EDEB3" Association="RagnarModel.Store.FK__Login_fal__id_us__276EDEB3">
+          <AssociationSet Name="FK__Login_fal__id_us__01D345B0" Association="RagnarModel.Store.FK__Login_fal__id_us__01D345B0">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Login_fallido" EntitySet="Login_fallido" />
           </AssociationSet>
-          <AssociationSet Name="FK__Publicaci__id_em__440B1D61" Association="RagnarModel.Store.FK__Publicaci__id_em__440B1D61">
+          <AssociationSet Name="FK__Publicaci__id_em__1E6F845E" Association="RagnarModel.Store.FK__Publicaci__id_em__1E6F845E">
             <End Role="Empresa" EntitySet="Empresa" />
             <End Role="Publicacion" EntitySet="Publicacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Publicaci__id_es__44FF419A" Association="RagnarModel.Store.FK__Publicaci__id_es__44FF419A">
+          <AssociationSet Name="FK__Publicaci__id_es__1F63A897" Association="RagnarModel.Store.FK__Publicaci__id_es__1F63A897">
             <End Role="Estado_publicacion" EntitySet="Estado_publicacion" />
             <End Role="Publicacion" EntitySet="Publicacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Publicaci__id_gr__4316F928" Association="RagnarModel.Store.FK__Publicaci__id_gr__4316F928">
+          <AssociationSet Name="FK__Publicaci__id_gr__1D7B6025" Association="RagnarModel.Store.FK__Publicaci__id_gr__1D7B6025">
             <End Role="Grado_publicacion" EntitySet="Grado_publicacion" />
             <End Role="Publicacion" EntitySet="Publicacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Publicaci__id_ru__4222D4EF" Association="RagnarModel.Store.FK__Publicaci__id_ru__4222D4EF">
+          <AssociationSet Name="FK__Publicaci__id_ru__1C873BEC" Association="RagnarModel.Store.FK__Publicaci__id_ru__1C873BEC">
             <End Role="Rubro" EntitySet="Rubro" />
             <End Role="Publicacion" EntitySet="Publicacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Puntos_cl__id_cl__34C8D9D1" Association="RagnarModel.Store.FK__Puntos_cl__id_cl__34C8D9D1">
+          <AssociationSet Name="FK__Puntos_cl__id_cl__0F2D40CE" Association="RagnarModel.Store.FK__Puntos_cl__id_cl__0F2D40CE">
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="Puntos_cliente" EntitySet="Puntos_cliente" />
           </AssociationSet>
-          <AssociationSet Name="FK__Ubicacion__id_co__4F7CD00D" Association="RagnarModel.Store.FK__Ubicacion__id_co__4F7CD00D">
+          <AssociationSet Name="FK__Ubicacion__id_co__29E1370A" Association="RagnarModel.Store.FK__Ubicacion__id_co__29E1370A">
             <End Role="Compra" EntitySet="Compra" />
             <End Role="Ubicacion_publicacion" EntitySet="Ubicacion_publicacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Ubicacion__id_pu__4D94879B" Association="RagnarModel.Store.FK__Ubicacion__id_pu__4D94879B">
+          <AssociationSet Name="FK__Ubicacion__id_pu__27F8EE98" Association="RagnarModel.Store.FK__Ubicacion__id_pu__27F8EE98">
             <End Role="Publicacion" EntitySet="Publicacion" />
             <End Role="Ubicacion_publicacion" EntitySet="Ubicacion_publicacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Ubicacion__id_ti__4E88ABD4" Association="RagnarModel.Store.FK__Ubicacion__id_ti__4E88ABD4">
+          <AssociationSet Name="FK__Ubicacion__id_ti__28ED12D1" Association="RagnarModel.Store.FK__Ubicacion__id_ti__28ED12D1">
             <End Role="Tipo_ubicacion" EntitySet="Tipo_ubicacion" />
             <End Role="Ubicacion_publicacion" EntitySet="Ubicacion_publicacion" />
           </AssociationSet>
-          <AssociationSet Name="FK__Usuario_r__id_ro__239E4DCF" Association="RagnarModel.Store.FK__Usuario_r__id_ro__239E4DCF">
+          <AssociationSet Name="FK__Usuario_r__id_ro__7E02B4CC" Association="RagnarModel.Store.FK__Usuario_r__id_ro__7E02B4CC">
             <End Role="Rol" EntitySet="Rol" />
             <End Role="Usuario_rol" EntitySet="Usuario_rol" />
           </AssociationSet>
-          <AssociationSet Name="FK__Usuario_r__id_us__22AA2996" Association="RagnarModel.Store.FK__Usuario_r__id_us__22AA2996">
+          <AssociationSet Name="FK__Usuario_r__id_us__7D0E9093" Association="RagnarModel.Store.FK__Usuario_r__id_us__7D0E9093">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Usuario_rol" EntitySet="Usuario_rol" />
           </AssociationSet>
@@ -298,7 +298,7 @@
           <Property Name="id_rol" Type="int" Nullable="false" />
           <Property Name="habilitado" Type="bit" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Cliente__id_usua__2B3F6F97">
+        <Association Name="FK__Cliente__id_usua__05A3D694">
           <End Role="Usuario" Type="RagnarModel.Store.Usuario" Multiplicity="1" />
           <End Role="Cliente" Type="RagnarModel.Store.Cliente" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -310,7 +310,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Compra__id_clien__49C3F6B7">
+        <Association Name="FK__Compra__id_clien__24285DB4">
           <End Role="Cliente" Type="RagnarModel.Store.Cliente" Multiplicity="1" />
           <End Role="Compra" Type="RagnarModel.Store.Compra" Multiplicity="*" />
           <ReferentialConstraint>
@@ -322,7 +322,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Empresa__id_usua__31EC6D26">
+        <Association Name="FK__Empresa__id_usua__0C50D423">
           <End Role="Usuario" Type="RagnarModel.Store.Usuario" Multiplicity="1" />
           <End Role="Empresa" Type="RagnarModel.Store.Empresa" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -334,7 +334,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Funcional__id_fu__1B0907CE">
+        <Association Name="FK__Funcional__id_fu__756D6ECB">
           <End Role="Funcionalidad" Type="RagnarModel.Store.Funcionalidad" Multiplicity="1" />
           <End Role="Funcionalidad_rol" Type="RagnarModel.Store.Funcionalidad_rol" Multiplicity="*" />
           <ReferentialConstraint>
@@ -346,7 +346,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Funcional__id_ro__1A14E395">
+        <Association Name="FK__Funcional__id_ro__74794A92">
           <End Role="Rol" Type="RagnarModel.Store.Rol" Multiplicity="1" />
           <End Role="Funcionalidad_rol" Type="RagnarModel.Store.Funcionalidad_rol" Multiplicity="*" />
           <ReferentialConstraint>
@@ -358,7 +358,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Item_fact__id_fa__71D1E811">
+        <Association Name="FK__Item_fact__id_fa__318258D2">
           <End Role="Factura" Type="RagnarModel.Store.Factura" Multiplicity="0..1" />
           <End Role="Item_factura" Type="RagnarModel.Store.Item_factura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -370,7 +370,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Item_fact__id_ub__70DDC3D8">
+        <Association Name="FK__Item_fact__id_ub__308E3499">
           <End Role="Ubicacion_publicacion" Type="RagnarModel.Store.Ubicacion_publicacion" Multiplicity="0..1" />
           <End Role="Item_factura" Type="RagnarModel.Store.Item_factura" Multiplicity="*" />
           <ReferentialConstraint>
@@ -382,7 +382,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Login_fal__id_us__276EDEB3">
+        <Association Name="FK__Login_fal__id_us__01D345B0">
           <End Role="Usuario" Type="RagnarModel.Store.Usuario" Multiplicity="1" />
           <End Role="Login_fallido" Type="RagnarModel.Store.Login_fallido" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -394,7 +394,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Publicaci__id_em__440B1D61">
+        <Association Name="FK__Publicaci__id_em__1E6F845E">
           <End Role="Empresa" Type="RagnarModel.Store.Empresa" Multiplicity="0..1" />
           <End Role="Publicacion" Type="RagnarModel.Store.Publicacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -406,7 +406,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Publicaci__id_es__44FF419A">
+        <Association Name="FK__Publicaci__id_es__1F63A897">
           <End Role="Estado_publicacion" Type="RagnarModel.Store.Estado_publicacion" Multiplicity="1" />
           <End Role="Publicacion" Type="RagnarModel.Store.Publicacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -418,7 +418,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Publicaci__id_gr__4316F928">
+        <Association Name="FK__Publicaci__id_gr__1D7B6025">
           <End Role="Grado_publicacion" Type="RagnarModel.Store.Grado_publicacion" Multiplicity="0..1" />
           <End Role="Publicacion" Type="RagnarModel.Store.Publicacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -430,7 +430,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Publicaci__id_ru__4222D4EF">
+        <Association Name="FK__Publicaci__id_ru__1C873BEC">
           <End Role="Rubro" Type="RagnarModel.Store.Rubro" Multiplicity="1" />
           <End Role="Publicacion" Type="RagnarModel.Store.Publicacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -442,7 +442,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Puntos_cl__id_cl__34C8D9D1">
+        <Association Name="FK__Puntos_cl__id_cl__0F2D40CE">
           <End Role="Cliente" Type="RagnarModel.Store.Cliente" Multiplicity="0..1" />
           <End Role="Puntos_cliente" Type="RagnarModel.Store.Puntos_cliente" Multiplicity="*" />
           <ReferentialConstraint>
@@ -454,7 +454,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Ubicacion__id_co__4F7CD00D">
+        <Association Name="FK__Ubicacion__id_co__29E1370A">
           <End Role="Compra" Type="RagnarModel.Store.Compra" Multiplicity="0..1" />
           <End Role="Ubicacion_publicacion" Type="RagnarModel.Store.Ubicacion_publicacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -466,7 +466,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Ubicacion__id_pu__4D94879B">
+        <Association Name="FK__Ubicacion__id_pu__27F8EE98">
           <End Role="Publicacion" Type="RagnarModel.Store.Publicacion" Multiplicity="0..1" />
           <End Role="Ubicacion_publicacion" Type="RagnarModel.Store.Ubicacion_publicacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -478,7 +478,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Ubicacion__id_ti__4E88ABD4">
+        <Association Name="FK__Ubicacion__id_ti__28ED12D1">
           <End Role="Tipo_ubicacion" Type="RagnarModel.Store.Tipo_ubicacion" Multiplicity="1" />
           <End Role="Ubicacion_publicacion" Type="RagnarModel.Store.Ubicacion_publicacion" Multiplicity="*" />
           <ReferentialConstraint>
@@ -490,7 +490,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Usuario_r__id_ro__239E4DCF">
+        <Association Name="FK__Usuario_r__id_ro__7E02B4CC">
           <End Role="Rol" Type="RagnarModel.Store.Rol" Multiplicity="1" />
           <End Role="Usuario_rol" Type="RagnarModel.Store.Usuario_rol" Multiplicity="*" />
           <ReferentialConstraint>
@@ -502,7 +502,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Usuario_r__id_us__22AA2996">
+        <Association Name="FK__Usuario_r__id_us__7D0E9093">
           <End Role="Usuario" Type="RagnarModel.Store.Usuario" Multiplicity="1" />
           <End Role="Usuario_rol" Type="RagnarModel.Store.Usuario_rol" Multiplicity="*" />
           <ReferentialConstraint>
@@ -514,6 +514,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="F_CantidadDePuntosNoVencidos" ReturnType="int" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="RAGNAR">
+          <Parameter Name="Cliente" Type="bigint" Mode="In" />
+          <Parameter Name="Fecha" Type="datetime" Mode="In" />
+        </Function>
         <Function Name="F_ClientesConMasCompras" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="RAGNAR">
           <Parameter Name="Fecha" Type="datetime" Mode="In" />
           <ReturnType>
@@ -584,6 +588,7 @@
         </Function>
         <Function Name="SP_RendicionDeComisiones" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="RAGNAR">
           <Parameter Name="CantidadAFacturar" Type="int" Mode="In" />
+          <Parameter Name="FechaDelSistema" Type="datetime" Mode="In" />
         </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -696,6 +701,7 @@
           </FunctionImport>
           <FunctionImport Name="SP_RendicionDeComisiones">
             <Parameter Name="CantidadAFacturar" Mode="In" Type="Int32" />
+            <Parameter Name="FechaDelSistema" Mode="In" Type="DateTime" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="Cliente">

@@ -189,7 +189,7 @@ namespace PalcoNet.Utils
                     hora = int.Parse(horayMinuto.Substring(0, 2));
                     minuto= int.Parse(horayMinuto.Substring(3, 2));
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                      throw new ValidationException("La " + nombreInput + " ingresada es invalida");
                 }
