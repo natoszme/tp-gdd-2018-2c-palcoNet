@@ -26,8 +26,7 @@ namespace PalcoNet.Views.RendicionComisiones
             {
                 using (RagnarEntities db = new RagnarEntities())
                 {
-                    //TODO sacar cuando se actualice el modeo
-                    //db.SP_RendicionDeComisiones(int.Parse(txtComprasARendir.Text), Global.fechaDeHoy());
+                    db.SP_RendicionDeComisiones(int.Parse(txtComprasARendir.Text), Global.fechaDeHoy());
                     actualizarDataGridView(db);
                 }
             }
