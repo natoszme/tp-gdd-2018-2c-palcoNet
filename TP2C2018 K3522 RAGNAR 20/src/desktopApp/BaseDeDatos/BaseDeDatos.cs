@@ -273,9 +273,11 @@ namespace PalcoNet.BaseDeDatos
 
         public static int obtenerPuntosNoVencidosDe(Cliente cliente)
         {
-            return cliente.Puntos_cliente
+            //TODO cambiar esto por la funcion de la db, cuando se actualice el modelo
+            /*return cliente.Puntos_cliente
                 .Where(puntaje => puntaje.vencimiento >= Global.fechaDeHoy())
-                .Select(puntaje => puntaje.puntos).ToList().Sum();
+                .Select(puntaje => puntaje.puntos).ToList().Sum();*/
+            return dbContext().Cliente.Select(F_CantidadDePuntosNoVencidos((int)cliente.id_usuario, Global.fechaDeHoy())).FirstOrDefault();
         }
 
         public static void clienteCompraPremio(RagnarEntities db, Cliente cliente, Premio premio)
