@@ -135,7 +135,8 @@ CREATE TABLE RAGNAR.Premio						(	id_premio int identity PRIMARY KEY,
 													puntos_necesarios int NOT NULL,
 													descripcion varchar(255) NOT NULL)
 
-CREATE TABLE RAGNAR.Canje_premio				(	id_premio int FOREIGN KEY references RAGNAR.Premio(id_premio),
+CREATE TABLE RAGNAR.Canje_premio				(	id_canje int identity PRIMARY KEY,
+													id_premio int FOREIGN KEY references RAGNAR.Premio(id_premio),
 													id_cliente bigint FOREIGN KEY references RAGNAR.Cliente(id_usuario),
 													fecha_canje datetime)
 
