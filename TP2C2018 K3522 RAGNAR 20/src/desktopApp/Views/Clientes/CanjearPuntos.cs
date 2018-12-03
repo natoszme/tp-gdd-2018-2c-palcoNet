@@ -75,15 +75,13 @@ namespace PalcoNet.Clientes
 
         private int puntosCliente()
         {
+            //TODO cambiar esto por la funcion de la db, cuando se actualice el modelo
             return BaseDeDatos.BaseDeDatos.obtenerPuntosNoVencidosDe(cliente);
         }
 
         private void actualizarPuntosDisponibles()
         {
-            if (cliente != null)
-            {
-                lblPuntosDisponibles.Text = puntosCliente().ToString();
-            }
+            lblPuntosDisponibles.Text = puntosCliente().ToString();
         }
     }
 }
