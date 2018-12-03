@@ -323,6 +323,9 @@
     <EmbeddedResource Include="Views\Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Publicaciones\ComprarEntrada.resx">
+      <DependentUpon>ComprarEntrada.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Publicaciones\GenerarUbicaciones.resx">
       <DependentUpon>GenerarUbicaciones.cs</DependentUpon>
     </EmbeddedResource>

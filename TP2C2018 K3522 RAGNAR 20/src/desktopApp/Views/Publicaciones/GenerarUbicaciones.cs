@@ -20,8 +20,8 @@ namespace PalcoNet.Views.Publicaciones
         public List<Ubicacion_publicacion> ubicaciones;
         Label lblCantUbicaciones;
         Publicacion publicacionActual;
-        RagnarEntities db;
-        public GenerarUbicaciones(Label lblUbicaciones, Publicacion publicacion, RagnarEntities contexto)
+       
+        public GenerarUbicaciones(Label lblUbicaciones, Publicacion publicacion)
         {
            /* Ubicacion nuevaUbicacion = new Ubicacion(1, 1, 10, new Tipo_ubicacion(), true);
             ubicaciones.Add(nuevaUbicacion);
@@ -31,7 +31,7 @@ namespace PalcoNet.Views.Publicaciones
             ubicaciones = new List<Ubicacion_publicacion>();
             lblCantUbicaciones = lblUbicaciones;
             publicacionActual = publicacion;
-            db = contexto;
+         
             
         }
 
@@ -59,9 +59,36 @@ namespace PalcoNet.Views.Publicaciones
             string filaIngresada = txtFila.Text;
             string asientoIngresado = txtAsiento.Text;
             if (ubicacionValida()) {
-                MessageBox.Show("Ubicacion creada con exito");
-                dgvUbicaciones.DataSource = ubicaciones;
+                if (!esUbicacionRepetida())
+                {  
+                    
+                    using(RagnarEntities db = new RagnarEntities())
+                    {
+                        asignarEntidades(db);
+                        dgvUbicaciones.DataSource = ubicaciones;
+                        MessageBox.Show("Ubicacion creada con exito");
+                        lblCantUbicaciones.Text = "Ubicaciones cargadas = " + ubicaciones.Count; //Actualiza el lbl del formulario de alta
+                    }
+                    
+                }
             }
+        }
+
+        private bool esUbicacionRepetida()
+        {
+            Ubicacion_publicacion nuevaUbicacion = new Ubicacion_publicacion();
+            nuevaUbicacion.precio = int.Parse(txtPrecio.Text);
+            nuevaUbicacion.Tipo_ubicacion = BaseDeDatos.BaseDeDatos.tipoUbicacionPorDescripcion(WindowsFormUtils.textoSeleccionadoDe(cboTipo));
+            nuevaUbicacion.sin_numerar = cbxNumerada.Checked;
+            nuevaUbicacion.Publicacion = publicacionActual;
+            nuevaUbicacion.fila = txtFila.Text;
+            nuevaUbicacion.asiento = int.Parse(txtAsiento.Text);
+            if (ubicaciones.Any(ubicacion => esMismaUbicacion(ubicacion, nuevaUbicacion)))
+            {
+                WindowsFormUtils.mensajeDeError("Esa ubicacion ya esta ingresada");
+                 return true;
+            }
+            return false;
         }
 
         private bool ubicacionValida() {
@@ -81,31 +108,8 @@ namespace PalcoNet.Views.Publicaciones
                 WindowsFormUtils.mensajeDeError(e.Message);
                 return false;
             }
-
-
-            //Ubicacion_publicacion nuevaUbicacion = new Ubicacion_publicacion(int.Parse(txtFila.Text), int.Parse(txtAsiento.Text), int.Parse(txtPrecio.Text), new Tipo_ubicacion(), cbxNumerada.Checked);
-            Ubicacion_publicacion nuevaUbicacion = new Ubicacion_publicacion();
-            nuevaUbicacion.precio = int.Parse(txtPrecio.Text);
-            nuevaUbicacion.Tipo_ubicacion = BaseDeDatos.BaseDeDatos.tipoUbicacionPorDescripcion(db,WindowsFormUtils.textoSeleccionadoDe(cboTipo));
-            nuevaUbicacion.sin_numerar = cbxNumerada.Checked;
-            nuevaUbicacion.Publicacion = publicacionActual;
-            nuevaUbicacion.fila = txtFila.Text;
-            nuevaUbicacion.asiento = int.Parse(txtAsiento.Text);
-           
-
-               
-
-            if (ubicaciones.Any(ubicacion => esMismaUbicacion(ubicacion, nuevaUbicacion))) {
-                WindowsFormUtils.mensajeDeError("Esa ubicacion ya esta ingresada");
-            } else {
-                ubicaciones.Add(nuevaUbicacion);
-                lblCantUbicaciones.Text = "Ubicaciones cargadas = " + ubicaciones.Count;
-                return true;
-            }
-
-       
-
-            return false ;
+            return true;
+            
         }
 
 
@@ -121,7 +125,28 @@ namespace PalcoNet.Views.Publicaciones
         private void btnFinalizar_Click(object sender, EventArgs e)
         {
 
-            this.Hide();
+            using (RagnarEntities db = new RagnarEntities())
+            {
+                WindowsFormUtils.guardarYCerrar(db, this);
+            }
+
+           /* asignarEntidades(db);
+            formListado.actualizarDataGriedView();
+            WindowsFormUtils.guardarYCerrar(db, this);
+            this.Hide();*/
+        }
+
+        void asignarEntidades(RagnarEntities db)
+        {
+            Ubicacion_publicacion nuevaUbicacion = new Ubicacion_publicacion();
+            nuevaUbicacion.precio = int.Parse(txtPrecio.Text);
+            nuevaUbicacion.Tipo_ubicacion = BaseDeDatos.BaseDeDatos.tipoUbicacionPorDescripcion(db,WindowsFormUtils.textoSeleccionadoDe(cboTipo));
+            nuevaUbicacion.sin_numerar = cbxNumerada.Checked;
+            nuevaUbicacion.Publicacion = publicacionActual;
+            nuevaUbicacion.fila = txtFila.Text;
+            nuevaUbicacion.asiento = int.Parse(txtAsiento.Text);
+            db.Ubicacion_publicacion.Add(nuevaUbicacion);
+            ubicaciones.Add(nuevaUbicacion);
         }
     }
 }

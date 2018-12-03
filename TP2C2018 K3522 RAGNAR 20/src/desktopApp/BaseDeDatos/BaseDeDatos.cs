@@ -112,6 +112,11 @@ namespace PalcoNet.BaseDeDatos
                 .FirstOrDefault();
         }
 
+        internal static Tipo_ubicacion tipoUbicacionPorDescripcion(String descripcion)
+        {
+            return tipoUbicacionPorDescripcion(dbContext(), descripcion);
+        }
+
         internal static Tipo_ubicacion tipoUbicacionPorDescripcion(RagnarEntities db, String descripcion)
         {
             return db.Tipo_ubicacion
@@ -159,19 +164,26 @@ namespace PalcoNet.BaseDeDatos
                 .FirstOrDefault();
         }
 
-        internal static int cantidadUbicacionesDePublicacion(RagnarEntities db, Publicacion publicacion)
-        {
-            return db.Ubicacion_publicacion
-                .Where(ubic => ubic.id_publicacion.Equals(publicacion.id_publicacion))
-                .Count();
-        }
-        internal static List<Ubicacion_publicacion> ubicacionesDePublicacion(RagnarEntities db, Publicacion publicacion)
+        internal static int cantidadUbicacionesDePublicacion(int id)
         {
             return dbContext().Ubicacion_publicacion
-                .Where(ubic => ubic.id_publicacion.Equals(publicacion.id_publicacion))
+                .Where(ubic => ubic.id_publicacion==id)
+                .Count();
+        }
+        internal static List<Ubicacion_publicacion> ubicacionesDePublicacion(RagnarEntities db, int idPublicacion)
+        {
+            return db.Ubicacion_publicacion
+                .Where(ubic => ubic.id_publicacion == idPublicacion)
                 .ToList();
         }
-
+        internal static List<Ubicacion_publicacion> ubicacionesDePublicacion(int idPublicacion)
+        {
+            return ubicacionesDePublicacion(dbContext(), idPublicacion);
+        }
+       /* internal static List<Ubicacion_publicacion> ubicacionesDePublicacion(Publicacion publicacion)
+        {
+            return ubicacionesDePublicacion(dv
+        }*/
 
         #region SQLFunctions
         // Sirve para usar la funcion generada desde SQL
