@@ -59,7 +59,12 @@ namespace PalcoNet.Usuarios
             if (PersonalizacionPass.seEstaPersonalizandoPass)
             {
                 PersonalizacionPass.personalizacionPassFinalizo = false;
-                WindowsFormUtils.mensajeDeError("Advertencia: debe solicitar al administrador que le proporcione una nueva contraseña");
+                DialogResult respuestaNoDiagonalidad = MessageBox.Show("La contraseña que le fue proporcionada tiene validez para un único acceso. Si sale, deberá solicitar al administrador que le proporcione una nueva. ¿Desea salir?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (respuestaNoDiagonalidad == System.Windows.Forms.DialogResult.No)
+                {
+                    return;
+                }
             }
 
             this.Hide();
