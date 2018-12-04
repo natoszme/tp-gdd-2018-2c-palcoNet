@@ -40,6 +40,9 @@
         <AssociationConnector Association="RagnarModel.FK__Ubicacion__id_ti__4E88ABD4" />
         <AssociationConnector Association="RagnarModel.FK__Usuario_r__id_us__22AA2996" />
         <AssociationConnector Association="RagnarModel.Funcionalidad_rol" />
+        <EntityTypeShape EntityType="RagnarModel.Canje_premio" Width="1.5" PointX="9.3792656442985241" PointY="19.876544738130896" />
+        <AssociationConnector Association="RagnarModel.FK__Canje_pre__id_cl__5D60DB10" />
+        <AssociationConnector Association="RagnarModel.FK__Canje_pre__id_pr__5C6CB6D7" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
