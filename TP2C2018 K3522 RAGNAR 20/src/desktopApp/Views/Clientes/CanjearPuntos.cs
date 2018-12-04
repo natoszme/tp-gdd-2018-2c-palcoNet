@@ -48,6 +48,7 @@ namespace PalcoNet.Clientes
             DataGridViewUtils.actualizarDataGriedView(dgvPremios, premiosOrdenados, "id_premio");
         }
 
+        //TODO testear
         private void btnCanjearPremio_Click(object sender, EventArgs e)
         {
             int? id = DataGridViewUtils.obtenerIdSeleccionado(dgvPremios);
