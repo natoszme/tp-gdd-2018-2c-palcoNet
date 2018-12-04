@@ -14,18 +14,19 @@ namespace PalcoNet.Model
     using System.Data.Entity.Infrastructure;
     using System.Data.Entity.Core.Objects;
     using System.Linq;
-    
+
     public partial class RagnarEntities : DbContext
     {
-        public RagnarEntities() : base(Utils.ConfigReader.getInstance().connectionString)
+        public RagnarEntities()
+            : base(Utils.ConfigReader.getInstance().connectionString)
         {
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+
         public DbSet<Cliente> Cliente { get; set; }
         public DbSet<Compra> Compra { get; set; }
         public DbSet<Empresa> Empresa { get; set; }
@@ -44,14 +45,14 @@ namespace PalcoNet.Model
         public DbSet<Ubicacion_publicacion> Ubicacion_publicacion { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Usuario_rol> Usuario_rol { get; set; }
-    
+
         [DbFunction("RagnarEntities", "F_ClientesConMasCompras")]
         public virtual IQueryable<F_ClientesConMasCompras_Result> F_ClientesConMasCompras(Nullable<System.DateTime> fecha)
         {
             var fechaParameter = fecha.HasValue ?
                 new ObjectParameter("Fecha", fecha) :
                 new ObjectParameter("Fecha", typeof(System.DateTime));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<F_ClientesConMasCompras_Result>("[RagnarEntities].[F_ClientesConMasCompras](@Fecha)", fechaParameter);
         }
 
@@ -61,7 +62,7 @@ namespace PalcoNet.Model
             var fechaParameter = fecha.HasValue ?
                 new ObjectParameter("Fecha", fecha) :
                 new ObjectParameter("Fecha", typeof(System.DateTime));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<F_ClientesConMasPuntosVencidos_Result>("[RagnarEntities].[F_ClientesConMasPuntosVencidos](@Fecha)", fechaParameter);
         }
 
@@ -71,7 +72,7 @@ namespace PalcoNet.Model
             var clienteParameter = cliente.HasValue ?
                 new ObjectParameter("Cliente", cliente) :
                 new ObjectParameter("Cliente", typeof(long));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<F_HistorialDeCliente_Result>("[RagnarEntities].[F_HistorialDeCliente](@Cliente)", clienteParameter);
         }
 
@@ -81,41 +82,41 @@ namespace PalcoNet.Model
             var id_gradoParameter = id_grado.HasValue ?
                 new ObjectParameter("Id_grado", id_grado) :
                 new ObjectParameter("Id_grado", typeof(int));
-    
+
             var mesParameter = mes != null ?
                 new ObjectParameter("Mes", mes) :
                 new ObjectParameter("Mes", typeof(string));
-    
+
             var anioParameter = anio != null ?
                 new ObjectParameter("Anio", anio) :
                 new ObjectParameter("Anio", typeof(string));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<F_EmpresasConMasLocalidadesNoVencidas_Result>("[RagnarEntities].[F_EmpresasConMasLocalidadesNoVencidas](@Id_grado, @Mes, @Anio)", id_gradoParameter, mesParameter, anioParameter);
         }
-    
+
         public virtual int SP_LoginDeUsuario(string usuario, string clave)
         {
             var usuarioParameter = usuario != null ?
                 new ObjectParameter("Usuario", usuario) :
                 new ObjectParameter("Usuario", typeof(string));
-    
+
             var claveParameter = clave != null ?
                 new ObjectParameter("Clave", clave) :
                 new ObjectParameter("Clave", typeof(string));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_LoginDeUsuario", usuarioParameter, claveParameter);
         }
-    
+
         public virtual int SP_RendicionDeComisiones(Nullable<int> cantidadAFacturar, Nullable<System.DateTime> fechaDelSistema)
         {
             var cantidadAFacturarParameter = cantidadAFacturar.HasValue ?
                 new ObjectParameter("CantidadAFacturar", cantidadAFacturar) :
                 new ObjectParameter("CantidadAFacturar", typeof(int));
-    
+
             var fechaDelSistemaParameter = fechaDelSistema.HasValue ?
                 new ObjectParameter("FechaDelSistema", fechaDelSistema) :
                 new ObjectParameter("FechaDelSistema", typeof(System.DateTime));
-    
+
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_RendicionDeComisiones", cantidadAFacturarParameter, fechaDelSistemaParameter);
         }
     }

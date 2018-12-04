@@ -6,6 +6,7 @@
     <edmx:StorageModels>
     <Schema Namespace="RagnarModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="RagnarModelStoreContainer">
+          <EntitySet Name="Canje_premio" EntityType="RagnarModel.Store.Canje_premio" store:Type="Tables" Schema="RAGNAR" />
           <EntitySet Name="Cliente" EntityType="RagnarModel.Store.Cliente" store:Type="Tables" Schema="RAGNAR" />
           <EntitySet Name="Compra" EntityType="RagnarModel.Store.Compra" store:Type="Tables" Schema="RAGNAR" />
           <EntitySet Name="Empresa" EntityType="RagnarModel.Store.Empresa" store:Type="Tables" Schema="RAGNAR" />
@@ -25,6 +26,14 @@
           <EntitySet Name="Ubicacion_publicacion" EntityType="RagnarModel.Store.Ubicacion_publicacion" store:Type="Tables" Schema="RAGNAR" />
           <EntitySet Name="Usuario" EntityType="RagnarModel.Store.Usuario" store:Type="Tables" Schema="RAGNAR" />
           <EntitySet Name="Usuario_rol" EntityType="RagnarModel.Store.Usuario_rol" store:Type="Tables" Schema="RAGNAR" />
+          <AssociationSet Name="FK__Canje_pre__id_cl__5D60DB10" Association="RagnarModel.Store.FK__Canje_pre__id_cl__5D60DB10">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Canje_premio" EntitySet="Canje_premio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Canje_pre__id_pr__5C6CB6D7" Association="RagnarModel.Store.FK__Canje_pre__id_pr__5C6CB6D7">
+            <End Role="Premio" EntitySet="Premio" />
+            <End Role="Canje_premio" EntitySet="Canje_premio" />
+          </AssociationSet>
           <AssociationSet Name="FK__Cliente__id_usua__05A3D694" Association="RagnarModel.Store.FK__Cliente__id_usua__05A3D694">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Cliente" EntitySet="Cliente" />
@@ -98,6 +107,15 @@
             <End Role="Usuario_rol" EntitySet="Usuario_rol" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Canje_premio">
+          <Key>
+            <PropertyRef Name="id_canje" />
+          </Key>
+          <Property Name="id_canje" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="id_premio" Type="int" />
+          <Property Name="id_cliente" Type="bigint" />
+          <Property Name="fecha_canje" Type="datetime" />
+        </EntityType>
         <EntityType Name="Cliente">
           <Key>
             <PropertyRef Name="id_usuario" />
@@ -298,6 +316,30 @@
           <Property Name="id_rol" Type="int" Nullable="false" />
           <Property Name="habilitado" Type="bit" Nullable="false" />
         </EntityType>
+        <Association Name="FK__Canje_pre__id_cl__5D60DB10">
+          <End Role="Cliente" Type="RagnarModel.Store.Cliente" Multiplicity="0..1" />
+          <End Role="Canje_premio" Type="RagnarModel.Store.Canje_premio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Canje_premio">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Canje_pre__id_pr__5C6CB6D7">
+          <End Role="Premio" Type="RagnarModel.Store.Premio" Multiplicity="0..1" />
+          <End Role="Canje_premio" Type="RagnarModel.Store.Canje_premio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Premio">
+              <PropertyRef Name="id_premio" />
+            </Principal>
+            <Dependent Role="Canje_premio">
+              <PropertyRef Name="id_premio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Cliente__id_usua__05A3D694">
           <End Role="Usuario" Type="RagnarModel.Store.Usuario" Multiplicity="1" />
           <End Role="Cliente" Type="RagnarModel.Store.Cliente" Multiplicity="0..1" />
@@ -703,6 +745,15 @@
             <Parameter Name="CantidadAFacturar" Mode="In" Type="Int32" />
             <Parameter Name="FechaDelSistema" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <EntitySet Name="Canje_premio" EntityType="RagnarModel.Canje_premio" />
+          <AssociationSet Name="FK__Canje_pre__id_cl__5D60DB10" Association="RagnarModel.FK__Canje_pre__id_cl__5D60DB10">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Canje_premio" EntitySet="Canje_premio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Canje_pre__id_pr__5C6CB6D7" Association="RagnarModel.FK__Canje_pre__id_pr__5C6CB6D7">
+            <End Role="Premio" EntitySet="Premio" />
+            <End Role="Canje_premio" EntitySet="Canje_premio" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Cliente">
           <Key>
@@ -728,6 +779,7 @@
           <NavigationProperty Name="Usuario" Relationship="RagnarModel.FK__Cliente__id_usua__2B3F6F97" FromRole="Cliente" ToRole="Usuario" />
           <NavigationProperty Name="Compra" Relationship="RagnarModel.FK__Compra__id_clien__49C3F6B7" FromRole="Cliente" ToRole="Compra" />
           <NavigationProperty Name="Puntos_cliente" Relationship="RagnarModel.FK__Puntos_cl__id_cl__34C8D9D1" FromRole="Cliente" ToRole="Puntos_cliente" />
+          <NavigationProperty Name="Canje_premio" Relationship="RagnarModel.FK__Canje_pre__id_cl__5D60DB10" FromRole="Cliente" ToRole="Canje_premio" />
         </EntityType>
         <EntityType Name="Compra">
           <Key>
@@ -825,6 +877,7 @@
           <Property Type="Int32" Name="id_premio" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int32" Name="puntos_necesarios" Nullable="false" />
           <Property Type="String" Name="descripcion" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Canje_premio" Relationship="RagnarModel.FK__Canje_pre__id_pr__5C6CB6D7" FromRole="Premio" ToRole="Canje_premio" />
         </EntityType>
         <EntityType Name="Publicacion">
           <Key>
@@ -1157,6 +1210,41 @@
           <Property Type="String" Name="razon_social" Nullable="false" MaxLength="255" />
           <Property Type="Int32" Name="cantidadVendida" Nullable="true" />
         </ComplexType>
+        <EntityType Name="Canje_premio">
+          <Key>
+            <PropertyRef Name="id_canje" />
+          </Key>
+          <Property Type="Int32" Name="id_canje" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="id_premio" />
+          <Property Type="Int64" Name="id_cliente" />
+          <Property Type="DateTime" Name="fecha_canje" Precision="3" />
+          <NavigationProperty Name="Cliente" Relationship="RagnarModel.FK__Canje_pre__id_cl__5D60DB10" FromRole="Canje_premio" ToRole="Cliente" />
+          <NavigationProperty Name="Premio" Relationship="RagnarModel.FK__Canje_pre__id_pr__5C6CB6D7" FromRole="Canje_premio" ToRole="Premio" />
+        </EntityType>
+        <Association Name="FK__Canje_pre__id_cl__5D60DB10">
+          <End Type="RagnarModel.Cliente" Role="Cliente" Multiplicity="0..1" />
+          <End Type="RagnarModel.Canje_premio" Role="Canje_premio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Canje_premio">
+              <PropertyRef Name="id_cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Canje_pre__id_pr__5C6CB6D7">
+          <End Type="RagnarModel.Premio" Role="Premio" Multiplicity="0..1" />
+          <End Type="RagnarModel.Canje_premio" Role="Canje_premio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Premio">
+              <PropertyRef Name="id_premio" />
+            </Principal>
+            <Dependent Role="Canje_premio">
+              <PropertyRef Name="id_premio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1429,6 +1517,16 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="SP_LoginDeUsuario" FunctionName="RagnarModel.Store.SP_LoginDeUsuario" />
           <FunctionImportMapping FunctionImportName="SP_RendicionDeComisiones" FunctionName="RagnarModel.Store.SP_RendicionDeComisiones" />
+          <EntitySetMapping Name="Canje_premio">
+            <EntityTypeMapping TypeName="RagnarModel.Canje_premio">
+              <MappingFragment StoreEntitySet="Canje_premio">
+                <ScalarProperty Name="fecha_canje" ColumnName="fecha_canje" />
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+                <ScalarProperty Name="id_premio" ColumnName="id_premio" />
+                <ScalarProperty Name="id_canje" ColumnName="id_canje" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

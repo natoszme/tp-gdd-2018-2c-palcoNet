@@ -71,6 +71,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Headspring\Enumeration.cs" />
+    <Compile Include="Model\Canje_premio.cs">
+      <DependentUpon>EntityModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Cliente.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>

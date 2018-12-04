@@ -18,6 +18,7 @@ namespace PalcoNet.Model
         {
             this.Compra = new HashSet<Compra>();
             this.Puntos_cliente = new HashSet<Puntos_cliente>();
+            this.Canje_premio = new HashSet<Canje_premio>();
         }
     
         public long id_usuario { get; set; }
@@ -41,5 +42,6 @@ namespace PalcoNet.Model
         public virtual Usuario Usuario { get; set; }
         public virtual ICollection<Compra> Compra { get; set; }
         public virtual ICollection<Puntos_cliente> Puntos_cliente { get; set; }
+        public virtual ICollection<Canje_premio> Canje_premio { get; set; }
     }
 }

@@ -280,8 +280,14 @@ namespace PalcoNet.BaseDeDatos
 
         public static void clienteCompraPremio(RagnarEntities db, Cliente cliente, Premio premio)
         {
-            //TODO compra el premio. santi esta haciendo trigger para que al hacer insert sobre Canje_premio, se resten los puntos
-            //cliente.Premio.Add(premio);
+            //TODO terminar. el cliente adquiere el premio. santi esta haciendo trigger para que al hacer insert sobre Canje_premio, se resten los puntos
+            Canje_premio canjePremio = new Canje_premio()
+            {
+                Premio = premio,
+                fecha_canje = Global.fechaDeHoy()
+            };
+
+            cliente.Canje_premio.Add(canjePremio);
         }
 
         internal static Empresa obtenerEmpresaPorId(RagnarEntities db, int idEmpresa)

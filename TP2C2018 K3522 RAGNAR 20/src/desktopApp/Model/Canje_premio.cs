@@ -12,17 +12,14 @@ namespace PalcoNet.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Premio
+    public partial class Canje_premio
     {
-        public Premio()
-        {
-            this.Canje_premio = new HashSet<Canje_premio>();
-        }
+        public int id_canje { get; set; }
+        public Nullable<int> id_premio { get; set; }
+        public Nullable<long> id_cliente { get; set; }
+        public Nullable<System.DateTime> fecha_canje { get; set; }
     
-        public int id_premio { get; set; }
-        public int puntos_necesarios { get; set; }
-        public string descripcion { get; set; }
-    
-        public virtual ICollection<Canje_premio> Canje_premio { get; set; }
+        public virtual Cliente Cliente { get; set; }
+        public virtual Premio Premio { get; set; }
     }
 }
