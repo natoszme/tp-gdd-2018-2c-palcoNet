@@ -17,7 +17,7 @@ namespace PalcoNet.Views.Publicaciones
     public partial class GenerarUbicaciones : Form
     {
 
-        public List<Ubicacion_publicacion> ubicaciones;
+       // public List<Ubicacion_publicacion> ubicaciones;
         Label lblCantUbicaciones;
         Publicacion publicacionActual;
        
@@ -28,7 +28,7 @@ namespace PalcoNet.Views.Publicaciones
             dgvUbicaciones.DataSource = ubicaciones;*/
             InitializeComponent();
             cargarComboTipo();
-            ubicaciones = new List<Ubicacion_publicacion>();
+           // ubicaciones = new List<Ubicacion_publicacion>();
             lblCantUbicaciones = lblUbicaciones;
             publicacionActual = publicacion;
          
@@ -62,13 +62,13 @@ namespace PalcoNet.Views.Publicaciones
                 if (!esUbicacionRepetida())
                 {  
                     
-                    using(RagnarEntities db = new RagnarEntities())
-                    {
-                        asignarEntidades(db);
-                        dgvUbicaciones.DataSource = ubicaciones;
+                   /* using(RagnarEntities db = UbicacionesGlobal.contextoGlobal)
+                    {*/
+                        asignarEntidades(UbicacionesGlobal.contextoGlobal);
+                        dgvUbicaciones.DataSource = UbicacionesGlobal.ubicaciones;
                         MessageBox.Show("Ubicacion creada con exito");
-                        lblCantUbicaciones.Text = "Ubicaciones cargadas = " + ubicaciones.Count; //Actualiza el lbl del formulario de alta
-                    }
+                        lblCantUbicaciones.Text = "Ubicaciones cargadas = " + UbicacionesGlobal.ubicaciones.Count; //Actualiza el lbl del formulario de alta
+                   // }
                     
                 }
             }
@@ -83,7 +83,7 @@ namespace PalcoNet.Views.Publicaciones
             nuevaUbicacion.Publicacion = publicacionActual;
             nuevaUbicacion.fila = txtFila.Text;
             nuevaUbicacion.asiento = int.Parse(txtAsiento.Text);
-            if (ubicaciones.Any(ubicacion => esMismaUbicacion(ubicacion, nuevaUbicacion)))
+            if (UbicacionesGlobal.ubicaciones.Any(ubicacion => esMismaUbicacion(ubicacion, nuevaUbicacion)))
             {
                 WindowsFormUtils.mensajeDeError("Esa ubicacion ya esta ingresada");
                  return true;
@@ -119,34 +119,38 @@ namespace PalcoNet.Views.Publicaciones
         }
 
         private void GenerarUbicaciones_Load(object sender, EventArgs e) {
-            dgvUbicaciones.DataSource = ubicaciones;
+            dgvUbicaciones.DataSource = UbicacionesGlobal.ubicaciones;
         }
 
         private void btnFinalizar_Click(object sender, EventArgs e)
         {
-
-            using (RagnarEntities db = new RagnarEntities())
+            /*
+            using (RagnarEntities db = UbicacionesGlobal.contextoGlobal)
             {
                 WindowsFormUtils.guardarYCerrar(db, this);
-            }
+            }*/
+            this.Close();
 
            /* asignarEntidades(db);
             formListado.actualizarDataGriedView();
             WindowsFormUtils.guardarYCerrar(db, this);
             this.Hide();*/
         }
-
+        Ubicacion_publicacion nuevaUbicacion;
         void asignarEntidades(RagnarEntities db)
         {
-            Ubicacion_publicacion nuevaUbicacion = new Ubicacion_publicacion();
+            nuevaUbicacion = new Ubicacion_publicacion();
             nuevaUbicacion.precio = int.Parse(txtPrecio.Text);
             nuevaUbicacion.Tipo_ubicacion = BaseDeDatos.BaseDeDatos.tipoUbicacionPorDescripcion(db,WindowsFormUtils.textoSeleccionadoDe(cboTipo));
             nuevaUbicacion.sin_numerar = cbxNumerada.Checked;
             nuevaUbicacion.Publicacion = publicacionActual;
             nuevaUbicacion.fila = txtFila.Text;
             nuevaUbicacion.asiento = int.Parse(txtAsiento.Text);
-            db.Ubicacion_publicacion.Add(nuevaUbicacion);
-            ubicaciones.Add(nuevaUbicacion);
+
+            UbicacionesGlobal.ubicaciones.Add(nuevaUbicacion);
+            
+            /*db.Ubicacion_publicacion.Add(nuevaUbicacion);
+            ubicaciones.Add(nuevaUbicacion);*/
         }
     }
 }

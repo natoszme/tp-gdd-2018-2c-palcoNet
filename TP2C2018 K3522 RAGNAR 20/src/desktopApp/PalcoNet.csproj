@@ -194,7 +194,7 @@
     <Compile Include="Views\Publicaciones\GenerarUbicaciones.Designer.cs">
       <DependentUpon>GenerarUbicaciones.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Publicaciones\Ubicaciones.cs" />
+    <Compile Include="Views\Publicaciones\UbicacionesGlobal.cs" />
     <Compile Include="Views\RendicionComisiones\Listado.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using PalcoNet.Model;
 using PalcoNet.Utils;
 using PalcoNet.Views.Usuarios;
+using PalcoNet.Views.Publicaciones;
 
 namespace PalcoNet.Publicaciones
 {
@@ -32,7 +33,7 @@ namespace PalcoNet.Publicaciones
             if (editando())
             {           
                 cargarDatos();
-                lblCantUbicaciones.Text = "Ubicaciones cargadas = " + BaseDeDatos.BaseDeDatos.cantidadUbicacionesDePublicacion((int)id);
+                lblCantUbicaciones.Text = "Ubicaciones cargadas = " + UbicacionesGlobal.ubicaciones.Count;
                 btnAgregarFecha.Text = "Modificar fecha";
             }    
         }
@@ -44,23 +45,22 @@ namespace PalcoNet.Publicaciones
 
         private void btnGuardarBorrador_Click(object sender, EventArgs e)
         {
-            using (RagnarEntities db = new RagnarEntities())
+            
+            if (camposYDominioValidos())
             {
-                if (camposYDominioValidos())
-                {
-                    MessageBox.Show("Todo valido");
+                MessageBox.Show("Todo valido");
 
 
-                    asignarEntidades(db);
-                    formListado.actualizarDataGriedView();
-                    WindowsFormUtils.guardarYCerrar(db, this);
+                asignarEntidades(UbicacionesGlobal.contextoGlobal);
+                formListado.actualizarDataGriedView();
+                WindowsFormUtils.guardarYCerrar(UbicacionesGlobal.contextoGlobal, this);
                     
-                }
-                else
-                {
-                    return;
-                }
             }
+            else
+            {
+                return;
+            }
+            
 
         }
 
@@ -128,7 +128,7 @@ namespace PalcoNet.Publicaciones
                 publicacion = db.Publicacion.Find(id);
             }
             foreach(DateTime fecha in fechas){
-                publicacion.id_publicacion =(long) id;
+                //publicacion.id_publicacion =(long) id;
                 publicacion.descripcion = txtDescripcion.Text;
                 publicacion.direccion = txtDireccion.Text;
                 publicacion.Estado_publicacion = BaseDeDatos.BaseDeDatos.estadoDePublicacionPorNombre(db,"Borrador");
@@ -139,9 +139,12 @@ namespace PalcoNet.Publicaciones
                 publicacion.Empresa = Global.obtenerUsuarioLogueado(db).Empresa;
                 publicacion.fecha_publicacion = Global.fechaDeHoy();
                 publicacion.fecha_vencimiento = fecha;
-                foreach (Ubicacion_publicacion ubicacion in BaseDeDatos.BaseDeDatos.ubicacionesDePublicacion(db, (int)id))
+                foreach (Ubicacion_publicacion ubicacion in UbicacionesGlobal.ubicaciones)
                 {
+                    ubicacion.Publicacion = publicacion;
+                    db.Ubicacion_publicacion.Add(ubicacion);
                     publicacion.Ubicacion_publicacion.Add(ubicacion);
+                    
                 }
                 
                 if (!editando())
@@ -279,7 +282,7 @@ namespace PalcoNet.Publicaciones
             {
                 return;
             }
-            if (BaseDeDatos.BaseDeDatos.cantidadUbicacionesDePublicacion((int)id)>0)
+            if (UbicacionesGlobal.ubicaciones.Count<0)
             {
                 throw new ValidationException("Debe haber al menos una ubicacion cargada");
             }
@@ -289,7 +292,7 @@ namespace PalcoNet.Publicaciones
         private void stockMenorAUbicaciones()
         {
 
-            if (int.Parse(txtStock.Text) > BaseDeDatos.BaseDeDatos.cantidadUbicacionesDePublicacion((int)id))
+            if (int.Parse(txtStock.Text) > UbicacionesGlobal.ubicaciones.Count)
             {
                 throw new ValidationException("El stock no puede ser mayor a las ubicaciones disponibles");
             }
@@ -310,29 +313,29 @@ namespace PalcoNet.Publicaciones
         #region CARGADATOS
         override protected void cargarDatos()
         {
-            using (RagnarEntities db = new RagnarEntities())
+            
+            try
             {
-                try
-                {
-                    publicacion = db.Publicacion.Find(id);
-                    txtStock.Text = publicacion.stock.ToString();
-                    txtHora.Text = publicacion.fecha_espectaculo.Hour + ":" + publicacion.fecha_espectaculo.Minute;
-                    txtDireccion.Text = publicacion.direccion;
-                    txtDescripcion.Text = publicacion.descripcion;
-                    dtpFecha.Value = (System.DateTime)publicacion.fecha_publicacion;
-                    fechas.Add((System.DateTime)publicacion.fecha_publicacion);
-                    cmbGradoPublicacion.Text = publicacion.Grado_publicacion.descripcion;
-                    cmbRubro.Text = publicacion.Rubro.descripcion;
-                   
+                publicacion = UbicacionesGlobal.contextoGlobal.Publicacion.Find(id);
+                txtStock.Text = publicacion.stock.ToString();
+                txtHora.Text = publicacion.fecha_espectaculo.Hour + ":" + publicacion.fecha_espectaculo.Minute;
+                txtDireccion.Text = publicacion.direccion;
+                txtDescripcion.Text = publicacion.descripcion;
+                dtpFecha.Value = (System.DateTime)publicacion.fecha_publicacion;
+                fechas.Add((System.DateTime)publicacion.fecha_publicacion);
+                cmbGradoPublicacion.Text = publicacion.Grado_publicacion.descripcion;
+                cmbRubro.Text = publicacion.Rubro.descripcion;
 
+                UbicacionesGlobal.ubicaciones = BaseDeDatos.BaseDeDatos.ubicacionesDePublicacion(UbicacionesGlobal.contextoGlobal,(int)id);
 
-                }
-                catch (Exception)
-                {
-                    WindowsFormUtils.mensajeDeError("Error al intentar cargar a la publicacion");
-                }
 
             }
+            catch (Exception)
+            {
+                WindowsFormUtils.mensajeDeError("Error al intentar cargar a la publicacion");
+            }
+
+            
         }
         #endregion
 
