@@ -75,7 +75,7 @@ namespace PalcoNet.Clientes
 
         private int puntosCliente()
         {
-            return BaseDeDatos.BaseDeDatos.obtenerPuntosNoVencidosDe(cliente);
+            return BaseDeDatos.BaseDeDatos.obtenerPuntosNoVencidosDe(new RagnarEntities().Cliente.Find(cliente.id_usuario));
         }
 
         private void actualizarPuntosDisponibles()

@@ -194,7 +194,7 @@ namespace PalcoNet.BaseDeDatos
         }
 
         [System.Data.Entity.DbFunction("RagnarModel.Store", "F_CantidadDePuntosNoVencidos")]
-        public static int F_CantidadDePuntosNoVencidos(int id_cliente, DateTime fecha)
+        public static string F_HasheoDeClave(int id_cliente, DateTime fecha)
         {
             throw new NotSupportedException("Direct calls are not supported.");
         }
@@ -273,11 +273,9 @@ namespace PalcoNet.BaseDeDatos
 
         public static int obtenerPuntosNoVencidosDe(Cliente cliente)
         {
-            //TODO cambiar esto por la funcion de la db, cuando se actualice el modelo
-            /*return cliente.Puntos_cliente
+            return cliente.Puntos_cliente
                 .Where(puntaje => puntaje.vencimiento >= Global.fechaDeHoy())
-                .Select(puntaje => puntaje.puntos).ToList().Sum();*/
-            return dbContext().Cliente.Select(F_CantidadDePuntosNoVencidos((int)cliente.id_usuario, Global.fechaDeHoy())).FirstOrDefault();
+                .Select(puntaje => puntaje.puntos).ToList().Sum();
         }
 
         public static void clienteCompraPremio(RagnarEntities db, Cliente cliente, Premio premio)
