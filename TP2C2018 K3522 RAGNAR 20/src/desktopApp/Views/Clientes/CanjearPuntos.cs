@@ -60,7 +60,8 @@ namespace PalcoNet.Clientes
                     WindowsFormUtils.mensajeDeError("Puntos insuficientes");
                     return;
                 }
-            
+
+                cliente = db.Cliente.Find(cliente.id_usuario);
                 BaseDeDatos.BaseDeDatos.clienteCompraPremio(db, cliente, premio);
                 WindowsFormUtils.mensajeDeExito("Felicidades, ha adquirido " + premio.descripcion);
 
