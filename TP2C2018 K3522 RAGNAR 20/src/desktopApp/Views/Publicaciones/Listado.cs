@@ -66,7 +66,8 @@ namespace PalcoNet.Publicaciones
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            new Alta(this).Show();
+            WindowsFormUtils.abrirFormulario(new Alta(), actualizarDataGriedView);
+           
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
@@ -81,7 +82,7 @@ namespace PalcoNet.Publicaciones
                 }
             }
                 
-            WindowsFormUtils.abrirFormulario(new Alta(this,id), actualizarDataGriedView);
+            WindowsFormUtils.abrirFormulario(new Alta(id), actualizarDataGriedView);
         }
     }
 }

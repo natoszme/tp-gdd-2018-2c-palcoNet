@@ -21,13 +21,12 @@ namespace PalcoNet.Publicaciones
         List<DateTime> fechas = new List<DateTime>();
       
 
-        Publicaciones.Listado formListado;
+      
 
-        public Alta(Publicaciones.Listado formListadoNew, int? id = null) : base(id)
+        public Alta(int? id = null) : base(id)
         {
             InitializeComponent();
-            
-            formListado = formListadoNew;
+    
             cargarComboRubro();
             cargarComboGrado();     
             if (editando())
@@ -52,7 +51,7 @@ namespace PalcoNet.Publicaciones
 
 
                 asignarEntidades(UbicacionesGlobal.contextoGlobal);
-                formListado.actualizarDataGriedView();
+            
                 WindowsFormUtils.guardarYCerrar(UbicacionesGlobal.contextoGlobal, this);
                     
             }
@@ -108,9 +107,7 @@ namespace PalcoNet.Publicaciones
             }
             if (camposYDominioFechaValidos())
             {
-                DateTime nuevaFecha = DateTime.Parse(dtpFecha.Text);
-                nuevaFecha = nuevaFecha.AddHours(int.Parse(txtHora.Text.Substring(0,2)));
-                nuevaFecha = nuevaFecha.AddMinutes(int.Parse(txtHora.Text.Substring(3,2)));
+                DateTime nuevaFecha = fechaYHoraCargada();
                 MessageBox.Show("La fecha ingresada = " + nuevaFecha.ToString() + " fue cargada satisfactoriamente");
                 fechas.Add(nuevaFecha);
             }
@@ -193,14 +190,13 @@ namespace PalcoNet.Publicaciones
 
         protected bool validarDominioFecha(ref List<string> errores)
         {
-            if (editando())
-            {
-                ValidationsUtils.hayError(noExistefechaDeMismaPublicacion, ref errores);
-            }
-            else
+            if (!editando())
             {
                 ValidationsUtils.hayError(fechaMayorAUltima, ref errores);
+               
             }
+            ValidationsUtils.hayError(noExistefechaDeMismaPublicacion, ref errores);
+            ValidationsUtils.hayError(fechaMayorAHoy, ref errores);
             
          
 
@@ -213,8 +209,15 @@ namespace PalcoNet.Publicaciones
             return true;
         }
 
+        private void fechaMayorAHoy()
+        {
+
+            if (fechaYHoraCargada()<Global.fechaDeHoy())
+                throw new ValidationException("La fecha debe ser mayor a la fecha de hoy");
+        }
+
         private void noExistefechaDeMismaPublicacion(){
-            if (BaseDeDatos.BaseDeDatos.existePublicacionEnMismaFecha(publicacion.direccion, DateTime.Parse(dtpFecha.Text).AddHours(int.Parse(txtHora.Text.Substring(0, 2))).AddMinutes(int.Parse(txtHora.Text.Substring(3, 2)))))
+            if (BaseDeDatos.BaseDeDatos.existePublicacionEnMismaFecha(publicacion.direccion, fechaYHoraCargada()))
                 throw new ValidationException("No se puede elegir una fecha de un espectaculo que sea realizado a la misma hora en el mismo lugar");
           
         }
@@ -223,7 +226,7 @@ namespace PalcoNet.Publicaciones
         {
             if(fechas.Count!=0)
             {
-                if(DateTime.Parse(dtpFecha.Text).AddHours(int.Parse(txtHora.Text.Substring(0, 2))).AddMinutes(int.Parse(txtHora.Text.Substring(3, 2)))<=fechas.ElementAt(fechas.Count-1))
+                if(fechaYHoraCargada()<=fechas.ElementAt(fechas.Count-1))
                     throw new ValidationException("La fecha cargada debe ser superior a la ultima fecha de un espectaculo");
             }
         }
@@ -339,5 +342,13 @@ namespace PalcoNet.Publicaciones
         }
         #endregion
 
+        private DateTime fechaYHoraCargada()
+        {
+            return DateTime.Parse(dtpFecha.Text).AddHours(int.Parse(txtHora.Text.Substring(0, 2))).AddMinutes(int.Parse(txtHora.Text.Substring(3, 2)));
+        }
+
     }
+
+    
+
 }
