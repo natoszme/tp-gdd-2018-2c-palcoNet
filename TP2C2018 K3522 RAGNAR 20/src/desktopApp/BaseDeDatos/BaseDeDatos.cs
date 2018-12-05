@@ -254,14 +254,14 @@ namespace PalcoNet.BaseDeDatos
             db.Usuario.Remove(db.Usuario.Find(usuario.id_usuario));
         }
 
-        public static bool existePublicacionEnMismaFecha(Publicacion publicacion)
+        public static bool existePublicacionEnMismaFecha(String direccion, DateTime nuevaFecha)
         {
-            return existePublicacionEnMismaFecha(dbContext(), publicacion);
+            return existePublicacionEnMismaFecha(dbContext(), direccion, nuevaFecha);
         }
 
-        public static bool existePublicacionEnMismaFecha(RagnarEntities db, Publicacion publicacion)
+        public static bool existePublicacionEnMismaFecha(RagnarEntities db, String direccion,DateTime nuevaFecha)
         {
-            List<Publicacion> publicacionIgual = db.Publicacion.Where(u_r => u_r.direccion == publicacion.direccion && u_r.fecha_espectaculo == publicacion.fecha_espectaculo).ToList();
+            List<Publicacion> publicacionIgual = db.Publicacion.Where(u_r => u_r.direccion.Equals(direccion) && u_r.fecha_espectaculo.Equals(nuevaFecha)).ToList();
             return publicacionIgual.Count > 0;
         }
 

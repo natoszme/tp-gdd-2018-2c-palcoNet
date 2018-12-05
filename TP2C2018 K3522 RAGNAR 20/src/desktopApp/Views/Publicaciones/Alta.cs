@@ -214,7 +214,7 @@ namespace PalcoNet.Publicaciones
         }
 
         private void noExistefechaDeMismaPublicacion(){
-            if(BaseDeDatos.BaseDeDatos.existePublicacionEnMismaFecha(publicacion))
+            if (BaseDeDatos.BaseDeDatos.existePublicacionEnMismaFecha(publicacion.direccion, DateTime.Parse(dtpFecha.Text).AddHours(int.Parse(txtHora.Text.Substring(0, 2))).AddMinutes(int.Parse(txtHora.Text.Substring(3, 2)))))
                 throw new ValidationException("No se puede elegir una fecha de un espectaculo que sea realizado a la misma hora en el mismo lugar");
           
         }
