@@ -66,7 +66,7 @@ namespace PalcoNet.Publicaciones
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            WindowsFormUtils.abrirFormulario(new Alta(), actualizarDataGriedView);
+            WindowsFormUtils.abrirFormulario(new Alta(null), actualizarDataGriedView);
            
         }
 

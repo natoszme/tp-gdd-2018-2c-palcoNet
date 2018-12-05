@@ -14,19 +14,19 @@ using PalcoNet.Views.Publicaciones;
 
 namespace PalcoNet.Publicaciones
 {
-    public partial class Alta : UsuarioFormulario
+    public partial class Alta : Form
     {
         Publicacion publicacion = new Publicacion();
        
         List<DateTime> fechas = new List<DateTime>();
-      
 
-      
 
-        public Alta(int? id = null) : base(id)
+        protected int? id;
+
+        public Alta(int? id = null) 
         {
             InitializeComponent();
-    
+            this.id = id;
             cargarComboRubro();
             cargarComboGrado();     
             if (editando())
@@ -36,6 +36,13 @@ namespace PalcoNet.Publicaciones
                 btnAgregarFecha.Text = "Modificar fecha";
             }    
         }
+
+
+        public bool editando()
+        {
+            return id != null;
+        }
+
 
         private void btnUbicaciones_Click(object sender, EventArgs e)
         {
@@ -114,28 +121,30 @@ namespace PalcoNet.Publicaciones
         }
 
 
-        protected override void asignarEntidades(RagnarEntities db)
+        protected void asignarEntidades(RagnarEntities db)
         {
-            if (id == null)
+            if (id != null)
             {
-                publicacion = new Publicacion();
+                publicacion = db.Publicacion.Find(id); 
             }
-            else
-            {
-                publicacion = db.Publicacion.Find(id);
-            }
+           
             foreach(DateTime fecha in fechas){
                 //publicacion.id_publicacion =(long) id;
+                if (id == null)
+                {
+                    publicacion = new Publicacion();
+                }
+               
                 publicacion.descripcion = txtDescripcion.Text;
                 publicacion.direccion = txtDireccion.Text;
                 publicacion.Estado_publicacion = BaseDeDatos.BaseDeDatos.estadoDePublicacionPorNombre(db,"Borrador");
                 publicacion.fecha_espectaculo = fecha;
                 publicacion.Grado_publicacion = BaseDeDatos.BaseDeDatos.gradoPorDescripcion(db,WindowsFormUtils.textoSeleccionadoDe(cmbGradoPublicacion));
                 publicacion.Rubro = BaseDeDatos.BaseDeDatos.rubroPorDescripcion(db,WindowsFormUtils.textoSeleccionadoDe(cmbRubro));
-                publicacion.stock = int.Parse(txtStock.Text);
                 publicacion.Empresa = Global.obtenerUsuarioLogueado(db).Empresa;
                 publicacion.fecha_publicacion = Global.fechaDeHoy();
                 publicacion.fecha_vencimiento = fecha;
+                publicacion.stock = 0;
                 foreach (Ubicacion_publicacion ubicacion in UbicacionesGlobal.ubicaciones)
                 {
                     ubicacion.Publicacion = publicacion;
@@ -152,14 +161,6 @@ namespace PalcoNet.Publicaciones
        
         }
 
-        override protected void mostrarPanelAdmin()
-        {
-          
-        }
-        protected override TextBox textBoxCui()
-        {
-            return new TextBox();
-        }
         #region VALIDACIONESFECHA
         protected bool camposYDominioFechaValidos()
         {
@@ -195,8 +196,8 @@ namespace PalcoNet.Publicaciones
                 ValidationsUtils.hayError(fechaMayorAUltima, ref errores);
                
             }
-            ValidationsUtils.hayError(noExistefechaDeMismaPublicacion, ref errores);
-            ValidationsUtils.hayError(fechaMayorAHoy, ref errores);
+             ValidationsUtils.hayError(noExistefechaDeMismaPublicacion, ref errores);
+                ValidationsUtils.hayError(fechaMayorAHoy, ref errores);
             
          
 
@@ -234,7 +235,7 @@ namespace PalcoNet.Publicaciones
         #endregion
 
         #region VALIDACIONES
-        protected override bool camposYDominioValidos()
+        protected bool camposYDominioValidos()
         {
             bool valido = true;
             List<string> errores = new List<string>();
@@ -244,9 +245,7 @@ namespace PalcoNet.Publicaciones
 
             ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtDescripcion, "descripcion"), ref errores);
 
-            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtStock, "stock"), ref errores))
-                ValidationsUtils.hayError(() => ValidationsUtils.campoEnteroYPositivo(txtStock, "stock"), ref errores);
-
+           
             ValidationsUtils.hayError(() => ValidationsUtils.opcionObligatoria(cmbRubro, "rubro"), ref errores);
 
             ValidationsUtils.hayError(() => ValidationsUtils.opcionObligatoria(cmbGradoPublicacion, "grado de publicacion"), ref errores);
@@ -264,10 +263,10 @@ namespace PalcoNet.Publicaciones
             return valido;
         }
 
-        protected override bool validarDominio(ref List<string> errores)
+        protected bool validarDominio(ref List<string> errores)
         {
-            if(!ValidationsUtils.hayError(hayUbicacionesCargadas, ref errores))
-              ValidationsUtils.hayError(stockMenorAUbicaciones, ref errores);
+            ValidationsUtils.hayError(hayUbicacionesCargadas, ref errores);
+             
             ValidationsUtils.hayError(algunaFechaIngresada, ref errores);
 
             if (errores.Count() > 0)
@@ -292,15 +291,7 @@ namespace PalcoNet.Publicaciones
 
         }
 
-        private void stockMenorAUbicaciones()
-        {
-
-            if (int.Parse(txtStock.Text) > UbicacionesGlobal.ubicaciones.Count)
-            {
-                throw new ValidationException("El stock no puede ser mayor a las ubicaciones disponibles");
-            }
-            
-        }
+        
 
         private void algunaFechaIngresada()
         {
@@ -314,18 +305,17 @@ namespace PalcoNet.Publicaciones
 
 
         #region CARGADATOS
-        override protected void cargarDatos()
+        protected void cargarDatos()
         {
             
             try
             {
                 publicacion = UbicacionesGlobal.contextoGlobal.Publicacion.Find(id);
-                txtStock.Text = publicacion.stock.ToString();
                 txtHora.Text = publicacion.fecha_espectaculo.Hour + ":" + publicacion.fecha_espectaculo.Minute;
                 txtDireccion.Text = publicacion.direccion;
                 txtDescripcion.Text = publicacion.descripcion;
-                dtpFecha.Value = (System.DateTime)publicacion.fecha_publicacion;
-                fechas.Add((System.DateTime)publicacion.fecha_publicacion);
+                dtpFecha.Value = (System.DateTime)publicacion.fecha_espectaculo;
+                fechas.Add((System.DateTime)publicacion.fecha_espectaculo);
                 cmbGradoPublicacion.Text = publicacion.Grado_publicacion.descripcion;
                 cmbRubro.Text = publicacion.Rubro.descripcion;
 
