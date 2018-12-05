@@ -522,27 +522,50 @@ GO
 
 --/ StoredProcedure para rendicion de comisiones /--
 
+UPDATE RAGNAR.Ubicacion_publicacion SET id_compra = 1 WHERE id_ubicacion = 94143 OR id_ubicacion = 94144 OR id_ubicacion = 94145 --/PRUEBAAAAA
+GO
+
 CREATE PROCEDURE RAGNAR.SP_RendicionDeComisiones (@CantidadAFacturar int, @FechaDelSistema datetime)
 AS
 BEGIN
-	DECLARE @NumeroDeFactura numeric(18,0), @Empresa bigint, @EmpresaAnterior bigint, @IdUbicacion bigint, @PrecioUbicacion numeric(18,0), @PrecioComision numeric(18,2), @Comision numeric(4,3), @Total numeric(18,2)
-	DECLARE CUbicacionesAFacturar CURSOR FOR (SELECT * FROM (SELECT TOP (@CantidadAFacturar) U.id_ubicacion, U.precio, G.comision, P.id_empresa FROM RAGNAR.Ubicacion_publicacion as U JOIN RAGNAR.Compra as C ON (C.id_compra = U.id_compra) JOIN RAGNAR.Publicacion as P ON (P.id_publicacion = U.id_publicacion) JOIN RAGNAR.Grado_publicacion as G ON (G.id_grado = P.id_grado) WHERE U.id_ubicacion NOT IN (SELECT I.id_ubicacion FROM RAGNAR.Item_factura as I) ORDER BY C.fecha ASC) as TablaParaUsarOrderBy)
+	DECLARE @NumeroDeFactura numeric(18,0), @Empresa bigint, @EmpresaAnterior bigint, @IdUbicacion bigint, @PrecioUbicacion numeric(18,0), @PrecioComision numeric(18,2), @Comision numeric(4,3), @Total numeric(18,2), @CantidadSinFacturar int, @CantidadTop int
+	SET @CantidadSinFacturar = (SELECT COUNT(*) FROM RAGNAR.Ubicacion_publicacion as U WHERE NOT EXISTS (SELECT I.id_ubicacion FROM RAGNAR.Item_factura as I WHERE I.id_ubicacion = U.id_ubicacion) AND U.id_compra IS NOT NULL)
+	SET @CantidadTop = RAGNAR.F_MinimoDeDosValores(@CantidadSinFacturar,@CantidadAFacturar)
+	PRINT('CantidadTop')
+	PRINT(@CantidadTop)
+	DECLARE CUbicacionesAFacturar CURSOR FOR (SELECT * FROM (SELECT TOP (@CantidadTop) U.id_ubicacion, U.precio, G.comision, P.id_empresa FROM RAGNAR.Ubicacion_publicacion as U JOIN RAGNAR.Compra as C ON (C.id_compra = U.id_compra) JOIN RAGNAR.Publicacion as P ON (P.id_publicacion = U.id_publicacion) JOIN RAGNAR.Grado_publicacion as G ON (G.id_grado = P.id_grado) WHERE NOT EXISTS (SELECT I.id_ubicacion FROM RAGNAR.Item_factura as I WHERE I.id_ubicacion = U.id_ubicacion) ORDER BY C.fecha ASC) as TablaParaUsarOrderBy)
 	OPEN CUbicacionesAFacturar
+	PRINT('Creó el cursor')
 	FETCH NEXT FROM CUbicacionesAFacturar INTO @IdUbicacion, @PrecioUbicacion, @Comision, @Empresa
+	PRINT('Cargó el cursor')
+	PRINT(@IdUbicacion)
+	PRINT(@PrecioUbicacion)
+	PRINT(@Comision)
+	PRINT(@Empresa)
 	WHILE @@FETCH_STATUS = 0
 	BEGIN
+		PRINT('Entró al primer while')
 		SET @Total = 0
 		SET @EmpresaAnterior = @Empresa
 		SET @NumeroDeFactura = (SELECT TOP 1 numero FROM RAGNAR.Factura ORDER BY numero DESC) + 1
 		INSERT INTO RAGNAR.Factura (numero, fecha) VALUES (@NumeroDeFactura, @FechaDelSistema)
-		WHILE(@Empresa = @EmpresaAnterior) --/Misma factura
+		PRINT('Insertó la primer factura')
+		WHILE(@Empresa = @EmpresaAnterior AND @@FETCH_STATUS = 0) --/Misma factura
 		BEGIN
+			PRINT('Entró en el 2do while')
 			SET @PrecioComision = @PrecioUbicacion * @Comision
 			SET @Total = @Total + @PrecioComision
 			INSERT INTO RAGNAR.Item_factura (id_ubicacion, id_factura, monto) VALUES (@IdUbicacion, (SELECT id_factura FROM RAGNAR.Factura WHERE numero = @NumeroDeFactura), @PrecioComision)
+			PRINT('Insertó un renglon de factura')
 			FETCH NEXT FROM CUbicacionesAFacturar INTO @IdUbicacion, @PrecioUbicacion, @Comision, @Empresa
+			PRINT('Volvió a cargar el cursor')
+			PRINT(@IdUbicacion)
+			PRINT(@PrecioUbicacion)
+			PRINT(@Comision)
+			PRINT(@Empresa)
 		END
 		UPDATE RAGNAR.Factura SET total = @Total WHERE numero = @NumeroDeFactura
+		PRINT('Actualizó la factura con el total')
 	END
 	CLOSE CUbicacionesAFacturar
 	DEALLOCATE CUbicacionesAFacturar
