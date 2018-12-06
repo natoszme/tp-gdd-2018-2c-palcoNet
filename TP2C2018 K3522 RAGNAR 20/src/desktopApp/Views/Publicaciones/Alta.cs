@@ -307,7 +307,7 @@ namespace PalcoNet.Publicaciones
         #region CARGADATOS
         protected void cargarDatos()
         {
-            
+
             try
             {
                 publicacion = UbicacionesGlobal.contextoGlobal.Publicacion.Find(id);
