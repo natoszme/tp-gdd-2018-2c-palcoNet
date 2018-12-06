@@ -44,6 +44,11 @@ namespace PalcoNet.Views.Publicaciones
                 {
                     espectaculosTotales = espectaculosTotales.Where(c => c.descripcion.Contains(txtDescripcion.Text));
                 }
+                if (cbFiltroFecha.Checked)
+                {
+                    espectaculosTotales = espectaculosTotales.Where(c => c.fecha_espectaculo >= dtpFechaDesde.Value.Date && c.fecha_espectaculo <=dtpFechaHasta.Value);
+                   
+                }
                 /*
                 if (!string.IsNullOrWhiteSpace(txtApellido.Text))
                 {

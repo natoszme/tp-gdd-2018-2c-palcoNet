@@ -34,11 +34,15 @@
             this.btnFiltrar = new System.Windows.Forms.Button();
             this.clbCategorias = new System.Windows.Forms.CheckedListBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dgvEspectaculos = new System.Windows.Forms.DataGridView();
+            this.dtpFechaDesde = new System.Windows.Forms.DateTimePicker();
+            this.dtpFechaHasta = new System.Windows.Forms.DateTimePicker();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cbFiltroFecha = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEspectaculos)).BeginInit();
@@ -63,20 +67,24 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.cbFiltroFecha);
+            this.panel2.Controls.Add(this.label6);
+            this.panel2.Controls.Add(this.dtpFechaHasta);
+            this.panel2.Controls.Add(this.label5);
+            this.panel2.Controls.Add(this.dtpFechaDesde);
             this.panel2.Controls.Add(this.btnFiltrar);
             this.panel2.Controls.Add(this.clbCategorias);
             this.panel2.Controls.Add(this.label4);
-            this.panel2.Controls.Add(this.textBox2);
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.txtDescripcion);
-            this.panel2.Location = new System.Drawing.Point(12, 80);
+            this.panel2.Location = new System.Drawing.Point(12, 57);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(510, 64);
+            this.panel2.Size = new System.Drawing.Size(510, 108);
             this.panel2.TabIndex = 1;
             // 
             // btnFiltrar
             // 
-            this.btnFiltrar.Location = new System.Drawing.Point(377, 23);
+            this.btnFiltrar.Location = new System.Drawing.Point(422, 36);
             this.btnFiltrar.Name = "btnFiltrar";
             this.btnFiltrar.Size = new System.Drawing.Size(75, 23);
             this.btnFiltrar.TabIndex = 9;
@@ -87,31 +95,24 @@
             // clbCategorias
             // 
             this.clbCategorias.FormattingEnabled = true;
-            this.clbCategorias.Location = new System.Drawing.Point(238, 9);
+            this.clbCategorias.Location = new System.Drawing.Point(325, 39);
             this.clbCategorias.Name = "clbCategorias";
-            this.clbCategorias.Size = new System.Drawing.Size(113, 49);
+            this.clbCategorias.Size = new System.Drawing.Size(91, 64);
             this.clbCategorias.TabIndex = 8;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(116, 9);
+            this.label4.Location = new System.Drawing.Point(116, 12);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(48, 13);
+            this.label4.Size = new System.Drawing.Size(69, 13);
             this.label4.TabIndex = 4;
-            this.label4.Text = "Compras";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(119, 26);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 3;
+            this.label4.Text = "Fecha desde";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 9);
+            this.label3.Location = new System.Drawing.Point(10, 23);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(63, 13);
             this.label3.TabIndex = 2;
@@ -119,7 +120,7 @@
             // 
             // txtDescripcion
             // 
-            this.txtDescripcion.Location = new System.Drawing.Point(13, 26);
+            this.txtDescripcion.Location = new System.Drawing.Point(3, 39);
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.Size = new System.Drawing.Size(100, 20);
             this.txtDescripcion.TabIndex = 0;
@@ -127,7 +128,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(22, 72);
+            this.label2.Location = new System.Drawing.Point(22, 53);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(34, 13);
             this.label2.TabIndex = 1;
@@ -140,6 +141,48 @@
             this.dgvEspectaculos.Name = "dgvEspectaculos";
             this.dgvEspectaculos.Size = new System.Drawing.Size(510, 157);
             this.dgvEspectaculos.TabIndex = 2;
+            // 
+            // dtpFechaDesde
+            // 
+            this.dtpFechaDesde.Location = new System.Drawing.Point(119, 28);
+            this.dtpFechaDesde.Name = "dtpFechaDesde";
+            this.dtpFechaDesde.Size = new System.Drawing.Size(200, 20);
+            this.dtpFechaDesde.TabIndex = 10;
+            // 
+            // dtpFechaHasta
+            // 
+            this.dtpFechaHasta.Location = new System.Drawing.Point(119, 67);
+            this.dtpFechaHasta.Name = "dtpFechaHasta";
+            this.dtpFechaHasta.Size = new System.Drawing.Size(200, 20);
+            this.dtpFechaHasta.TabIndex = 12;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(116, 51);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(66, 13);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Fecha hasta";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(322, 23);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(41, 13);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Rubros";
+            // 
+            // cbFiltroFecha
+            // 
+            this.cbFiltroFecha.AutoSize = true;
+            this.cbFiltroFecha.Location = new System.Drawing.Point(119, 88);
+            this.cbFiltroFecha.Name = "cbFiltroFecha";
+            this.cbFiltroFecha.Size = new System.Drawing.Size(99, 17);
+            this.cbFiltroFecha.TabIndex = 14;
+            this.cbFiltroFecha.Text = "Filtrar por fecha";
+            this.cbFiltroFecha.UseVisualStyleBackColor = true;
             // 
             // ComprarEntrada
             // 
@@ -172,9 +215,13 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.DataGridView dgvEspectaculos;
         private System.Windows.Forms.CheckedListBox clbCategorias;
         private System.Windows.Forms.Button btnFiltrar;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DateTimePicker dtpFechaHasta;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.DateTimePicker dtpFechaDesde;
+        private System.Windows.Forms.CheckBox cbFiltroFecha;
     }
 }
