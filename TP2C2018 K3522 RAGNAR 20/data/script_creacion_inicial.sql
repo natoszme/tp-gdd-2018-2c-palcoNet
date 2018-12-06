@@ -1,4 +1,4 @@
-USE GD2C2018
+USE GDDPrueba2
 GO
 
 CREATE SCHEMA RAGNAR
@@ -525,8 +525,10 @@ GO
 CREATE PROCEDURE RAGNAR.SP_RendicionDeComisiones (@CantidadAFacturar int, @FechaDelSistema datetime)
 AS
 BEGIN
-	DECLARE @NumeroDeFactura numeric(18,0), @Empresa bigint, @EmpresaAnterior bigint, @IdUbicacion bigint, @PrecioUbicacion numeric(18,0), @PrecioComision numeric(18,2), @Comision numeric(4,3), @Total numeric(18,2)
-	DECLARE CUbicacionesAFacturar CURSOR FOR (SELECT * FROM (SELECT TOP (@CantidadAFacturar) U.id_ubicacion, U.precio, G.comision, P.id_empresa FROM RAGNAR.Ubicacion_publicacion as U JOIN RAGNAR.Compra as C ON (C.id_compra = U.id_compra) JOIN RAGNAR.Publicacion as P ON (P.id_publicacion = U.id_publicacion) JOIN RAGNAR.Grado_publicacion as G ON (G.id_grado = P.id_grado) WHERE U.id_ubicacion NOT IN (SELECT I.id_ubicacion FROM RAGNAR.Item_factura as I) ORDER BY C.fecha ASC) as TablaParaUsarOrderBy)
+	DECLARE @NumeroDeFactura numeric(18,0), @Empresa bigint, @EmpresaAnterior bigint, @IdUbicacion bigint, @PrecioUbicacion numeric(18,0), @PrecioComision numeric(18,2), @Comision numeric(4,3), @Total numeric(18,2), @CantidadSinFacturar int, @CantidadTop int
+	SET @CantidadSinFacturar = (SELECT COUNT(*) FROM RAGNAR.Ubicacion_publicacion as U WHERE NOT EXISTS (SELECT I.id_ubicacion FROM RAGNAR.Item_factura as I WHERE I.id_ubicacion = U.id_ubicacion) AND U.id_compra IS NOT NULL)
+	SET @CantidadTop = RAGNAR.F_MinimoDeDosValores(@CantidadSinFacturar,@CantidadAFacturar)
+	DECLARE CUbicacionesAFacturar CURSOR FOR (SELECT * FROM (SELECT TOP (@CantidadTop) U.id_ubicacion, U.precio, G.comision, P.id_empresa FROM RAGNAR.Ubicacion_publicacion as U JOIN RAGNAR.Compra as C ON (C.id_compra = U.id_compra) JOIN RAGNAR.Publicacion as P ON (P.id_publicacion = U.id_publicacion) JOIN RAGNAR.Grado_publicacion as G ON (G.id_grado = P.id_grado) WHERE NOT EXISTS (SELECT I.id_ubicacion FROM RAGNAR.Item_factura as I WHERE I.id_ubicacion = U.id_ubicacion) ORDER BY C.fecha ASC) as TablaParaUsarOrderBy)
 	OPEN CUbicacionesAFacturar
 	FETCH NEXT FROM CUbicacionesAFacturar INTO @IdUbicacion, @PrecioUbicacion, @Comision, @Empresa
 	WHILE @@FETCH_STATUS = 0
@@ -535,11 +537,11 @@ BEGIN
 		SET @EmpresaAnterior = @Empresa
 		SET @NumeroDeFactura = (SELECT TOP 1 numero FROM RAGNAR.Factura ORDER BY numero DESC) + 1
 		INSERT INTO RAGNAR.Factura (numero, fecha) VALUES (@NumeroDeFactura, @FechaDelSistema)
-		WHILE(@Empresa = @EmpresaAnterior) --/Misma factura
+		WHILE(@Empresa = @EmpresaAnterior AND @@FETCH_STATUS = 0) --/Misma factura
 		BEGIN
 			SET @PrecioComision = @PrecioUbicacion * @Comision
 			SET @Total = @Total + @PrecioComision
-			INSERT INTO RAGNAR.Item_factura (id_ubicacion, id_factura, monto) VALUES (@IdUbicacion, (SELECT id_factura FROM RAGNAR.Factura WHERE numero = @NumeroDeFactura), @PrecioComision)
+			INSERT INTO RAGNAR.Item_factura (id_ubicacion, id_factura, monto, descripcion) VALUES (@IdUbicacion, (SELECT id_factura FROM RAGNAR.Factura WHERE numero = @NumeroDeFactura), @PrecioComision, 'Comision por compra')
 			FETCH NEXT FROM CUbicacionesAFacturar INTO @IdUbicacion, @PrecioUbicacion, @Comision, @Empresa
 		END
 		UPDATE RAGNAR.Factura SET total = @Total WHERE numero = @NumeroDeFactura
@@ -631,22 +633,24 @@ BEGIN
 END
 GO
 
---/ Trigger para chequear que una publicacion no vuelva a un estado anterior al ser editada /--
-/*
-CREATE TRIGGER RAGNAR.ChequeoDelEstadoDeUnaPublicacion ON RAGNAR.Publicacion AFTER UPDATE
+--/ Trigger para finalizar una publicacion que se quedo sin ubicaciones /--
+
+CREATE TRIGGER RAGNAR.FinalizarPublicacion ON RAGNAR.Publicacion AFTER UPDATE
 AS
 BEGIN
-	DECLARE CPublicacion CURSOR FOR (SELECT I.id_estado, D.id_estado FROM INSERTED as I JOIN DELETED as D ON (I.descripcion = D.descripcion AND I.fecha_espectaculo = D.fecha_espectaculo))
-	DECLARE @IdEstadoActual int, @IdEstadoAnterior int
+	DECLARE @Descripcion nvarchar(255), @FechaEspectaculo datetime, @Stock int
+	DECLARE CPublicaciones CURSOR FOR (SELECT descripcion, fecha_espectaculo, stock FROM INSERTED)
+	OPEN CPublicaciones
+	CLOSE CPublicaciones
+	FETCH NEXT FROM CPublicaciones INTO @Descripcion, @FechaEspectaculo, @Stock
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		IF(@Stock = 0)
+		BEGIN
+			UPDATE RAGNAR.Publicacion SET id_estado = 3 WHERE descripcion = @Descripcion AND fecha_espectaculo = @FechaEspectaculo 
+		END
+		FETCH NEXT FROM CPublicaciones INTO @Descripcion, @FechaEspectaculo, @Stock
+	END
+	DEALLOCATE CPublicaciones
 END
 GO
-
-
-CREATE TRIGGER RAGNAR.ChequeoDelEstadoDeUnaPublicacion ON RAGNAR.Publicacion INSTEAD OF UPDATE
-AS
-BEGIN
-	DECLARE CPublicacion CURSOR FOR (SELECT I.id_estado, I.codigo_publicacion, I.descripcion, I.stock, I.fecha_publicacion, I.id_rubro, I.direccion, I.id_grado, I.id_empresa, I.fecha_vencimiento, I.fecha_espectaculo, D.id_estado FROM INSERTED as I JOIN DELETED as D ON (I.descripcion = D.descripcion AND I.fecha_espectaculo = D.fecha_espectaculo))
-	DECLARE @EstadoActual int, @EstadoAnterior int, @Codigo numeric(18,0), @Descripcion nvarchar(255), @Stock int, 
-END
-GO
-*/

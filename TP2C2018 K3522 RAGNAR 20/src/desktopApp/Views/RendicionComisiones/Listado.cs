@@ -17,6 +17,7 @@ namespace PalcoNet.Views.RendicionComisiones
         public Listado()
         {
             InitializeComponent();
+            dgvItemsFacturas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             actualizarDataGridView(new RagnarEntities());
         }
 
@@ -63,13 +64,12 @@ namespace PalcoNet.Views.RendicionComisiones
                     id_item_factura = itemFactura.id_item,
                     numeroDeFactura = itemFactura.Factura.numero,
                     fechaFactura = itemFactura.Factura.fecha,
-                    formaDePago = itemFactura.Factura.forma_pago,
                     descripcion = itemFactura.descripcion,
                     precioUbicacion = itemFactura.Ubicacion_publicacion.precio,                    
                     comision = itemFactura.Ubicacion_publicacion.precio * itemFactura.Ubicacion_publicacion.Publicacion.Grado_publicacion.comision
                 })
-                .OrderByDescending(itemFactura => itemFactura.fechaFactura)
-                .ThenBy(itemFactura => itemFactura.numeroDeFactura);
+                .OrderByDescending(itemFactura => itemFactura.numeroDeFactura)
+                .ThenBy(itemFactura => itemFactura.fechaFactura);
 
             DataGridViewUtils.actualizarDataGriedView(dgvItemsFacturas, facturasFiltradas, "id_item_factura");          
         }
@@ -77,6 +77,11 @@ namespace PalcoNet.Views.RendicionComisiones
         private void btnVolver_Click(object sender, EventArgs e)
         {
             WindowsFormUtils.volverALaHome(this);
+        }
+
+        private void Listado_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
