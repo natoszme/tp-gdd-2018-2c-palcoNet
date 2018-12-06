@@ -23,6 +23,7 @@ namespace PalcoNet.Views.Publicaciones
         {
             actualizarDataGriedView();
             dgvEspectaculos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            cargarClbCategorias();
         }
 
 
@@ -79,6 +80,22 @@ namespace PalcoNet.Views.Publicaciones
 
         #endregion
 
+        void cargarClbCategorias()
+        {
+            using (RagnarEntities db = new RagnarEntities())
+            {
+                clbCategorias.Items.AddRange(descripcionesDeRubro(db.Rubro.ToList()).ToArray());
+            }
+        }
+        List<String> descripcionesDeRubro(List<Rubro> rubros)
+        {
+            List<String> descripciones = new List<String>();
+            foreach (Rubro rubro in rubros)
+            {
+                descripciones.Add(rubro.descripcion);
+            }
+            return descripciones;
+        }
 
     }
 }
