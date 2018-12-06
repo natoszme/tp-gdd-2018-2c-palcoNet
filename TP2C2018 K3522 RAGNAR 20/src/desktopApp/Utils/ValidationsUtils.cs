@@ -160,10 +160,9 @@ namespace PalcoNet.Utils
             }
         }
 
-        public static void fechaMayorOIgualAHoy(DateTimePicker datePicker,TextBox txt, string nombreCampoFecha)
+        public static void fechaMayorOIgualAHoy(DateTimePicker datePicker, string nombreCampoFecha)
         {
-            DateTime fechaIngresada = datePicker.Value.Date.AddHours(int.Parse(txt.Text.Substring(0, 2))).AddMinutes(int.Parse(txt.Text.Substring(3, 2)));
-            if (fechaIngresada < Global.fechaDeHoy())
+            if (datePicker.Value.Date < Global.fechaDeHoy())
             {
                 throw new ValidationException("La fecha ingresada en " + nombreCampoFecha + " no debe ser menor al dia de la fecha (" + Global.fechaDeHoy().ToShortDateString() + ")");
             }

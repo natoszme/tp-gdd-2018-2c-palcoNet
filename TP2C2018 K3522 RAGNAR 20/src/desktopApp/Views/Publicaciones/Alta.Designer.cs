@@ -43,8 +43,6 @@
             this.lblCantUbicaciones = new System.Windows.Forms.Label();
             this.dtpFecha = new System.Windows.Forms.DateTimePicker();
             this.label7 = new System.Windows.Forms.Label();
-            this.txtHora = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.btnAgregarFecha = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
@@ -52,20 +50,20 @@
             // 
             // btnPublicar
             // 
-            this.btnPublicar.Location = new System.Drawing.Point(188, 342);
+            this.btnPublicar.Location = new System.Drawing.Point(207, 322);
             this.btnPublicar.Name = "btnPublicar";
             this.btnPublicar.Size = new System.Drawing.Size(93, 47);
-            this.btnPublicar.TabIndex = 0;
+            this.btnPublicar.TabIndex = 8;
             this.btnPublicar.Text = "Publicar";
             this.btnPublicar.UseVisualStyleBackColor = true;
             this.btnPublicar.Click += new System.EventHandler(this.btnPublicar_Click);
             // 
             // btnGuardarBorrador
             // 
-            this.btnGuardarBorrador.Location = new System.Drawing.Point(54, 342);
+            this.btnGuardarBorrador.Location = new System.Drawing.Point(54, 322);
             this.btnGuardarBorrador.Name = "btnGuardarBorrador";
             this.btnGuardarBorrador.Size = new System.Drawing.Size(93, 47);
-            this.btnGuardarBorrador.TabIndex = 1;
+            this.btnGuardarBorrador.TabIndex = 7;
             this.btnGuardarBorrador.Text = "Guardar como borrador";
             this.btnGuardarBorrador.UseVisualStyleBackColor = true;
             this.btnGuardarBorrador.Click += new System.EventHandler(this.btnGuardarBorrador_Click);
@@ -84,7 +82,7 @@
             this.txtDescripcion.Location = new System.Drawing.Point(188, 32);
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.Size = new System.Drawing.Size(121, 20);
-            this.txtDescripcion.TabIndex = 3;
+            this.txtDescripcion.TabIndex = 0;
             // 
             // label2
             // 
@@ -101,7 +99,7 @@
             this.cmbRubro.Location = new System.Drawing.Point(188, 90);
             this.cmbRubro.Name = "cmbRubro";
             this.cmbRubro.Size = new System.Drawing.Size(121, 21);
-            this.cmbRubro.TabIndex = 5;
+            this.cmbRubro.TabIndex = 2;
             // 
             // label3
             // 
@@ -117,7 +115,7 @@
             this.txtDireccion.Location = new System.Drawing.Point(188, 62);
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(121, 20);
-            this.txtDireccion.TabIndex = 7;
+            this.txtDireccion.TabIndex = 1;
             // 
             // label4
             // 
@@ -134,7 +132,7 @@
             this.cmbGradoPublicacion.Location = new System.Drawing.Point(188, 128);
             this.cmbGradoPublicacion.Name = "cmbGradoPublicacion";
             this.cmbGradoPublicacion.Size = new System.Drawing.Size(121, 21);
-            this.cmbGradoPublicacion.TabIndex = 14;
+            this.cmbGradoPublicacion.TabIndex = 3;
             // 
             // label6
             // 
@@ -150,7 +148,7 @@
             this.btnUbicaciones.Location = new System.Drawing.Point(188, 158);
             this.btnUbicaciones.Name = "btnUbicaciones";
             this.btnUbicaciones.Size = new System.Drawing.Size(121, 23);
-            this.btnUbicaciones.TabIndex = 16;
+            this.btnUbicaciones.TabIndex = 4;
             this.btnUbicaciones.Text = "Cargar ubicaciones";
             this.btnUbicaciones.UseVisualStyleBackColor = true;
             this.btnUbicaciones.Click += new System.EventHandler(this.btnUbicaciones_Click);
@@ -166,10 +164,12 @@
             // 
             // dtpFecha
             // 
+            this.dtpFecha.CustomFormat = "dd/MM/yyyy | HH:mm";
+            this.dtpFecha.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpFecha.Location = new System.Drawing.Point(3, 21);
             this.dtpFecha.Name = "dtpFecha";
             this.dtpFecha.Size = new System.Drawing.Size(214, 20);
-            this.dtpFecha.TabIndex = 18;
+            this.dtpFecha.TabIndex = 5;
             // 
             // label7
             // 
@@ -180,28 +180,12 @@
             this.label7.TabIndex = 19;
             this.label7.Text = "Fechas";
             // 
-            // txtHora
-            // 
-            this.txtHora.Location = new System.Drawing.Point(3, 47);
-            this.txtHora.Name = "txtHora";
-            this.txtHora.Size = new System.Drawing.Size(100, 20);
-            this.txtHora.TabIndex = 20;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(109, 50);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(38, 13);
-            this.label8.TabIndex = 21;
-            this.label8.Text = "hh:mm";
-            // 
             // btnAgregarFecha
             // 
-            this.btnAgregarFecha.Location = new System.Drawing.Point(3, 74);
+            this.btnAgregarFecha.Location = new System.Drawing.Point(3, 63);
             this.btnAgregarFecha.Name = "btnAgregarFecha";
             this.btnAgregarFecha.Size = new System.Drawing.Size(100, 23);
-            this.btnAgregarFecha.TabIndex = 22;
+            this.btnAgregarFecha.TabIndex = 6;
             this.btnAgregarFecha.Text = "Agregar Fecha";
             this.btnAgregarFecha.UseVisualStyleBackColor = true;
             this.btnAgregarFecha.Click += new System.EventHandler(this.btnAgregarFecha_Click);
@@ -211,18 +195,16 @@
             this.panel1.Controls.Add(this.dtpFecha);
             this.panel1.Controls.Add(this.btnAgregarFecha);
             this.panel1.Controls.Add(this.label7);
-            this.panel1.Controls.Add(this.label8);
-            this.panel1.Controls.Add(this.txtHora);
             this.panel1.Location = new System.Drawing.Point(52, 211);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(248, 103);
+            this.panel1.Size = new System.Drawing.Size(248, 89);
             this.panel1.TabIndex = 23;
             // 
             // Alta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(335, 416);
+            this.ClientSize = new System.Drawing.Size(335, 392);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.lblCantUbicaciones);
             this.Controls.Add(this.btnUbicaciones);
@@ -264,8 +246,6 @@
         private System.Windows.Forms.Label lblCantUbicaciones;
         private System.Windows.Forms.DateTimePicker dtpFecha;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtHora;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button btnAgregarFecha;
         private System.Windows.Forms.Panel panel1;
     }
