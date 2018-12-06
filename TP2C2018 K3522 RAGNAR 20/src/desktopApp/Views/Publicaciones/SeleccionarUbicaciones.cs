@@ -14,6 +14,7 @@ namespace PalcoNet.Views.Publicaciones
 {
     public partial class SeleccionarUbicaciones : Form
     {
+        List<int> ubicacionesSeleccionadas = new List<int>();
         int idEspectaculo;
         public SeleccionarUbicaciones(int? id)
         {
@@ -23,6 +24,7 @@ namespace PalcoNet.Views.Publicaciones
 
         private void SeleccionarUbicaciones_Load(object sender, EventArgs e)
         {
+            actualizarLabelCantidad();
             actualizarDataGriedView();
             dgvUbicaciones.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
@@ -53,5 +55,42 @@ namespace PalcoNet.Views.Publicaciones
             }
         }
         #endregion
+
+        void actualizarLabelCantidad()
+        {
+            lblUbicacionesSeleccionadas.Text = "Cantidad de ubicaciones seleccionadas = " + ubicacionesSeleccionadas.Count;
+        }
+
+        private void btnSeleccionar_Click(object sender, EventArgs e)
+        {
+            int? id = DataGridViewUtils.obtenerIdSeleccionado(dgvUbicaciones);
+            if (id == null)
+            {
+                MessageBox.Show("Debe seleccionar una ubicacion");
+            }
+            else
+            {
+                if (ubicacionesSeleccionadas.Contains((int)id))
+                {
+                    MessageBox.Show("Esa ubicacion ya fue seleccionada");
+                }
+                else
+                {
+                    ubicacionesSeleccionadas.Add((int)id);
+                    actualizarLabelCantidad();
+                }
+               
+            }
+        }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            
+            this.Close();
+        }
+
+      
+
+      
     }
 }
