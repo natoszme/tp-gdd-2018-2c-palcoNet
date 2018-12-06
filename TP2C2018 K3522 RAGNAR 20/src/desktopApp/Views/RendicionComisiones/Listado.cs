@@ -68,8 +68,8 @@ namespace PalcoNet.Views.RendicionComisiones
                     precioUbicacion = itemFactura.Ubicacion_publicacion.precio,                    
                     comision = itemFactura.Ubicacion_publicacion.precio * itemFactura.Ubicacion_publicacion.Publicacion.Grado_publicacion.comision
                 })
-                .OrderByDescending(itemFactura => itemFactura.fechaFactura)
-                .ThenBy(itemFactura => itemFactura.numeroDeFactura);
+                .OrderByDescending(itemFactura => itemFactura.numeroDeFactura)
+                .ThenBy(itemFactura => itemFactura.fechaFactura);
 
             DataGridViewUtils.actualizarDataGriedView(dgvItemsFacturas, facturasFiltradas, "id_item_factura");          
         }
