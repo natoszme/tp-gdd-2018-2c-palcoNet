@@ -17,6 +17,7 @@ namespace PalcoNet.Views.RendicionComisiones
         public Listado()
         {
             InitializeComponent();
+            dgvItemsFacturas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             actualizarDataGridView(new RagnarEntities());
         }
 
@@ -76,6 +77,11 @@ namespace PalcoNet.Views.RendicionComisiones
         private void btnVolver_Click(object sender, EventArgs e)
         {
             WindowsFormUtils.volverALaHome(this);
+        }
+
+        private void Listado_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
