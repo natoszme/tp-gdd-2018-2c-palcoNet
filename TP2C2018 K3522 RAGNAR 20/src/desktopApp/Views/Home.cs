@@ -121,18 +121,11 @@ namespace PalcoNet
             this.Hide();
         }
 
-        private void btnEditarPublicacion_Click(object sender, EventArgs e)
-        {
-            // new Publicaciones.().Show(); Crear el formulario para editar una publicacion
-            //this.Hide();
-            MessageBox.Show("Todavia no esta implementado");
-        }
 
         private void btnComprar_Click(object sender, EventArgs e)
         {
-            // new Publicaciones.().Show(); Crear el formulario para comrar una entrada
-            //this.Hide();
-            MessageBox.Show("Todavia no esta implementado");
+            new Views.Publicaciones.ComprarEntrada().Show();
+            this.Hide();
         }
 
         private void btnHistorial_Click(object sender, EventArgs e)
