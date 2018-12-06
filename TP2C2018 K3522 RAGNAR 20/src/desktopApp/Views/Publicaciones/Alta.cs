@@ -98,9 +98,9 @@ namespace PalcoNet.Publicaciones
 
         private void btnAgregarFecha_Click(object sender, EventArgs e)
         {
-            if (editando())
+            if (camposYDominioFechaValidos())
             {
-                if (camposYDominioFechaValidos())
+                if (editando())
                 {
                     DateTime nuevaFecha = DateTime.Parse(dtpFecha.Text);
                     nuevaFecha = nuevaFecha.AddHours(int.Parse(txtHora.Text.Substring(0, 2)));
@@ -110,13 +110,11 @@ namespace PalcoNet.Publicaciones
                     fechas.Add(nuevaFecha);
                     return;
                 }
-              
-            }
-            if (camposYDominioFechaValidos())
-            {
-                DateTime nuevaFecha = fechaYHoraCargada();
-                MessageBox.Show("La fecha ingresada = " + nuevaFecha.ToString() + " fue cargada satisfactoriamente");
-                fechas.Add(nuevaFecha);
+                else {
+                    DateTime nuevaFecha = fechaYHoraCargada();
+                    MessageBox.Show("La fecha ingresada = " + nuevaFecha.ToString() + " fue cargada satisfactoriamente");
+                    fechas.Add(nuevaFecha);
+                }              
             }
         }
 
@@ -167,22 +165,19 @@ namespace PalcoNet.Publicaciones
             bool valido = true;
             List<string> errores = new List<string>();
 
-            if (! ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(dtpFecha, "fecha publicacion"), ref errores))
-                ValidationsUtils.hayError(() => ValidationsUtils.fechaMayorOIgualAHoy(dtpFecha,txtHora, "fecha publicacion"), ref errores);
+            // Se valida que la hora este ingresada y en un formato valido, para validar la fecha y hora completa
+            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtHora, "hora"), ref errores)) {                
+                if (!ValidationsUtils.hayError(() => ValidationsUtils.formatoHorarioValido(txtHora, "hora"), ref errores))
+                {
+                    if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(dtpFecha, "fecha publicacion"), ref errores))
+                        ValidationsUtils.hayError(() => ValidationsUtils.fechaMayorOIgualAHoy(dtpFecha, txtHora, "fecha publicacion"), ref errores);
+                }
+            }            
 
-           
-            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtHora, "hora"), ref errores))
-                ValidationsUtils.hayError(() => ValidationsUtils.formatoHorarioValido(txtHora, "hora"), ref errores);
-
-            
-
-            if (errores.Count() > 0)
-            {
+            if (errores.Count() > 0) {
                 WindowsFormUtils.mostrarErrores(errores);
                 valido = false;
-            }
-            else
-            {
+            } else {
                 valido = validarDominioFecha(ref errores);
             }
 
