@@ -35,11 +35,16 @@ namespace PalcoNet.Views.Publicaciones
 
                 IQueryable<Publicacion> espectaculosTotales = db.Publicacion.AsQueryable();
 
-                /*if (!string.IsNullOrWhiteSpace(txtNombre.Text))
-                {
-                    clientesFiltrados = clientesFiltrados.Where(c => c.nombre.Contains(txtNombre.Text));
-                }
+             
+               /* if(clbCategorias.CheckedItems.Count>0){
+                    espectaculosTotales = espectaculosTotales.Where(e => clbCategorias.CheckedItems.Contains(e));
+                }*/
 
+                if (!string.IsNullOrWhiteSpace(txtDescripcion.Text))
+                {
+                    espectaculosTotales = espectaculosTotales.Where(c => c.descripcion.Contains(txtDescripcion.Text));
+                }
+                /*
                 if (!string.IsNullOrWhiteSpace(txtApellido.Text))
                 {
                     clientesFiltrados = clientesFiltrados.Where(c => c.apellido.Contains(txtApellido.Text));
@@ -80,8 +85,19 @@ namespace PalcoNet.Views.Publicaciones
 
         #endregion
 
+        bool estaEnListaDeRubrosChecked(Publicacion publicacion)
+        {
+            foreach (String rubro in clbCategorias.CheckedItems)
+            {
+                if (publicacion.Rubro.descripcion == rubro)
+                    return true;
+            }
+            return false;
+        }
+
         void cargarClbCategorias()
         {
+            clbCategorias.CheckOnClick = true; //Hace que se seleccione con 1 click en vez de 2
             using (RagnarEntities db = new RagnarEntities())
             {
                 clbCategorias.Items.AddRange(descripcionesDeRubro(db.Rubro.ToList()).ToArray());
@@ -96,6 +112,13 @@ namespace PalcoNet.Views.Publicaciones
             }
             return descripciones;
         }
+
+        private void btnFiltrar_Click(object sender, EventArgs e)
+        {
+          
+            actualizarDataGriedView();
+        }
+
 
     }
 }
