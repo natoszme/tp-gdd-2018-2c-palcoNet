@@ -1,4 +1,4 @@
-USE GD2C2018
+USE GDDPrueba2
 GO
 
 CREATE SCHEMA RAGNAR
@@ -633,22 +633,24 @@ BEGIN
 END
 GO
 
---/ Trigger para chequear que una publicacion no vuelva a un estado anterior al ser editada /--
-/*
-CREATE TRIGGER RAGNAR.ChequeoDelEstadoDeUnaPublicacion ON RAGNAR.Publicacion AFTER UPDATE
+--/ Trigger para finalizar una publicacion que se quedo sin ubicaciones /--
+
+CREATE TRIGGER RAGNAR.FinalizarPublicacion ON RAGNAR.Publicacion AFTER UPDATE
 AS
 BEGIN
-	DECLARE CPublicacion CURSOR FOR (SELECT I.id_estado, D.id_estado FROM INSERTED as I JOIN DELETED as D ON (I.descripcion = D.descripcion AND I.fecha_espectaculo = D.fecha_espectaculo))
-	DECLARE @IdEstadoActual int, @IdEstadoAnterior int
+	DECLARE @Descripcion nvarchar(255), @FechaEspectaculo datetime, @Stock int
+	DECLARE CPublicaciones CURSOR FOR (SELECT descripcion, fecha_espectaculo, stock FROM INSERTED)
+	OPEN CPublicaciones
+	CLOSE CPublicaciones
+	FETCH NEXT FROM CPublicaciones INTO @Descripcion, @FechaEspectaculo, @Stock
+	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		IF(@Stock = 0)
+		BEGIN
+			UPDATE RAGNAR.Publicacion SET id_estado = 3 WHERE descripcion = @Descripcion AND fecha_espectaculo = @FechaEspectaculo 
+		END
+		FETCH NEXT FROM CPublicaciones INTO @Descripcion, @FechaEspectaculo, @Stock
+	END
+	DEALLOCATE CPublicaciones
 END
 GO
-
-
-CREATE TRIGGER RAGNAR.ChequeoDelEstadoDeUnaPublicacion ON RAGNAR.Publicacion INSTEAD OF UPDATE
-AS
-BEGIN
-	DECLARE CPublicacion CURSOR FOR (SELECT I.id_estado, I.codigo_publicacion, I.descripcion, I.stock, I.fecha_publicacion, I.id_rubro, I.direccion, I.id_grado, I.id_empresa, I.fecha_vencimiento, I.fecha_espectaculo, D.id_estado FROM INSERTED as I JOIN DELETED as D ON (I.descripcion = D.descripcion AND I.fecha_espectaculo = D.fecha_espectaculo))
-	DECLARE @EstadoActual int, @EstadoAnterior int, @Codigo numeric(18,0), @Descripcion nvarchar(255), @Stock int, 
-END
-GO
-*/
