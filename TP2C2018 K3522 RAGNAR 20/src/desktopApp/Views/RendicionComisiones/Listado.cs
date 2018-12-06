@@ -63,7 +63,6 @@ namespace PalcoNet.Views.RendicionComisiones
                     id_item_factura = itemFactura.id_item,
                     numeroDeFactura = itemFactura.Factura.numero,
                     fechaFactura = itemFactura.Factura.fecha,
-                    formaDePago = itemFactura.Factura.forma_pago,
                     descripcion = itemFactura.descripcion,
                     precioUbicacion = itemFactura.Ubicacion_publicacion.precio,                    
                     comision = itemFactura.Ubicacion_publicacion.precio * itemFactura.Ubicacion_publicacion.Publicacion.Grado_publicacion.comision
