@@ -58,7 +58,7 @@ namespace PalcoNet.Views.Publicaciones
                 {
                     clientesFiltrados = clientesFiltrados.Where(c => c.numero_documento.ToString() == txtDocumento.Text);
                 }*/
-
+                espectaculosTotales = espectaculosTotales.Where(c => c.Estado_publicacion.descripcion.ToString() == "Publicada");
                 var espectaculos = espectaculosTotales.Select(c => new
                 {
                     id_publicacion = c.id_publicacion,
@@ -66,12 +66,19 @@ namespace PalcoNet.Views.Publicaciones
                     direccion = c.direccion,
                     fecha_espectaculo = c.fecha_espectaculo,
                     stock = c.stock,
-                    rubro = c.Rubro
+                    rubro = c.Rubro.descripcion,
+                    empresa = c.Empresa.razon_social,
+                    
                 })/*.OrderBy(c => c.nombre).ThenBy(c => c.apellido)*/;
 
                 DataGridViewUtils.actualizarDataGriedView(dgvEspectaculos, espectaculos, "id_publicacion");
             }
         }
+     
+        
+
         #endregion
+
+
     }
 }
