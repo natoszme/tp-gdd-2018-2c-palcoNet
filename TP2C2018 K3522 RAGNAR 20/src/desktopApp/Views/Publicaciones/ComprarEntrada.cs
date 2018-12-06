@@ -79,8 +79,9 @@ namespace PalcoNet.Views.Publicaciones
                     stock = c.stock,
                     rubro = c.Rubro.descripcion,
                     empresa = c.Empresa.razon_social,
+                    visibilidad = c.Grado_publicacion.id_grado
                     
-                })/*.OrderBy(c => c.nombre).ThenBy(c => c.apellido)*/;
+                }).OrderBy(c => c.visibilidad).ThenBy(c => c.fecha_espectaculo);
 
                 DataGridViewUtils.actualizarDataGriedView(dgvEspectaculos, espectaculos, "id_publicacion");
             }
