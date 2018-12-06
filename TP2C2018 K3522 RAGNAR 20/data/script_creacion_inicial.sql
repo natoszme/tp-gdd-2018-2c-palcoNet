@@ -541,7 +541,7 @@ BEGIN
 		BEGIN
 			SET @PrecioComision = @PrecioUbicacion * @Comision
 			SET @Total = @Total + @PrecioComision
-			INSERT INTO RAGNAR.Item_factura (id_ubicacion, id_factura, monto) VALUES (@IdUbicacion, (SELECT id_factura FROM RAGNAR.Factura WHERE numero = @NumeroDeFactura), @PrecioComision)
+			INSERT INTO RAGNAR.Item_factura (id_ubicacion, id_factura, monto, descripcion) VALUES (@IdUbicacion, (SELECT id_factura FROM RAGNAR.Factura WHERE numero = @NumeroDeFactura), @PrecioComision, 'Comision por compra')
 			FETCH NEXT FROM CUbicacionesAFacturar INTO @IdUbicacion, @PrecioUbicacion, @Comision, @Empresa
 		END
 		UPDATE RAGNAR.Factura SET total = @Total WHERE numero = @NumeroDeFactura
