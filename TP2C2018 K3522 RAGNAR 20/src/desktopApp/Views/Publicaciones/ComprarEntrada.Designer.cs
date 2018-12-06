@@ -31,6 +31,11 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.cbFiltroFecha = new System.Windows.Forms.CheckBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.dtpFechaHasta = new System.Windows.Forms.DateTimePicker();
+            this.label5 = new System.Windows.Forms.Label();
+            this.dtpFechaDesde = new System.Windows.Forms.DateTimePicker();
             this.btnFiltrar = new System.Windows.Forms.Button();
             this.clbCategorias = new System.Windows.Forms.CheckedListBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -38,11 +43,7 @@
             this.txtDescripcion = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dgvEspectaculos = new System.Windows.Forms.DataGridView();
-            this.dtpFechaDesde = new System.Windows.Forms.DateTimePicker();
-            this.dtpFechaHasta = new System.Windows.Forms.DateTimePicker();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.cbFiltroFecha = new System.Windows.Forms.CheckBox();
+            this.btnSeleccionarUbicaciones = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEspectaculos)).BeginInit();
@@ -81,6 +82,48 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(510, 108);
             this.panel2.TabIndex = 1;
+            // 
+            // cbFiltroFecha
+            // 
+            this.cbFiltroFecha.AutoSize = true;
+            this.cbFiltroFecha.Location = new System.Drawing.Point(119, 88);
+            this.cbFiltroFecha.Name = "cbFiltroFecha";
+            this.cbFiltroFecha.Size = new System.Drawing.Size(99, 17);
+            this.cbFiltroFecha.TabIndex = 14;
+            this.cbFiltroFecha.Text = "Filtrar por fecha";
+            this.cbFiltroFecha.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(322, 23);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(41, 13);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Rubros";
+            // 
+            // dtpFechaHasta
+            // 
+            this.dtpFechaHasta.Location = new System.Drawing.Point(119, 67);
+            this.dtpFechaHasta.Name = "dtpFechaHasta";
+            this.dtpFechaHasta.Size = new System.Drawing.Size(200, 20);
+            this.dtpFechaHasta.TabIndex = 12;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(116, 51);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(66, 13);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Fecha hasta";
+            // 
+            // dtpFechaDesde
+            // 
+            this.dtpFechaDesde.Location = new System.Drawing.Point(119, 28);
+            this.dtpFechaDesde.Name = "dtpFechaDesde";
+            this.dtpFechaDesde.Size = new System.Drawing.Size(200, 20);
+            this.dtpFechaDesde.TabIndex = 10;
             // 
             // btnFiltrar
             // 
@@ -142,53 +185,22 @@
             this.dgvEspectaculos.Size = new System.Drawing.Size(510, 157);
             this.dgvEspectaculos.TabIndex = 2;
             // 
-            // dtpFechaDesde
+            // btnSeleccionarUbicaciones
             // 
-            this.dtpFechaDesde.Location = new System.Drawing.Point(119, 28);
-            this.dtpFechaDesde.Name = "dtpFechaDesde";
-            this.dtpFechaDesde.Size = new System.Drawing.Size(200, 20);
-            this.dtpFechaDesde.TabIndex = 10;
-            // 
-            // dtpFechaHasta
-            // 
-            this.dtpFechaHasta.Location = new System.Drawing.Point(119, 67);
-            this.dtpFechaHasta.Name = "dtpFechaHasta";
-            this.dtpFechaHasta.Size = new System.Drawing.Size(200, 20);
-            this.dtpFechaHasta.TabIndex = 12;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(116, 51);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(66, 13);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "Fecha hasta";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(322, 23);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(41, 13);
-            this.label6.TabIndex = 13;
-            this.label6.Text = "Rubros";
-            // 
-            // cbFiltroFecha
-            // 
-            this.cbFiltroFecha.AutoSize = true;
-            this.cbFiltroFecha.Location = new System.Drawing.Point(119, 88);
-            this.cbFiltroFecha.Name = "cbFiltroFecha";
-            this.cbFiltroFecha.Size = new System.Drawing.Size(99, 17);
-            this.cbFiltroFecha.TabIndex = 14;
-            this.cbFiltroFecha.Text = "Filtrar por fecha";
-            this.cbFiltroFecha.UseVisualStyleBackColor = true;
+            this.btnSeleccionarUbicaciones.Location = new System.Drawing.Point(77, 334);
+            this.btnSeleccionarUbicaciones.Name = "btnSeleccionarUbicaciones";
+            this.btnSeleccionarUbicaciones.Size = new System.Drawing.Size(75, 40);
+            this.btnSeleccionarUbicaciones.TabIndex = 15;
+            this.btnSeleccionarUbicaciones.Text = "Seleccionar Ubicaciones";
+            this.btnSeleccionarUbicaciones.UseVisualStyleBackColor = true;
+            this.btnSeleccionarUbicaciones.Click += new System.EventHandler(this.btnSeleccionarUbicaciones_Click);
             // 
             // ComprarEntrada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(544, 407);
+            this.Controls.Add(this.btnSeleccionarUbicaciones);
             this.Controls.Add(this.dgvEspectaculos);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.panel2);
@@ -223,5 +235,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DateTimePicker dtpFechaDesde;
         private System.Windows.Forms.CheckBox cbFiltroFecha;
+        private System.Windows.Forms.Button btnSeleccionarUbicaciones;
     }
 }

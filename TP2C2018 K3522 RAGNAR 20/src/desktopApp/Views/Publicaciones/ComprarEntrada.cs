@@ -125,6 +125,22 @@ namespace PalcoNet.Views.Publicaciones
             actualizarDataGriedView();
         }
 
+        private void btnSeleccionarUbicaciones_Click(object sender, EventArgs e)
+        {
+            int? id = DataGridViewUtils.obtenerIdSeleccionado(dgvEspectaculos);
+            if (id == null)
+            {
+                MessageBox.Show("Debe seleccionar algun espectaculo");
+            }
+            else
+            {
+                new SeleccionarUbicaciones(id).Show();
+            }
+            
+        }
+
+      
+
 
     }
 }
