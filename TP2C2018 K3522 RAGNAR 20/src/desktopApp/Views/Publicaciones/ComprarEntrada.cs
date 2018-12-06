@@ -69,7 +69,8 @@ namespace PalcoNet.Views.Publicaciones
                 {
                     clientesFiltrados = clientesFiltrados.Where(c => c.numero_documento.ToString() == txtDocumento.Text);
                 }*/
-                espectaculosTotales = espectaculosTotales.Where(c => c.Estado_publicacion.descripcion.ToString() == "Publicada");
+                espectaculosTotales = espectaculosTotales.Where(c => c.Estado_publicacion.descripcion.ToString() == "Publicada").OrderBy(c => c.Grado_publicacion.id_grado).ThenBy(c => c.fecha_espectaculo);
+
                 var espectaculos = espectaculosTotales.Select(c => new
                 {
                     id_publicacion = c.id_publicacion,
@@ -78,10 +79,8 @@ namespace PalcoNet.Views.Publicaciones
                     fecha_espectaculo = c.fecha_espectaculo,
                     stock = c.stock,
                     rubro = c.Rubro.descripcion,
-                    empresa = c.Empresa.razon_social,
-                    visibilidad = c.Grado_publicacion.id_grado
-                    
-                }).OrderBy(c => c.visibilidad).ThenBy(c => c.fecha_espectaculo);
+                    empresa = c.Empresa.razon_social
+                });
 
                 DataGridViewUtils.actualizarDataGriedView(dgvEspectaculos, espectaculos, "id_publicacion");
             }
@@ -125,6 +124,16 @@ namespace PalcoNet.Views.Publicaciones
             actualizarDataGriedView();
         }
 
+        private void btnLimpiar_Click(object sender, EventArgs e) {
 
+            txtDescripcion.Text = "";
+            cbFiltroFecha.Checked = false;
+
+            // Hay un metodo nativo "clearSelected" que se supone que lo hace, pero no funca
+            foreach (int i in clbCategorias.CheckedIndices)
+                clbCategorias.SetItemCheckState(i, CheckState.Unchecked);
+
+            actualizarDataGriedView();
+        }
     }
 }
