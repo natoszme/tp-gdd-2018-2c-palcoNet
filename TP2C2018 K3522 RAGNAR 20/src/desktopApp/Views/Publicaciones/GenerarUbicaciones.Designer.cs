@@ -62,7 +62,7 @@
             this.btnAgregar.Location = new System.Drawing.Point(174, 38);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(75, 40);
-            this.btnAgregar.TabIndex = 2;
+            this.btnAgregar.TabIndex = 5;
             this.btnAgregar.Text = "Agregar Ubicacion";
             this.btnAgregar.UseVisualStyleBackColor = true;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
@@ -72,7 +72,7 @@
             this.txtPrecio.Location = new System.Drawing.Point(54, 77);
             this.txtPrecio.Name = "txtPrecio";
             this.txtPrecio.Size = new System.Drawing.Size(100, 20);
-            this.txtPrecio.TabIndex = 3;
+            this.txtPrecio.TabIndex = 2;
             // 
             // cbxNumerada
             // 
@@ -98,7 +98,7 @@
             this.cboTipo.Location = new System.Drawing.Point(54, 103);
             this.cboTipo.Name = "cboTipo";
             this.cboTipo.Size = new System.Drawing.Size(100, 21);
-            this.cboTipo.TabIndex = 6;
+            this.cboTipo.TabIndex = 3;
             // 
             // label1
             // 
@@ -141,7 +141,7 @@
             this.btnFinalizar.Location = new System.Drawing.Point(174, 85);
             this.btnFinalizar.Name = "btnFinalizar";
             this.btnFinalizar.Size = new System.Drawing.Size(75, 34);
-            this.btnFinalizar.TabIndex = 11;
+            this.btnFinalizar.TabIndex = 6;
             this.btnFinalizar.Text = "Finalizar Carga";
             this.btnFinalizar.UseVisualStyleBackColor = true;
             this.btnFinalizar.Click += new System.EventHandler(this.btnFinalizar_Click);

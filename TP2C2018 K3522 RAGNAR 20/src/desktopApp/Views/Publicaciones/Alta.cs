@@ -16,10 +16,8 @@ namespace PalcoNet.Publicaciones
 {
     public partial class Alta : Form
     {
-        Publicacion publicacion = new Publicacion();
-       
+        Publicacion publicacion = new Publicacion();       
         List<DateTime> fechas = new List<DateTime>();
-
 
         protected int? id;
 
@@ -38,8 +36,7 @@ namespace PalcoNet.Publicaciones
         }
 
 
-        public bool editando()
-        {
+        public bool editando() {
             return id != null;
         }
 
@@ -49,25 +46,12 @@ namespace PalcoNet.Publicaciones
             new Views.Publicaciones.GenerarUbicaciones(lblCantUbicaciones, publicacion).Show();
         }
 
-        private void btnGuardarBorrador_Click(object sender, EventArgs e)
-        {
-            
-            if (camposYDominioValidos())
-            {
-                MessageBox.Show("Todo valido");
-
-
-                asignarEntidades(UbicacionesGlobal.contextoGlobal);
-            
-                WindowsFormUtils.guardarYCerrar(UbicacionesGlobal.contextoGlobal, this);
-                    
+        private void btnGuardarBorrador_Click(object sender, EventArgs e) {            
+            if (camposYDominioValidos()) {
+                MessageBox.Show("Guardado como borrador");
+                RagnarEntities db = UbicacionesGlobal.contextoGlobal;
+                guardarPublicacion(db, BaseDeDatos.BaseDeDatos.estadoDePublicacionPorNombre(db, "Borrador"));
             }
-            else
-            {
-                return;
-            }
-            
-
         }
 
         private void cargarComboRubro()
@@ -91,72 +75,64 @@ namespace PalcoNet.Publicaciones
             
         }
 
-        private void btnPublicar_Click(object sender, EventArgs e)
-        {
-
+        private void btnPublicar_Click(object sender, EventArgs e) {
+            if (camposYDominioValidos()) {
+                MessageBox.Show("Publicada!");
+                RagnarEntities db = UbicacionesGlobal.contextoGlobal;
+                guardarPublicacion(db, BaseDeDatos.BaseDeDatos.estadoDePublicacionPorNombre(db, "Publicada"));
+            }
         }
 
         private void btnAgregarFecha_Click(object sender, EventArgs e)
         {
-            if (camposYDominioFechaValidos())
-            {
+            if (camposYDominioFechaValidos()) {
+                DateTime nuevaFecha = dtpFecha.Value.Date;
+
                 if (editando())
-                {
-                    DateTime nuevaFecha = DateTime.Parse(dtpFecha.Text);
-                    nuevaFecha = nuevaFecha.AddHours(int.Parse(txtHora.Text.Substring(0, 2)));
-                    nuevaFecha = nuevaFecha.AddMinutes(int.Parse(txtHora.Text.Substring(3, 2)));
-                    MessageBox.Show("La fecha ingresada = " + nuevaFecha.ToString() + " fue cargada satisfactoriamente");
                     fechas.RemoveAt(0);
-                    fechas.Add(nuevaFecha);
-                    return;
-                }
-                else {
-                    DateTime nuevaFecha = fechaYHoraCargada();
-                    MessageBox.Show("La fecha ingresada = " + nuevaFecha.ToString() + " fue cargada satisfactoriamente");
-                    fechas.Add(nuevaFecha);
-                }              
+
+                fechas.Add(nuevaFecha);
+                MessageBox.Show("La fecha " + nuevaFecha.ToString() + " fue cargada satisfactoriamente");
             }
         }
 
-
-        protected void asignarEntidades(RagnarEntities db)
-        {
+        protected void guardarPublicacion(RagnarEntities db, Estado_publicacion estado) {
+            
             if (id != null)
-            {
                 publicacion = db.Publicacion.Find(id); 
-            }
            
-            foreach(DateTime fecha in fechas){
-                //publicacion.id_publicacion =(long) id;
-                if (id == null)
-                {
+            foreach(DateTime fecha in fechas) {
+                /*
+                 * TODO: QUE SE HACE CON ESTO?
+                 * publicacion.id_publicacion = (long) id;
+                 * 
+                 * Esto para mi tampoco va
+                 * if (id == null)
                     publicacion = new Publicacion();
-                }
-               
+                 */
+
                 publicacion.descripcion = txtDescripcion.Text;
                 publicacion.direccion = txtDireccion.Text;
-                publicacion.Estado_publicacion = BaseDeDatos.BaseDeDatos.estadoDePublicacionPorNombre(db,"Borrador");
+                publicacion.Estado_publicacion = estado;
                 publicacion.fecha_espectaculo = fecha;
-                publicacion.Grado_publicacion = BaseDeDatos.BaseDeDatos.gradoPorDescripcion(db,WindowsFormUtils.textoSeleccionadoDe(cmbGradoPublicacion));
-                publicacion.Rubro = BaseDeDatos.BaseDeDatos.rubroPorDescripcion(db,WindowsFormUtils.textoSeleccionadoDe(cmbRubro));
+                publicacion.Grado_publicacion = BaseDeDatos.BaseDeDatos.gradoPorDescripcion(db, WindowsFormUtils.textoSeleccionadoDe(cmbGradoPublicacion));
+                publicacion.Rubro = BaseDeDatos.BaseDeDatos.rubroPorDescripcion(db, WindowsFormUtils.textoSeleccionadoDe(cmbRubro));
                 publicacion.Empresa = Global.obtenerUsuarioLogueado(db).Empresa;
                 publicacion.fecha_publicacion = Global.fechaDeHoy();
                 publicacion.fecha_vencimiento = fecha;
                 publicacion.stock = 0;
-                foreach (Ubicacion_publicacion ubicacion in UbicacionesGlobal.ubicaciones)
-                {
+
+                foreach (Ubicacion_publicacion ubicacion in UbicacionesGlobal.ubicaciones) {
                     ubicacion.Publicacion = publicacion;
                     db.Ubicacion_publicacion.Add(ubicacion);
-                    publicacion.Ubicacion_publicacion.Add(ubicacion);
-                    
+                    publicacion.Ubicacion_publicacion.Add(ubicacion);                    
                 }
                 
                 if (!editando())
-                {
                     db.Publicacion.Add(publicacion);
-                }
             }
-       
+            
+            WindowsFormUtils.guardarYCerrar(db, this);
         }
 
         #region VALIDACIONESFECHA
@@ -165,14 +141,8 @@ namespace PalcoNet.Publicaciones
             bool valido = true;
             List<string> errores = new List<string>();
 
-            // Se valida que la hora este ingresada y en un formato valido, para validar la fecha y hora completa
-            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtHora, "hora"), ref errores)) {                
-                if (!ValidationsUtils.hayError(() => ValidationsUtils.formatoHorarioValido(txtHora, "hora"), ref errores))
-                {
-                    if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(dtpFecha, "fecha publicacion"), ref errores))
-                        ValidationsUtils.hayError(() => ValidationsUtils.fechaMayorOIgualAHoy(dtpFecha, txtHora, "fecha publicacion"), ref errores);
-                }
-            }            
+            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(dtpFecha, "fecha publicacion"), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.fechaMayorOIgualAHoy(dtpFecha, "fecha publicacion"), ref errores);
 
             if (errores.Count() > 0) {
                 WindowsFormUtils.mostrarErrores(errores);
@@ -184,20 +154,14 @@ namespace PalcoNet.Publicaciones
             return valido;
         }
 
-        protected bool validarDominioFecha(ref List<string> errores)
-        {
+        protected bool validarDominioFecha(ref List<string> errores) {
             if (!editando())
-            {
                 ValidationsUtils.hayError(fechaMayorAUltima, ref errores);
-               
-            }
-             ValidationsUtils.hayError(noExistefechaDeMismaPublicacion, ref errores);
-                ValidationsUtils.hayError(fechaMayorAHoy, ref errores);
-            
-         
 
-            if (errores.Count() > 0)
-            {
+            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtDireccion, "direccion"), ref errores))
+                ValidationsUtils.hayError(noExistefechaDeMismaPublicacion, ref errores);         
+
+            if (errores.Count() > 0) {
                 WindowsFormUtils.mostrarErrores(errores);
                 return false;
             }
@@ -205,67 +169,48 @@ namespace PalcoNet.Publicaciones
             return true;
         }
 
-        private void fechaMayorAHoy()
-        {
-
-            if (fechaYHoraCargada()<Global.fechaDeHoy())
-                throw new ValidationException("La fecha debe ser mayor a la fecha de hoy");
-        }
-
-        private void noExistefechaDeMismaPublicacion(){
-            if (BaseDeDatos.BaseDeDatos.existePublicacionEnMismaFecha(publicacion.direccion, fechaYHoraCargada()))
+        private void noExistefechaDeMismaPublicacion() {
+            // TODO: revisar porque se pasa la direccion de la publicacion y no la que esta cargada en el txtBox
+            if (BaseDeDatos.BaseDeDatos.existePublicacionEnMismaFecha(publicacion.direccion, dtpFecha.Value.Date))
                 throw new ValidationException("No se puede elegir una fecha de un espectaculo que sea realizado a la misma hora en el mismo lugar");
-          
         }
 
-        private void fechaMayorAUltima()
-        {
-            if(fechas.Count!=0)
-            {
-                if(fechaYHoraCargada()<=fechas.ElementAt(fechas.Count-1))
+        private void fechaMayorAUltima() {
+            if (fechas.Count != 0) {
+                if (dtpFecha.Value.Date <= fechas.ElementAt(fechas.Count - 1))
                     throw new ValidationException("La fecha cargada debe ser superior a la ultima fecha de un espectaculo");
             }
         }
-
         #endregion
 
         #region VALIDACIONES
-        protected bool camposYDominioValidos()
-        {
+        protected bool camposYDominioValidos() {
             bool valido = true;
             List<string> errores = new List<string>();
 
-            ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtDireccion, "direccion"), ref errores);
-            
-
             ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtDescripcion, "descripcion"), ref errores);
 
-           
+            ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtDireccion, "direccion"), ref errores);
+
             ValidationsUtils.hayError(() => ValidationsUtils.opcionObligatoria(cmbRubro, "rubro"), ref errores);
 
             ValidationsUtils.hayError(() => ValidationsUtils.opcionObligatoria(cmbGradoPublicacion, "grado de publicacion"), ref errores);
        
-            if (errores.Count() > 0)
-            {
+            if (errores.Count() > 0) {
                 WindowsFormUtils.mostrarErrores(errores);
                 valido = false;
-            }
-            else
-            {
+            } else {
                 valido = validarDominio(ref errores);
             }
 
             return valido;
         }
 
-        protected bool validarDominio(ref List<string> errores)
-        {
-            ValidationsUtils.hayError(hayUbicacionesCargadas, ref errores);
-             
+        protected bool validarDominio(ref List<string> errores) {
+            ValidationsUtils.hayError(hayUbicacionesCargadas, ref errores);             
             ValidationsUtils.hayError(algunaFechaIngresada, ref errores);
 
-            if (errores.Count() > 0)
-            {
+            if (errores.Count() > 0) {
                 WindowsFormUtils.mostrarErrores(errores);
                 return false;
             }
@@ -273,67 +218,33 @@ namespace PalcoNet.Publicaciones
             return true;
         }
 
-        private void hayUbicacionesCargadas()
-        {
-            if (editando())
-            {
-                return;
-            }
-            if (UbicacionesGlobal.ubicaciones.Count<0)
-            {
+        private void hayUbicacionesCargadas() {
+            if (!editando() && UbicacionesGlobal.ubicaciones.Count < 0)
                 throw new ValidationException("Debe haber al menos una ubicacion cargada");
-            }
-
         }
 
-        
-
-        private void algunaFechaIngresada()
-        {
-            if (fechas.Count<1)
-            {
-                throw new ValidationException("Debe ingresar al menos 1 fecha");
-            }
-            
+        private void algunaFechaIngresada() {
+            if (fechas.Count < 1)
+                throw new ValidationException("Debe ingresar al menos 1 fecha");            
         }
         #endregion
 
-
         #region CARGADATOS
-        protected void cargarDatos()
-        {
-            
-            try
-            {
+        protected void cargarDatos() {            
+            try {
                 publicacion = UbicacionesGlobal.contextoGlobal.Publicacion.Find(id);
-                txtHora.Text = publicacion.fecha_espectaculo.Hour + ":" + publicacion.fecha_espectaculo.Minute;
                 txtDireccion.Text = publicacion.direccion;
                 txtDescripcion.Text = publicacion.descripcion;
-                dtpFecha.Value = (System.DateTime)publicacion.fecha_espectaculo;
-                fechas.Add((System.DateTime)publicacion.fecha_espectaculo);
+                dtpFecha.Value = (System.DateTime) publicacion.fecha_espectaculo;
+                fechas.Add((System.DateTime) publicacion.fecha_espectaculo);
                 cmbGradoPublicacion.Text = publicacion.Grado_publicacion.descripcion;
                 cmbRubro.Text = publicacion.Rubro.descripcion;
 
-                UbicacionesGlobal.ubicaciones = BaseDeDatos.BaseDeDatos.ubicacionesDePublicacion(UbicacionesGlobal.contextoGlobal,(int)id);
-
-
-            }
-            catch (Exception)
-            {
+                UbicacionesGlobal.ubicaciones = BaseDeDatos.BaseDeDatos.ubicacionesDePublicacion(UbicacionesGlobal.contextoGlobal, (int) id);
+            } catch (Exception) {
                 WindowsFormUtils.mensajeDeError("Error al intentar cargar a la publicacion");
             }
-
-            
         }
         #endregion
-
-        private DateTime fechaYHoraCargada()
-        {
-            return DateTime.Parse(dtpFecha.Text).AddHours(int.Parse(txtHora.Text.Substring(0, 2))).AddMinutes(int.Parse(txtHora.Text.Substring(3, 2)));
-        }
-
     }
-
-    
-
 }
