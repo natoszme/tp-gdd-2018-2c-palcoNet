@@ -46,6 +46,14 @@ namespace PalcoNet.BaseDeDatos
                 .FirstOrDefault();
         }
 
+        internal static Cliente clientePorId(long id)
+        {
+            return dbContext().Cliente
+                .Where(cliente => cliente.id_usuario == id)
+                .FirstOrDefault();
+        }
+        
+
         internal static List<Ubicacion_publicacion> ubicacionesPorIdPublicacion(Publicacion publicacion)
         {
             return dbContext().Ubicacion_publicacion
@@ -294,5 +302,7 @@ namespace PalcoNet.BaseDeDatos
         {
             return db.Empresa.Find(idEmpresa);
         }
+
+       
     }
 }

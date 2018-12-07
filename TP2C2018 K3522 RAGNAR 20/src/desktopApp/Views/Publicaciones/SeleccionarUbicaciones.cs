@@ -16,6 +16,11 @@ namespace PalcoNet.Views.Publicaciones
     {
         List<int> ubicacionesSeleccionadas = new List<int>();
         int idEspectaculo;
+
+        private String caracteresOcultosTarjeta = "****";
+        private int digitosBaseTarjeta = 6;
+        private int digitosFinalTarjeta = 4;
+
         public SeleccionarUbicaciones(int? id)
         {
             InitializeComponent();
@@ -26,6 +31,7 @@ namespace PalcoNet.Views.Publicaciones
         {
             actualizarLabelCantidad();
             actualizarDataGriedView();
+            cargarTarjetaCredito();
             dgvUbicaciones.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
@@ -61,8 +67,70 @@ namespace PalcoNet.Views.Publicaciones
             lblUbicacionesSeleccionadas.Text = "Cantidad de ubicaciones seleccionadas = " + ubicacionesSeleccionadas.Count;
         }
 
+        #region TARJETACREDITO
+        void cargarTarjetaCredito()
+        {
+            Cliente clienteActual = BaseDeDatos.BaseDeDatos.clientePorId(Global.obtenerUsuarioLogueado().id_usuario);
+            if (clienteActual != null)
+            {
+                txtTarjeta.Text = tarjetaConAsteriscos(clienteActual.tarjeta_credito);
+            }
+            else
+            {
+                 MessageBox.Show("No puede comprar porque no esta registrado como cliente");
+            }
+                 
+           
+        }
+
+        
+        private string recortarTarjetaDeCredito(string tarjeta)
+        {
+            if (tarjeta != "")
+            {
+                return tarjeta.Substring(0, digitosBaseTarjeta) + tarjeta.Substring(tarjeta.Length - digitosFinalTarjeta, digitosFinalTarjeta);
+            }
+            return null;
+        }
+
+        private string tarjetaConAsteriscos(string tarjeta)
+        {
+            if (tarjeta != null)
+            {
+                return tarjeta.Substring(0, digitosBaseTarjeta) + caracteresOcultosTarjeta + tarjeta.Substring(tarjeta.Length - digitosFinalTarjeta, digitosFinalTarjeta);
+            }
+
+            return "";
+        }
+
+        private bool validarTarjeta()
+        {
+            bool valido = true;
+            List<string> errores = new List<string>();
+            if(!ValidationsUtils.hayError(() =>ValidationsUtils.campoObligatorio(txtTarjeta, "tarjeta de credito"),ref errores))
+            {
+                ValidationsUtils.hayError(() => ValidationsUtils.campoLongitudEntre(txtTarjeta, "tarjeta de credito", 15, 16), ref errores);
+                ValidationsUtils.hayError(() => ValidationsUtils.campoEnteroYPositivo(txtTarjeta, "tarjeta de credito"), ref errores);
+           }
+           
+           
+            if (errores.Count() > 0)
+            {
+                WindowsFormUtils.mostrarErrores(errores);
+                valido = false;
+            }
+            else
+            {
+                valido = true;
+            }
+
+            return valido;
+        }
+        #endregion
+
         private void btnSeleccionar_Click(object sender, EventArgs e)
         {
+          
             int? id = DataGridViewUtils.obtenerIdSeleccionado(dgvUbicaciones);
             if (id == null)
             {
@@ -79,14 +147,25 @@ namespace PalcoNet.Views.Publicaciones
                     ubicacionesSeleccionadas.Add((int)id);
                     actualizarLabelCantidad();
                 }
-               
+
             }
+
+            
+           
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
             
             this.Close();
+        }
+
+        private void btnComprar_Click(object sender, EventArgs e)
+        {
+            if (validarTarjeta())
+            {
+                MessageBox.Show("Puede comprar");
+            }
         }
 
       
