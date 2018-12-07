@@ -91,6 +91,7 @@
             this.dgvUbicaciones.Name = "dgvUbicaciones";
             this.dgvUbicaciones.Size = new System.Drawing.Size(240, 150);
             this.dgvUbicaciones.TabIndex = 5;
+            this.dgvUbicaciones.Visible = false;
             // 
             // cboTipo
             // 

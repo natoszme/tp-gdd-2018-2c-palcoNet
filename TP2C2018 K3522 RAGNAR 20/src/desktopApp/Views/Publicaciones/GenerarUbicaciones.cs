@@ -15,29 +15,21 @@ namespace PalcoNet.Views.Publicaciones
 {
 
     public partial class GenerarUbicaciones : Form {
-        /* 
-         * TODO: revisar todo esto que estaba comentado
-         * public List<Ubicacion_publicacion> ubicaciones;
-         */
+       
 
         Label lblCantUbicaciones;
         Publicacion publicacionActual;
         Ubicacion_publicacion nuevaUbicacion;
-       
-        public GenerarUbicaciones(Label lblUbicaciones, Publicacion publicacion) {
-            // TODO: revisar todo esto que estaba comentado
-
-            /* 
-             * Ubicacion nuevaUbicacion = new Ubicacion(1, 1, 10, new Tipo_ubicacion(), true);
-             * ubicaciones.Add(nuevaUbicacion);
-             * dgvUbicaciones.DataSource = ubicaciones;
-             */
+        bool editandoPublicacion;
+        public GenerarUbicaciones(Label lblUbicaciones, Publicacion publicacion,bool editando) {
+           
 
             InitializeComponent();
             cargarComboTipo();
-            // ubicaciones = new List<Ubicacion_publicacion>();
+          
             lblCantUbicaciones = lblUbicaciones;
             publicacionActual = publicacion;
+            this.editandoPublicacion = editando;
         }
     
         private void cargarComboTipo() {
@@ -55,14 +47,10 @@ namespace PalcoNet.Views.Publicaciones
             string asientoIngresado = txtAsiento.Text;
 
             if (ubicacionValida() && !esUbicacionRepetida()) {
-                // TODO: revisar lo comentado (si no va saquemoslo)
-                    
-                // using(RagnarEntities db = UbicacionesGlobal.contextoGlobal) {
-                    guardarUbicaciones(UbicacionesGlobal.contextoGlobal);
-                    dgvUbicaciones.DataSource = UbicacionesGlobal.ubicaciones;
-                    MessageBox.Show("Ubicacion creada con exito");
-                    lblCantUbicaciones.Text = "Ubicaciones cargadas = " + UbicacionesGlobal.ubicaciones.Count; //Actualiza el lbl del formulario de alta
-                // }
+                guardarUbicaciones(UbicacionesGlobal.contextoGlobal);
+                actualizarDataGriedView();
+                MessageBox.Show("Ubicacion creada con exito");
+                lblCantUbicaciones.Text = "Ubicaciones cargadas = " + UbicacionesGlobal.ubicaciones.Count; //Actualiza el lbl del formulario de alta               
             }
         }
 
@@ -116,26 +104,88 @@ namespace PalcoNet.Views.Publicaciones
         }
 
         private void GenerarUbicaciones_Load(object sender, EventArgs e) {
-            dgvUbicaciones.DataSource = UbicacionesGlobal.ubicaciones;
+            actualizarDataGriedView();
         }
 
-        private void btnFinalizar_Click(object sender, EventArgs e) {
-            // TODO: revisar lo comentado (si no va saquemoslo)
 
-            /* 
-             * using (RagnarEntities db = UbicacionesGlobal.contextoGlobal) {
-             *      WindowsFormUtils.guardarYCerrar(db, this);
-             * }
-             */
+        #region HELPER
+
+        public struct UbicacionMostrable
+        {
+            public long id_ubicacion;
+            public string fila;
+            public decimal asiento;
+            public string tipo;
+            public decimal precio;
+            public string numerada;
+
+        }
+
+        private string tipoNumeracion(bool sinNumerar)
+        {
+            if (sinNumerar)
+                return "Sin numerar";
+            return "Numerada";
+        }
+
+        private List<UbicacionMostrable> convertirAMostrable(List<Ubicacion_publicacion> ubicaciones)
+        {
+            List<UbicacionMostrable> ubicacionesMostrables = new List<UbicacionMostrable>();
+            foreach (Ubicacion_publicacion ub in UbicacionesGlobal.ubicaciones)
+            {
+                UbicacionMostrable ubic = new UbicacionMostrable();
+                ubic.id_ubicacion = ub.id_ubicacion;
+                ubic.fila = ub.fila;
+                ubic.asiento = (decimal)ub.asiento;
+                ubic.precio = ub.precio;
+                ubic.tipo = ub.Tipo_ubicacion.descripcion;
+                ubic.numerada = tipoNumeracion(ub.sin_numerar);
+                
+
+            }
+            return ubicacionesMostrables;
+        }
+
+        #region HELPER
+        private void actualizarDataGriedView()
+        {
+            if (editandoPublicacion)
+            {
+                dgvUbicaciones.Visible = true;
+                using (RagnarEntities db = new RagnarEntities())
+                {
+
+                    IQueryable<Ubicacion_publicacion> ubicacionesBase = db.Ubicacion_publicacion.AsQueryable();
+
+
+
+                    var ubicaciones = ubicacionesBase.Select(c => new
+                    {
+                        id_ubicacion = c.id_ubicacion,
+                        fila = c.fila,
+                        asiento = c.asiento,
+                        precio = c.precio,
+                        sin_numerar = c.sin_numerar,
+                        tipo_ubicacion = c.Tipo_ubicacion.descripcion
+                    }).OrderBy(c => c.fila).ThenBy(c => c.asiento);
+
+                    DataGridViewUtils.actualizarDataGriedView(dgvUbicaciones, ubicaciones, "id_ubicacion");
+                }
+            }
+           
+        }
+        #endregion
+
+
+
+        #endregion
+
+      
+
+        private void btnFinalizar_Click(object sender, EventArgs e) {
 
             this.Close();
 
-           /*
-            * guardarUbicaciones(db);
-            * formListado.actualizarDataGriedView();
-            * WindowsFormUtils.guardarYCerrar(db, this);
-            * this.Hide();
-            */
         }
 
         private void guardarUbicaciones(RagnarEntities db) {
@@ -148,11 +198,7 @@ namespace PalcoNet.Views.Publicaciones
             nuevaUbicacion.asiento = int.Parse(txtAsiento.Text);
 
             UbicacionesGlobal.ubicaciones.Add(nuevaUbicacion);
-            
-            /* TODO: revisar lo comentado
-             * db.Ubicacion_publicacion.Add(nuevaUbicacion);
-             * ubicaciones.Add(nuevaUbicacion);
-             */
+
         }
     }
 }

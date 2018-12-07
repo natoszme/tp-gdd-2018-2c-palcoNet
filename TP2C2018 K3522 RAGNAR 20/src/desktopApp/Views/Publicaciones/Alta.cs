@@ -43,7 +43,8 @@ namespace PalcoNet.Publicaciones
 
         private void btnUbicaciones_Click(object sender, EventArgs e)
         {
-            new Views.Publicaciones.GenerarUbicaciones(lblCantUbicaciones, publicacion).Show();
+          
+            new Views.Publicaciones.GenerarUbicaciones(lblCantUbicaciones, publicacion,editando()).Show();
         }
 
         private void btnGuardarBorrador_Click(object sender, EventArgs e) {            
