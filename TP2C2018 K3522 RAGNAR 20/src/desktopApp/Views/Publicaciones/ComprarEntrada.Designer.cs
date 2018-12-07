@@ -46,6 +46,11 @@
             this.dgvEspectaculos = new System.Windows.Forms.DataGridView();
             this.btnSeleccionarUbicaciones = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnUltima = new System.Windows.Forms.Button();
+            this.btnSiguiente = new System.Windows.Forms.Button();
+            this.btnAnterior = new System.Windows.Forms.Button();
+            this.lblPaginaActual = new System.Windows.Forms.Label();
+            this.btnPrimera = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEspectaculos)).BeginInit();
@@ -217,11 +222,65 @@
             this.panel3.Size = new System.Drawing.Size(823, 240);
             this.panel3.TabIndex = 3;
             // 
+            // btnUltima
+            // 
+            this.btnUltima.Location = new System.Drawing.Point(444, 417);
+            this.btnUltima.Name = "btnUltima";
+            this.btnUltima.Size = new System.Drawing.Size(30, 26);
+            this.btnUltima.TabIndex = 20;
+            this.btnUltima.Text = ">>";
+            this.btnUltima.UseVisualStyleBackColor = true;
+            this.btnUltima.Click += new System.EventHandler(this.btnUltima_Click_1);
+            // 
+            // btnSiguiente
+            // 
+            this.btnSiguiente.Location = new System.Drawing.Point(408, 417);
+            this.btnSiguiente.Name = "btnSiguiente";
+            this.btnSiguiente.Size = new System.Drawing.Size(30, 26);
+            this.btnSiguiente.TabIndex = 19;
+            this.btnSiguiente.Text = ">";
+            this.btnSiguiente.UseVisualStyleBackColor = true;
+            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click_1);
+            // 
+            // btnAnterior
+            // 
+            this.btnAnterior.Location = new System.Drawing.Point(353, 417);
+            this.btnAnterior.Name = "btnAnterior";
+            this.btnAnterior.Size = new System.Drawing.Size(30, 26);
+            this.btnAnterior.TabIndex = 18;
+            this.btnAnterior.Text = "<";
+            this.btnAnterior.UseVisualStyleBackColor = true;
+            this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click_1);
+            // 
+            // lblPaginaActual
+            // 
+            this.lblPaginaActual.AutoSize = true;
+            this.lblPaginaActual.Location = new System.Drawing.Point(389, 424);
+            this.lblPaginaActual.Name = "lblPaginaActual";
+            this.lblPaginaActual.Size = new System.Drawing.Size(13, 13);
+            this.lblPaginaActual.TabIndex = 17;
+            this.lblPaginaActual.Text = "1";
+            // 
+            // btnPrimera
+            // 
+            this.btnPrimera.Location = new System.Drawing.Point(317, 417);
+            this.btnPrimera.Name = "btnPrimera";
+            this.btnPrimera.Size = new System.Drawing.Size(30, 26);
+            this.btnPrimera.TabIndex = 16;
+            this.btnPrimera.Text = "<<";
+            this.btnPrimera.UseVisualStyleBackColor = true;
+            this.btnPrimera.Click += new System.EventHandler(this.btnPrimera_Click_1);
+            // 
             // ComprarEntrada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(847, 468);
+            this.Controls.Add(this.btnUltima);
+            this.Controls.Add(this.btnSiguiente);
+            this.Controls.Add(this.btnAnterior);
+            this.Controls.Add(this.lblPaginaActual);
+            this.Controls.Add(this.btnPrimera);
             this.Controls.Add(this.btnSeleccionarUbicaciones);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.label2);
@@ -263,6 +322,11 @@
 
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button btnLimpiar;
+        private System.Windows.Forms.Button btnUltima;
+        private System.Windows.Forms.Button btnSiguiente;
+        private System.Windows.Forms.Button btnAnterior;
+        private System.Windows.Forms.Label lblPaginaActual;
+        private System.Windows.Forms.Button btnPrimera;
 
     }
 }

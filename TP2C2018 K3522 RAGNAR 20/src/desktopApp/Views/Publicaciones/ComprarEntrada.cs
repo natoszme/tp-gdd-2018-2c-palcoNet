@@ -14,6 +14,9 @@ namespace PalcoNet.Views.Publicaciones
 {
     public partial class ComprarEntrada : Form
     {
+        Paginador paginador;
+        private bool loadingTime = true;
+
         public ComprarEntrada()
         {
             InitializeComponent();
@@ -52,26 +55,7 @@ namespace PalcoNet.Views.Publicaciones
                    
                 }
 
-                /*
-                if (!string.IsNullOrWhiteSpace(txtApellido.Text))
-                {
-                    clientesFiltrados = clientesFiltrados.Where(c => c.apellido.Contains(txtApellido.Text));
-                }
-
-                if (!string.IsNullOrWhiteSpace(txtEmail.Text))
-                {
-                    clientesFiltrados = clientesFiltrados.Where(c => c.mail.Contains(txtEmail.Text));
-                }
-
-                if (!string.IsNullOrWhiteSpace(txtTipoDocumento.Text))
-                {
-                    clientesFiltrados = clientesFiltrados.Where(c => c.tipo_documento.ToString() == txtTipoDocumento.Text);
-                }
-
-                if (!string.IsNullOrWhiteSpace(txtDocumento.Text))
-                {
-                    clientesFiltrados = clientesFiltrados.Where(c => c.numero_documento.ToString() == txtDocumento.Text);
-                }*/
+           
                 espectaculosTotales = espectaculosTotales.Where(c => c.Estado_publicacion.descripcion.ToString() == "Publicada").OrderBy(c => c.Grado_publicacion.id_grado).ThenBy(c => c.fecha_espectaculo);
 
                 var espectaculos = espectaculosTotales.Select(c => new
@@ -86,7 +70,13 @@ namespace PalcoNet.Views.Publicaciones
                     empresa = c.Empresa.razon_social
                 });
 
-                DataGridViewUtils.actualizarDataGriedView(dgvEspectaculos, espectaculos, "id_publicacion");
+                if (loadingTime)
+                {
+                    paginador = new Paginador(10, espectaculos.Count(), lblPaginaActual);
+                    loadingTime = false;
+                }
+
+                DataGridViewUtils.actualizarDataGriedView(dgvEspectaculos, espectaculos.Skip(paginador.init()).Take(paginador.limit()), "id_publicacion");
             }
         }
      
@@ -124,7 +114,7 @@ namespace PalcoNet.Views.Publicaciones
 
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
-          
+            paginador.restart();
             actualizarDataGriedView();
         }
 
@@ -150,13 +140,41 @@ namespace PalcoNet.Views.Publicaciones
 
             txtDescripcion.Text = "";
             cbFiltroFecha.Checked = false;
-
+            
             // Hay un metodo nativo "clearSelected" que se supone que lo hace, pero no funca
             foreach (int i in clbCategorias.CheckedIndices)
                 clbCategorias.SetItemCheckState(i, CheckState.Unchecked);
 
-
+            paginador.restart();
             actualizarDataGriedView();
         }
+
+        #region PAGINADO
+        private void btnPrimera_Click_1(object sender, EventArgs e)
+        {
+            paginador.first();
+            actualizarDataGriedView();
+        }
+
+        private void btnAnterior_Click_1(object sender, EventArgs e)
+        {
+            paginador.prev();
+            actualizarDataGriedView();
+        }
+
+        private void btnSiguiente_Click_1(object sender, EventArgs e)
+        {
+            paginador.next();
+            actualizarDataGriedView();
+        }
+
+        private void btnUltima_Click_1(object sender, EventArgs e)
+        {
+            paginador.last();
+            actualizarDataGriedView();
+        }
+        #endregion
+
+        
     }
 }
