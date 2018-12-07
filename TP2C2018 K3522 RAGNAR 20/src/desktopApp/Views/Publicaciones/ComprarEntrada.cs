@@ -35,13 +35,12 @@ namespace PalcoNet.Views.Publicaciones
         {
             using (RagnarEntities db = new RagnarEntities())
             {
-
                 IQueryable<Publicacion> espectaculosTotales = db.Publicacion.AsQueryable();
-
              
-               /* if(clbCategorias.CheckedItems.Count>0){
-                    espectaculosTotales = espectaculosTotales.Where(e => clbCategorias.CheckedItems.Contains(e));
-                }*/
+                if(clbCategorias.CheckedItems.Count > 0){
+                    espectaculosTotales = espectaculosTotales.ToList().Where(e => clbCategorias.CheckedItems.Contains(e.Rubro.descripcion)).AsQueryable();
+                }
+
                 DateTime fechaDeHoy = Global.fechaDeHoy();
                 espectaculosTotales = espectaculosTotales.Where(e => e.fecha_espectaculo >= fechaDeHoy && fechaDeHoy >= e.fecha_publicacion);
 
