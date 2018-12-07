@@ -92,7 +92,7 @@ namespace PalcoNet.Publicaciones
                     fechas.RemoveAt(0);
 
                 fechas.Add(nuevaFecha);
-                MessageBox.Show("La fecha " + nuevaFecha.ToString() + " fue cargada satisfactoriamente");
+                WindowsFormUtils.mensajeDeExito("La fecha " + nuevaFecha.ToString() + " fue cargada satisfactoriamente");
             }
         }
 
