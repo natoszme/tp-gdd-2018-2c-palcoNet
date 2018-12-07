@@ -86,7 +86,7 @@ namespace PalcoNet.Publicaciones
         private void btnAgregarFecha_Click(object sender, EventArgs e)
         {
             if (camposYDominioFechaValidos()) {
-                DateTime nuevaFecha = dtpFecha.Value.Date;
+                DateTime nuevaFecha = dtpFecha.Value;
 
                 if (editando())
                     fechas.RemoveAt(0);
