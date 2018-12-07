@@ -77,12 +77,17 @@ namespace PalcoNet.Publicaciones
             {
                 if (BaseDeDatos.BaseDeDatos.obtenerEstadoDePublicacionPorId((int)id).descripcion != "Borrador")
                 {
-                    MessageBox.Show("No se puede editar publicaciones que no esten como borrador");
+                    WindowsFormUtils.mensajeDeError("Sólo puede editar publicaciones en estado 'Borrador'");
                     return;
                 }
             }
                 
             WindowsFormUtils.abrirFormulario(new Alta(id), actualizarDataGriedView);
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

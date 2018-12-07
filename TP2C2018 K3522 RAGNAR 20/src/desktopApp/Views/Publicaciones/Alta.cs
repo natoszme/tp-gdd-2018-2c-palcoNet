@@ -48,7 +48,7 @@ namespace PalcoNet.Publicaciones
 
         private void btnGuardarBorrador_Click(object sender, EventArgs e) {            
             if (camposYDominioValidos()) {
-                MessageBox.Show("Guardado como borrador");
+                WindowsFormUtils.mensajeDeExito("Publicación guardada como borrador");
                 RagnarEntities db = UbicacionesGlobal.contextoGlobal;
                 guardarPublicacion(db, BaseDeDatos.BaseDeDatos.estadoDePublicacionPorNombre(db, "Borrador"));
             }
@@ -77,7 +77,7 @@ namespace PalcoNet.Publicaciones
 
         private void btnPublicar_Click(object sender, EventArgs e) {
             if (camposYDominioValidos()) {
-                MessageBox.Show("Publicada!");
+                WindowsFormUtils.mensajeDeExito("Publicación publicada");
                 RagnarEntities db = UbicacionesGlobal.contextoGlobal;
                 guardarPublicacion(db, BaseDeDatos.BaseDeDatos.estadoDePublicacionPorNombre(db, "Publicada"));
             }

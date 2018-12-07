@@ -60,7 +60,7 @@ namespace PalcoNet.Views.Publicaciones
                 // using(RagnarEntities db = UbicacionesGlobal.contextoGlobal) {
                     guardarUbicaciones(UbicacionesGlobal.contextoGlobal);
                     dgvUbicaciones.DataSource = UbicacionesGlobal.ubicaciones;
-                    MessageBox.Show("Ubicacion creada con exito");
+                    WindowsFormUtils.mensajeDeExito("Ubicacion creada con exito");
                     lblCantUbicaciones.Text = "Ubicaciones cargadas = " + UbicacionesGlobal.ubicaciones.Count; //Actualiza el lbl del formulario de alta
                 // }
             }
