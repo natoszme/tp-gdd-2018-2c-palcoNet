@@ -68,8 +68,10 @@ namespace PalcoNet.Clientes
                 }).OrderBy(c => c.nombre).ThenBy(c => c.apellido);
 
                 if (loadingTime) {
-                    paginador = new Paginador(10, clientes.Count(), lblPaginaActual);
+                    paginador = new Paginador(10, clientes.Count(), lblPaginaActual, new List<Button> { btnPrimera, btnAnterior, btnSiguiente, btnUltima });
                     loadingTime = false;
+                } else {
+                    paginador.TotalRecords = clientes.Count();
                 }
 
                 DataGridViewUtils.actualizarDataGriedView(dgvClientes, clientes.Skip(paginador.init()).Take(paginador.limit()), "id_usuario");

@@ -70,10 +70,11 @@ namespace PalcoNet.Views.Publicaciones
                     empresa = c.Empresa.razon_social
                 });
 
-                if (loadingTime)
-                {
-                    paginador = new Paginador(10, espectaculos.Count(), lblPaginaActual);
+                if (loadingTime) {
+                    paginador = new Paginador(10, espectaculos.Count(), lblPaginaActual, new List<Button> { btnPrimera, btnAnterior, btnSiguiente, btnUltima });
                     loadingTime = false;
+                } else {
+                    paginador.TotalRecords = espectaculos.Count();
                 }
 
                 DataGridViewUtils.actualizarDataGriedView(dgvEspectaculos, espectaculos.Skip(paginador.init()).Take(paginador.limit()), "id_publicacion");
