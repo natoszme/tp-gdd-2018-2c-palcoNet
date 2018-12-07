@@ -164,12 +164,53 @@ namespace PalcoNet.Views.Publicaciones
         {
             if (validarTarjeta())
             {
-                MessageBox.Show("Puede comprar");
+                if (importeTotal() > 0)
+                {
+                    using (RagnarEntities db = new RagnarEntities())
+                    {
+                        asignarEntidades(db);
+                        WindowsFormUtils.guardarYCerrar(db, this);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("El importe total no puede ser menor a 0");
+                }
+               
             }
         }
 
-      
+        decimal importeTotal()
+        {
+            decimal importe = 0;
+            RagnarEntities db = new RagnarEntities();
+            foreach (int idUbicacion in ubicacionesSeleccionadas)
+            {
+                
+                IQueryable<Ubicacion_publicacion> ubicacionActual = db.Ubicacion_publicacion.AsQueryable().Where(ub => ub.id_ubicacion == idUbicacion);
+                importe += ubicacionActual.FirstOrDefault().precio;
+            }
+            return importe;
+        }
 
-      
+        protected void asignarEntidades(RagnarEntities db)
+        {
+           
+            
+            Compra compra = new Compra();
+            compra.Cliente = BaseDeDatos.BaseDeDatos.clientePorId(db,Global.obtenerUsuarioLogueado().id_usuario);
+            compra.fecha = Global.fechaDeHoy();
+            compra.tarjeta_utilizada = recortarTarjetaDeCredito(txtTarjeta.Text);
+            
+            db.Compra.Add(compra);
+            foreach (int idUbicacion in ubicacionesSeleccionadas)
+            {
+                IQueryable<Ubicacion_publicacion> ubicacionActual = db.Ubicacion_publicacion.AsQueryable().Where(ub => ub.id_ubicacion == idUbicacion);
+                compra.Ubicacion_publicacion.Add(ubicacionActual.FirstOrDefault());
+                ubicacionActual.FirstOrDefault().Compra = compra;
+            }
+            
+
+        } 
     }
 }

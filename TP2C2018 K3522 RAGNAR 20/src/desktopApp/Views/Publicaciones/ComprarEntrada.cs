@@ -39,6 +39,8 @@ namespace PalcoNet.Views.Publicaciones
                /* if(clbCategorias.CheckedItems.Count>0){
                     espectaculosTotales = espectaculosTotales.Where(e => clbCategorias.CheckedItems.Contains(e));
                 }*/
+                DateTime fechaDeHoy = Global.fechaDeHoy();
+                espectaculosTotales = espectaculosTotales.Where(e => e.fecha_espectaculo >= fechaDeHoy && fechaDeHoy >= e.fecha_publicacion);
 
                 if (!string.IsNullOrWhiteSpace(txtDescripcion.Text))
                 {
@@ -49,6 +51,7 @@ namespace PalcoNet.Views.Publicaciones
                     espectaculosTotales = espectaculosTotales.Where(c => c.fecha_espectaculo >= dtpFechaDesde.Value.Date && c.fecha_espectaculo <=dtpFechaHasta.Value);
                    
                 }
+
                 /*
                 if (!string.IsNullOrWhiteSpace(txtApellido.Text))
                 {
@@ -76,6 +79,7 @@ namespace PalcoNet.Views.Publicaciones
                     descripcion = c.descripcion,
                     direccion = c.direccion,
                     fecha_espectaculo = c.fecha_espectaculo,
+                    fecha_publicacion = c.fecha_publicacion,
                     stock = c.stock,
                     rubro = c.Rubro.descripcion,
                     empresa = c.Empresa.razon_social,

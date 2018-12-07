@@ -45,12 +45,15 @@ namespace PalcoNet.BaseDeDatos
                 .Where(cliente => cliente.cuil.Equals(cuil))
                 .FirstOrDefault();
         }
-
+        internal static Cliente clientePorId(RagnarEntities db, long id)
+        {
+            return db.Cliente
+               .Where(cliente => cliente.id_usuario == id)
+               .FirstOrDefault();
+        }
         internal static Cliente clientePorId(long id)
         {
-            return dbContext().Cliente
-                .Where(cliente => cliente.id_usuario == id)
-                .FirstOrDefault();
+            return clientePorId(dbContext(), id);
         }
         
 
