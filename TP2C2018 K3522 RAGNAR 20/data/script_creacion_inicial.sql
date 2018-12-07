@@ -500,7 +500,7 @@ BEGIN
 	SET @ID = (SELECT id_usuario FROM RAGNAR.Usuario WHERE usuario = @Usuario)
 	IF (@ID IS NULL)
 	BEGIN
-		PRINT('El usuario ingresado no existe') --Se puede cambiar a un RAISEERROR?
+		PRINT('El usuario ingresado no existe')
 		RETURN 0
 	END
 	ELSE
@@ -610,7 +610,7 @@ GO
 
 --/ Trigger para quitar los puntos que fueron canjeados por un premio /--
 
-CREATE TRIGGER RAGNAR.RestarPuntos ON RAGNAR.Canje_premio AFTER INSERT --/Se puede hacer con instead of si queremos chequear que tenga esos puntos
+CREATE TRIGGER RAGNAR.RestarPuntos ON RAGNAR.Canje_premio AFTER INSERT
 AS
 BEGIN
 	DECLARE @Cliente bigint, @Fecha datetime, @Premio int, @PuntosARestar int, @Puntaje bigint, @PuntosDisponibles int
