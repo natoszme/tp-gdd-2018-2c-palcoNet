@@ -641,7 +641,6 @@ BEGIN
 	DECLARE @Descripcion nvarchar(255), @FechaEspectaculo datetime, @Stock int
 	DECLARE CPublicaciones CURSOR FOR (SELECT descripcion, fecha_espectaculo, stock FROM INSERTED)
 	OPEN CPublicaciones
-	CLOSE CPublicaciones
 	FETCH NEXT FROM CPublicaciones INTO @Descripcion, @FechaEspectaculo, @Stock
 	WHILE @@FETCH_STATUS = 0
 	BEGIN
@@ -651,6 +650,7 @@ BEGIN
 		END
 		FETCH NEXT FROM CPublicaciones INTO @Descripcion, @FechaEspectaculo, @Stock
 	END
+	CLOSE CPublicaciones
 	DEALLOCATE CPublicaciones
 END
 GO
