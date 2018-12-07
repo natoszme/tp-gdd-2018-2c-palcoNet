@@ -14,6 +14,9 @@ namespace PalcoNet.Clientes
 {
     public partial class Listado : Form
     {
+        Paginador paginador;
+        private bool loadingTime = true;
+
         public Listado()
         {
             InitializeComponent();
@@ -64,7 +67,12 @@ namespace PalcoNet.Clientes
                     mail = c.mail
                 }).OrderBy(c => c.nombre).ThenBy(c => c.apellido);
 
-                DataGridViewUtils.actualizarDataGriedView(dgvClientes, clientes, "id_usuario");
+                if (loadingTime) {
+                    paginador = new Paginador(10, clientes.Count(), lblPaginaActual);
+                    loadingTime = false;
+                }
+
+                DataGridViewUtils.actualizarDataGriedView(dgvClientes, clientes.Skip(paginador.init()).Take(paginador.limit()), "id_usuario");
             }
         }
         #endregion
@@ -82,6 +90,7 @@ namespace PalcoNet.Clientes
 
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
+            paginador.restart();
             actualizarDataGriedView();
         }
 
@@ -93,6 +102,7 @@ namespace PalcoNet.Clientes
             txtDocumento.Text = "";
 
             txtNombre.Focus();
+            paginador.restart();
             actualizarDataGriedView();
         }
 
@@ -100,5 +110,27 @@ namespace PalcoNet.Clientes
         {
             WindowsFormUtils.volverALaHome(this);
         }
+
+        #region PAGINADO
+        private void btnPrimera_Click(object sender, EventArgs e) {
+            paginador.first();
+            actualizarDataGriedView();
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e) {
+            paginador.prev();
+            actualizarDataGriedView();
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e) {
+            paginador.next();
+            actualizarDataGriedView();
+        }
+
+        private void btnUltima_Click(object sender, EventArgs e) {
+            paginador.last();
+            actualizarDataGriedView();
+        }
+        #endregion
     }
 }

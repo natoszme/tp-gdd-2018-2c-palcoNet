@@ -155,6 +155,7 @@
     <Compile Include="Utils\ComboBoxItem.cs" />
     <Compile Include="Utils\ConfigReader.cs" />
     <Compile Include="Utils\DBUtils.cs" />
+    <Compile Include="Utils\Paginador.cs" />
     <Compile Include="Utils\ValidationsUtils.cs" />
     <Compile Include="Model\EntityModel.Context.cs">
       <AutoGen>True</AutoGen>
