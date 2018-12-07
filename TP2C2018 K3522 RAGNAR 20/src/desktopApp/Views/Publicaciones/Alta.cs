@@ -170,8 +170,8 @@ namespace PalcoNet.Publicaciones
         }
 
         private void noExistefechaDeMismaPublicacion() {
-            // TODO: revisar porque se pasa la direccion de la publicacion y no la que esta cargada en el txtBox
-            if (BaseDeDatos.BaseDeDatos.existePublicacionEnMismaFecha(publicacion.direccion, dtpFecha.Value.Date))
+            
+            if (BaseDeDatos.BaseDeDatos.existePublicacionEnMismaFecha(txtDireccion.Text, dtpFecha.Value))
                 throw new ValidationException("No se puede elegir una fecha de un espectaculo que sea realizado a la misma hora en el mismo lugar");
         }
 
