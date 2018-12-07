@@ -24,6 +24,7 @@ namespace PalcoNet.Publicaciones
         public Alta(int? id = null) 
         {
             InitializeComponent();
+            UbicacionesGlobal.ubicaciones.Clear();
             this.id = id;
             cargarComboRubro();
             cargarComboGrado();
@@ -72,10 +73,7 @@ namespace PalcoNet.Publicaciones
             }
         }
 
-        private void Alta_Load(object sender, EventArgs e)
-        {
-            
-        }
+        
 
         private void btnPublicar_Click(object sender, EventArgs e) {
             if (camposYDominioValidos()) {
@@ -104,14 +102,10 @@ namespace PalcoNet.Publicaciones
                 publicacion = db.Publicacion.Find(id); 
            
             foreach(DateTime fecha in fechas) {
-                /*
-                 * TODO: QUE SE HACE CON ESTO?
-                 * publicacion.id_publicacion = (long) id;
-                 * 
-                 * Esto para mi tampoco va
-                 * if (id == null)
-                    publicacion = new Publicacion();
-                 */
+                
+                if (id == null)
+                 publicacion = new Publicacion();
+                 
 
                 publicacion.descripcion = txtDescripcion.Text;
                 publicacion.direccion = txtDireccion.Text;
@@ -125,9 +119,15 @@ namespace PalcoNet.Publicaciones
                 publicacion.stock = 0;
 
                 foreach (Ubicacion_publicacion ubicacion in UbicacionesGlobal.ubicaciones) {
-                    ubicacion.Publicacion = publicacion;
-                    db.Ubicacion_publicacion.Add(ubicacion);
-                    publicacion.Ubicacion_publicacion.Add(ubicacion);                    
+                    Ubicacion_publicacion ubicacionNueva = new Ubicacion_publicacion();
+                    ubicacionNueva.asiento = ubicacion.asiento;
+                    ubicacionNueva.fila = ubicacion.fila;
+                    ubicacionNueva.precio = ubicacion.precio;
+                    ubicacionNueva.sin_numerar = ubicacion.sin_numerar;
+                    ubicacionNueva.Tipo_ubicacion = ubicacion.Tipo_ubicacion;
+                    ubicacionNueva.Publicacion = publicacion;
+                    db.Ubicacion_publicacion.Add(ubicacionNueva);
+                    publicacion.Ubicacion_publicacion.Add(ubicacionNueva);                    
                 }
                 
                 if (!editando())
@@ -173,7 +173,7 @@ namespace PalcoNet.Publicaciones
 
         private void noExistefechaDeMismaPublicacion() {
             
-            if (BaseDeDatos.BaseDeDatos.existePublicacionEnMismaFecha(txtDireccion.Text, dtpFecha.Value))
+            if (BaseDeDatos.BaseDeDatos.existePublicacionEnMismaFecha(txtDescripcion.Text, dtpFecha.Value))
                 throw new ValidationException("No se puede elegir una fecha de un espectaculo que sea realizado a la misma hora en el mismo lugar");
         }
 
