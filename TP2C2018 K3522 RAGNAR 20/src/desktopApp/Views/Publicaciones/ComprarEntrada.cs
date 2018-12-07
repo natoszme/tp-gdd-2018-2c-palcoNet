@@ -129,7 +129,7 @@ namespace PalcoNet.Views.Publicaciones
             }
             else
             {
-                new SeleccionarUbicaciones(id).Show();
+                WindowsFormUtils.abrirFormulario(new SeleccionarUbicaciones(id), actualizarDataGriedView);
             }
             
         }
