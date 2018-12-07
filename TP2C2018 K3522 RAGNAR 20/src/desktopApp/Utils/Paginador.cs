@@ -25,12 +25,16 @@ namespace PalcoNet.Utils
 
         private Label lblCurrentPage;
 
-        public Paginador(int pageSize, int totalRecords, Label lblCurrentPage) {
+        public List<Button> buttons;
+
+        public Paginador(int pageSize, int totalRecords, Label lblCurrentPage, List<Button> buttons)
+        {
             this.pageSize = pageSize;
             this.totalRecords = totalRecords;
             this.currentPage = 1;
-
-            this.totalPages = (int) Math.Ceiling((double) totalRecords / (double) pageSize);
+            
+            this.buttons = buttons;
+            calculateTotalPages();
 
             this.lblCurrentPage = lblCurrentPage;
         }
@@ -42,6 +46,25 @@ namespace PalcoNet.Utils
                 currentPage = value; 
                 lblCurrentPage.Text = currentPage.ToString();  
             }
+        }
+
+        public int TotalRecords
+        {
+            get { return totalRecords; }
+            set
+            {
+                totalRecords = value;
+                calculateTotalPages();
+            }
+        }
+
+        private void calculateTotalPages() {
+            totalPages = (int) Math.Ceiling((double) totalRecords / (double) pageSize);
+            buttons.ForEach(btn => handleHabilitation(btn));
+        }
+
+        private void handleHabilitation(Button btn) {
+            btn.Enabled = totalPages > 1;
         }
 
         public void restart() {

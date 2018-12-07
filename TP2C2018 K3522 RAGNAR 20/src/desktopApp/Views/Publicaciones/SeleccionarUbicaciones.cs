@@ -169,6 +169,7 @@ namespace PalcoNet.Views.Publicaciones
                     using (RagnarEntities db = new RagnarEntities())
                     {
                         asignarEntidades(db);
+                        WindowsFormUtils.mensajeDeExito("Muchas gracias por realizar la compra. Que disfrute el espectáculo!");
                         WindowsFormUtils.guardarYCerrar(db, this);
                     }
                 }

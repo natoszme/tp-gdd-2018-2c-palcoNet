@@ -35,13 +35,12 @@ namespace PalcoNet.Views.Publicaciones
         {
             using (RagnarEntities db = new RagnarEntities())
             {
-
                 IQueryable<Publicacion> espectaculosTotales = db.Publicacion.AsQueryable();
-
              
-               /* if(clbCategorias.CheckedItems.Count>0){
-                    espectaculosTotales = espectaculosTotales.Where(e => clbCategorias.CheckedItems.Contains(e));
-                }*/
+                if(clbCategorias.CheckedItems.Count > 0){
+                    espectaculosTotales = espectaculosTotales.ToList().Where(e => clbCategorias.CheckedItems.Contains(e.Rubro.descripcion)).AsQueryable();
+                }
+
                 DateTime fechaDeHoy = Global.fechaDeHoy();
                 espectaculosTotales = espectaculosTotales.Where(e => e.fecha_espectaculo >= fechaDeHoy && fechaDeHoy >= e.fecha_publicacion);
 
@@ -70,10 +69,11 @@ namespace PalcoNet.Views.Publicaciones
                     empresa = c.Empresa.razon_social
                 });
 
-                if (loadingTime)
-                {
-                    paginador = new Paginador(10, espectaculos.Count(), lblPaginaActual);
+                if (loadingTime) {
+                    paginador = new Paginador(10, espectaculos.Count(), lblPaginaActual, new List<Button> { btnPrimera, btnAnterior, btnSiguiente, btnUltima });
                     loadingTime = false;
+                } else {
+                    paginador.TotalRecords = espectaculos.Count();
                 }
 
                 DataGridViewUtils.actualizarDataGriedView(dgvEspectaculos, espectaculos.Skip(paginador.init()).Take(paginador.limit()), "id_publicacion");
@@ -128,7 +128,7 @@ namespace PalcoNet.Views.Publicaciones
             }
             else
             {
-                new SeleccionarUbicaciones(id).Show();
+                WindowsFormUtils.abrirFormulario(new SeleccionarUbicaciones(id), actualizarDataGriedView);
             }
             
         }
@@ -174,6 +174,11 @@ namespace PalcoNet.Views.Publicaciones
             actualizarDataGriedView();
         }
         #endregion
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            WindowsFormUtils.volverALaHome(this);
+        }
 
         
     }

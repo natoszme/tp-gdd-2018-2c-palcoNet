@@ -26,13 +26,14 @@ namespace PalcoNet.Publicaciones
             InitializeComponent();
             this.id = id;
             cargarComboRubro();
-            cargarComboGrado();     
+            cargarComboGrado();
+            dtpFecha.Value = Global.fechaDeHoy();
             if (editando())
             {           
                 cargarDatos();
                 lblCantUbicaciones.Text = "Ubicaciones cargadas = " + UbicacionesGlobal.ubicaciones.Count;
                 btnAgregarFecha.Text = "Modificar fecha";
-            }    
+            }
         }
 
 
@@ -49,7 +50,7 @@ namespace PalcoNet.Publicaciones
 
         private void btnGuardarBorrador_Click(object sender, EventArgs e) {            
             if (camposYDominioValidos()) {
-                MessageBox.Show("Guardado como borrador");
+                WindowsFormUtils.mensajeDeExito("Publicación guardada como borrador");
                 RagnarEntities db = UbicacionesGlobal.contextoGlobal;
                 guardarPublicacion(db, BaseDeDatos.BaseDeDatos.estadoDePublicacionPorNombre(db, "Borrador"));
             }
@@ -78,7 +79,7 @@ namespace PalcoNet.Publicaciones
 
         private void btnPublicar_Click(object sender, EventArgs e) {
             if (camposYDominioValidos()) {
-                MessageBox.Show("Publicada!");
+                WindowsFormUtils.mensajeDeExito("Publicación publicada");
                 RagnarEntities db = UbicacionesGlobal.contextoGlobal;
                 guardarPublicacion(db, BaseDeDatos.BaseDeDatos.estadoDePublicacionPorNombre(db, "Publicada"));
             }
@@ -87,13 +88,13 @@ namespace PalcoNet.Publicaciones
         private void btnAgregarFecha_Click(object sender, EventArgs e)
         {
             if (camposYDominioFechaValidos()) {
-                DateTime nuevaFecha = dtpFecha.Value.Date;
+                DateTime nuevaFecha = dtpFecha.Value;
 
                 if (editando())
                     fechas.RemoveAt(0);
 
                 fechas.Add(nuevaFecha);
-                MessageBox.Show("La fecha " + nuevaFecha.ToString() + " fue cargada satisfactoriamente");
+                WindowsFormUtils.mensajeDeExito("La fecha " + nuevaFecha.ToString() + " fue cargada satisfactoriamente");
             }
         }
 

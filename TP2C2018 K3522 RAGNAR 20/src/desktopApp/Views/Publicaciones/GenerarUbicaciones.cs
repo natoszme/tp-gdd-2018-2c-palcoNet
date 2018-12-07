@@ -47,10 +47,12 @@ namespace PalcoNet.Views.Publicaciones
             string asientoIngresado = txtAsiento.Text;
 
             if (ubicacionValida() && !esUbicacionRepetida()) {
+
                 guardarUbicaciones(UbicacionesGlobal.contextoGlobal);
                 actualizarDataGriedView();
                 MessageBox.Show("Ubicacion creada con exito");
                 lblCantUbicaciones.Text = "Ubicaciones cargadas = " + UbicacionesGlobal.ubicaciones.Count; //Actualiza el lbl del formulario de alta               
+
             }
         }
 
