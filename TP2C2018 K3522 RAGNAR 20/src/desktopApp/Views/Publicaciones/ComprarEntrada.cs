@@ -176,6 +176,11 @@ namespace PalcoNet.Views.Publicaciones
         }
         #endregion
 
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            WindowsFormUtils.volverALaHome(this);
+        }
+
         
     }
 }

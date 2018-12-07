@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.cbFiltroFecha = new System.Windows.Forms.CheckBox();
@@ -51,28 +49,14 @@
             this.btnAnterior = new System.Windows.Forms.Button();
             this.lblPaginaActual = new System.Windows.Forms.Label();
             this.btnPrimera = new System.Windows.Forms.Button();
-            this.panel1.SuspendLayout();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnVolver = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEspectaculos)).BeginInit();
             this.panel3.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(12, 12);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(823, 39);
-            this.panel1.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(48, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Compras";
             // 
             // panel2
             // 
@@ -89,12 +73,12 @@
             this.panel2.Controls.Add(this.txtDescripcion);
             this.panel2.Location = new System.Drawing.Point(12, 57);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(823, 108);
+            this.panel2.Size = new System.Drawing.Size(814, 108);
             this.panel2.TabIndex = 1;
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(739, 75);
+            this.btnLimpiar.Location = new System.Drawing.Point(727, 75);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpiar.TabIndex = 6;
@@ -115,7 +99,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(528, 18);
+            this.label6.Location = new System.Drawing.Point(509, 18);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(41, 13);
             this.label6.TabIndex = 13;
@@ -146,7 +130,7 @@
             // 
             // btnFiltrar
             // 
-            this.btnFiltrar.Location = new System.Drawing.Point(739, 34);
+            this.btnFiltrar.Location = new System.Drawing.Point(727, 34);
             this.btnFiltrar.Name = "btnFiltrar";
             this.btnFiltrar.Size = new System.Drawing.Size(75, 23);
             this.btnFiltrar.TabIndex = 5;
@@ -157,7 +141,7 @@
             // clbCategorias
             // 
             this.clbCategorias.FormattingEnabled = true;
-            this.clbCategorias.Location = new System.Drawing.Point(531, 34);
+            this.clbCategorias.Location = new System.Drawing.Point(512, 34);
             this.clbCategorias.Name = "clbCategorias";
             this.clbCategorias.Size = new System.Drawing.Size(202, 64);
             this.clbCategorias.TabIndex = 4;
@@ -199,16 +183,16 @@
             // dgvEspectaculos
             // 
             this.dgvEspectaculos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvEspectaculos.Location = new System.Drawing.Point(6, 3);
+            this.dgvEspectaculos.Location = new System.Drawing.Point(13, 8);
             this.dgvEspectaculos.Name = "dgvEspectaculos";
-            this.dgvEspectaculos.Size = new System.Drawing.Size(814, 231);
+            this.dgvEspectaculos.Size = new System.Drawing.Size(789, 271);
             this.dgvEspectaculos.TabIndex = 2;
             // 
             // btnSeleccionarUbicaciones
             // 
-            this.btnSeleccionarUbicaciones.Location = new System.Drawing.Point(63, 417);
+            this.btnSeleccionarUbicaciones.Location = new System.Drawing.Point(681, 190);
             this.btnSeleccionarUbicaciones.Name = "btnSeleccionarUbicaciones";
-            this.btnSeleccionarUbicaciones.Size = new System.Drawing.Size(75, 40);
+            this.btnSeleccionarUbicaciones.Size = new System.Drawing.Size(145, 40);
             this.btnSeleccionarUbicaciones.TabIndex = 15;
             this.btnSeleccionarUbicaciones.Text = "Seleccionar Ubicaciones";
             this.btnSeleccionarUbicaciones.UseVisualStyleBackColor = true;
@@ -217,14 +201,14 @@
             // panel3
             // 
             this.panel3.Controls.Add(this.dgvEspectaculos);
-            this.panel3.Location = new System.Drawing.Point(12, 171);
+            this.panel3.Location = new System.Drawing.Point(12, 245);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(823, 240);
+            this.panel3.Size = new System.Drawing.Size(814, 286);
             this.panel3.TabIndex = 3;
             // 
             // btnUltima
             // 
-            this.btnUltima.Location = new System.Drawing.Point(444, 417);
+            this.btnUltima.Location = new System.Drawing.Point(472, 550);
             this.btnUltima.Name = "btnUltima";
             this.btnUltima.Size = new System.Drawing.Size(30, 26);
             this.btnUltima.TabIndex = 20;
@@ -234,7 +218,7 @@
             // 
             // btnSiguiente
             // 
-            this.btnSiguiente.Location = new System.Drawing.Point(408, 417);
+            this.btnSiguiente.Location = new System.Drawing.Point(436, 550);
             this.btnSiguiente.Name = "btnSiguiente";
             this.btnSiguiente.Size = new System.Drawing.Size(30, 26);
             this.btnSiguiente.TabIndex = 19;
@@ -244,7 +228,7 @@
             // 
             // btnAnterior
             // 
-            this.btnAnterior.Location = new System.Drawing.Point(353, 417);
+            this.btnAnterior.Location = new System.Drawing.Point(379, 550);
             this.btnAnterior.Name = "btnAnterior";
             this.btnAnterior.Size = new System.Drawing.Size(30, 26);
             this.btnAnterior.TabIndex = 18;
@@ -255,7 +239,7 @@
             // lblPaginaActual
             // 
             this.lblPaginaActual.AutoSize = true;
-            this.lblPaginaActual.Location = new System.Drawing.Point(389, 424);
+            this.lblPaginaActual.Location = new System.Drawing.Point(415, 557);
             this.lblPaginaActual.Name = "lblPaginaActual";
             this.lblPaginaActual.Size = new System.Drawing.Size(13, 13);
             this.lblPaginaActual.TabIndex = 17;
@@ -263,7 +247,7 @@
             // 
             // btnPrimera
             // 
-            this.btnPrimera.Location = new System.Drawing.Point(317, 417);
+            this.btnPrimera.Location = new System.Drawing.Point(343, 550);
             this.btnPrimera.Name = "btnPrimera";
             this.btnPrimera.Size = new System.Drawing.Size(30, 26);
             this.btnPrimera.TabIndex = 16;
@@ -271,11 +255,39 @@
             this.btnPrimera.UseVisualStyleBackColor = true;
             this.btnPrimera.Click += new System.EventHandler(this.btnPrimera_Click_1);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(10, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(85, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Comprar entrada";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Location = new System.Drawing.Point(12, 12);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(814, 39);
+            this.panel1.TabIndex = 0;
+            // 
+            // btnVolver
+            // 
+            this.btnVolver.Location = new System.Drawing.Point(739, 553);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(75, 23);
+            this.btnVolver.TabIndex = 21;
+            this.btnVolver.Text = "Volver";
+            this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
+            // 
             // ComprarEntrada
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(847, 468);
+            this.ClientSize = new System.Drawing.Size(839, 588);
+            this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnUltima);
             this.Controls.Add(this.btnSiguiente);
             this.Controls.Add(this.btnAnterior);
@@ -289,12 +301,12 @@
             this.Name = "ComprarEntrada";
             this.Text = "ComprarEntrada";
             this.Load += new System.EventHandler(this.ComprarEntrada_Load);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEspectaculos)).EndInit();
             this.panel3.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -302,9 +314,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtDescripcion;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
@@ -327,6 +337,9 @@
         private System.Windows.Forms.Button btnAnterior;
         private System.Windows.Forms.Label lblPaginaActual;
         private System.Windows.Forms.Button btnPrimera;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnVolver;
 
     }
 }
