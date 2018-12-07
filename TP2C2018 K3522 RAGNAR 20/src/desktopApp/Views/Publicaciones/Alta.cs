@@ -26,13 +26,14 @@ namespace PalcoNet.Publicaciones
             InitializeComponent();
             this.id = id;
             cargarComboRubro();
-            cargarComboGrado();     
+            cargarComboGrado();
+            dtpFecha.Value = Global.fechaDeHoy();
             if (editando())
             {           
                 cargarDatos();
                 lblCantUbicaciones.Text = "Ubicaciones cargadas = " + UbicacionesGlobal.ubicaciones.Count;
                 btnAgregarFecha.Text = "Modificar fecha";
-            }    
+            }
         }
 
 
