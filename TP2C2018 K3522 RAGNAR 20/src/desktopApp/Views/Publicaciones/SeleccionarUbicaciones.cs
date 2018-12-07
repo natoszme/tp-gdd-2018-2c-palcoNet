@@ -202,14 +202,19 @@ namespace PalcoNet.Views.Publicaciones
             compra.fecha = Global.fechaDeHoy();
             compra.tarjeta_utilizada = recortarTarjetaDeCredito(txtTarjeta.Text);
             
-            db.Compra.Add(compra);
+            
+            Ubicacion_publicacion ubicacionActual;
             foreach (int idUbicacion in ubicacionesSeleccionadas)
             {
-                IQueryable<Ubicacion_publicacion> ubicacionActual = db.Ubicacion_publicacion.AsQueryable().Where(ub => ub.id_ubicacion == idUbicacion);
-                compra.Ubicacion_publicacion.Add(ubicacionActual.FirstOrDefault());
-                ubicacionActual.FirstOrDefault().Compra = compra;
+                //IQueryable<Ubicacion_publicacion> ubicacionActual = db.Ubicacion_publicacion.AsQueryable().Where(ub => ub.id_ubicacion == idUbicacion);
+                ubicacionActual  = new Ubicacion_publicacion();
+                 ubicacionActual= db.Ubicacion_publicacion.Find(idUbicacion);
+                compra.Ubicacion_publicacion.Add(ubicacionActual);
+                
+               // ubicacionActual.Compra = compra;
+               // ubicacionActual.FirstOrDefault().Compra = compra;
             }
-            
+            db.Compra.Add(compra);
 
         } 
     }
