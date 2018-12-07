@@ -35,13 +35,14 @@
             this.lblUbicacionesSeleccionadas = new System.Windows.Forms.Label();
             this.btnComprar = new System.Windows.Forms.Button();
             this.txtTarjeta = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUbicaciones)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(25, 18);
+            this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(123, 13);
             this.label1.TabIndex = 1;
@@ -50,7 +51,7 @@
             // dgvUbicaciones
             // 
             this.dgvUbicaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvUbicaciones.Location = new System.Drawing.Point(28, 58);
+            this.dgvUbicaciones.Location = new System.Drawing.Point(15, 58);
             this.dgvUbicaciones.Name = "dgvUbicaciones";
             this.dgvUbicaciones.Size = new System.Drawing.Size(219, 141);
             this.dgvUbicaciones.TabIndex = 2;
@@ -78,7 +79,7 @@
             // lblUbicacionesSeleccionadas
             // 
             this.lblUbicacionesSeleccionadas.AutoSize = true;
-            this.lblUbicacionesSeleccionadas.Location = new System.Drawing.Point(25, 42);
+            this.lblUbicacionesSeleccionadas.Location = new System.Drawing.Point(12, 42);
             this.lblUbicacionesSeleccionadas.Name = "lblUbicacionesSeleccionadas";
             this.lblUbicacionesSeleccionadas.Size = new System.Drawing.Size(140, 13);
             this.lblUbicacionesSeleccionadas.TabIndex = 5;
@@ -96,16 +97,26 @@
             // 
             // txtTarjeta
             // 
-            this.txtTarjeta.Location = new System.Drawing.Point(177, 18);
+            this.txtTarjeta.Location = new System.Drawing.Point(172, 25);
             this.txtTarjeta.Name = "txtTarjeta";
             this.txtTarjeta.Size = new System.Drawing.Size(100, 20);
             this.txtTarjeta.TabIndex = 7;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(172, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(90, 13);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Tarjeta de credito";
             // 
             // SeleccionarUbicaciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.txtTarjeta);
             this.Controls.Add(this.btnComprar);
             this.Controls.Add(this.lblUbicacionesSeleccionadas);
@@ -131,5 +142,6 @@
         private System.Windows.Forms.Label lblUbicacionesSeleccionadas;
         private System.Windows.Forms.Button btnComprar;
         private System.Windows.Forms.TextBox txtTarjeta;
+        private System.Windows.Forms.Label label2;
     }
 }
