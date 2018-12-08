@@ -35,7 +35,7 @@
             this.lblUbicacionesSeleccionadas = new System.Windows.Forms.Label();
             this.btnComprar = new System.Windows.Forms.Button();
             this.txtTarjeta = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblTarjeta = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUbicaciones)).BeginInit();
             this.SuspendLayout();
             // 
@@ -102,21 +102,21 @@
             this.txtTarjeta.Size = new System.Drawing.Size(100, 20);
             this.txtTarjeta.TabIndex = 7;
             // 
-            // label2
+            // lblTarjeta
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(172, 9);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(90, 13);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Tarjeta de credito";
+            this.lblTarjeta.AutoSize = true;
+            this.lblTarjeta.Location = new System.Drawing.Point(172, 9);
+            this.lblTarjeta.Name = "lblTarjeta";
+            this.lblTarjeta.Size = new System.Drawing.Size(90, 13);
+            this.lblTarjeta.TabIndex = 8;
+            this.lblTarjeta.Text = "Tarjeta de credito";
             // 
             // SeleccionarUbicaciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblTarjeta);
             this.Controls.Add(this.txtTarjeta);
             this.Controls.Add(this.btnComprar);
             this.Controls.Add(this.lblUbicacionesSeleccionadas);
@@ -142,6 +142,6 @@
         private System.Windows.Forms.Label lblUbicacionesSeleccionadas;
         private System.Windows.Forms.Button btnComprar;
         private System.Windows.Forms.TextBox txtTarjeta;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblTarjeta;
     }
 }

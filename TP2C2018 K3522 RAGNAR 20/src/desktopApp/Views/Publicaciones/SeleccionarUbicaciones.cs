@@ -31,7 +31,12 @@ namespace PalcoNet.Views.Publicaciones
         {
             actualizarLabelCantidad();
             actualizarDataGriedView();
-            cargarTarjetaCredito();
+            if (BaseDeDatos.BaseDeDatos.clientePorId(Global.obtenerUsuarioLogueado().id_usuario).tarjeta_credito != null)
+            {
+                lblTarjeta.Visible = false;
+                txtTarjeta.Visible = false;
+            }       
+            
             dgvUbicaciones.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
@@ -68,20 +73,7 @@ namespace PalcoNet.Views.Publicaciones
         }
 
         #region TARJETACREDITO
-        void cargarTarjetaCredito()
-        {
-            Cliente clienteActual = BaseDeDatos.BaseDeDatos.clientePorId(Global.obtenerUsuarioLogueado().id_usuario);
-            if (clienteActual != null)
-            {
-                txtTarjeta.Text = tarjetaConAsteriscos(clienteActual.tarjeta_credito);
-            }
-            else
-            {
-                 MessageBox.Show("No puede comprar porque no esta registrado como cliente");
-            }
-                 
-           
-        }
+        
 
         
         private string recortarTarjetaDeCredito(string tarjeta)
@@ -160,11 +152,16 @@ namespace PalcoNet.Views.Publicaciones
             this.Close();
         }
 
+        bool tieneTarjeta(Usuario usuario)
+        {
+            return BaseDeDatos.BaseDeDatos.clientePorId(usuario.id_usuario).tarjeta_credito != null;
+        }
+
         private void btnComprar_Click(object sender, EventArgs e)
         {
-            if (validarTarjeta())
+            if (tieneTarjeta(Global.obtenerUsuarioLogueado()) || validarTarjeta())
             {
-                if (importeTotal() > 0)
+                if (importeTotal() >= 0)
                 {
                     using (RagnarEntities db = new RagnarEntities())
                     {
@@ -201,7 +198,15 @@ namespace PalcoNet.Views.Publicaciones
             Compra compra = new Compra();
             compra.Cliente = BaseDeDatos.BaseDeDatos.clientePorId(db,Global.obtenerUsuarioLogueado().id_usuario);
             compra.fecha = Global.fechaDeHoy();
-            compra.tarjeta_utilizada = recortarTarjetaDeCredito(txtTarjeta.Text);
+            if (tieneTarjeta(Global.obtenerUsuarioLogueado()))
+            {
+                compra.tarjeta_utilizada = BaseDeDatos.BaseDeDatos.clientePorId(Global.obtenerUsuarioLogueado().id_usuario).tarjeta_credito;
+            }
+            else
+            {
+                compra.tarjeta_utilizada = recortarTarjetaDeCredito(txtTarjeta.Text);
+            }
+           
             
             
             Ubicacion_publicacion ubicacionActual;
