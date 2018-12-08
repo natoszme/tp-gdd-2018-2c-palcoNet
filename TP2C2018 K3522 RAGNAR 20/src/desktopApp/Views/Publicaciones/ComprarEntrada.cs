@@ -54,9 +54,9 @@ namespace PalcoNet.Views.Publicaciones
                    
                 }
 
-           
+                
                 espectaculosTotales = espectaculosTotales.Where(c => c.Estado_publicacion.descripcion.ToString() == "Publicada").OrderBy(c => c.Grado_publicacion.id_grado).ThenBy(c => c.fecha_espectaculo);
-
+                espectaculosTotales = espectaculosTotales.Where(c => c.stock != 0);
                 var espectaculos = espectaculosTotales.Select(c => new
                 {
                     id_publicacion = c.id_publicacion,
