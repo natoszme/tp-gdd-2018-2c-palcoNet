@@ -20,6 +20,7 @@ namespace PalcoNet.Views.Publicaciones
         Label lblCantUbicaciones;
         Publicacion publicacionActual;
         Ubicacion_publicacion nuevaUbicacion;
+        int? idUbicacion;
         bool editandoPublicacion;
         public GenerarUbicaciones(Label lblUbicaciones, Publicacion publicacion,bool editando) {
            
@@ -106,7 +107,14 @@ namespace PalcoNet.Views.Publicaciones
         }
 
         private void GenerarUbicaciones_Load(object sender, EventArgs e) {
+            if (editandoPublicacion)
+            {
+                btnSeleccionarUbicacion.Visible = true;
+                btnAgregar.Text = "Editar";
+            }
+              
             actualizarDataGriedView();
+          
         }
 
 
@@ -157,7 +165,7 @@ namespace PalcoNet.Views.Publicaciones
                 using (RagnarEntities db = new RagnarEntities())
                 {
 
-                    IQueryable<Ubicacion_publicacion> ubicacionesBase = db.Ubicacion_publicacion.AsQueryable();
+                    IQueryable<Ubicacion_publicacion> ubicacionesBase = db.Ubicacion_publicacion.AsQueryable().Where(ub=>ub.id_publicacion == publicacionActual.id_publicacion);
 
 
 
@@ -202,5 +210,34 @@ namespace PalcoNet.Views.Publicaciones
             UbicacionesGlobal.ubicaciones.Add(nuevaUbicacion);
 
         }
+
+       
+
+        private void btnSeleccionarUbicacion_Click(object sender, EventArgs e)
+        {
+            idUbicacion = DataGridViewUtils.obtenerIdSeleccionado(dgvUbicaciones);
+            cargarDatosUbicacion();
+        }
+
+        void cargarDatosUbicacion()
+        {
+            using (RagnarEntities db = new RagnarEntities())
+            {
+                try
+                {
+                    nuevaUbicacion = db.Ubicacion_publicacion.Find(idUbicacion);
+                    txtAsiento.Text = nuevaUbicacion.asiento.ToString();
+                    txtFila.Text = nuevaUbicacion.fila.ToString();
+                    txtPrecio.Text = nuevaUbicacion.precio.ToString();
+                    cbxNumerada.Checked = nuevaUbicacion.sin_numerar;
+                    cboTipo.Text = nuevaUbicacion.Tipo_ubicacion.descripcion;
+                }
+                catch (Exception)
+                {
+                    WindowsFormUtils.mensajeDeError("Error al intentar cargar a la ubicacion");
+                }
+            }
+        }
+
     }
 }

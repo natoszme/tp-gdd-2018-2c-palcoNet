@@ -40,6 +40,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.btnFinalizar = new System.Windows.Forms.Button();
+            this.btnSeleccionarUbicacion = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUbicaciones)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,7 +60,7 @@
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(174, 38);
+            this.btnAgregar.Location = new System.Drawing.Point(174, 49);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(75, 40);
             this.btnAgregar.TabIndex = 5;
@@ -139,7 +140,7 @@
             // 
             // btnFinalizar
             // 
-            this.btnFinalizar.Location = new System.Drawing.Point(174, 85);
+            this.btnFinalizar.Location = new System.Drawing.Point(174, 95);
             this.btnFinalizar.Name = "btnFinalizar";
             this.btnFinalizar.Size = new System.Drawing.Size(75, 34);
             this.btnFinalizar.TabIndex = 6;
@@ -147,11 +148,23 @@
             this.btnFinalizar.UseVisualStyleBackColor = true;
             this.btnFinalizar.Click += new System.EventHandler(this.btnFinalizar_Click);
             // 
+            // btnSeleccionarUbicacion
+            // 
+            this.btnSeleccionarUbicacion.Location = new System.Drawing.Point(174, 8);
+            this.btnSeleccionarUbicacion.Name = "btnSeleccionarUbicacion";
+            this.btnSeleccionarUbicacion.Size = new System.Drawing.Size(75, 35);
+            this.btnSeleccionarUbicacion.TabIndex = 11;
+            this.btnSeleccionarUbicacion.Text = "Seleccionar Ubicacion";
+            this.btnSeleccionarUbicacion.UseVisualStyleBackColor = true;
+            this.btnSeleccionarUbicacion.Visible = false;
+            this.btnSeleccionarUbicacion.Click += new System.EventHandler(this.btnSeleccionarUbicacion_Click);
+            // 
             // GenerarUbicaciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(295, 319);
+            this.Controls.Add(this.btnSeleccionarUbicacion);
             this.Controls.Add(this.btnFinalizar);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -187,5 +200,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnFinalizar;
+        private System.Windows.Forms.Button btnSeleccionarUbicacion;
     }
 }
