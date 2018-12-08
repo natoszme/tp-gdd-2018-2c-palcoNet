@@ -161,19 +161,27 @@ namespace PalcoNet.Views.Publicaciones
         {
             if (tieneTarjeta(Global.obtenerUsuarioLogueado()) || validarTarjeta())
             {
-                if (importeTotal() >= 0)
+                if (ubicacionesSeleccionadas.Count > 0)
                 {
-                    using (RagnarEntities db = new RagnarEntities())
+                    if (importeTotal() >= 0)
                     {
-                        asignarEntidades(db);
-                        WindowsFormUtils.mensajeDeExito("Muchas gracias por realizar la compra. Que disfrute el espectáculo!");
-                        WindowsFormUtils.guardarYCerrar(db, this);
+                        using (RagnarEntities db = new RagnarEntities())
+                        {
+                            asignarEntidades(db);
+                            WindowsFormUtils.mensajeDeExito("Muchas gracias por realizar la compra. Que disfrute el espectáculo!");
+                            WindowsFormUtils.guardarYCerrar(db, this);
+                        }
+                    }
+                    else
+                    {
+                        WindowsFormUtils.mensajeDeError("El importe total no puede ser menor a 0");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("El importe total no puede ser menor a 0");
+                    WindowsFormUtils.mensajeDeError("Debe seleccionar al menos una ubicacion");
                 }
+              
                
             }
         }
