@@ -97,9 +97,13 @@ namespace PalcoNet.Publicaciones
         }
 
         protected void guardarPublicacion(RagnarEntities db, Estado_publicacion estado) {
-            
+            bool estaEditando = false;
             if (id != null)
+            {
                 publicacion = db.Publicacion.Find(id); 
+                estaEditando = true;
+            }
+                
            
             foreach(DateTime fecha in fechas) {
                 
@@ -116,22 +120,28 @@ namespace PalcoNet.Publicaciones
                 publicacion.Empresa = Global.obtenerUsuarioLogueado(db).Empresa;
                 publicacion.fecha_publicacion = Global.fechaDeHoy();
                 publicacion.fecha_vencimiento = fecha;
-                publicacion.stock = 0;
+               
 
-                foreach (Ubicacion_publicacion ubicacion in UbicacionesGlobal.ubicaciones) {
-                    Ubicacion_publicacion ubicacionNueva = new Ubicacion_publicacion();
-                    ubicacionNueva.asiento = ubicacion.asiento;
-                    ubicacionNueva.fila = ubicacion.fila;
-                    ubicacionNueva.precio = ubicacion.precio;
-                    ubicacionNueva.sin_numerar = ubicacion.sin_numerar;
-                    ubicacionNueva.Tipo_ubicacion = ubicacion.Tipo_ubicacion;
-                    ubicacionNueva.Publicacion = publicacion;
-                    db.Ubicacion_publicacion.Add(ubicacionNueva);
-                    publicacion.Ubicacion_publicacion.Add(ubicacionNueva);                    
-                }
-                
-                if (!editando())
+                if (!estaEditando)
+                {
+                    publicacion.stock = 0;
+                    foreach (Ubicacion_publicacion ubicacion in UbicacionesGlobal.ubicaciones)
+                    {
+                        Ubicacion_publicacion ubicacionNueva = new Ubicacion_publicacion();
+                        ubicacionNueva.asiento = ubicacion.asiento;
+                        ubicacionNueva.fila = ubicacion.fila;
+                        ubicacionNueva.precio = ubicacion.precio;
+                        ubicacionNueva.sin_numerar = ubicacion.sin_numerar;
+                        ubicacionNueva.Tipo_ubicacion = ubicacion.Tipo_ubicacion;
+                        ubicacionNueva.Publicacion = publicacion;
+
+                        db.Ubicacion_publicacion.Add(ubicacionNueva);
+                        publicacion.Ubicacion_publicacion.Add(ubicacionNueva);
+                    }
                     db.Publicacion.Add(publicacion);
+                
+                }
+                    
             }
             
             WindowsFormUtils.guardarYCerrar(db, this);

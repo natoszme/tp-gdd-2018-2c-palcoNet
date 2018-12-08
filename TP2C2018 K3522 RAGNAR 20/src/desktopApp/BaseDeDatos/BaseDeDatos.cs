@@ -265,6 +265,12 @@ namespace PalcoNet.BaseDeDatos
             db.Usuario.Remove(db.Usuario.Find(usuario.id_usuario));
         }
 
+
+        public static int cantidadUbicacionesDePublicacionConFilaAsientoQueNoSean(long idPublicacion, string fila, int asiento,int idUbicacion)
+        {
+            return dbContext().Ubicacion_publicacion.Where(u_r => u_r.id_publicacion == idPublicacion && u_r.fila==fila && u_r.asiento == asiento && u_r.id_ubicacion!=idUbicacion).ToList().Count;
+        
+        }
         public static bool existePublicacionEnMismaFecha(String descripcion, DateTime nuevaFecha)
         {
             return existePublicacionEnMismaFecha(dbContext(), descripcion, nuevaFecha);

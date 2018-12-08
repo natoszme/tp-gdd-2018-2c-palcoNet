@@ -44,33 +44,62 @@ namespace PalcoNet.Views.Publicaciones
         }
 
         private void btnAgregar_Click(object sender, EventArgs e) {
+            if (editandoPublicacion)
+            {
+                if (idUbicacion == null)
+                {
+                    WindowsFormUtils.mensajeDeError("Debe seleccionar una ubicacion");
+                    return;
+                }
+                
+            }
             string filaIngresada = txtFila.Text;
             string asientoIngresado = txtAsiento.Text;
 
-            if (ubicacionValida() && !esUbicacionRepetida()) {
+            if (ubicacionValida())
+            {
+                if(!esUbicacionRepetida()){
 
-                guardarUbicaciones(UbicacionesGlobal.contextoGlobal);
-                actualizarDataGriedView();
-                MessageBox.Show("Ubicacion creada con exito");
-                lblCantUbicaciones.Text = "Ubicaciones cargadas = " + UbicacionesGlobal.ubicaciones.Count; //Actualiza el lbl del formulario de alta               
+                    guardarUbicaciones(UbicacionesGlobal.contextoGlobal);
+                    actualizarDataGriedView();
 
+                    if (editandoPublicacion)
+                    {
+                        WindowsFormUtils.mensajeDeExito("Ubicacion editada con exito");    
+                    }
+                    else
+                    {
+                        WindowsFormUtils.mensajeDeExito("Ubicacion creada con exito"); 
+                    }
+                
+                    lblCantUbicaciones.Text = "Ubicaciones cargadas = " + UbicacionesGlobal.ubicaciones.Count; //Actualiza el lbl del formulario de alta               
+
+                }
             }
+            idUbicacion = null;
+            
         }
 
         private bool esUbicacionRepetida() {
             Ubicacion_publicacion nuevaUbicacion = new Ubicacion_publicacion();
-            nuevaUbicacion.precio = int.Parse(txtPrecio.Text);
+               nuevaUbicacion.precio = int.Parse(txtPrecio.Text);
             nuevaUbicacion.Tipo_ubicacion = BaseDeDatos.BaseDeDatos.tipoUbicacionPorDescripcion(WindowsFormUtils.textoSeleccionadoDe(cboTipo));
             nuevaUbicacion.sin_numerar = cbxNumerada.Checked;
             nuevaUbicacion.Publicacion = publicacionActual;
             nuevaUbicacion.fila = txtFila.Text;
             nuevaUbicacion.asiento = int.Parse(txtAsiento.Text);
-
-            if (UbicacionesGlobal.ubicaciones.Any(ubicacion => esMismaUbicacion(ubicacion, nuevaUbicacion))) {
+            if (editandoPublicacion)
+            {
+                if (BaseDeDatos.BaseDeDatos.cantidadUbicacionesDePublicacionConFilaAsientoQueNoSean(publicacionActual.id_publicacion, txtFila.Text, int.Parse(txtAsiento.Text),(int)idUbicacion) >= 1)
+                {
+                    WindowsFormUtils.mensajeDeError("Esa ubicacion ya esta ingresada");
+                    return true;
+                }
+            }
+            else if (UbicacionesGlobal.ubicaciones.Any(ubicacion => esMismaUbicacion(ubicacion, nuevaUbicacion))) {
                 WindowsFormUtils.mensajeDeError("Esa ubicacion ya esta ingresada");
                 return true;
             }
-
             return false;
         }
 
@@ -118,43 +147,10 @@ namespace PalcoNet.Views.Publicaciones
         }
 
 
-        #region HELPER
+       
 
-        public struct UbicacionMostrable
-        {
-            public long id_ubicacion;
-            public string fila;
-            public decimal asiento;
-            public string tipo;
-            public decimal precio;
-            public string numerada;
 
-        }
-
-        private string tipoNumeracion(bool sinNumerar)
-        {
-            if (sinNumerar)
-                return "Sin numerar";
-            return "Numerada";
-        }
-
-        private List<UbicacionMostrable> convertirAMostrable(List<Ubicacion_publicacion> ubicaciones)
-        {
-            List<UbicacionMostrable> ubicacionesMostrables = new List<UbicacionMostrable>();
-            foreach (Ubicacion_publicacion ub in UbicacionesGlobal.ubicaciones)
-            {
-                UbicacionMostrable ubic = new UbicacionMostrable();
-                ubic.id_ubicacion = ub.id_ubicacion;
-                ubic.fila = ub.fila;
-                ubic.asiento = (decimal)ub.asiento;
-                ubic.precio = ub.precio;
-                ubic.tipo = ub.Tipo_ubicacion.descripcion;
-                ubic.numerada = tipoNumeracion(ub.sin_numerar);
-                
-
-            }
-            return ubicacionesMostrables;
-        }
+     
 
         #region HELPER
         private void actualizarDataGriedView()
@@ -188,7 +184,7 @@ namespace PalcoNet.Views.Publicaciones
 
 
 
-        #endregion
+     
 
       
 
@@ -199,15 +195,32 @@ namespace PalcoNet.Views.Publicaciones
         }
 
         private void guardarUbicaciones(RagnarEntities db) {
-            nuevaUbicacion = new Ubicacion_publicacion();
-            nuevaUbicacion.precio = int.Parse(txtPrecio.Text);
-            nuevaUbicacion.Tipo_ubicacion = BaseDeDatos.BaseDeDatos.tipoUbicacionPorDescripcion(db,WindowsFormUtils.textoSeleccionadoDe(cboTipo));
-            nuevaUbicacion.sin_numerar = cbxNumerada.Checked;
-            nuevaUbicacion.Publicacion = publicacionActual;
-            nuevaUbicacion.fila = txtFila.Text;
-            nuevaUbicacion.asiento = int.Parse(txtAsiento.Text);
+            if (editandoPublicacion)
+            {
+                nuevaUbicacion = db.Ubicacion_publicacion.Find(idUbicacion);
+                nuevaUbicacion.precio = int.Parse(txtPrecio.Text);
+                nuevaUbicacion.Tipo_ubicacion = BaseDeDatos.BaseDeDatos.tipoUbicacionPorDescripcion(db, WindowsFormUtils.textoSeleccionadoDe(cboTipo));
+                nuevaUbicacion.sin_numerar = cbxNumerada.Checked;
+                nuevaUbicacion.Publicacion = publicacionActual;
+                nuevaUbicacion.fila = txtFila.Text;
+                nuevaUbicacion.asiento = int.Parse(txtAsiento.Text);
+                db.SaveChanges();
+            }
+            else
+            {
+                nuevaUbicacion = new Ubicacion_publicacion();
+                nuevaUbicacion.precio = int.Parse(txtPrecio.Text);
+                nuevaUbicacion.Tipo_ubicacion = BaseDeDatos.BaseDeDatos.tipoUbicacionPorDescripcion(db, WindowsFormUtils.textoSeleccionadoDe(cboTipo));
+                nuevaUbicacion.sin_numerar = cbxNumerada.Checked;
+                nuevaUbicacion.Publicacion = publicacionActual;
+                nuevaUbicacion.fila = txtFila.Text;
+                nuevaUbicacion.asiento = int.Parse(txtAsiento.Text);
+                UbicacionesGlobal.ubicaciones.Add(nuevaUbicacion);
+            }
+            
+           
 
-            UbicacionesGlobal.ubicaciones.Add(nuevaUbicacion);
+            
 
         }
 
