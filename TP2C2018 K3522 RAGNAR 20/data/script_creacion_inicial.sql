@@ -520,34 +520,43 @@ BEGIN
 END
 GO
 
---/ StoredProcedure para rendicion de comisiones /--
+--/ StoredProcedure para rendicion de comisiones, recibe la cantidad de compras a facturar y la fecha del sistema para poder grabar la fecha de factura /--
 
 CREATE PROCEDURE RAGNAR.SP_RendicionDeComisiones (@CantidadAFacturar int, @FechaDelSistema datetime)
 AS
 BEGIN
-	DECLARE @NumeroDeFactura numeric(18,0), @Empresa bigint, @EmpresaAnterior bigint, @IdUbicacion bigint, @PrecioUbicacion numeric(18,0), @PrecioComision numeric(18,2), @Comision numeric(4,3), @Total numeric(18,2), @CantidadSinFacturar int, @CantidadTop int
+	DECLARE @NumeroDeFactura numeric(18,0), @Empresa bigint, @EmpresaAnterior bigint, @IdUbicacion bigint, @PrecioUbicacion numeric(18,0), @PrecioComision numeric(18,2), @Comision numeric(4,3), @Total numeric(18,2), @CantidadSinFacturar int, @CantidadTop int, @IdCompra bigint
 	SET @CantidadSinFacturar = (SELECT COUNT(*) FROM RAGNAR.Ubicacion_publicacion as U WHERE NOT EXISTS (SELECT I.id_ubicacion FROM RAGNAR.Item_factura as I WHERE I.id_ubicacion = U.id_ubicacion) AND U.id_compra IS NOT NULL)
 	SET @CantidadTop = RAGNAR.F_MinimoDeDosValores(@CantidadSinFacturar,@CantidadAFacturar)
-	DECLARE CUbicacionesAFacturar CURSOR FOR (SELECT * FROM (SELECT TOP (@CantidadTop) U.id_ubicacion, U.precio, G.comision, P.id_empresa FROM RAGNAR.Ubicacion_publicacion as U JOIN RAGNAR.Compra as C ON (C.id_compra = U.id_compra) JOIN RAGNAR.Publicacion as P ON (P.id_publicacion = U.id_publicacion) JOIN RAGNAR.Grado_publicacion as G ON (G.id_grado = P.id_grado) WHERE NOT EXISTS (SELECT I.id_ubicacion FROM RAGNAR.Item_factura as I WHERE I.id_ubicacion = U.id_ubicacion) ORDER BY C.fecha ASC) as TablaParaUsarOrderBy)
-	OPEN CUbicacionesAFacturar
-	FETCH NEXT FROM CUbicacionesAFacturar INTO @IdUbicacion, @PrecioUbicacion, @Comision, @Empresa
+	DECLARE CComprasAFacturar CURSOR FOR (SELECT * FROM (SELECT TOP (@CantidadTop) C.id_compra FROM RAGNAR.Compra as C JOIN RAGNAR.Ubicacion_publicacion as U ON (U.id_compra = C.id_compra) WHERE NOT EXISTS (SELECT I.id_ubicacion FROM RAGNAR.Item_factura as I WHERE I.id_ubicacion = U.id_ubicacion) GROUP BY C.id_compra, C.Fecha ORDER BY C.fecha ASC) as Tablatemporal)
+	OPEN CComprasAFacturar
+	FETCH NEXT FROM CComprasAFacturar INTO @IdCompra
 	WHILE @@FETCH_STATUS = 0
 	BEGIN
-		SET @Total = 0
-		SET @EmpresaAnterior = @Empresa
-		SET @NumeroDeFactura = (SELECT TOP 1 numero FROM RAGNAR.Factura ORDER BY numero DESC) + 1
-		INSERT INTO RAGNAR.Factura (numero, fecha) VALUES (@NumeroDeFactura, @FechaDelSistema)
-		WHILE(@Empresa = @EmpresaAnterior AND @@FETCH_STATUS = 0) --/Misma factura
+		DECLARE CUbicacionesAFacturar CURSOR FOR (SELECT U.id_ubicacion, U.precio, G.comision, P.id_empresa FROM RAGNAR.Ubicacion_publicacion as U JOIN RAGNAR.Publicacion as P ON (P.id_publicacion = U.id_publicacion) JOIN RAGNAR.Grado_publicacion as G ON (G.id_grado = P.id_grado) WHERE NOT EXISTS (SELECT I.id_ubicacion FROM RAGNAR.Item_factura as I WHERE I.id_ubicacion = U.id_ubicacion) AND U.id_compra = @IdCompra)
+		OPEN CUbicacionesAFacturar
+		FETCH NEXT FROM CUbicacionesAFacturar INTO @IdUbicacion, @PrecioUbicacion, @Comision, @Empresa
+		WHILE @@FETCH_STATUS = 0
 		BEGIN
-			SET @PrecioComision = @PrecioUbicacion * @Comision
-			SET @Total = @Total + @PrecioComision
-			INSERT INTO RAGNAR.Item_factura (id_ubicacion, id_factura, monto, descripcion) VALUES (@IdUbicacion, (SELECT id_factura FROM RAGNAR.Factura WHERE numero = @NumeroDeFactura), @PrecioComision, 'Comision por compra')
-			FETCH NEXT FROM CUbicacionesAFacturar INTO @IdUbicacion, @PrecioUbicacion, @Comision, @Empresa
+			SET @Total = 0
+			SET @EmpresaAnterior = @Empresa
+			SET @NumeroDeFactura = (SELECT TOP 1 numero FROM RAGNAR.Factura ORDER BY numero DESC) + 1
+			INSERT INTO RAGNAR.Factura (numero, fecha) VALUES (@NumeroDeFactura, @FechaDelSistema)
+			WHILE(@Empresa = @EmpresaAnterior AND @@FETCH_STATUS = 0) --/Misma factura
+			BEGIN
+				SET @PrecioComision = @PrecioUbicacion * @Comision
+				SET @Total = @Total + @PrecioComision
+				INSERT INTO RAGNAR.Item_factura (id_ubicacion, id_factura, monto, descripcion) VALUES (@IdUbicacion, (SELECT id_factura FROM RAGNAR.Factura WHERE numero = @NumeroDeFactura), @PrecioComision, 'Comision por compra')
+				FETCH NEXT FROM CUbicacionesAFacturar INTO @IdUbicacion, @PrecioUbicacion, @Comision, @Empresa
+			END
+			UPDATE RAGNAR.Factura SET total = @Total WHERE numero = @NumeroDeFactura
 		END
-		UPDATE RAGNAR.Factura SET total = @Total WHERE numero = @NumeroDeFactura
+		CLOSE CUbicacionesAFacturar
+		DEALLOCATE CUbicacionesAFacturar
+		FETCH NEXT FROM CComprasAFacturar INTO @IdCompra
 	END
-	CLOSE CUbicacionesAFacturar
-	DEALLOCATE CUbicacionesAFacturar
+	CLOSE CComprasAFacturar
+	DEALLOCATE CComprasAFacturar
 END
 GO
 
