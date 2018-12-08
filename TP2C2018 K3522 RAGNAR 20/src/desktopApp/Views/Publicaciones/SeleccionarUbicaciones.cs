@@ -229,20 +229,6 @@ namespace PalcoNet.Views.Publicaciones
                // ubicacionActual.FirstOrDefault().Compra = compra;
             }
             db.Compra.Add(compra);
-            asignarPuntos(db, compra.Cliente);
-
         }
-        #region PUNTOS
-
-        private void asignarPuntos(RagnarEntities db, Cliente cliente)
-        {
-            Puntos_cliente puntos = new Puntos_cliente();
-            puntos.Cliente = cliente;
-            puntos.puntos = 50;
-            puntos.vencimiento = Global.fechaDeHoy().AddYears(1);
-            db.Puntos_cliente.Add(puntos);
-        }
-
-        #endregion 
     }
 }
