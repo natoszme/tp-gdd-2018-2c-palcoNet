@@ -182,14 +182,34 @@ namespace PalcoNet.Publicaciones
         }
 
         private void noExistefechaDeMismaPublicacion() {
-            
-            if (BaseDeDatos.BaseDeDatos.existePublicacionEnMismaFecha(txtDescripcion.Text, dtpFecha.Value))
-                throw new ValidationException("No se puede elegir una fecha de un espectaculo que sea realizado a la misma hora en el mismo lugar");
+
+            Publicacion otraPublicacion = BaseDeDatos.BaseDeDatos.publicacionEnMismaFecha(txtDescripcion.Text, dtpFecha.Value);
+
+            if (otraPublicacion != null)
+            {
+                if (editando())
+                {
+                    if (otraPublicacion.id_publicacion != id)
+                    {
+                        excepcionEspectaculoDuplicado();
+                    }
+                }
+                else
+                {
+                    excepcionEspectaculoDuplicado();
+                }
+            }
+                
+        }
+
+        private void excepcionEspectaculoDuplicado()
+        {
+            throw new ValidationException("No se puede elegir una fecha de un espectaculo que sea realizado a la misma hora en el mismo lugar");
         }
 
         private void fechaMayorAUltima() {
             if (fechas.Count != 0) {
-                if (dtpFecha.Value.Date <= fechas.ElementAt(fechas.Count - 1))
+                if (dtpFecha.Value <= fechas.ElementAt(fechas.Count - 1))
                     throw new ValidationException("La fecha cargada debe ser superior a la ultima fecha de un espectaculo");
             }
         }
