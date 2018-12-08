@@ -231,7 +231,7 @@ namespace PalcoNet.Publicaciones
         }
 
         private void hayUbicacionesCargadas() {
-            if (!editando() && UbicacionesGlobal.ubicaciones.Count < 0)
+            if (!editando() && UbicacionesGlobal.ubicaciones.Count <= 0)
                 throw new ValidationException("Debe haber al menos una ubicacion cargada");
         }
 
