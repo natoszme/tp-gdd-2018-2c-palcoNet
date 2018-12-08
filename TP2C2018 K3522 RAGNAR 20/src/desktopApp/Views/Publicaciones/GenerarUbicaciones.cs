@@ -82,7 +82,7 @@ namespace PalcoNet.Views.Publicaciones
 
         private bool esUbicacionRepetida() {
             Ubicacion_publicacion nuevaUbicacion = new Ubicacion_publicacion();
-               nuevaUbicacion.precio = int.Parse(txtPrecio.Text);
+            nuevaUbicacion.precio = ValidationsUtils.decimalDeInput(txtPrecio);
             nuevaUbicacion.Tipo_ubicacion = BaseDeDatos.BaseDeDatos.tipoUbicacionPorDescripcion(WindowsFormUtils.textoSeleccionadoDe(cboTipo));
             nuevaUbicacion.sin_numerar = cbxNumerada.Checked;
             nuevaUbicacion.Publicacion = publicacionActual;
@@ -113,12 +113,14 @@ namespace PalcoNet.Views.Publicaciones
             inputs.Add(txtAsiento);
             inputs.Add(txtPrecio);
 
-            ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtAsiento, "asiento"), ref errores);
-            ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtFila, "fila"), ref errores);
-            ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtPrecio, "precio"), ref errores);
+            if(!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtAsiento, "asiento"), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.campoNumericoEntero(txtAsiento, "asiento"), ref errores);
 
-            if (errores.Count() <= 0)
-                ValidationsUtils.hayError(() => ValidationsUtils.camposNumericos(inputs, "fila, asiento y precio"), ref errores);
+            if(!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtFila, "fila"), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.campoNumericoEntero(txtFila, "fila"), ref errores);
+
+            if(!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtPrecio, "precio"), ref errores))
+                ValidationsUtils.hayError(() => ValidationsUtils.campoFloatYPositivo(txtPrecio, "precio"), ref errores);
             
             ValidationsUtils.hayError(() => ValidationsUtils.opcionObligatoria(cboTipo, "tipo de ubicacion"), ref errores);
 
@@ -198,7 +200,7 @@ namespace PalcoNet.Views.Publicaciones
             if (editandoPublicacion)
             {
                 nuevaUbicacion = db.Ubicacion_publicacion.Find(idUbicacion);
-                nuevaUbicacion.precio = int.Parse(txtPrecio.Text);
+                nuevaUbicacion.precio = ValidationsUtils.decimalDeInput(txtPrecio);
                 nuevaUbicacion.Tipo_ubicacion = BaseDeDatos.BaseDeDatos.tipoUbicacionPorDescripcion(db, WindowsFormUtils.textoSeleccionadoDe(cboTipo));
                 nuevaUbicacion.sin_numerar = cbxNumerada.Checked;
                 nuevaUbicacion.Publicacion = publicacionActual;
@@ -209,7 +211,7 @@ namespace PalcoNet.Views.Publicaciones
             else
             {
                 nuevaUbicacion = new Ubicacion_publicacion();
-                nuevaUbicacion.precio = int.Parse(txtPrecio.Text);
+                nuevaUbicacion.precio = ValidationsUtils.decimalDeInput(txtPrecio);
                 nuevaUbicacion.Tipo_ubicacion = BaseDeDatos.BaseDeDatos.tipoUbicacionPorDescripcion(db, WindowsFormUtils.textoSeleccionadoDe(cboTipo));
                 nuevaUbicacion.sin_numerar = cbxNumerada.Checked;
                 nuevaUbicacion.Publicacion = publicacionActual;
