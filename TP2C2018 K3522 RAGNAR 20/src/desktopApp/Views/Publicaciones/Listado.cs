@@ -85,9 +85,6 @@ namespace PalcoNet.Publicaciones
             WindowsFormUtils.abrirFormulario(new Alta(id), actualizarDataGriedView);
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+      
     }
 }

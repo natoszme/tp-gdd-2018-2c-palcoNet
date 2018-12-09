@@ -55,8 +55,8 @@ namespace PalcoNet.Views.Publicaciones
                 }
 
                 
-                espectaculosTotales = espectaculosTotales.Where(c => c.Estado_publicacion.descripcion.ToString() == "Publicada").OrderBy(c => c.Grado_publicacion.id_grado).ThenBy(c => c.fecha_espectaculo);
-                espectaculosTotales = espectaculosTotales.Where(c => c.stock != 0);
+                espectaculosTotales = espectaculosTotales.Where(c => c.Estado_publicacion.descripcion.ToString() == "Publicada");
+                espectaculosTotales = espectaculosTotales.Where(c => c.stock != 0).OrderBy(c => c.Grado_publicacion.id_grado).ThenBy(c => c.fecha_espectaculo);
                 var espectaculos = espectaculosTotales.Select(c => new
                 {
                     id_publicacion = c.id_publicacion,
@@ -66,7 +66,8 @@ namespace PalcoNet.Views.Publicaciones
                     fecha_publicacion = c.fecha_publicacion,
                     stock = c.stock,
                     rubro = c.Rubro.descripcion,
-                    empresa = c.Empresa.razon_social
+                    empresa = c.Empresa.razon_social,
+                    grado = c.Grado_publicacion.descripcion
                 });
 
                 if (loadingTime) {

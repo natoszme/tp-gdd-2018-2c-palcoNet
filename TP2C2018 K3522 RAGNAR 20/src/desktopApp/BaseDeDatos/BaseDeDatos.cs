@@ -178,7 +178,7 @@ namespace PalcoNet.BaseDeDatos
         internal static int cantidadUbicacionesDePublicacion(int id)
         {
             return dbContext().Ubicacion_publicacion
-                .Where(ubic => ubic.id_publicacion==id)
+                .Where(ubic => ubic.id_publicacion==id && ubic.habilitado!=null && ubic.habilitado==true)
                 .Count();
         }
         internal static List<Ubicacion_publicacion> ubicacionesDePublicacion(RagnarEntities db, int idPublicacion)

@@ -164,7 +164,7 @@ namespace PalcoNet.Views.Publicaciones
                 using (RagnarEntities db = new RagnarEntities())
                 {
 
-                    IQueryable<Ubicacion_publicacion> ubicacionesBase = db.Ubicacion_publicacion.AsQueryable().Where(ub=>ub.id_publicacion == publicacionActual.id_publicacion);
+                    IQueryable<Ubicacion_publicacion> ubicacionesBase = db.Ubicacion_publicacion.AsQueryable().Where(ub=>ub.id_publicacion == publicacionActual.id_publicacion &&ub.habilitado!=null && ub.habilitado==true);
 
 
 
@@ -267,6 +267,8 @@ namespace PalcoNet.Views.Publicaciones
                 if (eliminacion == DialogResult.OK)
                 {
                     eliminarUbicacion((int)idSeleccionado);
+                    lblCantUbicaciones.Text = "Ubicaciones cargadas = " + BaseDeDatos.BaseDeDatos.cantidadUbicacionesDePublicacion((int)publicacionActual.id_publicacion); //Actualiza el lbl del formulario de alta               
+
                 }
             }
             else

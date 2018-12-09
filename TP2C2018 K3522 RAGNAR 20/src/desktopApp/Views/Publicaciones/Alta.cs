@@ -134,7 +134,7 @@ namespace PalcoNet.Publicaciones
                         ubicacionNueva.sin_numerar = ubicacion.sin_numerar;
                         ubicacionNueva.Tipo_ubicacion = ubicacion.Tipo_ubicacion;
                         ubicacionNueva.Publicacion = publicacion;
-
+                        ubicacionNueva.habilitado = ubicacion.habilitado;
                         db.Ubicacion_publicacion.Add(ubicacionNueva);
                         publicacion.Ubicacion_publicacion.Add(ubicacionNueva);
                     }
