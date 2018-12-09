@@ -265,13 +265,21 @@ namespace PalcoNet.Views.Publicaciones
             {
                 if (new RagnarEntities().Ubicacion_publicacion.Find(idSeleccionado).habilitado != null && new RagnarEntities().Ubicacion_publicacion.Find(idUbicacion).habilitado == true)
                 {
-                    DialogResult eliminacion = MessageBox.Show(null, "¿Desea eliminar la ubicacion?", "Eliminar ubicacion", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    if (eliminacion == DialogResult.OK)
+                    if (BaseDeDatos.BaseDeDatos.cantidadUbicacionesDePublicacion((int)publicacionActual.id_publicacion) > 1)
                     {
-                        eliminarUbicacion((int)idSeleccionado);
-                        lblCantUbicaciones.Text = "Ubicaciones cargadas = " + BaseDeDatos.BaseDeDatos.cantidadUbicacionesDePublicacion((int)publicacionActual.id_publicacion);
+                        DialogResult eliminacion = MessageBox.Show(null, "¿Desea eliminar la ubicacion?", "Eliminar ubicacion", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                        if (eliminacion == DialogResult.OK)
+                        {
+                            eliminarUbicacion((int)idSeleccionado);
+                            lblCantUbicaciones.Text = "Ubicaciones cargadas = " + BaseDeDatos.BaseDeDatos.cantidadUbicacionesDePublicacion((int)publicacionActual.id_publicacion);
 
+                        }
                     }
+                    else
+                    {
+                        WindowsFormUtils.mensajeDeError("No se puede dejar una publicacion sin ubicaciones");
+                    }
+                    
                 }
                 else
                 {
@@ -289,10 +297,10 @@ namespace PalcoNet.Views.Publicaciones
         private void eliminarUbicacion(int idUbicacionEliminar)
         {
             UbicacionesGlobal.ubicaciones.RemoveAll(ub => ub.id_ubicacion == idUbicacionEliminar);
-            RagnarEntities db = new RagnarEntities();
-            db.Ubicacion_publicacion.Find(idUbicacion).habilitado = false;
+            
+            UbicacionesGlobal.contextoGlobal.Ubicacion_publicacion.Find(idUbicacion).habilitado = false;
             publicacionActual.stock = publicacionActual.stock - 1;
-            DBUtils.guardar(db);
+            DBUtils.guardar(UbicacionesGlobal.contextoGlobal);
             actualizarDataGriedView();
 
         }
