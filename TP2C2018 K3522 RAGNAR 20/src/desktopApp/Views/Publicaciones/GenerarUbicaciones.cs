@@ -82,7 +82,7 @@ namespace PalcoNet.Views.Publicaciones
 
         private bool esUbicacionRepetida() {
             Ubicacion_publicacion nuevaUbicacion = new Ubicacion_publicacion();
-            nuevaUbicacion.precio = ValidationsUtils.decimalDeInput(txtPrecio);
+            nuevaUbicacion.precio = int.Parse(txtPrecio.Text);
             nuevaUbicacion.Tipo_ubicacion = BaseDeDatos.BaseDeDatos.tipoUbicacionPorDescripcion(WindowsFormUtils.textoSeleccionadoDe(cboTipo));
             nuevaUbicacion.sin_numerar = cbxNumerada.Checked;
             nuevaUbicacion.Publicacion = publicacionActual;
@@ -120,7 +120,7 @@ namespace PalcoNet.Views.Publicaciones
                 ValidationsUtils.hayError(() => ValidationsUtils.campoNumericoEntero(txtFila, "fila"), ref errores);
 
             if(!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtPrecio, "precio"), ref errores))
-                ValidationsUtils.hayError(() => ValidationsUtils.campoFloatYPositivo(txtPrecio, "precio"), ref errores);
+                ValidationsUtils.hayError(() => ValidationsUtils.campoNumericoEntero(txtPrecio, "precio"), ref errores);
             
             ValidationsUtils.hayError(() => ValidationsUtils.opcionObligatoria(cboTipo, "tipo de ubicacion"), ref errores);
 
@@ -200,7 +200,7 @@ namespace PalcoNet.Views.Publicaciones
             if (editandoPublicacion)
             {
                 nuevaUbicacion = db.Ubicacion_publicacion.Find(idUbicacion);
-                nuevaUbicacion.precio = ValidationsUtils.decimalDeInput(txtPrecio);
+                nuevaUbicacion.precio = int.Parse(txtPrecio.Text);
                 nuevaUbicacion.Tipo_ubicacion = BaseDeDatos.BaseDeDatos.tipoUbicacionPorDescripcion(db, WindowsFormUtils.textoSeleccionadoDe(cboTipo));
                 nuevaUbicacion.sin_numerar = cbxNumerada.Checked;
                 nuevaUbicacion.Publicacion = publicacionActual;
@@ -211,7 +211,7 @@ namespace PalcoNet.Views.Publicaciones
             else
             {
                 nuevaUbicacion = new Ubicacion_publicacion();
-                nuevaUbicacion.precio = ValidationsUtils.decimalDeInput(txtPrecio);
+                nuevaUbicacion.precio = int.Parse(txtPrecio.Text);
                 nuevaUbicacion.Tipo_ubicacion = BaseDeDatos.BaseDeDatos.tipoUbicacionPorDescripcion(db, WindowsFormUtils.textoSeleccionadoDe(cboTipo));
                 nuevaUbicacion.sin_numerar = cbxNumerada.Checked;
                 nuevaUbicacion.Publicacion = publicacionActual;
