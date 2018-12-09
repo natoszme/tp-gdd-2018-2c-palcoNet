@@ -41,6 +41,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.btnFinalizar = new System.Windows.Forms.Button();
             this.btnSeleccionarUbicacion = new System.Windows.Forms.Button();
+            this.btnEliminar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUbicaciones)).BeginInit();
             this.SuspendLayout();
             // 
@@ -159,11 +160,23 @@
             this.btnSeleccionarUbicacion.Visible = false;
             this.btnSeleccionarUbicacion.Click += new System.EventHandler(this.btnSeleccionarUbicacion_Click);
             // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Location = new System.Drawing.Point(256, 49);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(75, 40);
+            this.btnEliminar.TabIndex = 12;
+            this.btnEliminar.Text = "Eliminar Ubicacion";
+            this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Visible = false;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            // 
             // GenerarUbicaciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(295, 319);
+            this.ClientSize = new System.Drawing.Size(338, 319);
+            this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnSeleccionarUbicacion);
             this.Controls.Add(this.btnFinalizar);
             this.Controls.Add(this.label4);
@@ -201,5 +214,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnFinalizar;
         private System.Windows.Forms.Button btnSeleccionarUbicacion;
+        private System.Windows.Forms.Button btnEliminar;
     }
 }

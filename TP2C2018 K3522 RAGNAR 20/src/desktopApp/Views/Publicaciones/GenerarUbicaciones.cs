@@ -142,6 +142,7 @@ namespace PalcoNet.Views.Publicaciones
             {
                 btnSeleccionarUbicacion.Visible = true;
                 btnAgregar.Text = "Editar";
+                btnEliminar.Visible = true;
             }
               
             actualizarDataGriedView();
@@ -206,6 +207,7 @@ namespace PalcoNet.Views.Publicaciones
                 nuevaUbicacion.Publicacion = publicacionActual;
                 nuevaUbicacion.fila = txtFila.Text;
                 nuevaUbicacion.asiento = int.Parse(txtAsiento.Text);
+                nuevaUbicacion.habilitado = true;
                 db.SaveChanges();
             }
             else
@@ -217,6 +219,7 @@ namespace PalcoNet.Views.Publicaciones
                 nuevaUbicacion.Publicacion = publicacionActual;
                 nuevaUbicacion.fila = txtFila.Text;
                 nuevaUbicacion.asiento = int.Parse(txtAsiento.Text);
+                nuevaUbicacion.habilitado = true;
                 UbicacionesGlobal.ubicaciones.Add(nuevaUbicacion);
             }
             
@@ -252,6 +255,32 @@ namespace PalcoNet.Views.Publicaciones
                     WindowsFormUtils.mensajeDeError("Error al intentar cargar a la ubicacion");
                 }
             }
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            int? idSeleccionado;
+            idSeleccionado = DataGridViewUtils.obtenerIdSeleccionado(dgvUbicaciones);
+            if (idSeleccionado != null)
+            {
+                DialogResult eliminacion = MessageBox.Show(null, "¿Desea eliminar la ubicacion?", "Eliminar ubicacion", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                if (eliminacion == DialogResult.OK)
+                {
+                    eliminarUbicacion((int)idSeleccionado);
+                }
+            }
+            else
+            {
+                WindowsFormUtils.mensajeDeError("Debe seleccionar una ubicacion");
+            }
+           
+        }
+
+        private void eliminarUbicacion(int idUbicacionEliminar)
+        {
+            UbicacionesGlobal.ubicaciones.RemoveAll(ub => ub.id_ubicacion == idUbicacionEliminar);
+            BaseDeDatos.BaseDeDatos.eliminarUbicacionPorId(idUbicacionEliminar);
+
         }
 
     }
