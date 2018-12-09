@@ -233,24 +233,6 @@ BEGIN
 	END
 	CLOSE CUbicacion
 	DEALLOCATE CUbicacion
-	--/Cuando se borran ubicaciones de una publicacion o se rehabilitan ubicaciones/--
-	DECLARE CUbicacion CURSOR FOR (SELECT I.id_publicacion, I.habilitado, D.habilitado FROM INSERTED as I JOIN DELETED as D ON (I.asiento = D.asiento AND I.fila = D.fila AND I.id_publicacion = D.id_publicacion AND I.id_tipo = D.id_tipo AND I.precio = D.precio AND I.sin_numerar = D.sin_numerar AND I.id_compra = D.id_compra) WHERE I.id_compra IS NULL)
-	OPEN CUbicacion
-	FETCH NEXT FROM CUbicacion INTO @Publicacion, @HabilitadoActual, @HabilitadoAnterior
-	WHILE @@FETCH_STATUS = 0
-	BEGIN
-		IF(@HabilitadoActual = 0 AND @HabilitadoAnterior = 1)
-		BEGIN
-		UPDATE RAGNAR.Publicacion SET stock = (stock - 1) WHERE id_publicacion = @Publicacion
-		END
-		IF(@HabilitadoActual = 1 AND @HabilitadoAnterior = 0)
-		BEGIN
-		UPDATE RAGNAR.Publicacion SET stock = (stock + 1) WHERE id_publicacion = @Publicacion
-		END
-		FETCH NEXT FROM CUbicacion INTO @Publicacion, @HabilitadoActual, @HabilitadoAnterior
-	END
-	CLOSE CUbicacion
-	DEALLOCATE CUbicacion
 END
 GO
 
