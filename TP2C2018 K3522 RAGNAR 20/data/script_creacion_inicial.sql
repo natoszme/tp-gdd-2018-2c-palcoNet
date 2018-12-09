@@ -583,13 +583,15 @@ GO
 CREATE TRIGGER RAGNAR.SumarPuntos ON RAGNAR.Compra AFTER INSERT
 AS
 BEGIN
-	DECLARE @Cliente bigint, @Fecha datetime
+	DECLARE @Cliente bigint, @Fecha datetime, @Tarjeta varchar(10)
 	DECLARE CCliente CURSOR FOR (SELECT id_cliente, fecha FROM INSERTED)
 	OPEN CCliente
 	FETCH NEXT FROM CCliente INTO @Cliente, @Fecha
 	WHILE @@FETCH_STATUS = 0
 	BEGIN
+		SET @Tarjeta = (SELECT tarjeta_credito FROM RAGNAR.Cliente WHERE id_usuario = @Cliente)
 		INSERT INTO RAGNAR.Puntos_cliente (id_cliente,puntos,vencimiento) VALUES (@Cliente, 50, DATEADD(year,1,@Fecha))
+		UPDATE RAGNAR.Compra SET tarjeta_utilizada = @Tarjeta WHERE id_cliente = @Cliente AND fecha = @Fecha
 		FETCH NEXT FROM CCliente INTO @Cliente, @Fecha
 	END
 	CLOSE CCliente
