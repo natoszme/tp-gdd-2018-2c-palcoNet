@@ -62,7 +62,10 @@ namespace PalcoNet.Views.Reportes
             List<string> errores = new List<string>();
 
             if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtAnio, "año"), ref errores))
+            {
                 ValidationsUtils.hayError(() => ValidationsUtils.campoEnteroYPositivo(txtAnio, "año"), ref errores);
+                ValidationsUtils.hayError(() => anioConFormatoCorrecto(txtAnio), ref errores);
+            }
 
             if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtTrimestre, textErrorLableFiltro()), ref errores))
                 ValidationsUtils.hayError(() => ValidationsUtils.campoEnteroYPositivo(txtTrimestre, textErrorLableFiltro()), ref errores);
@@ -129,6 +132,14 @@ namespace PalcoNet.Views.Reportes
 
                 cmbGrado.ValueMember = "value";
                 cmbGrado.DisplayMember = "text";
+            }
+        }
+
+        private static void anioConFormatoCorrecto(TextBox txtAnio)
+        {
+            if (int.Parse(txtAnio.Text) < 1000)
+            {
+                throw new ValidationException("El año ingresado debe tener el formato AAAA");
             }
         }
     }
