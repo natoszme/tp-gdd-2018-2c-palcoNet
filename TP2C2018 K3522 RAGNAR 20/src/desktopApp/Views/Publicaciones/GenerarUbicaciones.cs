@@ -142,6 +142,7 @@ namespace PalcoNet.Views.Publicaciones
             {
                 btnSeleccionarUbicacion.Visible = true;
                 btnAgregar.Text = "Editar";
+                btnFinalizar.Text = "Finalizar Edicion";
                 btnEliminar.Visible = true;
             }
               
