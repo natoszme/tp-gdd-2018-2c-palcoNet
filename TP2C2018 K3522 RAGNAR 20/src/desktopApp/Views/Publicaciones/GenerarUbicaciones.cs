@@ -261,7 +261,7 @@ namespace PalcoNet.Views.Publicaciones
         {
             int? idSeleccionado;
             idSeleccionado = DataGridViewUtils.obtenerIdSeleccionado(dgvUbicaciones);
-            if (idSeleccionado != null)
+            if (idSeleccionado != null && idUbicacion != null)
             {
                 if (new RagnarEntities().Ubicacion_publicacion.Find(idSeleccionado).habilitado != null && new RagnarEntities().Ubicacion_publicacion.Find(idUbicacion).habilitado == true)
                 {
