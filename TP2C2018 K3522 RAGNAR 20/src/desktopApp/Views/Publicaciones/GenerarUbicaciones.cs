@@ -208,7 +208,7 @@ namespace PalcoNet.Views.Publicaciones
                 nuevaUbicacion.fila = txtFila.Text;
                 nuevaUbicacion.asiento = int.Parse(txtAsiento.Text);
                 nuevaUbicacion.habilitado = true;
-                db.SaveChanges();
+                DBUtils.guardar(db);
             }
             else
             {
@@ -279,7 +279,9 @@ namespace PalcoNet.Views.Publicaciones
         private void eliminarUbicacion(int idUbicacionEliminar)
         {
             UbicacionesGlobal.ubicaciones.RemoveAll(ub => ub.id_ubicacion == idUbicacionEliminar);
-            BaseDeDatos.BaseDeDatos.eliminarUbicacionPorId(idUbicacionEliminar);
+            RagnarEntities db = new RagnarEntities();
+            db.Ubicacion_publicacion.Find(idUbicacion).habilitado = false;
+            DBUtils.guardar(db);
 
         }
 

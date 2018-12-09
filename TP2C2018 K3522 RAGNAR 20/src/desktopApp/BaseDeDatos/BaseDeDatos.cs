@@ -265,10 +265,7 @@ namespace PalcoNet.BaseDeDatos
             db.Usuario.Remove(db.Usuario.Find(usuario.id_usuario));
         }
 
-        public static void eliminarUbicacionPorId(int idUbicacion)
-        {         
-            dbContext().Ubicacion_publicacion.Remove(dbContext().Ubicacion_publicacion.Find(idUbicacion));
-        }
+       
 
         public static int cantidadUbicacionesDePublicacionConFilaAsientoQueNoSean(long idPublicacion, string fila, int asiento,int idUbicacion)
         {
