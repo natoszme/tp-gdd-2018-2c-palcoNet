@@ -263,13 +263,21 @@ namespace PalcoNet.Views.Publicaciones
             idSeleccionado = DataGridViewUtils.obtenerIdSeleccionado(dgvUbicaciones);
             if (idSeleccionado != null)
             {
-                DialogResult eliminacion = MessageBox.Show(null, "¿Desea eliminar la ubicacion?", "Eliminar ubicacion", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                if (eliminacion == DialogResult.OK)
+                if (new RagnarEntities().Ubicacion_publicacion.Find(idSeleccionado).habilitado != null && new RagnarEntities().Ubicacion_publicacion.Find(idUbicacion).habilitado == true)
                 {
-                    eliminarUbicacion((int)idSeleccionado);
-                    lblCantUbicaciones.Text = "Ubicaciones cargadas = " + BaseDeDatos.BaseDeDatos.cantidadUbicacionesDePublicacion((int)publicacionActual.id_publicacion);               
+                    DialogResult eliminacion = MessageBox.Show(null, "¿Desea eliminar la ubicacion?", "Eliminar ubicacion", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                    if (eliminacion == DialogResult.OK)
+                    {
+                        eliminarUbicacion((int)idSeleccionado);
+                        lblCantUbicaciones.Text = "Ubicaciones cargadas = " + BaseDeDatos.BaseDeDatos.cantidadUbicacionesDePublicacion((int)publicacionActual.id_publicacion);
 
+                    }
                 }
+                else
+                {
+                    WindowsFormUtils.mensajeDeError("No existe la ubicacion que desea borrar");
+                }
+                
             }
             else
             {
