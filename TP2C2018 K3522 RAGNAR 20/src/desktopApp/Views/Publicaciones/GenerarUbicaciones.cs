@@ -267,7 +267,7 @@ namespace PalcoNet.Views.Publicaciones
                 if (eliminacion == DialogResult.OK)
                 {
                     eliminarUbicacion((int)idSeleccionado);
-                    lblCantUbicaciones.Text = "Ubicaciones cargadas = " + BaseDeDatos.BaseDeDatos.cantidadUbicacionesDePublicacion((int)publicacionActual.id_publicacion); //Actualiza el lbl del formulario de alta               
+                    lblCantUbicaciones.Text = "Ubicaciones cargadas = " + BaseDeDatos.BaseDeDatos.cantidadUbicacionesDePublicacion((int)publicacionActual.id_publicacion);               
 
                 }
             }
@@ -283,7 +283,9 @@ namespace PalcoNet.Views.Publicaciones
             UbicacionesGlobal.ubicaciones.RemoveAll(ub => ub.id_ubicacion == idUbicacionEliminar);
             RagnarEntities db = new RagnarEntities();
             db.Ubicacion_publicacion.Find(idUbicacion).habilitado = false;
+            publicacionActual.stock = publicacionActual.stock - 1;
             DBUtils.guardar(db);
+            actualizarDataGriedView();
 
         }
 

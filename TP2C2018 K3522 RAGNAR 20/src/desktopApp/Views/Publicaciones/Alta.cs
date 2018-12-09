@@ -124,7 +124,7 @@ namespace PalcoNet.Publicaciones
 
                 if (!estaEditando)
                 {
-                    publicacion.stock = 0;
+                    
                     foreach (Ubicacion_publicacion ubicacion in UbicacionesGlobal.ubicaciones)
                     {
                         Ubicacion_publicacion ubicacionNueva = new Ubicacion_publicacion();
@@ -278,5 +278,15 @@ namespace PalcoNet.Publicaciones
             }
         }
         #endregion
+
+        private void btnFinalizar_Click(object sender, EventArgs e)
+        {
+            if (camposYDominioValidos())
+            {
+                WindowsFormUtils.mensajeDeExito("Publicación finalizada");
+                RagnarEntities db = UbicacionesGlobal.contextoGlobal;
+                guardarPublicacion(db, BaseDeDatos.BaseDeDatos.estadoDePublicacionPorNombre(db, "Finalizada"));
+            }
+        }
     }
 }

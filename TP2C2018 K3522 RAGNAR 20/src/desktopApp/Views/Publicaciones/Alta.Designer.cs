@@ -45,12 +45,13 @@
             this.label7 = new System.Windows.Forms.Label();
             this.btnAgregarFecha = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnFinalizar = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnPublicar
             // 
-            this.btnPublicar.Location = new System.Drawing.Point(207, 322);
+            this.btnPublicar.Location = new System.Drawing.Point(127, 322);
             this.btnPublicar.Name = "btnPublicar";
             this.btnPublicar.Size = new System.Drawing.Size(93, 47);
             this.btnPublicar.TabIndex = 8;
@@ -60,7 +61,7 @@
             // 
             // btnGuardarBorrador
             // 
-            this.btnGuardarBorrador.Location = new System.Drawing.Point(54, 322);
+            this.btnGuardarBorrador.Location = new System.Drawing.Point(28, 322);
             this.btnGuardarBorrador.Name = "btnGuardarBorrador";
             this.btnGuardarBorrador.Size = new System.Drawing.Size(93, 47);
             this.btnGuardarBorrador.TabIndex = 7;
@@ -200,11 +201,22 @@
             this.panel1.Size = new System.Drawing.Size(248, 89);
             this.panel1.TabIndex = 23;
             // 
+            // btnFinalizar
+            // 
+            this.btnFinalizar.Location = new System.Drawing.Point(227, 322);
+            this.btnFinalizar.Name = "btnFinalizar";
+            this.btnFinalizar.Size = new System.Drawing.Size(86, 47);
+            this.btnFinalizar.TabIndex = 24;
+            this.btnFinalizar.Text = "Finalizar";
+            this.btnFinalizar.UseVisualStyleBackColor = true;
+            this.btnFinalizar.Click += new System.EventHandler(this.btnFinalizar_Click);
+            // 
             // Alta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(335, 392);
+            this.Controls.Add(this.btnFinalizar);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.lblCantUbicaciones);
             this.Controls.Add(this.btnUbicaciones);
@@ -221,7 +233,6 @@
             this.Controls.Add(this.btnPublicar);
             this.Name = "Alta";
             this.Text = "Generar publicación";
-
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -248,5 +259,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnAgregarFecha;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnFinalizar;
     }
 }
