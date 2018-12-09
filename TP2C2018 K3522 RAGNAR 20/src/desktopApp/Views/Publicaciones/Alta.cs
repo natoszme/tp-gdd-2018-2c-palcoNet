@@ -266,6 +266,7 @@ namespace PalcoNet.Publicaciones
         #region CARGADATOS
         protected void cargarDatos() {            
             try {
+                UbicacionesGlobal.contextoGlobal = new RagnarEntities();
                 publicacion = UbicacionesGlobal.contextoGlobal.Publicacion.Find(id);
                 txtDireccion.Text = publicacion.direccion;
                 txtDescripcion.Text = publicacion.descripcion;
