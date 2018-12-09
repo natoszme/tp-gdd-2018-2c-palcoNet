@@ -49,7 +49,7 @@ namespace PalcoNet.Views.Publicaciones
 
                 IQueryable<Ubicacion_publicacion> ubicacionesFiltradas = db.Ubicacion_publicacion.AsQueryable().Where(u => u.id_publicacion == idEspectaculo);
 
-                ubicacionesFiltradas = ubicacionesFiltradas.Where(ub => ub.Compra == null);
+                ubicacionesFiltradas = ubicacionesFiltradas.Where(ub => ub.Compra == null && ub.habilitado!=null && ub.habilitado==true);
 
 
                 var ubicaciones = ubicacionesFiltradas.Select(c => new
