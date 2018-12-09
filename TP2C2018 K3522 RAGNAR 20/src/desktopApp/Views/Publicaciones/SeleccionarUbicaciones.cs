@@ -206,13 +206,10 @@ namespace PalcoNet.Views.Publicaciones
             Compra compra = new Compra();
             compra.Cliente = BaseDeDatos.BaseDeDatos.clientePorId(db,Global.obtenerUsuarioLogueado().id_usuario);
             compra.fecha = Global.fechaDeHoy();
-            if (tieneTarjeta(Global.obtenerUsuarioLogueado()))
+            if (!tieneTarjeta(Global.obtenerUsuarioLogueado()))
             {
-                compra.tarjeta_utilizada = BaseDeDatos.BaseDeDatos.clientePorId(Global.obtenerUsuarioLogueado().id_usuario).tarjeta_credito;
-            }
-            else
-            {
-                compra.tarjeta_utilizada = recortarTarjetaDeCredito(txtTarjeta.Text);
+                Cliente clienteComprador = db.Cliente.Find(Global.obtenerUsuarioLogueado().id_usuario);
+                clienteComprador.tarjeta_credito = recortarTarjetaDeCredito(txtTarjeta.Text);
             }
            
             

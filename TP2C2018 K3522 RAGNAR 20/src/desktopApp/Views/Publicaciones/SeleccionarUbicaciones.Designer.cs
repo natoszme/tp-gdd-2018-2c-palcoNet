@@ -97,7 +97,7 @@
             // 
             // txtTarjeta
             // 
-            this.txtTarjeta.Location = new System.Drawing.Point(172, 25);
+            this.txtTarjeta.Location = new System.Drawing.Point(172, 20);
             this.txtTarjeta.Name = "txtTarjeta";
             this.txtTarjeta.Size = new System.Drawing.Size(100, 20);
             this.txtTarjeta.TabIndex = 7;
@@ -105,7 +105,7 @@
             // lblTarjeta
             // 
             this.lblTarjeta.AutoSize = true;
-            this.lblTarjeta.Location = new System.Drawing.Point(172, 9);
+            this.lblTarjeta.Location = new System.Drawing.Point(172, 4);
             this.lblTarjeta.Name = "lblTarjeta";
             this.lblTarjeta.Size = new System.Drawing.Size(90, 13);
             this.lblTarjeta.TabIndex = 8;
