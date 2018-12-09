@@ -32,7 +32,9 @@ namespace PalcoNet.Publicaciones
             if (editando())
             {           
                 cargarDatos();
-                lblCantUbicaciones.Text = "Ubicaciones cargadas = " + UbicacionesGlobal.ubicaciones.Count;
+            
+                lblCantUbicaciones.Text = "Ubicaciones cargadas = " + BaseDeDatos.BaseDeDatos.cantidadUbicacionesDePublicacion((int)id);
+
                 btnAgregarFecha.Text = "Modificar fecha";
             }
         }
@@ -124,7 +126,7 @@ namespace PalcoNet.Publicaciones
 
                 if (!estaEditando)
                 {
-                    
+                    publicacion.stock = 0;
                     foreach (Ubicacion_publicacion ubicacion in UbicacionesGlobal.ubicaciones)
                     {
                         Ubicacion_publicacion ubicacionNueva = new Ubicacion_publicacion();
