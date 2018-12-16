@@ -88,8 +88,11 @@ namespace PalcoNet.Grados
             if(!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtDescripcion, "descripción"), ref errores))
                 ValidationsUtils.hayError(() => ValidationsUtils.campoAlfabetico(txtDescripcion, "descripción"), ref errores);
 
-            if(!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtComision, "comision"), ref errores))
-                ValidationsUtils.hayError(() => ValidationsUtils.campoFloatYPositivo(txtComision, "comision"), ref errores);
+            if (!ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtComision, "comision"), ref errores))
+            {
+                if (!ValidationsUtils.hayError(() => ValidationsUtils.campoFloatYPositivo(txtComision, "comision"), ref errores))
+                    ValidationsUtils.hayError(() => ValidationsUtils.valorEntre(ValidationsUtils.decimalDeInput(txtComision), "comision", 0, 1), ref errores);
+            }
 
             if (errores.Count() > 0)
             {

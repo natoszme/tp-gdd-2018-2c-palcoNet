@@ -97,8 +97,13 @@ namespace PalcoNet.Utils
 
         public static void valorEntre(Control input, string nombreInput, int minimo, int maximo)
         {
-            double valor = double.Parse(input.Text);
-            if (valor < minimo || valor > maximo)
+            decimal valor = decimal.Parse(input.Text);
+            valorEntre(valor, nombreInput, minimo, maximo);
+        }
+
+        public static void valorEntre(decimal inputNumber, string nombreInput, int minimo, int maximo)
+        {
+            if (inputNumber < minimo || inputNumber > maximo)
                 throw new ValidationException("El campo " + nombreInput + " debe ser un numero entre " + minimo + " y " + maximo);
         }
 
