@@ -24,6 +24,7 @@ namespace PalcoNet.Publicaciones
 
         private void Listado_Load(object sender, EventArgs e)
         {
+            cargarEstados();
             actualizarDataGriedView();
             dgvPublicaciones.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
@@ -37,6 +38,20 @@ namespace PalcoNet.Publicaciones
 
                 IQueryable<Publicacion> publicacionesQuery = db.Publicacion.AsQueryable();
 
+                // Filtro por rango de fecha de publicación
+                if (cbFiltroFecha.Checked) {
+                    publicacionesQuery = publicacionesQuery.Where(
+                        p => p.fecha_espectaculo >= dtpFechaDesde.Value.Date && p.fecha_espectaculo <= dtpFechaHasta.Value
+                    );
+                }
+
+                int id_estado = WindowsFormUtils.numeroSeleccionadoDe(cmbEstado);
+
+                if (id_estado > 0) {
+                    publicacionesQuery = publicacionesQuery.Where(
+                        p => p.id_estado == id_estado
+                    );
+                }
 
                 var publicaciones = publicacionesQuery.Select(c => new
                 {
@@ -85,6 +100,42 @@ namespace PalcoNet.Publicaciones
             WindowsFormUtils.abrirFormulario(new Alta(id), actualizarDataGriedView);
         }
 
-      
+        private void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            actualizarDataGriedView();
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e) {
+            cbFiltroFecha.Checked = false;
+            cmbEstado.ResetText();
+            cmbEstado.SelectedIndex = -1;
+
+            actualizarDataGriedView();
+        }
+
+        private void cargarEstados() {
+            using (RagnarEntities db = new RagnarEntities())
+            {
+                cmbEstado.DataSource = db.Estado_publicacion.ToList().Select(
+                    estado => new ComboBoxItem(estado.id_estado, estado.descripcion)
+                ).ToList();
+
+                cmbEstado.ValueMember = "value";
+                cmbEstado.DisplayMember = "text";
+
+                setFiltrosDefault(db);
+            }
+        }
+
+        private void setFiltrosDefault(RagnarEntities db) {
+            // Es feo, pero asi usa por defecto el estado borrador
+            Estado_publicacion estado = db.Estado_publicacion.Find(1);
+            cmbEstado.SelectedIndex = estado.id_estado;
+
+            DateTime fechaConfig = ConfigReader.getInstance().Fecha;
+
+            dtpFechaDesde.Value = fechaConfig;
+            dtpFechaHasta.Value = fechaConfig.AddMonths(1);
+        }
     }
 }

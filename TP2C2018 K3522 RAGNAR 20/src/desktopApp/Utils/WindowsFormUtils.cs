@@ -63,7 +63,7 @@ namespace PalcoNet.Utils
         public static int numeroSeleccionadoDe(ComboBox combo)
         {
             ComboBoxItem selectedItem = (ComboBoxItem) combo.SelectedItem;
-            return selectedItem.value;
+            return selectedItem != null ? selectedItem.value : 0;
         }
 
         public static String textoSeleccionadoDe(ComboBox combo)
