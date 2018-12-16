@@ -49,7 +49,13 @@ namespace PalcoNet.Views.Reportes
                         id_grado = WindowsFormUtils.numeroSeleccionadoDe(cmbGrado);
 
                     var reporte = Reportero.getReporte(db, int.Parse(txtAnio.Text), int.Parse(txtTrimestre.Text), cmbReporte.SelectedIndex, id_grado);
+
                     DataGridViewUtils.actualizarDataGriedView(dgvReporte, reporte);
+                    
+                    if (reporte.Count() == 0)
+                    {
+                        WindowsFormUtils.mensajeDeError("No hubo resultados para los filtros establecidos");
+                    }
                 }
             }
 
