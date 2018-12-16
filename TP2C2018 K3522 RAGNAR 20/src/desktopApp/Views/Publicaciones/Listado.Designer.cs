@@ -44,6 +44,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnFiltrar = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtDescripcion = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPublicaciones)).BeginInit();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -56,7 +58,7 @@
             this.dgvPublicaciones.AllowUserToOrderColumns = true;
             this.dgvPublicaciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.dgvPublicaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPublicaciones.Location = new System.Drawing.Point(12, 148);
+            this.dgvPublicaciones.Location = new System.Drawing.Point(12, 203);
             this.dgvPublicaciones.Name = "dgvPublicaciones";
             this.dgvPublicaciones.ReadOnly = true;
             this.dgvPublicaciones.Size = new System.Drawing.Size(875, 246);
@@ -104,7 +106,7 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(812, 409);
+            this.btnVolver.Location = new System.Drawing.Point(812, 466);
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(75, 23);
             this.btnVolver.TabIndex = 6;
@@ -114,6 +116,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtDescripcion);
+            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.cmbEstado);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.cbFiltroFecha);
@@ -125,7 +129,7 @@
             this.groupBox1.Controls.Add(this.btnFiltrar);
             this.groupBox1.Location = new System.Drawing.Point(12, 48);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(875, 85);
+            this.groupBox1.Size = new System.Drawing.Size(875, 149);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros";
@@ -133,15 +137,15 @@
             // cmbEstado
             // 
             this.cmbEstado.FormattingEnabled = true;
-            this.cmbEstado.Location = new System.Drawing.Point(524, 43);
+            this.cmbEstado.Location = new System.Drawing.Point(213, 42);
             this.cmbEstado.Name = "cmbEstado";
-            this.cmbEstado.Size = new System.Drawing.Size(168, 21);
+            this.cmbEstado.Size = new System.Drawing.Size(143, 21);
             this.cmbEstado.TabIndex = 3;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(521, 28);
+            this.label2.Location = new System.Drawing.Point(210, 26);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(40, 13);
             this.label2.TabIndex = 18;
@@ -152,7 +156,7 @@
             this.cbFiltroFecha.AutoSize = true;
             this.cbFiltroFecha.Checked = true;
             this.cbFiltroFecha.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbFiltroFecha.Location = new System.Drawing.Point(419, 49);
+            this.cbFiltroFecha.Location = new System.Drawing.Point(419, 86);
             this.cbFiltroFecha.Name = "cbFiltroFecha";
             this.cbFiltroFecha.Size = new System.Drawing.Size(99, 17);
             this.cbFiltroFecha.TabIndex = 2;
@@ -161,7 +165,7 @@
             // 
             // dtpFechaHasta
             // 
-            this.dtpFechaHasta.Location = new System.Drawing.Point(213, 44);
+            this.dtpFechaHasta.Location = new System.Drawing.Point(213, 86);
             this.dtpFechaHasta.Name = "dtpFechaHasta";
             this.dtpFechaHasta.Size = new System.Drawing.Size(200, 20);
             this.dtpFechaHasta.TabIndex = 1;
@@ -169,7 +173,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(210, 28);
+            this.label5.Location = new System.Drawing.Point(210, 70);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(66, 13);
             this.label5.TabIndex = 16;
@@ -177,7 +181,7 @@
             // 
             // dtpFechaDesde
             // 
-            this.dtpFechaDesde.Location = new System.Drawing.Point(7, 44);
+            this.dtpFechaDesde.Location = new System.Drawing.Point(7, 86);
             this.dtpFechaDesde.Name = "dtpFechaDesde";
             this.dtpFechaDesde.Size = new System.Drawing.Size(200, 20);
             this.dtpFechaDesde.TabIndex = 0;
@@ -185,7 +189,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(4, 28);
+            this.label4.Location = new System.Drawing.Point(4, 70);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(69, 13);
             this.label4.TabIndex = 14;
@@ -211,11 +215,27 @@
             this.btnFiltrar.UseVisualStyleBackColor = true;
             this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(7, 26);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(63, 13);
+            this.label3.TabIndex = 19;
+            this.label3.Text = "Descripcion";
+            // 
+            // txtDescripcion
+            // 
+            this.txtDescripcion.Location = new System.Drawing.Point(7, 42);
+            this.txtDescripcion.Name = "txtDescripcion";
+            this.txtDescripcion.Size = new System.Drawing.Size(150, 20);
+            this.txtDescripcion.TabIndex = 20;
+            // 
             // Listado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(899, 449);
+            this.ClientSize = new System.Drawing.Size(899, 501);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.dgvPublicaciones);
@@ -250,6 +270,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DateTimePicker dtpFechaDesde;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtDescripcion;
+        private System.Windows.Forms.Label label3;
 
     }
 }

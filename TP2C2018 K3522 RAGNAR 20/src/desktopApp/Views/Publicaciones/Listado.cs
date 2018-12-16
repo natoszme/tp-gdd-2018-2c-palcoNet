@@ -53,6 +53,11 @@ namespace PalcoNet.Publicaciones
                     );
                 }
 
+                if (!string.IsNullOrWhiteSpace(txtDescripcion.Text))
+                {
+                    publicacionesQuery = publicacionesQuery.Where(p => p.descripcion.Contains(txtDescripcion.Text));
+                }
+
                 var publicaciones = publicacionesQuery.Select(c => new
                 {
                     id_publicacion = c.id_publicacion,
@@ -106,6 +111,7 @@ namespace PalcoNet.Publicaciones
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e) {
+            txtDescripcion.Text = "";
             cbFiltroFecha.Checked = false;
             cmbEstado.ResetText();
             cmbEstado.SelectedIndex = -1;
