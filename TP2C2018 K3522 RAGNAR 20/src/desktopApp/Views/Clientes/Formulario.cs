@@ -122,6 +122,8 @@ namespace PalcoNet.Clientes
 
             ValidationsUtils.hayError(() => ValidationsUtils.campoObligatorio(txtCodigoPostal, "codigo postal"), ref errores);
 
+            ValidationsUtils.hayError(validarTarjeta, ref errores);
+
             if (errores.Count() > 0)
             {
                 WindowsFormUtils.mostrarErrores(errores);
@@ -223,16 +225,8 @@ namespace PalcoNet.Clientes
 
         private void validarTarjeta()
         {
-            if (editando())
-            {
-                //TODO mejorar esto. no se puede editar toda la tarjeta, ni tampoco se valida que los caracteres sean todos numericos!
-                ValidationsUtils.campoLongitudFija(txtTarjeta, "tarjeta de credito", digitosBaseTarjeta + digitosFinalTarjeta + caracteresOcultosTarjeta.Length);
-            }
-            else
-            {
-                ValidationsUtils.campoLongitudEntre(txtTarjeta, "tarjeta de credito", 15, 16);
-                ValidationsUtils.campoEnteroYPositivo(txtTarjeta, "tarjeta de credito");
-            }
+            ValidationsUtils.campoLongitudEntre(txtTarjeta, "tarjeta de credito", 15, 16);
+            ValidationsUtils.campoEnteroYPositivo(txtTarjeta, "tarjeta de credito");
         }
         #endregion
 
