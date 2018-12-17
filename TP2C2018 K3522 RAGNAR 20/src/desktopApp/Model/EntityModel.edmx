@@ -598,7 +598,7 @@
             <CollectionType>
               <RowType>
                 <Property Name="razon_social" Type="nvarchar" Nullable="false" MaxLength="255" />
-                <Property Name="cantidadVendida" Type="int" />
+                <Property Name="cantidadDeEntradasSinVender" Type="int" />
               </RowType>
             </CollectionType>
           </ReturnType>
@@ -1208,7 +1208,7 @@
         </ComplexType>
         <ComplexType Name="F_EmpresasConMasLocalidadesNoVencidas_Result">
           <Property Type="String" Name="razon_social" Nullable="false" MaxLength="255" />
-          <Property Type="Int32" Name="cantidadVendida" Nullable="true" />
+          <Property Type="Int32" Name="cantidadDeEntradasSinVender" Nullable="true" />
         </ComplexType>
         <EntityType Name="Canje_premio">
           <Key>
@@ -1511,7 +1511,7 @@
             <ResultMapping>
               <ComplexTypeMapping TypeName="RagnarModel.F_EmpresasConMasLocalidadesNoVencidas_Result">
                 <ScalarProperty Name="razon_social" ColumnName="razon_social" />
-                <ScalarProperty Name="cantidadVendida" ColumnName="cantidadVendida" />
+                <ScalarProperty Name="cantidadDeEntradasSinVender" ColumnName="cantidadDeEntradasSinVender" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

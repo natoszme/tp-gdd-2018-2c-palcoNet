@@ -14,6 +14,6 @@ namespace PalcoNet.Model
     public partial class F_EmpresasConMasLocalidadesNoVencidas_Result
     {
         public string razon_social { get; set; }
-        public Nullable<int> cantidadVendida { get; set; }
+        public Nullable<int> cantidadDeEntradasSinVender { get; set; }
     }
 }
