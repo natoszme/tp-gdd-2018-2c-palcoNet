@@ -29,6 +29,7 @@ namespace PalcoNet.Views.RendicionComisiones
                 {
                     db.SP_RendicionDeComisiones(int.Parse(txtComprasARendir.Text), Global.fechaDeHoy());
                     actualizarDataGridView(db);
+                    WindowsFormUtils.mensajeDeExito("Se han rendido las comisiones");
                 }
             }
         }
