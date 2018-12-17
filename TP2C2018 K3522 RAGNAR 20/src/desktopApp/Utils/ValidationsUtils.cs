@@ -35,7 +35,8 @@ namespace PalcoNet.Utils
         public static decimal decimalDeInput(Control input)
         {
             String aParsear = input.Text.Replace('.', ',');
-            return (decimal) Convert.ToDouble(aParsear);
+            CultureInfo[] cultures = { new CultureInfo("es-ES") };
+            return Convert.ToDecimal(aParsear, cultures[0]);
         }
 
         public static decimal campoNumerico(Control input, string nombreInput)
