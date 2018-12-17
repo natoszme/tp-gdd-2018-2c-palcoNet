@@ -117,9 +117,9 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(153, 62);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(66, 13);
+            this.label5.Size = new System.Drawing.Size(127, 13);
             this.label5.TabIndex = 11;
-            this.label5.Text = "Fecha hasta";
+            this.label5.Text = "Fecha espectáculo hasta";
             // 
             // dtpFechaDesde
             // 
@@ -151,9 +151,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(153, 23);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(69, 13);
+            this.label4.Size = new System.Drawing.Size(130, 13);
             this.label4.TabIndex = 4;
-            this.label4.Text = "Fecha desde";
+            this.label4.Text = "Fecha espectáculo desde";
             // 
             // label3
             // 
