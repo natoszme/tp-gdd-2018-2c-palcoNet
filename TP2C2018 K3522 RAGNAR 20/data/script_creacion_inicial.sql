@@ -405,8 +405,12 @@ INSERT INTO RAGNAR.Rubro(descripcion) VALUES ('Teatro')
 
 --/ Inserts de datos para el administrador de prueba /--
 
-INSERT INTO RAGNAR.Cliente (id_usuario, nombre, apellido, tipo_documento, numero_documento, mail, calle, portal, piso, departamento, codigo_postal, fecha_nacimiento) VALUES (1,'Señor','Administrador','DNI',40000000,'Administrador@Gmail.com','Avenida Medrano',1000,5,'F',6000,CONVERT(date,'1999-12-31'))
+INSERT INTO RAGNAR.Cliente (id_usuario, nombre, apellido, tipo_documento, numero_documento, mail, calle, portal, piso, departamento, codigo_postal, fecha_nacimiento) VALUES (1,'Señor','Administrador','DNI',40000000000,'Administrador@Gmail.com','Avenida Medrano',1000,5,'F',6000,CONVERT(date,'1999-12-31'))
 INSERT INTO RAGNAR.Empresa (id_usuario, razon_social, cuit, mail, calle, portal, piso, departamento, codigo_postal) VALUES (1,'Empresa administrativa',40000000,'Administrador@Gmail.com','Avenida Medrano',1000,5,'F',6000)
+
+--/ Pasamos a estado finalizada todas las publicaciones migradas que no tengan ubicaciones para vender /--
+
+UPDATE RAGNAR.Publicacion SET id_estado = (SELECT E.id_estado FROM RAGNAR.Estado_publicacion as E WHERE descripcion = 'Finalizada') WHERE stock = 0
 
 --/ Fin de Inserts /--
 
@@ -431,7 +435,7 @@ GO
 CREATE FUNCTION RAGNAR.F_EmpresasConMasLocalidadesNoVencidas (@Id_grado int, @Mes nvarchar(10), @Anio nvarchar(10))
 RETURNS TABLE
 AS
-RETURN (SELECT TOP 5 E.razon_social, SUM(P.stock) as cantidadVendida FROM RAGNAR.Empresa as E JOIN RAGNAR.Publicacion as P ON (E.id_usuario = P.id_empresa) JOIN RAGNAR.Grado_publicacion as G ON (P.id_grado = G.id_grado) WHERE YEAR(fecha_publicacion) = @Anio AND MONTH(fecha_publicacion) = @Mes AND G.id_grado = @Id_grado GROUP BY E.razon_social ORDER BY SUM(P.stock) DESC)
+RETURN (SELECT TOP 5 E.razon_social, SUM(P.stock) as cantidadDeEntradasSinVender FROM RAGNAR.Empresa as E JOIN RAGNAR.Publicacion as P ON (E.id_usuario = P.id_empresa) JOIN RAGNAR.Grado_publicacion as G ON (P.id_grado = G.id_grado) WHERE YEAR(fecha_publicacion) = @Anio AND MONTH(fecha_publicacion) = @Mes AND G.id_grado = @Id_grado GROUP BY E.razon_social ORDER BY SUM(P.stock) DESC)
 GO
 
 --/ Funcion para listado de clientes con mas puntos vencidos /--
@@ -637,7 +641,7 @@ BEGIN
 	BEGIN
 		IF(@Stock = 0)
 		BEGIN
-			UPDATE RAGNAR.Publicacion SET id_estado = 3 WHERE descripcion = @Descripcion AND fecha_espectaculo = @FechaEspectaculo 
+			UPDATE RAGNAR.Publicacion SET id_estado = (SELECT E.id_estado FROM RAGNAR.Estado_publicacion as E WHERE descripcion = 'Finalizada') WHERE descripcion = @Descripcion AND fecha_espectaculo = @FechaEspectaculo 
 		END
 		FETCH NEXT FROM CPublicaciones INTO @Descripcion, @FechaEspectaculo, @Stock
 	END
