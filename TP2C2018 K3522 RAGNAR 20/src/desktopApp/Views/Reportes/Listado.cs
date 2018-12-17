@@ -17,6 +17,7 @@ namespace PalcoNet.Views.Reportes
         public Listado()
         {
             InitializeComponent();
+            dgvReporte.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
         private void button1_Click(object sender, EventArgs e)
