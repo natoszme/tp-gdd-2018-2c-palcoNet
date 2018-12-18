@@ -266,10 +266,7 @@ INSERT INTO RAGNAR.Empresa(id_usuario, razon_social, cuit, fecha_creacion, mail,
 
 --/ Inserts de Espectaculos /--
 
-INSERT INTO RAGNAR.Rubro(descripcion) --/ Se migran todos los rubros presentes en la tabla maestra
-	SELECT DISTINCT Espectaculo_Rubro_Descripcion
-	FROM gd_esquema.Maestra
-	WHERE Espectaculo_Rubro_Descripcion IS NOT NULL
+INSERT INTO RAGNAR.Rubro(descripcion) VALUES ('Migrado') --/ Se crea el rubro migrado para aquellas publicaciones que tenian la cadena vacia como rubro
 
 INSERT INTO RAGNAR.Estado_publicacion(descripcion) --/ Se migran todos los estados presentes en la tabla maestra
 	SELECT DISTINCT Espectaculo_Estado
@@ -283,8 +280,8 @@ INSERT INTO RAGNAR.Grado_publicacion (descripcion, comision, habilitado) VALUES 
 INSERT INTO RAGNAR.Grado_publicacion (descripcion, comision, habilitado) VALUES ('Baja',CONVERT(numeric(4,3),0.05),1)
 	
 INSERT INTO RAGNAR.Publicacion(codigo_publicacion, descripcion, fecha_vencimiento, id_rubro , fecha_espectaculo, id_estado, id_empresa, id_grado) --/ Se migran las publicaciones y sus estados, empresas, rubros y grados. El grado que le corresponde a las empresas fue decidido por nosotros en base a la comision cobrada en la tabla maestra /--
-	SELECT DISTINCT M.Espectaculo_Cod, M.Espectaculo_Descripcion, M.Espectaculo_Fecha_Venc, R.id_rubro, M.Espectaculo_Fecha, E.id_estado, EMP.id_usuario, 2
-	FROM gd_esquema.Maestra as M JOIN RAGNAR.Rubro as R ON (M.Espectaculo_Rubro_Descripcion = R.descripcion) JOIN RAGNAR.Estado_publicacion as E ON (M.Espectaculo_Estado = E.descripcion) JOIN RAGNAR.Empresa as EMP ON (M.Espec_Empresa_Cuit = EMP.cuit)
+	SELECT DISTINCT M.Espectaculo_Cod, M.Espectaculo_Descripcion, M.Espectaculo_Fecha_Venc, (SELECT id_rubro FROM RAGNAR.Rubro WHERE descripcion = 'Migrado'), M.Espectaculo_Fecha, E.id_estado, EMP.id_usuario, 2
+	FROM gd_esquema.Maestra as M JOIN RAGNAR.Estado_publicacion as E ON (M.Espectaculo_Estado = E.descripcion) JOIN RAGNAR.Empresa as EMP ON (M.Espec_Empresa_Cuit = EMP.cuit)
 	WHERE M.Espectaculo_Cod IS NOT NULL
 
 --/ Inserts de Tipos de Ubicaciones, Compras y Ubicaciones /--
