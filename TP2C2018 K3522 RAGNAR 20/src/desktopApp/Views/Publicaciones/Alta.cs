@@ -63,7 +63,7 @@ namespace PalcoNet.Publicaciones
         {
             using (RagnarEntities db = new RagnarEntities())
             {
-                cmbRubro.DataSource = (from f in db.Rubro select f.descripcion).ToList();
+                cmbRubro.DataSource = (from f in db.Rubro where f.id_rubro != 1 select f.descripcion).ToList();
             }
         }
 
@@ -290,6 +290,11 @@ namespace PalcoNet.Publicaciones
                 RagnarEntities db = UbicacionesGlobal.contextoGlobal;
                 guardarPublicacion(db, BaseDeDatos.BaseDeDatos.estadoDePublicacionPorNombre(db, "Finalizada"));
             }
+        }
+
+        private void Alta_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
